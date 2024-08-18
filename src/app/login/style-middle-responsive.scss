@@ -1,0 +1,21 @@
+@media screen and (max-width: 1301px) {
+
+  /* box-login */
+  .filho {
+    width: 22rem;
+  }
+
+  /* img */
+  .filho > .div-contorno div:first-child img {
+    height: 16.0em;
+    margin-top: 1.5em;
+  }
+
+
+  /* inputs */
+  .filho > .div-contorno div:nth-child(2) {
+    // background-color: #e5fcf5;
+    height: 11em;
+  }
+
+}

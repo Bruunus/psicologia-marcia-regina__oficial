@@ -6,5 +6,13 @@
   font-size: 17px;
 }
 
+.no-select-img {
+
+  pointer-events: none;  /* Impede que a imagem seja arrastada */
+    user-select: none;  /* Impede a seleção do conteúdo durante o arraste */
+    -moz-user-select: none;  /* Suporte para navegadores Firefox mais antigos */
+    -webkit-user-drag: none;  /* Impede o arraste da imagem no Safari e navegadores baseados em WebKit */
+    -webkit-user-select: none;  /* Impede a seleção do conteúdo durante o arraste no Safari e navegadores baseados em WebKit */
+  }
 
 
