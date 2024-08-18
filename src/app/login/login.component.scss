@@ -1,0 +1,128 @@
+@font-face {
+  font-family: 'font-login';
+  src: url('../../assets/fonts/omega/Omega-Light.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+
+
+.container-fluid   {
+  height: 100vh;
+}
+
+
+.pai {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.filho {
+  height: 32em;
+  width: 24em;
+  display: flex;
+  padding: 40px 20px 0 20px ;
+  justify-content: center;
+  border: 1px solid #bd96cb75;
+  border-radius: 6px;
+  background-color: white;
+  box-shadow: 3px 3px 10px #bd96cb54;
+}
+
+ /* style img */
+.filho > div:first-child {
+  height: 290px;
+  text-align: center;
+}
+.filho > div:first-child img {
+ height: 280px;
+}
+
+
+/* inputs */
+.filho > div:nth-child(2) {
+  // background-color: #e5fcf5;
+  height: 10em;
+}
+.filho > div:nth-child(2) #login,  .filho > div:nth-child(2) #senha {
+  width: 100%;
+  height: 2em;
+  padding: 12px;
+  color: #523f5a;     //3f3f3f
+  font-family: 'font-login', sans-serif;
+  border-color: #bd96cb9c;
+  outline: none; /* Remove a borda de foco */
+  box-shadow: none; /* Remove a sombra de foco */
+}
+
+
+/* placeholder input */
+.filho > div:nth-child(2) #login::placeholder, textarea::placeholder {
+  color: #999999;
+  font-family: 'font-login', sans-serif;
+  font-size: 19px;
+  // font-style: italic;
+}
+
+
+/* login */
+.filho > div:nth-child(2) #login:focus {
+  border-color: #c199d0;
+  // box-shadow: 0 0 0 0.2rem #bd96cb54;
+}
+
+/* senha */
+.filho > div:nth-child(2) #senha {
+  margin: 0.5em 0 1.5em;
+}
+
+
+
+
+/* submit */
+
+.filho > div:nth-child(2) #btn-entrar {
+  width: 100%;
+  height: 2.5em;
+  font-family: 'font-login', sans-serif;
+  font-weight: bold;
+}
+
+
+.btn-login {
+  color: #fff;
+  background-color: #e46896 !important;
+  border-color: #e46896;
+}
+
+.btn-login:hover {
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+
+.btn-login:focus, .btn-login.focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+.btn-login.disabled, .btn-login:disabled {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-login:not(:disabled):not(.disabled):active, .btn-login:not(:disabled):not(.disabled).active,
+.show > .btn-login.dropdown-toggle {
+  color: #fff;
+  background-color: #0062cc;
+  border-color: #005cbf;
+}
+
+.btn-login:not(:disabled):not(.disabled):active:focus, .btn-login:not(:disabled):not(.disabled).active:focus,
+.show > .btn-login.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
