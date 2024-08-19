@@ -5,6 +5,15 @@
   font-style: normal;
 }
 
+
+/**
+*   Responsividade para telas grandes 4K
+*/
+@media(min-width: 1602px) {
+  .larga { background-color: green; color: white; }
+}
+
+
 .container-fluid   {
   height: 100vh;
 }
@@ -18,7 +27,7 @@
 
 
 .filho {
-  height: 32em;
+  height: 33.5em;
   width: 24rem;
   display: flex;
   padding: 30px 14px 14px 14px;
@@ -66,6 +75,7 @@
   border-color: #bd96cb9c;
   outline: none; /* Remove a borda de foco */
   box-shadow: none; /* Remove a sombra de foco */
+  font-size: 17px;
 }
 
 /* senha */
@@ -88,7 +98,6 @@
 .filho > .div-contorno div:nth-child(2) #login::placeholder, textarea::placeholder {
   color: #999999;
   font-family: 'font-login', sans-serif;
-  font-size: 17px;
   // font-style: italic;
 }
 
@@ -141,4 +150,10 @@
   // box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
   outline: none;
   box-shadow: none;
+}
+
+
+.error-message {
+  background-color: aquamarine;
+  margin-top: 3em;
 }

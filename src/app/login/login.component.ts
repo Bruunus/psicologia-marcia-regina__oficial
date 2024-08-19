@@ -5,8 +5,9 @@ import { FormGroup } from '@angular/forms';
   selector: 'app-pagina1',
   templateUrl: './login.component.html',
   styleUrls: [
-    './login.component.scss',
+    './style-big-responsive.scss',
     './style-middle-responsive.scss',
+    './style-small-responsive.scss',
     '../../styles.scss'
   ]
 })

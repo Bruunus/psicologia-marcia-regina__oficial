@@ -1,21 +1,67 @@
-@media screen and (max-width: 1301px) {
+
+/* Tela grande */
+@media(max-width:1601px) and (min-width: 1301px) {
+
+  .media {
+    background-color: orange;
+  }
+
 
   /* box-login */
   .filho {
-    width: 22rem;
+    width: 21.666666rem;  // diminuido a largura da caixa
+    height: 29em;         // diminuido a altura da caixa
   }
 
-  /* img */
+  // /* img */
   .filho > .div-contorno div:first-child img {
-    height: 16.0em;
-    margin-top: 1.5em;
+    height: 13.4666666em;   // diferença de 3em para o largo
+    margin-top: 0.8em;    // diminuido a altura da img
   }
 
 
-  /* inputs */
+  // /* inputs */
   .filho > .div-contorno div:nth-child(2) {
     // background-color: #e5fcf5;
     height: 11em;
+    margin-top: -3.166666em;
+    font-size: 10px;
   }
+
+  .filho > .div-contorno div:nth-child(2) #login,  .filho > .div-contorno div:nth-child(2) #senha {
+    height: 30px; // diminuido altura
+    font-size: 15px;  // diminuido a fonte
+  }
+
+  .filho > .div-contorno div:nth-child(2) #btn-entrar {
+    height: 2.1em;
+  }
+
+
+
+  .error-message {
+    background-color: aquamarine;
+    margin-top: 2em;
+  }
+
+
+
+
+
+}
+
+
+/* Tela pequena */
+@media(max-width: 1300px) and (min-width: 1199px) {
+
+  .media_pequena {
+    background-color: tomato;
+  }
+
+  .filho > .div-contorno div:first-child img {
+    height: 11.8666666em;   // diferença de 3em para o largo
+    margin-top: 0.8em;
+  }
+
 
 }

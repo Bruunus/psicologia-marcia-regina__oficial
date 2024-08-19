@@ -1,0 +1,26 @@
+/* laptops pequenos */
+@media (max-width: 1200px) and (min-width: 843px) {
+
+  .pequena {
+    background-color: #2b2bca;
+    color: #fff;
+  }
+
+  /* box-login */
+  .filho {
+
+  }
+
+  // /* img */
+  .filho > .div-contorno div:first-child img {
+    height: 11.8666666em;   // diferença de 3em para o largo
+    margin-top: 0.8em;
+  }
+
+
+  // /* inputs */
+  .filho > .div-contorno div:nth-child(2) {
+
+  }
+
+}
