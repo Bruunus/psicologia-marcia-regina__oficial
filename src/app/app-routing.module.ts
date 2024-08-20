@@ -3,14 +3,16 @@ import { Pagina2Component } from './pagina2/pagina2.component';
 import { AppComponent } from './app.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RedirectComponent } from './redirect/redirect.component';
+import { AutenticacaoGuard } from './services/autenticacao/autenticacao.guard';
 
 const routes: Routes = [
-  { path: 'redirect', component: RedirectComponent },
-  { path: 'login', component: LoginComponent, canActivate: [LoginComponent] },
-  { path: 'laudos/page2', component: Pagina2Component },
+  { path: 'login', component: LoginComponent },
+  { path: 'laudos/page2', component: Pagina2Component, canActivate: [AutenticacaoGuard] },
+  // { path: 'descricoes', component: Pagina3Component, canActivate: [AutenticacaoGuard] }  // Faça um teste  com uma terceira rota
+
 
   { path: '', redirectTo: '/login', pathMatch: 'full'},
+  { path: '**', redirectTo: ''}   // em caso de acessar url sem sentido
 
 ];
 

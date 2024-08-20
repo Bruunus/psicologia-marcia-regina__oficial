@@ -3,7 +3,6 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { AutenticacaoInterface } from 'src/model/interfaces/autenticacaoInterface';
 import { RedirectComponent } from '../redirect/redirect.component';
-import { AutenticacaoService } from '../services/autenticacao/autenticacaoService';
 
 @Component({
   selector: 'app-pagina1',
@@ -24,7 +23,10 @@ export class LoginComponent implements OnInit {
     senha: new FormControl
   }
 
-  constructor(private autenticacaoService: AutenticacaoService) { }
+  constructor(private router: Router) {
+
+  }
+
 
   ngOnInit(): void {
     this.formValidation = new FormGroup({
@@ -37,7 +39,10 @@ export class LoginComponent implements OnInit {
 
 
 
-  onLogin(): void {
+  onLogin(): boolean {
+
+
+    const isAuthenticated = true;
 
     this.autenticacao = {
       login: this.login.value,
@@ -46,7 +51,14 @@ export class LoginComponent implements OnInit {
 
     console.log('Autenticação: ', this.autenticacao);
 
-    this.autenticacaoService.login(this.autenticacao);
+    if (isAuthenticated) {
+      this.router.navigate(['/laudos/page2']); // Redireciona para a rota '/dashboard' após o login
+      return true;
+    } else {
+      // Tratar caso de login inválido
+      return false;
+    }
+
 
 
 
