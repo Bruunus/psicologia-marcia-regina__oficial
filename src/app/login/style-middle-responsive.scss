@@ -58,10 +58,44 @@
     background-color: tomato;
   }
 
+  /* box-login */
+  .filho {
+    width: 20.666666rem;  // diminuido a largura da caixa
+    height: 28em;         // diminuido a altura da caixa
+  }
+
   .filho > .div-contorno div:first-child img {
-    height: 11.8666666em;   // diferença de 3em para o largo
+    height: 12.8666666em;   // diferença de 3em para o largo
     margin-top: 0.8em;
   }
+
+  // /* inputs */
+  .filho > .div-contorno div:nth-child(2) {
+    // background-color: #e5fcf5;
+    height: 11em;
+    margin-top: -4.166666em;
+    font-size: 10px;
+  }
+
+  .filho > .div-contorno div:nth-child(2) #login,  .filho > .div-contorno div:nth-child(2) #senha {
+    height: 29px; // diminuido altura
+    font-size: 15px;  // diminuido a fonte
+  }
+
+  .filho > .div-contorno div:nth-child(2) #btn-entrar {
+    height: 2.1em;  // diminuido altura
+    font-size: 15px;  // diminuido a fonte do button
+  }
+
+
+
+  .error-message {
+    background-color: aquamarine;
+    margin-top: 2em;
+    font-size: 15px;  // diminuido a fonte
+  }
+
+
 
 
 }

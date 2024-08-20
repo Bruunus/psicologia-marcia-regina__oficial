@@ -1,5 +1,5 @@
 /* laptops pequenos */
-@media (max-width: 1200px) and (min-width: 843px) {
+@media (max-width: 1200px)  {
 
   .pequena {
     background-color: #2b2bca;
@@ -8,18 +8,37 @@
 
   /* box-login */
   .filho {
-
+    width: 20.0rem;         // diminuido a largura da caixa
+    height: 27.5em;         // diminuido a altura da caixa
   }
 
-  // /* img */
   .filho > .div-contorno div:first-child img {
-    height: 11.8666666em;   // diferença de 3em para o largo
-    margin-top: 0.8em;
+    height: 12.566666em;    // diferença de 3em para o largo
   }
-
 
   // /* inputs */
   .filho > .div-contorno div:nth-child(2) {
+    // background-color: #e5fcf5;
+    margin-top: -3.266667em;     // ajustado alutra
+
+  }
+
+  .filho > .div-contorno div:nth-child(2) #login,  .filho > .div-contorno div:nth-child(2) #senha {
+    height: 29px;           // diminuido altura
+    font-size: 15px;        // diminuido a fonte
+    /* as propriedades de fonte estão definidas no style-middle-responsive */
+  }
+
+  .filho > .div-contorno div:nth-child(2) #btn-entrar {
+    height: 2.1em;          // diminuido altura
+    /* as propriedades de fonte estão definidas no style-middle-responsive */
+  }
+
+
+
+  .error-message {
+    background-color: aquamarine;
+    margin-top: 2em;
 
   }
 
