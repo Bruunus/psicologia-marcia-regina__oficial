@@ -9,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RedirectComponent } from './redirect/redirect.component';
 import { Providers } from './Providers';
+import { Pag3Component } from './pag3/pag3.component';
+
 
 
 @NgModule({
@@ -16,7 +18,8 @@ import { Providers } from './Providers';
     AppComponent,
     Pagina2Component,
     LoginComponent,
-    RedirectComponent
+    RedirectComponent,
+    Pag3Component
   ],
   imports: [
     BrowserModule,

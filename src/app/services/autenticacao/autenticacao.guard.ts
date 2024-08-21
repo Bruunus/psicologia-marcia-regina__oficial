@@ -13,7 +13,7 @@ export class AutenticacaoGuard implements CanActivate {
       console.log(route)
       console.log(state)
 
-    return false;
+    return true;
   }
 
 }
