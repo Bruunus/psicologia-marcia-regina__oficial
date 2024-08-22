@@ -28,7 +28,7 @@ import { Pag3Component } from './pag3/pag3.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [Providers],
+  providers: [Providers, LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

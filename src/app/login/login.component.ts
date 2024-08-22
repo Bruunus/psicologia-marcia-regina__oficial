@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { AutenticacaoInterface } from 'src/model/interfaces/autenticacaoInterface';
 import { RedirectComponent } from '../redirect/redirect.component';
 
+@Injectable()
 @Component({
   selector: 'app-pagina1',
   templateUrl: './login.component.html',
@@ -18,9 +19,11 @@ export class LoginComponent implements OnInit {
 
   formValidation!: FormGroup;
 
+  isAuthenticated: boolean = false;
+
   autenticacao: AutenticacaoInterface = {
-    login: new FormControl,
-    senha: new FormControl
+    login: '',
+    senha: ''
   }
 
   constructor(private router: Router) {
@@ -41,37 +44,56 @@ export class LoginComponent implements OnInit {
 
   onLogin(): boolean {
 
-
-    const isAuthenticated = true;
-
     this.autenticacao = {
       login: this.login.value,
       senha: this.senha.value
     }
 
-    console.log('Autenticação: ', this.autenticacao);
+    // console.log('Autenticação: ', this.autenticacao);
 
-    if (isAuthenticated) {
-      this.router.navigate(['/laudos/page2']); // Redireciona para a rota '/dashboard' após o login
+    if (this.autenticacao.login === 'brunus-adm' &&
+      this.autenticacao.senha === '123'
+    ) {
+      this.isAuthenticated = true;
+      console.log('Comparando os valores ...')
+      console.log(this.autenticacao.login )
+      console.log(this.autenticacao.senha )
+
+      console.log('Valor atribuido do setUsuarioAutenticado para => ', this.isAuthenticated)
+      this.router.navigate(['/laudos/page2'])
+
+
       return true;
+
     } else {
-      // Tratar caso de login inválido
+      this.isAuthenticated = false;
+      this.router.navigate(['/login'])
+      console.log('user nao autenticado')
+      console.log('dados do login ', this.autenticacao)
+
+
       return false;
+
     }
 
 
+  }
 
-
-
+  autenticado() {
+    return this.isAuthenticated;
   }
 
 
-  get login(): AbstractControl<FormControl, any> {
-    return this.formValidation.get('login')!;
+  get login(): FormControl {
+    return this.formValidation.get('login')! as FormControl;
   }
 
-  get senha(): AbstractControl<FormControl, any> {
-    return this.formValidation.get('senha')!;
+  get senha(): FormControl {
+    return this.formValidation.get('senha')! as FormControl;
   }
+
+
+
+
 
 }
