@@ -1,4 +1,4 @@
-<form (ngSubmit)="onLogin()" [formGroup]="formValidation">
+<form (ngSubmit)="onLogin()" >
   <div class="container-fluid pai">
     <div class="filho row">
      <div class="col-12 div-contorno">
@@ -7,8 +7,10 @@
          <img src="../../assets/img/logo-vertical-img.png" alt="logo" class="img-fluid no-select-img">
        </div>
        <div class="col-12">
-         <input type="text" formControlName="login" class="form-control" id="login" aria-describedby="login" placeholder="Login">
-         <input type="password" formControlName="senha" class="form-control" id="senha" aria-describedby="emailHelp" placeholder="Senha">
+         <input type="text" class="form-control" id="login" aria-describedby="login" placeholder="Login"
+         [(ngModel)]="usuario.login" name="login">
+         <input type="password" name="senha" class="form-control" id="senha" aria-describedby="emailHelp"
+         [(ngModel)]="usuario.senha" placeholder="Senha">
          <button type="submit" class="btn btn-primary btn-login" id="btn-entrar">Entrar</button>
        </div>
 

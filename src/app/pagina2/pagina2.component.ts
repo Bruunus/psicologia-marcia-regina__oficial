@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { LoginComponent } from '../login/login.component';
 
 
 @Component({
@@ -11,24 +12,30 @@ export class Pagina2Component implements OnInit {
 
   frutas: any[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private loginComponent: LoginComponent) { }
 
   ngOnInit(): void {
 
-    this.getFrutas();
+    // this.getFrutas();
 
   }
 
-  getFrutas() {
-    this.http.get<any[]>('http://localhost:8080/api/list').subscribe(
-      response => {
-        this.frutas = response;
-      },
-      error => {
 
-        console.error(error);
-      }
-    );
+  logout() {
+    // this.loginComponent.deslogar();
   }
+
+
+  // getFrutas() {
+  //   this.http.get<any[]>('http://localhost:8080/api/list').subscribe(
+  //     response => {
+  //       this.frutas = response;
+  //     },
+  //     error => {
+
+  //       console.error(error);
+  //     }
+  //   );
+  // }
 
 }

@@ -1,12 +1,15 @@
-import { LoginComponent } from './../../login/login.component';
+import { LoginComponent } from '../../login/login.component';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AutenticacaoGuard implements CanActivate {
+
+  status: boolean = false;
+  subscription: Subscription = new Subscription();
 
   constructor (private loginComponent: LoginComponent, private router: Router) {}
 
@@ -16,24 +19,23 @@ export class AutenticacaoGuard implements CanActivate {
       // console.log(route)
       // console.log(state)
 
-    if(this.loginComponent.autenticado()) {
+      if(this.loginComponent.statusAutenticacao()) {
 
-      console.log('user autenticado => Valor de autenticação: ', this.loginComponent.isAuthenticated);
-      // this.router.navigate([''])
-      // this.router.navigate(['laudos/page2'])
+        return true;
 
-      return true;
 
-    } else {
-
-      console.log('user não autenticado => Valor de autenticação: ', this.loginComponent.isAuthenticated)
+      }
       this.router.navigate(['login'])
-
       return false;
 
-    }
 
 
+
+  }
+
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe(); // Fecha o Observable para liberar memória
   }
 
 }

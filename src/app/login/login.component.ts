@@ -1,10 +1,12 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { AutenticacaoInterface } from 'src/model/interfaces/autenticacaoInterface';
 import { RedirectComponent } from '../redirect/redirect.component';
+import { BehaviorSubject, Observable, takeLast } from 'rxjs';
+import { Usuario } from 'src/model/interfaces/usuario';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 @Component({
   selector: 'app-pagina1',
   templateUrl: './login.component.html',
@@ -15,11 +17,14 @@ import { RedirectComponent } from '../redirect/redirect.component';
     '../../styles.scss'
   ]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, CanActivate {
 
-  formValidation!: FormGroup;
 
-  isAuthenticated: boolean = false;
+  // isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  private usuarioAutenticado: boolean = false;
+
+  protected usuario: Usuario = new Usuario();
 
   autenticacao: AutenticacaoInterface = {
     login: '',
@@ -32,67 +37,77 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.formValidation = new FormGroup({
-      login: new FormControl('', [Validators.required]),
-      senha: new FormControl('', Validators.required)
-    })
-  }
+
+  };
 
 
 
 
 
-  onLogin(): boolean {
+  onLogin() {
 
-    this.autenticacao = {
-      login: this.login.value,
-      senha: this.senha.value
-    }
+    console.log(this.usuario)
+    this.fazerLogin(this.usuario);
+
 
     // console.log('Autenticação: ', this.autenticacao);
 
-    if (this.autenticacao.login === 'brunus-adm' &&
-      this.autenticacao.senha === '123'
-    ) {
-      this.isAuthenticated = true;
-      console.log('Comparando os valores ...')
-      console.log(this.autenticacao.login )
-      console.log(this.autenticacao.senha )
-
-      console.log('Valor atribuido do setUsuarioAutenticado para => ', this.isAuthenticated)
-      this.router.navigate(['/laudos/page2'])
 
 
-      return true;
 
+  }
+
+
+  fazerLogin(usuario: Usuario) {
+    // Pausa do vídeo Loiane
+    //  É aqui que chama a API
+    if(usuario.login === 'brunus' && usuario.senha === '123') {
+      this.usuarioAutenticado = true;
+      console.log('Usuário autenticado: ',this.usuarioAutenticado)
+      this.router.navigate(['laudos/page2/'])
     } else {
-      this.isAuthenticated = false;
-      this.router.navigate(['/login'])
-      console.log('user nao autenticado')
-      console.log('dados do login ', this.autenticacao)
-
-
-      return false;
-
+      this.usuarioAutenticado = false;
+      console.log('Usuário autenticado: ',this.usuarioAutenticado)
     }
 
-
-  }
-
-  autenticado() {
-    return this.isAuthenticated;
   }
 
 
-  get login(): FormControl {
-    return this.formValidation.get('login')! as FormControl;
+
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+    Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
+
+        return false;
+
+
+
+
+
+
+
+
   }
 
-  get senha(): FormControl {
-    return this.formValidation.get('senha')! as FormControl;
+  statusAutenticacao() {
+    return this.usuarioAutenticado;
   }
 
 
+
+
+
+
+
+
+  // getAutenticado(): Observable<boolean> {
+  //   return this.isAuthenticated.asObservable();
+  // }
+
+  // setAutenticado(value: boolean) {
+  //   this.isAuthenticated.next(value);
+  // }
 
 
 
