@@ -1,17 +1,16 @@
+import { AutenticacaoService } from './../../login/autenticacao.service';
 import { LoginComponent } from '../../login/login.component';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AutenticacaoGuard implements CanActivate {
 
   status: boolean = false;
   subscription: Subscription = new Subscription();
 
-  constructor (private loginComponent: LoginComponent, private router: Router) {}
+  constructor (private autenticacaoService: AutenticacaoService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
@@ -19,12 +18,10 @@ export class AutenticacaoGuard implements CanActivate {
       // console.log(route)
       // console.log(state)
 
-      if(this.loginComponent.statusAutenticacao()) {
-
+      if(this.autenticacaoService.usuarioAutenticado()) {
         return true;
-
-
       }
+      console.log('Login incorreto - redirecionando')
       this.router.navigate(['login'])
       return false;
 

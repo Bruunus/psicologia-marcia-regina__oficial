@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { LoginComponent } from '../login/login.component';
+import { AutenticacaoService } from '../login/autenticacao.service';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class Pagina2Component implements OnInit {
 
   frutas: any[] = [];
 
-  constructor(private http: HttpClient, private loginComponent: LoginComponent) { }
+  constructor(private http: HttpClient, private autenticacaoService: AutenticacaoService) { }
 
   ngOnInit(): void {
 
@@ -22,7 +23,7 @@ export class Pagina2Component implements OnInit {
 
 
   logout() {
-    // this.loginComponent.deslogar();
+    this.autenticacaoService.deslogar();
   }
 
 

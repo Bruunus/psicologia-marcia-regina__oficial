@@ -1,3 +1,6 @@
+import { Providers } from './Providers';
+import { AutenticacaoGuard } from './services/autenticacao/autenticacao.guard';
+import { AutenticacaoService } from './login/autenticacao.service';
 import { Pagina2Component } from './pagina2/pagina2.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -8,7 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RedirectComponent } from './redirect/redirect.component';
-import { Providers } from './Providers';
+
 import { Pag3Component } from './pag3/pag3.component';
 
 
@@ -28,7 +31,7 @@ import { Pag3Component } from './pag3/pag3.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [Providers, LoginComponent],
+  providers: [AutenticacaoService, AutenticacaoGuard, Providers],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
