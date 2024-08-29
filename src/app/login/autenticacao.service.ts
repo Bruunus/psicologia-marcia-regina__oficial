@@ -20,9 +20,12 @@ export class AutenticacaoService {
       (result) => {
         if(result) {
           console.log('Usuário autenticado');
+          this.autenticado = true;
+          this.router.navigate(['pacientes'])
         } else {
           // Autenticação falhou
           console.log('Usuário incorreto');
+
         }
         }).catch((error) => {
           console.error('Erro ao processar autenticação:', error);

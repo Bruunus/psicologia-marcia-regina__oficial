@@ -8,7 +8,7 @@ import { Pag3Component } from './pag3/pag3.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'page2', component: Pagina2Component, canActivate: [AutenticacaoGuard] },
+  { path: 'pacientes', component: Pagina2Component, canActivate: [AutenticacaoGuard] },
   { path: 'page3', component: Pag3Component , canActivate: [AutenticacaoGuard] },  // Faça um teste  com uma terceira rota
 
   { path: '', redirectTo: '/login', pathMatch: 'full'},

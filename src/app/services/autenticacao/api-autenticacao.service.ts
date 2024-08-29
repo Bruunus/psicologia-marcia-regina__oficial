@@ -23,6 +23,7 @@ export class ApiAutenticacaoService {
           if (response && response.token) {
             localStorage.setItem('token', response.token);
             resolve(true);
+            console.log(response.token)
             return true;
           } else {
             resolve(false);
