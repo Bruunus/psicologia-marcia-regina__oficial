@@ -7,9 +7,9 @@ import { Usuario } from 'src/app/login/usuario';
 })
 export class ApiAutenticacaoService {
 
-  private logon: string = 'http://localhost:8080/login'
+  private logon: string = 'http://localhost:8080/login';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private usuario: Usuario) { }
 
 
 
@@ -22,8 +22,19 @@ export class ApiAutenticacaoService {
         (response) => {
           if (response && response.token) {
             localStorage.setItem('token', response.token);
+            localStorage.setItem('nomeUsuario', usuario.login);
+
+            console.log(
+              'Dados de autenticação:\n\n',
+              'token: ',response.token,'\n',
+              'usuario: ',usuario.login
+            )
+
+            this.usuario.setLogin(usuario.login);
+
+
             resolve(true);
-            console.log(response.token)
+
             return true;
           } else {
             resolve(false);

@@ -1,7 +1,9 @@
+
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { LoginComponent } from '../login/login.component';
 import { AutenticacaoService } from '../login/autenticacao.service';
+import { Usuario } from '../login/usuario';
 
 
 @Component({
@@ -11,13 +13,19 @@ import { AutenticacaoService } from '../login/autenticacao.service';
 })
 export class Pagina2Component implements OnInit {
 
-  frutas: any[] = [];
+  nomeLogin: string = this.usuario.getLogin();
 
-  constructor(private http: HttpClient, private autenticacaoService: AutenticacaoService) { }
+
+  constructor(private http: HttpClient, private autenticacaoService: AutenticacaoService, private usuario: Usuario) {
+
+   }
 
   ngOnInit(): void {
 
-    // this.getFrutas();
+    // this.nomeLogin = this.usuario.getLogin()
+    console.log('Logado: ', this.usuario.getLogin())
+
+
 
   }
 

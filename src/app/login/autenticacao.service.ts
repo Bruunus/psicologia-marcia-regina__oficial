@@ -41,21 +41,6 @@ export class AutenticacaoService {
     //   this.autenticado = false;
 
     // }
-
-
-
-
-
-      }
-
-
-
-
-
-
-
-  usuarioAutenticado() {
-    return this.autenticado;
   }
 
   deslogar() {
@@ -66,4 +51,11 @@ export class AutenticacaoService {
     this.subscription.unsubscribe();
 
   }
+
+
+  usuarioAutenticado() {
+    return this.autenticado;
+  }
+
+
 }
