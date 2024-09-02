@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'page3', component: Pag3Component , canActivate: [AutenticacaoGuard] },  // Faça um teste  com uma terceira rota
 
   { path: '', redirectTo: '/login', pathMatch: 'full'},
-  { path: '**', redirectTo: '/login', pathMatch: 'full'}
+  // { path: '**', redirectTo: '/login', pathMatch: 'full'}
   // { path: '**', redirectTo: '/login' , canActivate: [AutenticacaoGuard]}   // em caso de acessar url sem sentido
 
 ];

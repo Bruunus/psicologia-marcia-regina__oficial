@@ -44,17 +44,27 @@ export class AutenticacaoService {
   }
 
   deslogar() {
+
+    const token = this.apiAutenticacaoService.getToken();
+    localStorage.removeItem(token);
+
     this.autenticado = false;
     interval(150).subscribe(() => {
       this.router.navigate(['/login'])
     });
     this.subscription.unsubscribe();
 
+
   }
 
 
   usuarioAutenticado() {
     return this.autenticado;
+  }
+
+
+  getToken() {
+    return this.apiAutenticacaoService.getToken();
   }
 
 

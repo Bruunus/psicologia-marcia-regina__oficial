@@ -5,6 +5,7 @@ import { RedirectComponent } from '../redirect/redirect.component';
 import { BehaviorSubject, Observable, takeLast } from 'rxjs';
 import { AutenticacaoService } from './autenticacao.service';
 import { Usuario } from './usuario';
+import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticacao.service';
 
 @Injectable({providedIn: 'root'})
 @Component({
@@ -24,11 +25,14 @@ export class LoginComponent implements OnInit {
 
   private usuarioAutenticado: boolean = false;
 
+  localStorage: string | null = '';
+
   protected usuario: Usuario = new Usuario();
 
 
 
-  constructor(private router: Router, private autenticacaoService: AutenticacaoService) {
+  constructor(private router: Router, private autenticacaoService: AutenticacaoService,
+    private apiAutenticacaoService: ApiAutenticacaoService) {
 
   }
 
@@ -36,6 +40,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {};
 
   onLogin() {
+
+    const tokien = localStorage.getItem('token');
+    this.localStorage = tokien;
 
     console.log(this.usuario)
     this.autenticacaoService.fazerLogin(this.usuario);

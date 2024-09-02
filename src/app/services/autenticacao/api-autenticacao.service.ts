@@ -9,7 +9,14 @@ export class ApiAutenticacaoService {
 
   private logon: string = 'http://localhost:8080/login';
 
-  constructor(private http: HttpClient, private usuario: Usuario) { }
+  private token: string = '';
+
+  constructor(private http: HttpClient, private usuario: Usuario) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.setToken(token);
+    }
+  }
 
 
 
@@ -23,15 +30,14 @@ export class ApiAutenticacaoService {
           if (response && response.token) {
             localStorage.setItem('token', response.token);
             localStorage.setItem('nomeUsuario', usuario.login);
+            this.setToken(response.token);
 
             console.log(
               'Dados de autenticação:\n\n',
               'token: ',response.token,'\n',
               'usuario: ',usuario.login
             )
-
             this.usuario.setLogin(usuario.login);
-
 
             resolve(true);
 
@@ -47,5 +53,19 @@ export class ApiAutenticacaoService {
       });
     })
 
-}
+  }
+
+  setToken(token: string) {
+    this.token = token;
+  }
+
+  getToken() {
+    return this.token;
+  }
+
+
+
+
+
+
 }

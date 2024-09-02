@@ -18,7 +18,7 @@ export class AutenticacaoGuard implements CanActivate {
       // console.log(route)
       // console.log(state)
 
-      if(this.autenticacaoService.usuarioAutenticado()) {
+      if(this.autenticacaoService.usuarioAutenticado() && this.autenticacaoService.getToken() != '' || this.autenticacaoService.getToken() != null) {
         return true;
       }
       console.log('Login incorreto - redirecionando')
