@@ -17,8 +17,6 @@
      </div>
 
      <div  class="col-12 error-message">message
-
-      <p>LocalStorage-tokien: {{ localStorage }}</p>
      </div>
 
     </div>
@@ -89,7 +87,10 @@
         Fazer validação dos inputs
         <ul>
           <li>No campo login todas as letras são minúsculas</li>
-
+          <li>Definir tamanho mínimo e máximo para o campo login (senha não precisa)</li>
+          <li>Unicidade: Verificar se o login já está em uso por outro usuário no sistema - Criar mecanismo no banco de dados</li>
+          <li>Campo Senha: Complexidade: A senha deve ter uma combinação de letras maiúsculas, minúsculas, números e caracteres especiais para aumentar a segurança.</li>
+          <li>Campo Senha: Tamanho mínimo: A senha deve ter um tamanho mínimo para garantir que seja forte o suficiente.</li>
         </ul>
       <td>02/set/2024 - 19:00</td>
       <td></td>
@@ -99,6 +100,13 @@
       <td>
         Colocar tempo limite de sessão, no máximo 3 horas
       <td>02/set/2024 - 19:00</td>
+      <td></td>
+    </tr>
+
+    <tr class="criada">
+      <td>
+        Configurar a mensagem de erro caso a senha ou login sejam inválidos
+      <td>03/set/2024 - 19:00</td>
       <td></td>
     </tr>
 

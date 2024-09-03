@@ -21,12 +21,8 @@ import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticaca
 export class LoginComponent implements OnInit {
 
 
-  // isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   private usuarioAutenticado: boolean = false;
-
-  localStorage: string | null = '';
-
   protected usuario: Usuario = new Usuario();
 
 
@@ -41,8 +37,7 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
 
-    const tokien = localStorage.getItem('token');
-    this.localStorage = tokien;
+
 
     console.log(this.usuario)
     this.autenticacaoService.fazerLogin(this.usuario);
