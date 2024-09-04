@@ -139,10 +139,16 @@
   box-shadow: none;
 }
 
-.error-message {
-  background-color: aquamarine;
-  margin-top: 3em;
 
+
+.error-message {
+  // background-color: aquamarine;
+  margin-top: 3em;
+  text-align: center;
+  font-style: italic;
+  color: #ff5050;
+  font-size: 14px;
+  // font-weight: bold;
 }
 
 

@@ -1,4 +1,4 @@
-<form (ngSubmit)="onLogin()" >
+<form (ngSubmit)="onLogin()" [formGroup]="formularioDeLogin">
   <div class="container-fluid pai">
     <div class="filho row">
      <div class="col-12 div-contorno">
@@ -7,54 +7,29 @@
          <img src="../../assets/img/logo-vertical-img.png" alt="logo" class="img-fluid no-select-img">
        </div>
        <div class="col-12">
+
          <input type="text" class="form-control" id="login" aria-describedby="login" placeholder="Login"
-         [(ngModel)]="usuario.login" name="login" value="bruno">
+         formControlName="login" name="login" value="bruno" maxlength="16" (focus)="focusLoginIn()"
+         >
+
          <input type="password" name="senha" class="form-control" id="senha" aria-describedby="emailHelp"
-         [(ngModel)]="usuario.senha" placeholder="Senha" value="12345678">
-         <button type="submit" class="btn btn-primary btn-login" id="btn-entrar">Entrar</button>
+         formControlName="senha" placeholder="Senha" value="12345678" maxlength="200" (focus)="focusSenhaIn()"
+        >
+
+         <button type="submit" class="btn btn-primary btn-login" id="btn-entrar" (click)="validacaoLogin()">Entrar</button>
        </div>
 
      </div>
 
-     <div  class="col-12 error-message">message
-     </div>
-
+    <div class="col-12 error-message" >
+      {{ errorMessageLogin }}
+      {{ errorMessageSenha }}
+      {{ errorMessageFalhaDeAutenticacao }}
     </div>
 
 
 
-
-
-
-    <!-- Mandar isso aqui e mais as configurações que estão nos arquivos .scss para o Dicionario CSS -->
-
-
-    <!-- Teste de detecção de medida de tela -->
-
-    <!-- <div>
-      <ul>
-        <li>
-          <span class="larga" >
-            Tamanho grande e larga - medida: min-width: 1602px
-          </span>
-        </li>
-        <li>
-          <span class="media">
-            Tamanho médio - tela grande - medida: max-width: 1601px and min-width: 1301px
-          </span>
-        </li>
-        <li>
-          <span class="media_pequena">
-            Tamanho médio - tela media - medida: max-width: 1300px and min-width: 1199px
-          </span>
-        </li>
-        <li>
-          <span class="pequena">
-            Tamanho médio - tela media - medida: max-width: 1200px and min-width: 843px
-          </span>
-        </li>
-      </ul>
-    </div> -->
+    </div>
 
   </div>
 
@@ -82,11 +57,11 @@
 
   <tbody>
 
-    <tr class="criada">
+    <tr class="executando">
       <td>
-        Fazer validação dos inputs
+        <b>Fazer validação dos inputs</b>
         <ul>
-          <li>No campo login todas as letras são minúsculas</li>
+          <li><s>No campo login todas as letras são minúsculas</s></li>
           <li>Definir tamanho mínimo e máximo para o campo login (senha não precisa)</li>
           <li>Unicidade: Verificar se o login já está em uso por outro usuário no sistema - Criar mecanismo no banco de dados</li>
           <li>Campo Senha: Complexidade: A senha deve ter uma combinação de letras maiúsculas, minúsculas, números e caracteres especiais para aumentar a segurança.</li>
@@ -107,6 +82,13 @@
       <td>
         Configurar a mensagem de erro caso a senha ou login sejam inválidos
       <td>03/set/2024 - 19:00</td>
+      <td></td>
+    </tr>
+
+    <tr class="criada">
+      <td>
+        Resolver o problema de falta de persistência do nome do usuário, quando dá refresh na página o nome desaparece
+      <td>04/set/2024 - 13:21</td>
       <td></td>
     </tr>
 
