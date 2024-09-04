@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
 
   protected errorMessageLogin: string = '';
   protected errorMessageSenha: string = '';
-  protected errorMessageFalhaDeAutenticacao: string = ''
 
 
   protected loginInvalido: boolean = true;
@@ -126,34 +125,17 @@ export class LoginComponent implements OnInit {
      if(this.usuario.login === '' || this.usuario.login === null) {
       this.errorMessageLogin = 'Insira o login para acesso';
       this.errorMessageSenha = '';
+
       this.statusInputFocus = false;  // deu submit
       return;
      }
 
      if(this.usuario.senha === '' || this.usuario.senha === null) {
-      this.tentativasDeAcesso++;
-
-
-
-      this.errorMessageSenha = 'Senha incorreta.';
+      this.errorMessageSenha = 'Senha incoreta';
       this.errorMessageLogin = '';
+
       this.statusInputFocus = false;  // deu submit
-
-PAUSA AQUI !
-      console.log('Tentativa: ', this.tentativasDeAcesso)
-
-      if (this.tentativasDeAcesso < 4) {
-        this.errorMessageLogin = '';
-        this.errorMessageFalhaDeAutenticacao = 'Falha de autenticação, atualize a página e tente novamente';
-        return;
-      }
-
       return;
-
-
-
-
-
      }
 
      return true;
@@ -174,12 +156,10 @@ PAUSA AQUI !
 
   focusLoginIn() {
     this.errorMessageLogin = '';
-    this.errorMessageFalhaDeAutenticacao = '';
   }
 
   focusSenhaIn() {
     this.errorMessageSenha = '';
-    this.errorMessageFalhaDeAutenticacao = '';
   }
 
 
