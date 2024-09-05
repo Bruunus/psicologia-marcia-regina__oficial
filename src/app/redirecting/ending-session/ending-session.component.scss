@@ -1,0 +1,33 @@
+@font-face {
+  font-family: 'font-end-session';
+  src: url('../../../assets/fonts/omega/Omega-Light.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.container-fluid   {
+  height: 100vh;
+}
+
+.pai {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filho {
+  display: flex;
+  justify-content: center;
+}
+
+
+
+
+.filho div {
+  font-family: 'font-end-session';
+  text-align: center;
+}
+
+.img-loading {
+  height: 47px;
+}

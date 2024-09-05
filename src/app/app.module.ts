@@ -10,9 +10,11 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RedirectComponent } from './redirect/redirect.component';
+import { RedirectComponent } from './redirecting/redirect/redirect.component';
 
 import { Pag3Component } from './pag3/pag3.component';
+import { RedirectingComponent } from './redirecting/redirecting.component';
+import { EndingSessionComponent } from './redirecting/ending-session/ending-session.component';
 
 
 
@@ -22,7 +24,9 @@ import { Pag3Component } from './pag3/pag3.component';
     Pagina2Component,
     LoginComponent,
     RedirectComponent,
-    Pag3Component
+    Pag3Component,
+    RedirectingComponent,
+    EndingSessionComponent
   ],
   imports: [
     BrowserModule,

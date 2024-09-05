@@ -16,7 +16,7 @@ export class AutenticacaoGuard implements CanActivate {
     Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
       // console.log(route)
-      // console.log(state)
+      console.log('status do token dentro do canActivate, ', this.autenticacaoService.getToken())
 
       if(this.autenticacaoService.usuarioAutenticado() && this.autenticacaoService.getToken() != '' || this.autenticacaoService.getToken() != null) {
         return true;

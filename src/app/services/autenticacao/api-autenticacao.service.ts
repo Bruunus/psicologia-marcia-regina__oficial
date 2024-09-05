@@ -43,11 +43,13 @@ export class ApiAutenticacaoService {
 
             return true;
           } else {
+            // localStorage.removeItem('token')
             resolve(false);
             return false;
           }
         },
         (error) => {
+          // localStorage.removeItem('token')
           reject(error);
           return false;
       });

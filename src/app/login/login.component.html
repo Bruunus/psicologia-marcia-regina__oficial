@@ -9,22 +9,29 @@
        <div class="col-12">
 
          <input type="text" class="form-control" id="login" aria-describedby="login" placeholder="Login"
-         formControlName="login" name="login" value="bruno" maxlength="16" (focus)="focusLoginIn()"
+         formControlName="login" name="login" value="bruno" maxlength="16"  (focus)="focusLoginIn()"
          >
 
          <input type="password" name="senha" class="form-control" id="senha" aria-describedby="emailHelp"
          formControlName="senha" placeholder="Senha" value="12345678" maxlength="200" (focus)="focusSenhaIn()"
         >
 
-         <button type="submit" class="btn btn-primary btn-login" id="btn-entrar" (click)="validacaoLogin()">Entrar</button>
+         <button type="submit" class="btn btn-primary btn-login" id="btn-entrar">Entrar</button>
        </div>
 
      </div>
 
-    <div class="col-12 error-message" >
+    <div class="col-12 error-message"  >
       {{ errorMessageLogin }}
       {{ errorMessageSenha }}
+      {{ errorMessageAutenticacao }}
+      <!-- SeuComponente.component.html -->
+      <div *ngIf="ativarLoading">
+        <img src="../../assets/img/loading.gif" alt="Carregando..." class="img-loading no-select-img" />
+      </div>
+
     </div>
+
 
 
 
@@ -36,6 +43,9 @@
 
 
 </form>
+
+<button (click)="deletarToken()">Deletar token</button>
+<p><b>Detector de token: </b> {{token}} </p>
 
 <!-- criada -->
 <!-- executando -->
@@ -61,7 +71,7 @@
         <b>Fazer validação dos inputs</b>
         <ul>
           <li><s>No campo login todas as letras são minúsculas</s></li>
-          <li>Definir tamanho mínimo e máximo para o campo login (senha não precisa)</li>
+          <li><s>Definir tamanho mínimo e máximo para o campo login (senha não precisa)</s></li>
           <li>Unicidade: Verificar se o login já está em uso por outro usuário no sistema - Criar mecanismo no banco de dados</li>
           <li>Campo Senha: Complexidade: A senha deve ter uma combinação de letras maiúsculas, minúsculas, números e caracteres especiais para aumentar a segurança.</li>
           <li>Campo Senha: Tamanho mínimo: A senha deve ter um tamanho mínimo para garantir que seja forte o suficiente.</li>

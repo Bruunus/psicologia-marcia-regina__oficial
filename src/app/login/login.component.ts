@@ -1,7 +1,7 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { RedirectComponent } from '../redirect/redirect.component';
+import { RedirectComponent } from '../redirecting/redirect/redirect.component';
 import { BehaviorSubject, interval, Observable, Subscription, takeLast } from 'rxjs';
 import { AutenticacaoService } from './autenticacao.service';
 import { Usuario } from './usuario';
@@ -31,7 +31,11 @@ export class LoginComponent implements OnInit {
 
   protected errorMessageLogin: string = '';
   protected errorMessageSenha: string = '';
+  protected errorMessageAutenticacao: string = '';
+  protected ativarLoading: boolean = false;
 
+
+  token: string | null = localStorage.getItem('token');
 
   protected loginInvalido: boolean = true;
   protected usuario: Usuario = new Usuario();
@@ -46,12 +50,28 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
+    // alert('Pagina de login ativado')
+    if(this.token) {
+      localStorage.removeItem('token');
+      this.router.navigate(['ending-session']);
+    }
+
+
+
+
+
+
+
+    console.log(this.token)
+
+
     this.formularioDeLogin = new FormGroup({
       login: new FormControl(
         this.usuario.login,
         [
           Validators.required,
           Validators.maxLength(15)
+
 
         ]
 
@@ -64,28 +84,73 @@ export class LoginComponent implements OnInit {
 
   }
 
+
+
+
   onLogin() {
 
-    const loginValue = this.formularioDeLogin.get('login')!.value;
-    const senhaValue = this.formularioDeLogin.get('senha')!.value;
+    // console.log('Entrado em onLogin e deletando token')
+    // localStorage.removeItem('token');
+    // console.log('Teste com token: ', this.token)
+
+    this.clearErrorMessage()
+
+    let loginValue = this.formularioDeLogin.get('login')!.value;
+    let senhaValue = this.formularioDeLogin.get('senha')!.value;
 
     this.usuario.login = loginValue;
     this.usuario.senha = senhaValue;
 
-    if(!this.validacaoLogin()) {
+
+    if(this.usuario.login === '' || this.usuario.login === null) {
+      this.errorMessageLogin = 'Insira o login para acesso';
+      this.errorMessageSenha = '';
+      this.errorMessageAutenticacao = '';
+      this.statusInputFocus = false;  // deu submit
       return;
-    } else {
+
+     } else if(this.usuario.senha === '' || this.usuario.senha === null) {
+      this.errorMessageSenha = 'Insira uma senha';
+      this.errorMessageLogin = '';
+      this.errorMessageAutenticacao = ''
+      this.statusInputFocus = false;  // deu submit
+      return;
+     }
+
+     else {
+
+      this.ativarLoading = true;
       this.autenticacaoService.fazerLogin(this.usuario);
-      console.log(this.usuario)
-    console.log(
-      this.login.value,' ',this.senha.value
-    )
+
+      setTimeout(() => {
+        const token = localStorage.getItem('token');
+        if(!token) {
+          this.ativarLoading = false;
+          this.errorMessageAutenticacao = 'Senha incorreta'
+          this.errorMessageSenha = '';
+          this.errorMessageLogin = '';
+          return;
+
+         } else if(token) {
+
+          this.formularioDeLogin.get('login')!.setValue('');
+          this.formularioDeLogin.get('senha')!.setValue('');
+
+          setTimeout(() => {
+            this.ativarLoading = false;
+            setTimeout(() => {
+              window.location.reload()
+            }, 100);  //   tempo para redirecionamento
+
+            this.router.navigate(['authenticating']);
+            console.log(this.usuario)  //{Debug}\\
+
+          }, 100);  // tempo para limpar os campos
+
+         }
+
+      }, 1500)  // tempo de espera da chegada do token
     }
-
-
-
-
-
 
   }
 
@@ -97,20 +162,6 @@ export class LoginComponent implements OnInit {
   }
 
 
-  // fazerLogin(usuario: Usuario) {
-  //   // Pausa do vídeo Loiane
-  //   //  É aqui que chama a API
-  //   if(usuario.login === 'bruno' && usuario.senha === '12345678') {
-  //     this.usuarioAutenticado = true;
-
-  //     this.router.navigate(['/page2'])
-  //     console.log('Usuário autenticado: ',this.usuarioAutenticado)
-  //   } else {
-  //     this.usuarioAutenticado = false;
-  //     console.log('Usuário autenticado: ',this.usuarioAutenticado)
-  //   }
-
-  // }
 
 
   statusAutenticacao() {
@@ -119,39 +170,12 @@ export class LoginComponent implements OnInit {
 
 
 
-  validacaoLogin() {
-
-     //Insira o login para acesso
-     if(this.usuario.login === '' || this.usuario.login === null) {
-      this.errorMessageLogin = 'Insira o login para acesso';
-      this.errorMessageSenha = '';
-
-      this.statusInputFocus = false;  // deu submit
-      return;
-     }
-
-     if(this.usuario.senha === '' || this.usuario.senha === null) {
-      this.errorMessageSenha = 'Senha incoreta';
-      this.errorMessageLogin = '';
-
-      this.statusInputFocus = false;  // deu submit
-      return;
-     }
-
-     return true;
-
-
-
-
-
-
-
-    // console.log('Validação no localStarege: Buscando dados')
-    // console.log(nomeUsuario)
-    // console.log(token)
-
-
+  deletarToken() {
+    localStorage.removeItem('token');
+    location.reload();
   }
+
+
 
 
   focusLoginIn() {
@@ -165,6 +189,12 @@ export class LoginComponent implements OnInit {
 
 
 
+  clearErrorMessage() {
+    this.errorMessageLogin = '';
+    this.errorMessageSenha = '';
+    this.errorMessageAutenticacao = ''
+  }
+
 
 
 
@@ -176,6 +206,8 @@ export class LoginComponent implements OnInit {
   get senha(): AbstractControl<string, any> {
     return this.formularioDeLogin.get('senha')!;
   }
+
+
 
 
   get getStatusInputFocus(): boolean {

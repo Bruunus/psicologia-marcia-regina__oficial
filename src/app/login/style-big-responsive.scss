@@ -5,7 +5,8 @@
   font-style: normal;
 }
 
-/**
+
+/**   ../../assets/fonts/omega/Omega-Light.otf
 *   Responsividade para telas grandes 4K
 */
 @media(min-width: 1602px) {
@@ -143,7 +144,7 @@
 
 .error-message {
   // background-color: aquamarine;
-  margin-top: 3em;
+  margin-top: 2.5em;
   text-align: center;
   font-style: italic;
   color: #ff5050;
@@ -151,6 +152,10 @@
   // font-weight: bold;
 }
 
+
+.img-loading {
+  height: 47px;
+}
 
 
 

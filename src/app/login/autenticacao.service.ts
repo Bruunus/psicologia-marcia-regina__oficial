@@ -21,7 +21,7 @@ export class AutenticacaoService {
         if(result) {
           console.log('Usuário autenticado');
           this.autenticado = true;
-          this.router.navigate(['pacientes'])
+
         } else {
           // Autenticação falhou
           console.log('Usuário incorreto');
@@ -30,36 +30,22 @@ export class AutenticacaoService {
         }).catch((error) => {
           console.error('Erro ao processar autenticação:', error);
         })
-
-
-
-    // if(usuario.login === 'bruno' && usuario.senha === '12345678') {
-    //   this.autenticado = true;
-    //   this.router.navigate(['/page2'])
-
-    // } else {
-    //   this.autenticado = false;
-
-    // }
   }
 
   deslogar() {
-
-    const token = this.apiAutenticacaoService.getToken();
-    localStorage.removeItem(token);
-
+    console.log('entrando em deslogar...')
+    localStorage.removeItem('token');
     this.autenticado = false;
-    interval(150).subscribe(() => {
-      this.router.navigate(['/login'])
-    });
-    this.subscription.unsubscribe();
-
-
+    this.router.navigate(['ending-session']);
   }
 
 
   usuarioAutenticado() {
     return this.autenticado;
+  }
+
+  setUsuarioAutenticado(value: boolean) {
+    this.autenticado = value;
   }
 
 
