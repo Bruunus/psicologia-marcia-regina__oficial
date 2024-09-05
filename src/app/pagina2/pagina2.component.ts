@@ -13,7 +13,7 @@ import { Usuario } from '../login/usuario';
 })
 export class Pagina2Component implements OnInit {
 
-  nomeLogin: string = this.usuario.getLogin();
+  nomeLogin: string | null = ''
 
 
   constructor(private http: HttpClient, private autenticacaoService: AutenticacaoService, private usuario: Usuario) {
@@ -22,10 +22,9 @@ export class Pagina2Component implements OnInit {
 
   ngOnInit(): void {
 
-    // this.nomeLogin = this.usuario.getLogin()
-    console.log('Logado: ', this.usuario.getLogin())
+    this.nomeLogin = localStorage.getItem('usuario')
 
-    console.log('Token de sessão: ', this.autenticacaoService.getToken())
+
 
 
   }

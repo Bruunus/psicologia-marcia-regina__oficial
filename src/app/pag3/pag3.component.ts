@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Pag3Component implements OnInit {
 
+  nomeLogin: string | null = ''
+
   constructor() { }
 
   ngOnInit(): void {
+    this.nomeLogin = localStorage.getItem('usuario')
   }
 
 }

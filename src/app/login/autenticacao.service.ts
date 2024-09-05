@@ -19,13 +19,14 @@ export class AutenticacaoService {
     this.apiAutenticacaoService.apiAutenticacao(usuario).then(
       (result) => {
         if(result) {
-          console.log('Usuário autenticado');
+
           this.autenticado = true;
+          console.log('Usuário autenticado', this.getUsuarioAutenticado());
 
         } else {
           // Autenticação falhou
           console.log('Usuário incorreto');
-
+          this.autenticado = false;
         }
         }).catch((error) => {
           console.error('Erro ao processar autenticação:', error);
@@ -40,13 +41,11 @@ export class AutenticacaoService {
   }
 
 
-  usuarioAutenticado() {
+  getUsuarioAutenticado() {
     return this.autenticado;
   }
 
-  setUsuarioAutenticado(value: boolean) {
-    this.autenticado = value;
-  }
+
 
 
   getToken() {

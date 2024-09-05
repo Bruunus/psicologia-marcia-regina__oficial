@@ -11,7 +11,9 @@ export class ApiAutenticacaoService {
 
   private token: string = '';
 
-  constructor(private http: HttpClient, private usuario: Usuario) {
+  private usuario: Usuario = new Usuario();
+
+  constructor(private http: HttpClient) {
     const token = localStorage.getItem('token');
     if (token) {
       this.setToken(token);
@@ -29,7 +31,7 @@ export class ApiAutenticacaoService {
         (response) => {
           if (response && response.token) {
             localStorage.setItem('token', response.token);
-            localStorage.setItem('nomeUsuario', usuario.login);
+            localStorage.setItem('usuario', usuario.login);
             this.setToken(response.token);
 
             console.log(
@@ -37,7 +39,17 @@ export class ApiAutenticacaoService {
               'token: ',response.token,'\n',
               'usuario: ',usuario.login
             )
-            this.usuario.setLogin(usuario.login);
+
+            // const usuarioLogado = localStorage.getItem('usuario');
+            // if(usuarioLogado !== null) {
+            //   this.usuario.setLogin(usuarioLogado)
+            //   console.log('constante: ',usuarioLogado)
+            //   console.log('Objeto Usuario', this.usuario.getLogin())
+            // }
+
+
+
+
 
             resolve(true);
 

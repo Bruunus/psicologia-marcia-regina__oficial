@@ -72,9 +72,16 @@
         <ul>
           <li><s>No campo login todas as letras são minúsculas</s></li>
           <li><s>Definir tamanho mínimo e máximo para o campo login (senha não precisa)</s></li>
-          <li>Unicidade: Verificar se o login já está em uso por outro usuário no sistema - Criar mecanismo no banco de dados</li>
-          <li>Campo Senha: Complexidade: A senha deve ter uma combinação de letras maiúsculas, minúsculas, números e caracteres especiais para aumentar a segurança.</li>
-          <li>Campo Senha: Tamanho mínimo: A senha deve ter um tamanho mínimo para garantir que seja forte o suficiente.</li>
+          <li>Unicidade: Verificar se o login já está em uso por outro usuário no sistema - Criar mecanismo no banco de dados
+            <ul>
+              <li>
+                Crie uma tabela no banco de dados com uma coluna 'autenticado' com boleano. Todo o inicio de sessão será enviado os dados
+                de login, o servidor vai verificar o status da autenticação, caso true o servidor retorn erro e o front retorna
+                "Esse usuário já está logado, não é possível continuar"''
+
+              </li>
+            </ul>
+          </li>
         </ul>
       <td>02/set/2024 - 19:00</td>
       <td></td>
@@ -82,23 +89,23 @@
 
     <tr class="criada">
       <td>
-        Colocar tempo limite de sessão, no máximo 3 horas
+        Colocar tempo limite de sessão, no máximo 3 horas - Pesquise se tem como realizar limpeza do localStorage dentro de 5 horas
       <td>02/set/2024 - 19:00</td>
       <td></td>
     </tr>
 
-    <tr class="criada">
+    <tr class="finalizada">
       <td>
-        Configurar a mensagem de erro caso a senha ou login sejam inválidos
+        <s>Configurar a mensagem de erro caso a senha ou login sejam inválidos</s>
       <td>03/set/2024 - 19:00</td>
-      <td></td>
+      <td>05/set/2024 - 15:00</td>
     </tr>
 
-    <tr class="criada">
+    <tr class="finalizada">
       <td>
-        Resolver o problema de falta de persistência do nome do usuário, quando dá refresh na página o nome desaparece
+        <s>Resolver o problema de falta de persistência do nome do usuário, quando dá refresh na página o nome desaparece</s>
       <td>04/set/2024 - 13:21</td>
-      <td></td>
+      <td>05/set/2024 - 20:17</td>
     </tr>
 
 

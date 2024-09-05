@@ -15,18 +15,17 @@ export class AutenticacaoGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      // console.log(route)
-      console.log('status do token dentro do canActivate, ', this.autenticacaoService.getToken())
+      console.log('status do usuarioAutenticado() dentro do canActivate, ', this.autenticacaoService.getUsuarioAutenticado())
 
-      if(this.autenticacaoService.usuarioAutenticado() && this.autenticacaoService.getToken() != '' || this.autenticacaoService.getToken() != null) {
+      if(localStorage.getItem('token') === '' || localStorage.getItem('token') === null && this.autenticacaoService.getUsuarioAutenticado()===false) {
+        console.log('Login incorreto - redirecionando')
+        this.router.navigate(['login'])
+        return false;
+
+      } else {
+        console.log('status do usuarioAutenticado() dentro do canActivate no else --->>> ', this.autenticacaoService.getUsuarioAutenticado())
         return true;
       }
-      console.log('Login incorreto - redirecionando')
-      this.router.navigate(['login'])
-      return false;
-
-
-
 
   }
 
