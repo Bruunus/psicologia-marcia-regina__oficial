@@ -11,7 +11,7 @@ export class EndingSessionComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    setInterval(() => {
+    setTimeout(() => {
       this.router.navigate(['login']);
     }, 500);
   }

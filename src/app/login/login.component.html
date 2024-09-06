@@ -75,10 +75,20 @@
           <li>Unicidade: Verificar se o login já está em uso por outro usuário no sistema - Criar mecanismo no banco de dados
             <ul>
               <li>
-                Crie uma tabela no banco de dados com uma coluna 'autenticado' com boleano. Todo o inicio de sessão será enviado os dados
-                de login, o servidor vai verificar o status da autenticação, caso true o servidor retorn erro e o front retorna
-                "Esse usuário já está logado, não é possível continuar"''
-
+                <s>
+                  Crie uma tabela no banco de dados com uma coluna 'autenticado' com boleano. Todo o inicio de sessão será enviado os dados
+                  de login, o servidor vai verificar o status da autenticação, caso true o servidor retorn erro e o front retorna
+                  "Esse usuário já está logado, não é possível continuar"''
+                </s>
+              </li>
+              <li>
+                Crie um controller com a função de deslogar e que essa função altere o valor do status do login
+                dentro do banco de dados.
+              </li>
+              <li>
+                faça o tratamento no front com mensagem na tela de login para uma tentativa de acessar o usuario sendo que
+                ele ja está logado, A própria api já retornar 401 com uma mensagem, apenas pegue esta mensagem e faça a
+                lógica entre os ifs e apresenta a mesma na tela com final de return;
               </li>
             </ul>
           </li>
@@ -87,11 +97,11 @@
       <td></td>
     </tr>
 
-    <tr class="criada">
+    <tr class="finalizada">
       <td>
-        Colocar tempo limite de sessão, no máximo 3 horas - Pesquise se tem como realizar limpeza do localStorage dentro de 5 horas
+        <s>Colocar tempo limite de sessão, no máximo 3 horas - Pesquise se tem como realizar limpeza do localStorage dentro de 5 horas</s>
       <td>02/set/2024 - 19:00</td>
-      <td></td>
+      <td>06/set/2024 - 11:26</td>
     </tr>
 
     <tr class="finalizada">
@@ -106,6 +116,17 @@
         <s>Resolver o problema de falta de persistência do nome do usuário, quando dá refresh na página o nome desaparece</s>
       <td>04/set/2024 - 13:21</td>
       <td>05/set/2024 - 20:17</td>
+    </tr>
+
+    <tr class="criada">
+      <td>
+        <p>Crie uma api para o backend para trazer todos os usuários da coluna nome da tabela
+          'gerenciador_de_acesso_de_usuario'. Crie um metodo bolean que percorra e compare os valores
+          se existe algum igual, e retorne false caso o nome passado não esteja incluso. - A Chamada da api
+          precisa ser posta dentro do onInit() para obter os dados antes da autenticação.
+        </p>
+      <td>06/set/2024 - 16:27</td>
+      <td>-</td>
     </tr>
 
 

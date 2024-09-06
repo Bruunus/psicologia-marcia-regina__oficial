@@ -102,7 +102,9 @@ export class LoginComponent implements OnInit {
     this.usuario.senha = senhaValue;
 
 
-    if(this.usuario.login === '' || this.usuario.login === null) {
+    // precisar finalizar a validação do login
+
+    if(this.usuario.login === '' || this.usuario.login === null /* || busca o usuario lá na API */) {
       this.errorMessageLogin = 'Insira o login para acesso';
       this.errorMessageSenha = '';
       this.errorMessageAutenticacao = '';

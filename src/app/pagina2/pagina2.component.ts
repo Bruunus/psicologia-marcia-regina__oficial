@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginComponent } from '../login/login.component';
 import { AutenticacaoService } from '../login/autenticacao.service';
 import { Usuario } from '../login/usuario';
+import { TimeoutService } from '../login/timeout.service';
 
 
 @Component({
@@ -16,11 +17,15 @@ export class Pagina2Component implements OnInit {
   nomeLogin: string | null = ''
 
 
-  constructor(private http: HttpClient, private autenticacaoService: AutenticacaoService, private usuario: Usuario) {
+  constructor(private http: HttpClient, private autenticacaoService: AutenticacaoService, private usuario: Usuario,
+    private timeoutService: TimeoutService
+  ) {
 
    }
 
   ngOnInit(): void {
+    console.log('Inicio do timeout')
+    this.timeoutService.initSessionTimeout();
 
     this.nomeLogin = localStorage.getItem('usuario')
 

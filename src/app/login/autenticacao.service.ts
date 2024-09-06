@@ -1,3 +1,4 @@
+import { TimeoutService } from './timeout.service';
 import { ApiAutenticacaoService } from './../services/autenticacao/api-autenticacao.service';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
@@ -12,7 +13,9 @@ export class AutenticacaoService {
   private autenticado: boolean = false;
   subscription: Subscription = new Subscription();
 
-  constructor(private router: Router, private apiAutenticacaoService: ApiAutenticacaoService) { }
+  constructor(private router: Router, private apiAutenticacaoService: ApiAutenticacaoService
+
+  ) { }
 
   fazerLogin(usuario: Usuario) {
     //  É aqui que chama a API
@@ -22,6 +25,9 @@ export class AutenticacaoService {
 
           this.autenticado = true;
           console.log('Usuário autenticado', this.getUsuarioAutenticado());
+
+
+
 
         } else {
           // Autenticação falhou
@@ -35,9 +41,17 @@ export class AutenticacaoService {
 
   deslogar() {
     console.log('entrando em deslogar...')
+
     localStorage.removeItem('token');
     this.autenticado = false;
+
     this.router.navigate(['ending-session']);
+
+
+
+
+
+
   }
 
 
