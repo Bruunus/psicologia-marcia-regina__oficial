@@ -1,7 +1,5 @@
-
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { LoginComponent } from '../login/login.component';
 import { AutenticacaoService } from '../login/autenticacao.service';
 import { Usuario } from '../login/usuario';
 import { TimeoutService } from '../login/timeout.service';
@@ -36,7 +34,9 @@ export class Pagina2Component implements OnInit {
 
 
   logout() {
-    this.autenticacaoService.deslogar();
+    let usuario: string = localStorage.getItem('usuario')!;
+    console.log('Valor do usuario dentro do método logout: ', usuario)
+    this.autenticacaoService.deslogar(usuario);
   }
 
 

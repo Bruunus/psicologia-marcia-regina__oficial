@@ -1,3 +1,4 @@
+import { AutenticacaoService } from './login/autenticacao.service';
 import { TimeoutService } from './login/timeout.service';
 import { Usuario } from './login/usuario';
 import { ApiAutenticacaoService } from './services/autenticacao/api-autenticacao.service';

@@ -101,6 +101,8 @@ export class LoginComponent implements OnInit {
     this.usuario.login = loginValue;
     this.usuario.senha = senhaValue;
 
+    // this.
+
 
     // precisar finalizar a validação do login
 
@@ -219,5 +221,7 @@ export class LoginComponent implements OnInit {
   set setStatusInputFocus(status: boolean) {
     this.statusInputFocus = status;
   }
+
+
 
 }
