@@ -5,8 +5,8 @@ import { AppComponent } from './app.component';
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Pag3Component } from './pag3/pag3.component';
-import { RedirectComponent } from './redirecting/redirect/redirect.component';
-import { EndingSessionComponent } from './redirecting/ending-session/ending-session.component';
+import { RedirectComponent } from './services/redirecting/redirect/redirect.component';
+import { EndingSessionComponent } from './services/redirecting/ending-session/ending-session.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

@@ -10,11 +10,11 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RedirectComponent } from './redirecting/redirect/redirect.component';
+import { RedirectComponent } from './services/redirecting/redirect/redirect.component';
 
 import { Pag3Component } from './pag3/pag3.component';
-import { RedirectingComponent } from './redirecting/redirecting.component';
-import { EndingSessionComponent } from './redirecting/ending-session/ending-session.component';
+import { RedirectingComponent } from './services/redirecting/redirecting.component';
+import { EndingSessionComponent } from './services/redirecting/ending-session/ending-session.component';
 
 
 

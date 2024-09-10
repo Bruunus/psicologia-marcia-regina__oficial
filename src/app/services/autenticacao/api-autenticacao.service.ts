@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AutenticacaoService } from 'src/app/login/autenticacao.service';
 import { Usuario } from 'src/app/login/usuario';
+import { ErrorService } from '../error/error.service';
 
 @Injectable({
   providedIn: 'root',
@@ -43,20 +44,13 @@ export class ApiAutenticacaoService {
               'token: ',response.token,'\n',
               'usuario: ',usuario.login
             )
-
             // const usuarioLogado = localStorage.getItem('usuario');
             // if(usuarioLogado !== null) {
             //   this.usuario.setLogin(usuarioLogado)
             //   console.log('constante: ',usuarioLogado)
             //   console.log('Objeto Usuario', this.usuario.getLogin())
             // }
-
-
-
-
-
             resolve(true);
-
             return true;
           } else {
             // localStorage.removeItem('token')
@@ -83,17 +77,15 @@ export class ApiAutenticacaoService {
 
 
 
-  statusUsuario(usuario: string): Promise<boolean> {
+  statusUsuario(usuario: Usuario): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       this.http.post<any>(this.status, usuario).subscribe(
-        (error) => {
-          if(error.status === 401) {
-            this.autenticacaoService.setRrrorMessageAPI(error.error);
-            console.log(this.autenticacaoService.getErrorMessageAPI())
-          }
+        (response) => {
+          resolve(true);
+        },(error) => {
+          reject(error);
         }
       )
-
     })
   }
 

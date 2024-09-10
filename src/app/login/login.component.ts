@@ -1,11 +1,12 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { RedirectComponent } from '../redirecting/redirect/redirect.component';
+import { RedirectComponent } from '../services/redirecting/redirect/redirect.component';
 import { BehaviorSubject, interval, Observable, Subscription, takeLast } from 'rxjs';
 import { AutenticacaoService } from './autenticacao.service';
 import { Usuario } from './usuario';
 import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticacao.service';
+import { ErrorService } from '../services/error/error.service';
 
 @Injectable({providedIn: 'root'})
 @Component({
@@ -29,10 +30,12 @@ export class LoginComponent implements OnInit {
   private statusInputFocus: boolean = false;
   private tentativasDeAcesso: number = 0
 
+  private errorMessageServer: string = '';
   protected errorMessageLogin: string = '';
   protected errorMessageSenha: string = '';
   protected errorMessageAutenticacao: string = '';
   protected ativarLoading: boolean = false;
+
 
 
   token: string | null = localStorage.getItem('token');
@@ -45,11 +48,13 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router, private autenticacaoService: AutenticacaoService,
-    private apiAutenticacaoService: ApiAutenticacaoService, private formBuilder: FormBuilder
+    private apiAutenticacaoService: ApiAutenticacaoService, private formBuilder: FormBuilder,
+    private error: ErrorService
   ) {}
 
 
   ngOnInit(): void {
+
     // alert('Pagina de login ativado')
     if(this.token) {
       localStorage.removeItem('token');
@@ -89,6 +94,8 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
 
+
+
     // console.log('Entrado em onLogin e deletando token')
     // localStorage.removeItem('token');
     // console.log('Teste com token: ', this.token)
@@ -100,6 +107,8 @@ export class LoginComponent implements OnInit {
 
     this.usuario.login = loginValue;
     this.usuario.senha = senhaValue;
+
+
 
     // this.
 
@@ -123,19 +132,31 @@ export class LoginComponent implements OnInit {
 
      else {
 
+
       this.ativarLoading = true;
       this.autenticacaoService.fazerLogin(this.usuario);
+      let usuarioLogado = this.autenticacaoService.statusLogin(this.usuario);
 
       setTimeout(() => {
         const token = localStorage.getItem('token');
-        if(!token) {
+
+
+        if(!this.autenticacaoService.statusLogin(this.usuario)) {
+          const mensagem = this.error.getErrorMessageLogin();
           this.ativarLoading = false;
-          this.errorMessageAutenticacao = 'Senha incorreta'
-          this.errorMessageSenha = '';
-          this.errorMessageLogin = '';
+          this.errorMessageAutenticacao = mensagem;
           return;
 
-         } else if(token) {
+        } else if(!token) {
+          this.ativarLoading = false;
+          this.errorMessageAutenticacao = '';
+          this.errorMessageSenha = 'Senha incorreta';
+          this.errorMessageLogin = '';
+          return;
+        }
+
+
+        else if(token) {
 
           this.formularioDeLogin.get('login')!.setValue('');
           this.formularioDeLogin.get('senha')!.setValue('');
@@ -201,6 +222,13 @@ export class LoginComponent implements OnInit {
 
 
 
+  getErrorMessageServer() {
+    return this.errorMessageServer;
+  }
+
+  setErrorMessageServer(message: string) {
+    this.errorMessageServer = message;
+  }
 
 
   get login(): AbstractControl<string, any> {

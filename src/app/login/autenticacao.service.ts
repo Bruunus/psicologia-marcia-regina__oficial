@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { forwardRef, Inject, Injectable } from '@angular/core';
 import { Usuario } from './usuario';
 import { interval, Subscription } from 'rxjs';
+import { ErrorService } from '../services/error/error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class AutenticacaoService {
   private errorMessageAPI: string = ';'
   subscription: Subscription = new Subscription();
 
-  constructor( private router: Router, private apiAutenticacaoService: ApiAutenticacaoService
+  constructor( private router: Router, private apiAutenticacaoService: ApiAutenticacaoService,
+    private errorService: ErrorService
 
   ) { }
 
@@ -23,7 +25,6 @@ export class AutenticacaoService {
     this.apiAutenticacaoService.apiAutenticacao(usuario).then(
       (result) => {
         if(result) {
-
           this.autenticado = true;
           console.log('Usuário autenticado', this.getUsuarioAutenticado());
         } else {
@@ -33,7 +34,9 @@ export class AutenticacaoService {
         }
         }).catch((error) => {
           if(error.status === 401) {
-            console.log(error.error)
+            var messageServer = error.error;
+            this.errorService.setErrorMessageLogin(messageServer);
+            // console.log(messageServer)
           } else {
             console.log('Erro desconhecido:', error);
           }
@@ -41,6 +44,21 @@ export class AutenticacaoService {
   }
 
 
+  statusLogin(usuario: Usuario): Promise<boolean> {
+    return this.apiAutenticacaoService.statusUsuario(usuario)
+      .then(() => {
+        return true; // Resolva a Promise com true se a verificação de status for bem-sucedida
+      })
+      .catch((error) => {
+        if (error.status === 401) {
+          var messageServer = error.error;
+          this.errorService.setErrorMessageLogin(messageServer);
+          return false; // Rejeite a Promise com false se o status for 401
+        } else {
+          return true; // Rejeite a Promise com true para outros erros
+        }
+      });
+  }
 
 
 
@@ -54,7 +72,7 @@ export class AutenticacaoService {
       this.router.navigate(['ending-session']);
     }
 
-    );
+  );
 
 
 
