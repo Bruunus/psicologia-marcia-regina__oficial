@@ -156,7 +156,7 @@ export class LoginComponent implements OnInit {
 
           this.ativarLoading = false;
           this.errorMessageAutenticacao = '';
-          this.errorMessageSenha = 'Senha incorreta ou o usuário já se encontra logado';
+          this.errorMessageSenha = 'Dados de autenticação inválidos, acesso recusado';
           this.errorMessageLogin = '';
           return;
         }

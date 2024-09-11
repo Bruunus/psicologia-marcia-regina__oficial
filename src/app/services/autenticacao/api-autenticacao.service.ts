@@ -53,14 +53,12 @@ export class ApiAutenticacaoService {
             resolve(true);
             return true;
           } else {
-            // localStorage.removeItem('token')
             resolve(false);
             return false;
           }
         },
         (error) => {
-          // localStorage.removeItem('token')
-          reject(error);
+          // reject(error);
           return false;
       });
     })
