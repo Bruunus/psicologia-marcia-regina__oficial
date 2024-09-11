@@ -55,9 +55,21 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
 
+    let token = localStorage.getItem('token');
     // alert('Pagina de login ativado')
-    if(this.token) {
+    if(token) {
+      let usuario = localStorage.getItem('usuario');
+
+
+      console.log('Usuário que fora logado: ',usuario)
+      this.autenticacaoService.deslogar(usuario!);
+
       localStorage.removeItem('token');
+      localStorage.removeItem('usuario');
+
+      console.log('Teste após remoção do usuário: ',usuario)
+      console.log('Teste após remoção do token: ',token)
+
       this.router.navigate(['ending-session']);
     }
 
@@ -67,7 +79,7 @@ export class LoginComponent implements OnInit {
 
 
 
-    console.log(this.token)
+
 
 
     this.formularioDeLogin = new FormGroup({
@@ -92,8 +104,8 @@ export class LoginComponent implements OnInit {
 
 
 
-  onLogin() {
-
+   onLogin() {
+    localStorage.removeItem('token');
 
 
     // console.log('Entrado em onLogin e deletando token')
@@ -132,29 +144,22 @@ export class LoginComponent implements OnInit {
 
      else {
 
-
       this.ativarLoading = true;
       this.autenticacaoService.fazerLogin(this.usuario);
-      let usuarioLogado = this.autenticacaoService.statusLogin(this.usuario);
+
 
       setTimeout(() => {
+
         const token = localStorage.getItem('token');
 
+        if(!token) {
 
-        if(!this.autenticacaoService.statusLogin(this.usuario)) {
-          const mensagem = this.error.getErrorMessageLogin();
-          this.ativarLoading = false;
-          this.errorMessageAutenticacao = mensagem;
-          return;
-
-        } else if(!token) {
           this.ativarLoading = false;
           this.errorMessageAutenticacao = '';
-          this.errorMessageSenha = 'Senha incorreta';
+          this.errorMessageSenha = 'Senha incorreta ou o usuário já se encontra logado';
           this.errorMessageLogin = '';
           return;
         }
-
 
         else if(token) {
 
@@ -172,12 +177,21 @@ export class LoginComponent implements OnInit {
 
           }, 100);  // tempo para limpar os campos
 
+         } else {
+          this.ativarLoading = false;
+          this.errorMessageAutenticacao = '';
+          this.errorMessageSenha = 'Existe um usuário logado com esta conta, acesso negado.';
+          this.errorMessageLogin = '';
+          return;
          }
 
       }, 1500)  // tempo de espera da chegada do token
     }
 
   }
+
+
+
 
 
   setupLoginForm(): void {
@@ -249,6 +263,9 @@ export class LoginComponent implements OnInit {
   set setStatusInputFocus(status: boolean) {
     this.statusInputFocus = status;
   }
+
+
+
 
 
 

@@ -77,18 +77,6 @@ export class ApiAutenticacaoService {
 
 
 
-  statusUsuario(usuario: Usuario): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
-      this.http.post<any>(this.status, usuario).subscribe(
-        (response) => {
-          resolve(true);
-        },(error) => {
-          reject(error);
-        }
-      )
-    })
-  }
-
 
 
 apiDeslogar(user: string): Promise<boolean> {
@@ -96,13 +84,9 @@ apiDeslogar(user: string): Promise<boolean> {
   return new Promise<boolean>((resolve, reject) => {
     this.http.post<any>(this.logout, usuario).subscribe(
       (response) => {
-        if(response === true) {
+        if(response.status === 200) {
           resolve(true);
         }
-      }, (error) => {
-        reject(error);
-        console.log('Não foi possível acessar o endpoint');
-        return false;
       }
     )
   })

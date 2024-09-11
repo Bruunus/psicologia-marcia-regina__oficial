@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-ending-session',
@@ -8,12 +9,14 @@ import { Router } from '@angular/router';
 })
 export class EndingSessionComponent implements OnInit {
 
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+
     setTimeout(() => {
       this.router.navigate(['login']);
-    }, 500);
+    }, 3000);
   }
 
 }

@@ -32,55 +32,27 @@ export class AutenticacaoService {
           console.log('Usuário incorreto');
           this.autenticado = false;
         }
-        }).catch((error) => {
-          if(error.status === 401) {
-            var messageServer = error.error;
-            this.errorService.setErrorMessageLogin(messageServer);
-            // console.log(messageServer)
-          } else {
-            console.log('Erro desconhecido:', error);
-          }
+
         })
   }
 
 
-  statusLogin(usuario: Usuario): Promise<boolean> {
-    return this.apiAutenticacaoService.statusUsuario(usuario)
-      .then(() => {
-        return true; // Resolva a Promise com true se a verificação de status for bem-sucedida
-      })
-      .catch((error) => {
-        if (error.status === 401) {
-          var messageServer = error.error;
-          this.errorService.setErrorMessageLogin(messageServer);
-          return false; // Rejeite a Promise com false se o status for 401
-        } else {
-          return true; // Rejeite a Promise com true para outros erros
-        }
-      });
-  }
+
 
 
 
 
   deslogar(usuario: string) {
-    console.log('entrando em deslogar...')
+    console.log('entrando em deslogar...');
+    this.router.navigate(['ending-session']);
 
     this.apiAutenticacaoService.apiDeslogar(usuario).then(() => {
       localStorage.removeItem('token');
       this.autenticado = false;
-      this.router.navigate(['ending-session']);
+
     }
 
   );
-
-
-
-
-
-
-
-
 
   }
 
