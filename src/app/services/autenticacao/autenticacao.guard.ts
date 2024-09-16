@@ -1,11 +1,11 @@
 import { AutenticacaoService } from './../../login/autenticacao.service';
 import { LoginComponent } from '../../login/login.component';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 
 @Injectable()
-export class AutenticacaoGuard implements CanActivate {
+export class AutenticacaoGuard  {
 
   status: boolean = false;
   subscription: Subscription = new Subscription();

@@ -1,6 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { RedirectComponent } from '../services/redirecting/redirect/redirect.component';
 import { BehaviorSubject, interval, Observable, Subscription, takeLast } from 'rxjs';
 import { AutenticacaoService } from './autenticacao.service';
