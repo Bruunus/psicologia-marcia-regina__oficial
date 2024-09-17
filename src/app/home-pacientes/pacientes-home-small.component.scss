@@ -1,0 +1,69 @@
+/**
+* A Regra do media neste projeto é sempre da ordem da mais mais larga à menor
+*/
+
+@media (max-width: 1240px)  {
+  .col-centro {
+    flex: 0 0 73% !important;
+  }
+  .col-esq{
+    padding-left: 0;
+    padding-right: 0;
+    flex: 0 0 18.666667% !important;  // aumento da col para preencher o espaço cedido pleo .col-centro acima
+    max-width: 18.666667% !important;
+  }
+
+  .link-logout {
+    margin-left: 2rem !important;
+  }
+}
+
+
+@media (max-width: 1024px)  {
+
+
+  /* Coluna do canto esquerdo do menu */
+  .col-esq{
+
+  }
+
+  .link-logout {
+    margin-left: 1rem !important;
+  }
+}
+
+
+
+@media (max-width: 939px)  {
+  /* Diminuição da col do meio para ajustar a col da esquerda */
+  .col-centro {
+    // flex: 0 0 75% !important;
+    max-width: 73% !important;
+  }
+
+  /* Coluna do canto esquerdo do menu */
+  .col-esq{
+    padding-left: 0;
+    padding-right: 0;
+    flex: 0 0 18.666667% !important;  // aumento da col para preencher o espaço cedido pleo .col-centro acima
+    max-width: 18.666667% !important;
+  }
+  .link-logout {
+    margin-left: 0.5rem !important;
+    padding-right: 8px;
+  }
+}
+
+@media (max-width: 826) {
+  /* Diminuição da col do meio para ajustar a col da esquerda */
+  .col-centro {
+    // flex: 0 0 75% !important;
+    max-width: 71% !important;
+  }
+  .col-esq{
+    padding-left: 0;
+    padding-right: 0;
+    flex: 0 0 16.666667% !important;  // aumento da col para preencher o espaço cedido pleo .col-centro acima
+    max-width: 16.666667% !important;
+  }
+}

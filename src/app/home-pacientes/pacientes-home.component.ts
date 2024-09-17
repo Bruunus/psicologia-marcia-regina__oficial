@@ -8,7 +8,10 @@ import { TimeoutService } from '../login/timeout.service';
 @Component({
   selector: 'app-pacientes-home',
   templateUrl: './pacientes-home.component.html',
-  styleUrls: ['./pacientes-home.component.scss']
+  styleUrls: [
+    './pacientes-home-big.component.scss',
+    'pacientes-home-middle.component.scss',
+    'pacientes-home-small.component.scss']
 })
 export class PacientesHomeComponent implements OnInit {
 

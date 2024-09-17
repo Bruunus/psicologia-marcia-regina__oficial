@@ -1,0 +1,70 @@
+/**
+* A Regra do media neste projeto é sempre da ordem da mais mais larga à menor
+*/
+
+@import '~hover.css/css/hover.css';
+
+@font-face {
+  font-family: 'font-sistem';
+  src: url('../../assets/fonts/Assistant/static/Assistant-Regular.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+  //vars
+$color-item-menu: #ca72ca;
+//#66D2D5 - verde da árvore
+
+.container-fluid {
+  font-family: 'font-sistem';
+  // font-size: 11pt;
+}
+
+.menu-bar-pacientes {
+  background-color: cornsilk;
+  height: 70px !important;
+  border-bottom: 1px solid #e4e4e4c9;
+  margin-bottom: 11em;
+
+}
+
+.menu-bar-pacientes div {
+  height: 100%;
+
+}
+
+.img-menu {
+  height: 48px;
+}
+
+.nav .nav-item {
+  height: 100%;
+}
+
+
+.menu-item-link {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+
+
+  box-sizing: border-box;
+  color: $color-item-menu;
+}
+
+.menu-item-link:hover {
+  text-decoration: underline;
+}
+
+.nick-name, .link-logout {
+  color: $color-item-menu;
+}
+
+
+
+
+
+
