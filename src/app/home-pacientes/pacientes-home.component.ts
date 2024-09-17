@@ -6,11 +6,11 @@ import { TimeoutService } from '../login/timeout.service';
 
 
 @Component({
-  selector: 'app-pagina2',
-  templateUrl: './pagina2.component.html',
-  styleUrls: ['./pagina2.component.scss']
+  selector: 'app-pacientes-home',
+  templateUrl: './pacientes-home.component.html',
+  styleUrls: ['./pacientes-home.component.scss']
 })
-export class Pagina2Component implements OnInit {
+export class PacientesHomeComponent implements OnInit {
 
   nomeLogin: string | null = ''
 

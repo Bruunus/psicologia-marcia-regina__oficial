@@ -1,9 +1,10 @@
 import { Providers } from './Providers';
 import { AutenticacaoGuard } from './services/autenticacao/autenticacao.guard';
 import { AutenticacaoService } from './login/autenticacao.service';
-import { Pagina2Component } from './pagina2/pagina2.component';
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { PacientesHomeComponent } from './home-pacientes/pacientes-home.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,7 +22,7 @@ import { EndingSessionComponent } from './services/redirecting/ending-session/en
 @NgModule({
   declarations: [
     AppComponent,
-    Pagina2Component,
+    PacientesHomeComponent,
     LoginComponent,
     RedirectComponent,
     Pag3Component,
