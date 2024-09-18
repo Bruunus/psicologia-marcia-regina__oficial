@@ -24,7 +24,7 @@ $color-item-menu: #ca72ca;
 
 .menu-bar-pacientes {
   background-color: cornsilk;
-  height: 70px !important;
+  height: 74.333333px !important;
   border-bottom: 1px solid #e4e4e4c9;
   margin-bottom: 11em;
 
@@ -56,15 +56,67 @@ $color-item-menu: #ca72ca;
 }
 
 .menu-item-link:hover {
-  text-decoration: underline;
+   background-color: #F2F2F2;
+   color: #ca72ca;
 }
+
+// .menu-item-link:active {
+//   background-color: #EAEAEA;
+//   color: #C460C4;
+//   cursor: pointer;
+// }
 
 .nick-name, .link-logout {
   color: $color-item-menu;
 }
 
 
+/* Hover.css */
+/* Underline Reveal */
+.hvr-underline-reveal-psico {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  position: relative;
+  overflow: hidden;
 
+  pointer-events: auto;
+}
+.hvr-underline-reveal-psico:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ca72ca;
+  height: 4px;
+
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.hvr-underline-reveal-psico:hover:before, .hvr-underline-reveal-psico:focus:before, .hvr-underline-reveal-psico:active:before {
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+  transition: none;
+}
+
+.hvr-underline-reveal-psico:active:before {
+  transition: transform 0.3s ease-out; /* Adicionado para manter a transição no estado :active */
+}
+
+.hvr-underline-reveal-psico:active:hover:before {
+  -webkit-transform: translateY(4px); /* Volta para a posição inicial após o clique */
+  transform: translateY(4px);
+}
 
 
 
