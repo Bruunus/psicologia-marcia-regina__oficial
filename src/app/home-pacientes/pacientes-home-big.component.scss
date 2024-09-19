@@ -16,6 +16,7 @@
   //vars
 $color-item-menu: #ca72ca;
 //#66D2D5 - verde da árvore
+//#555555 - grafite
 
 .container-fluid {
   font-family: 'font-sistem';
@@ -55,68 +56,46 @@ $color-item-menu: #ca72ca;
   color: $color-item-menu;
 }
 
-.menu-item-link:hover {
-   background-color: #F2F2F2;
-   color: #ca72ca;
+/* Fade */
+/*********************************************************************************/
+.menu-item-link {
+   display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  overflow: hidden;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+-webkit-transition-property: color, background-color;
+  transition-property: color, background-color
 }
 
-// .menu-item-link:active {
-//   background-color: #EAEAEA;
-//   color: #C460C4;
-//   cursor: pointer;
-// }
+.menu-item-link:hover {
+  background-color: #F2F2F2;
+  color: #BB4ABB !important;
+}
+
+.menu-item-link:active, .menu-item-link:focus {
+  background-color: #F9F9F9;
+  transform: none;
+  transition: none;
+}
+
+.menu-item-link:hover:focus:not(:active) {
+  transition: background-color 0.2s, color 0.2s;
+  background-color: #EEEEEE;
+  color: #BB4ABB;
+}
+/*******************************************************************************/
+
 
 .nick-name, .link-logout {
   color: $color-item-menu;
 }
 
 
-/* Hover.css */
-/* Underline Reveal */
-.hvr-underline-reveal-psico {
-  display: inline-block;
-  vertical-align: middle;
-  -webkit-transform: perspective(1px) translateZ(0);
-  transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-  position: relative;
-  overflow: hidden;
 
-  pointer-events: auto;
-}
-.hvr-underline-reveal-psico:before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #ca72ca;
-  height: 4px;
-
-  -webkit-transform: translateY(4px);
-  transform: translateY(4px);
-  -webkit-transition-property: transform;
-  transition-property: transform;
-  -webkit-transition-duration: 0.2s;
-  transition-duration: 0.2s;
-  -webkit-transition-timing-function: ease-out;
-  transition-timing-function: ease-out;
-}
-.hvr-underline-reveal-psico:hover:before, .hvr-underline-reveal-psico:focus:before, .hvr-underline-reveal-psico:active:before {
-  -webkit-transform: translateY(0);
-  transform: translateY(0);
-  transition: none;
-}
-
-.hvr-underline-reveal-psico:active:before {
-  transition: transform 0.3s ease-out; /* Adicionado para manter a transição no estado :active */
-}
-
-.hvr-underline-reveal-psico:active:hover:before {
-  -webkit-transform: translateY(4px); /* Volta para a posição inicial após o clique */
-  transform: translateY(4px);
-}
 
 
 

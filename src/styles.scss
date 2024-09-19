@@ -6,7 +6,7 @@
 
 }
 
-.no-select-img {
+.no-select-img, .no-select {
 
   pointer-events: none;  /* Impede que a imagem seja arrastada */
     user-select: none;  /* Impede a seleção do conteúdo durante o arraste */

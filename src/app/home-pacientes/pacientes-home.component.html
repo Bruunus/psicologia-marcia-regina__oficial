@@ -8,17 +8,19 @@
     <div class="col-9 col-centro d-flex align-items-center pl-5"  style="background-color: #f9f9f9;">
       <ul class="nav">
         <li class="nav-item">
-          <a class="nav-link menu-item-link hvr-underline-reveal-psico pb-4 pt-4"  [routerLink]="['/pacientes']">Home</a></li>
+          <a class="nav-link menu-item-link pb-4 pt-4"  [routerLink]="['/pacientes']">Home</a></li>
         <li class="nav-item ">
-          <a class="nav-link menu-item-link" href="#">Novo</a></li>
+          <a class="nav-link menu-item-link pb-4 pt-4" href="#">Novo paciente</a></li>
         <li class="nav-item">
-          <a class="nav-link menu-item-link " href="#">Arquivo</a>
+          <a class="nav-link menu-item-link pb-4 pt-4" href="#">Arquivo</a>
         </li>
       </ul>
     </div>
 
-    <div class="col-2 col-esq d-flex align-items-center justify-content-center"  style="background-color: #f9f9f9;">
-      <p class="m-0 nick-name">Olá, {{nomeLogin}}</p>
+    <div class="col-2 col-esq d-flex align-items-center justify-content-center no-select"  style="background-color: #f9f9f9;">
+      <div class="no-select">
+        <p class="m-0 nick-name ">Olá, {{nomeLogin}}</p>
+      </div>
       <a href="#" class="ml-5 link-logout" (click)="logout()">Sair</a>
     </div>
   </div>
