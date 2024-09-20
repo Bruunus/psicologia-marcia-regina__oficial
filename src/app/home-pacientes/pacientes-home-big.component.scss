@@ -21,13 +21,18 @@ $color-item-menu: #ca72ca;
 .container-fluid {
   font-family: 'font-sistem';
   // font-size: 11pt;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 .menu-bar-pacientes {
   background-color: cornsilk;
   height: 74.333333px !important;
   border-bottom: 1px solid #e4e4e4c9;
-  margin-bottom: 11em;
+  margin: 0 !important;
 
 }
 
@@ -93,6 +98,39 @@ $color-item-menu: #ca72ca;
 .nick-name, .link-logout {
   color: $color-item-menu;
 }
+
+
+/* Configurações da parte inferior a tabela */
+.container-inferior {
+  // padding: 0;
+  border: 1px solid red;
+  // // background-color: #fd8d79;
+  width: 98.967% !important;  /* Tamanho calculado do container inferior */
+  // flex: 1;
+  max-height: 88vh;   /* Atenção: Essa é a altura calculada do container da tabela, não pode ser alterada */
+  height: 100% !important;
+  margin: 5px auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // overflow: auto
+
+}
+
+
+.container-table {
+
+  border: 1px solid blue;
+  width: 70%;
+  height: 82%;
+  overflow: auto;
+
+
+}
+
+
+
 
 
 

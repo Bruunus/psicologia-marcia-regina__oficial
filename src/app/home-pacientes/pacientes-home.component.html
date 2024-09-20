@@ -17,39 +17,76 @@
       </ul>
     </div>
 
-    <div class="col-2 col-esq d-flex align-items-center justify-content-center no-select"  style="background-color: #f9f9f9;">
-      <div class="no-select">
-        <p class="m-0 nick-name ">Olá, {{nomeLogin}}</p>
+    <div class="col-2 col-dir d-flex align-items-center  justify-content-center "  style="background-color: #f9f9f9;">
+      <div class="no-select d-flex flex-column justify-content-center">
+        <p class="align-middle m-0 nick-name text-center">Olá, {{nomeLogin}}</p>
       </div>
       <a href="#" class="ml-5 link-logout" (click)="logout()">Sair</a>
     </div>
-  </div>
+
+
+
+
+    </div>
+
+
+
+    <div class="container-inferior">
+
+       <div class="container-table">
+
+
+        <table class="table table-hover ">
+          <thead>
+            <tr>
+              <th colspan="4" style="text-align: center;">Pacientes</th>
+            </tr>
+            <tr>
+              <th>
+                <label for="">Pesquisar</label>
+                <input type="text" name="" id="">
+              </th>
+            </tr>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Handle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colspan="2">Larry the Bird</td>
+              <td>twitter</td>
+            </tr>
 
 
 
 
 
-
-
-  <p>pagina2 works!</p>
-<p><b>Autenticação com sucesso !</b></p>
-
-<!-- <a [routerLink]="['/page3']">Acessar página 3</a> -->
-<br><br>
+          </tbody>
+        </table>
 
 
 
+      </div>
 
-<!-- <a [routerLink]="['/ending-session']">Editar end session</a> -->
-
-
-
+    </div>
 
 
-<br><br>
-
-<img src="../../assets/img/tema-do-sistema.PNG" alt="">
-</div>
 
 
 

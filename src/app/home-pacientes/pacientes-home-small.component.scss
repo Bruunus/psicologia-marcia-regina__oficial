@@ -6,7 +6,7 @@
   .col-centro {
     flex: 0 0 73% !important;
   }
-  .col-esq{
+  .col-dir{
     padding-left: 0;
     padding-right: 0;
     flex: 0 0 18.666667% !important;  // aumento da col para preencher o espaço cedido pleo .col-centro acima
@@ -23,7 +23,7 @@
 
 
   /* Coluna do canto esquerdo do menu */
-  .col-esq{
+  .col-dir{
 
   }
 
@@ -42,7 +42,7 @@
   }
 
   /* Coluna do canto esquerdo do menu */
-  .col-esq{
+  .col-dir{
     padding-left: 0;
     padding-right: 0;
     flex: 0 0 18.666667% !important;  // aumento da col para preencher o espaço cedido pleo .col-centro acima
@@ -60,7 +60,7 @@
     // flex: 0 0 75% !important;
     max-width: 71% !important;
   }
-  .col-esq{
+  .col-dir{
     padding-left: 0;
     padding-right: 0;
     flex: 0 0 16.666667% !important;  // aumento da col para preencher o espaço cedido pleo .col-centro acima

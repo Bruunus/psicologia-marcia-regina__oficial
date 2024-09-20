@@ -33,7 +33,7 @@
   border-radius: 6px;
   background-color: white;
   // box-shadow: 3px 3px 10px #bd96cb54; // old
-  box-shadow: 8px 12px 19px rgba(189, 150, 203, 0.329412);
+  box-shadow: 5px 5px 13px rgba(189, 150, 203, 0.329412) !important;
 }
 
 .div-contorno {
@@ -156,6 +156,7 @@
 
 .img-loading {
   height: 47px;
+  margin-top: 0.7em;
 }
 
 
