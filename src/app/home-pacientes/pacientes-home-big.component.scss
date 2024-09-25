@@ -2,8 +2,6 @@
 * A Regra do media neste projeto é sempre da ordem da mais mais larga à menor
 */
 
-@import '~hover.css/css/hover.css';
-
 @font-face {
   font-family: 'font-sistem';
   src: url('../../assets/fonts/Assistant/static/Assistant-Regular.ttf') format('opentype');
@@ -14,9 +12,11 @@
 
 
   //vars
+$background_color_menu_completo: #EDEDED;
 $color-item-menu: #ca72ca;
 //#66D2D5 - verde da árvore
 //#555555 - grafite
+$color-border-table: #EED4EE;
 
 .container-fluid {
   font-family: 'font-sistem';
@@ -29,7 +29,6 @@ $color-item-menu: #ca72ca;
 }
 
 .menu-bar-pacientes {
-  background-color: cornsilk;
   height: 74.333333px !important;
   border-bottom: 1px solid #e4e4e4c9;
   margin: 0 !important;
@@ -38,7 +37,10 @@ $color-item-menu: #ca72ca;
 
 .menu-bar-pacientes div {
   height: 100%;
+}
 
+.div-filho-esquerdo, .div-filho-centro, .div-filho-direito {
+  background-color: $background_color_menu_completo;
 }
 
 .img-menu {
@@ -54,43 +56,45 @@ $color-item-menu: #ca72ca;
   height: 100%;
   display: flex;
   align-items: center;
-  font-weight: bold;
 
-
-  box-sizing: border-box;
-  color: $color-item-menu;
 }
 
 /* Fade */
 /*********************************************************************************/
 .menu-item-link {
-   display: inline-block;
+  display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  font-weight: bold;
+  box-sizing: border-box;
+  color: $color-item-menu;
   overflow: hidden;
-  -webkit-transition-duration: 0.2s;
-  transition-duration: 0.2s;
+  // -webkit-transition-duration: 0.01s;
+  // transition-duration: 0.01s;
 -webkit-transition-property: color, background-color;
-  transition-property: color, background-color
+  transition-property: color, background-color;
+  background-color: $background_color_menu_completo;
 }
 
+// ao passar o mouse
 .menu-item-link:hover {
-  background-color: #F2F2F2;
-  color: #BB4ABB !important;
+  background-color: #EBEBEB;
+  color: #B744B7 !important;
 }
 
+// ao clicar
 .menu-item-link:active, .menu-item-link:focus {
-  background-color: #F9F9F9;
-  transform: none;
-  transition: none;
+  background-color: $background_color_menu_completo  !important;
+  // transform: none;
+  // transition: none;
 }
 
+// após o clique
 .menu-item-link:hover:focus:not(:active) {
-  transition: background-color 0.2s, color 0.2s;
-  background-color: #EEEEEE;
-  color: #BB4ABB;
+  background-color: #EBEBEB !important; /*igual o hover*/
+  color: #BB4ABB !important;
 }
 /*******************************************************************************/
 
@@ -103,7 +107,7 @@ $color-item-menu: #ca72ca;
 /* Configurações da parte inferior a tabela */
 .container-inferior {
   // padding: 0;
-  border: 1px solid red;
+  // border: 1px solid red;  //{Debug}\\
   // // background-color: #fd8d79;
   width: 98.967% !important;  /* Tamanho calculado do container inferior */
   // flex: 1;
@@ -119,14 +123,67 @@ $color-item-menu: #ca72ca;
 }
 
 
+/* Estilo tabela */
 .container-table {
-
-  border: 1px solid blue;
+  border: 1px solid $color-border-table ;  //{Debug}\\
   width: 70%;
-  height: 82%;
+  height: 90%;
   overflow: auto;
+  border-radius: 4px;
+}
+
+.container-table thead th, .container-table tbody tr, .container-table tbody td, th {
+  border-bottom: 1px solid $color-border-table !important;
+}
+
+.container-table .titulo-tabela {
+  text-align: center;
+  background-color: #F8E7F8;
+  // #E0E6EA; // escolhida
+  color: #782C78;
+  padding: 0.20rem !important;
+}
+
+.titulo-tabela h5 {
+  margin-bottom: .2rem !important; // diminuindo a margen inferior do h5
+}
 
 
+
+.sub-titulo-tabela {
+  background-color: #FAEBFA;
+  color: #782C78 !important;
+}
+
+
+/* hover da tabela */
+.table-hover tbody tr:hover { /* Bootstrap */
+  background-color: #EDEDED !important;
+}
+
+
+
+
+.tr-pesquisa {
+  text-align: right;
+}
+
+
+.tr-pesquisa .input-pesquisar {
+
+}
+
+.tr-pesquisa .botao-pesquisar {
+
+}
+
+
+
+
+
+
+.tabela_pacientes tbody:hover {
+   cursor: pointer;
 }
 
 

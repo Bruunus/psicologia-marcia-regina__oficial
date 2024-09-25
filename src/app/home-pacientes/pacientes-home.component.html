@@ -1,11 +1,11 @@
 <div class="container-fluid">
   <div class="row menu-bar-pacientes">
 
-    <div class="col-1 d-flex align-items-center justify-content-center"  style="background-color: #f9f9f9;">
-      <img src="../../assets/img/img-logo-alfa.png" class=" img-menu no-select-img" alt="">
+    <div class="col-1 d-flex align-items-center justify-content-center div-filho-esquerdo">
+      <a [routerLink]="['/pacientes']"><img src="../../assets/img/img-logo-alfa.png" class=" img-menu no-select-img" alt=""></a>
     </div>
 
-    <div class="col-9 col-centro d-flex align-items-center pl-5"  style="background-color: #f9f9f9;">
+    <div class="col-9 col-centro d-flex align-items-center pl-5 div-filho-centro">
       <ul class="nav">
         <li class="nav-item">
           <a class="nav-link menu-item-link pb-4 pt-4"  [routerLink]="['/pacientes']">Home</a></li>
@@ -20,7 +20,7 @@
       </ul>
     </div>
 
-    <div class="col-2 col-dir d-flex align-items-center  justify-content-center "  style="background-color: #f9f9f9;">
+    <div class="col-2 col-dir d-flex align-items-center  justify-content-center div-filho-direito">
       <div class="no-select d-flex flex-column justify-content-center">
         <p class="align-middle m-0 nick-name text-center">Olá, {{nomeLogin}}</p>
       </div>
@@ -38,31 +38,32 @@
 
        <div class="container-table">
 
-
-        <table class="table table-hover ">
+        <table class="table table-hover tabela_pacientes">
           <thead>
             <tr>
-              <th colspan="4" style="text-align: center;">Pacientes</th>
+              <th colspan="4" class="titulo-tabela"><h5>Pacientes</h5></th>
             </tr>
-            <tr colspan="4" class="" style="
-            text-align: right;
-
-            ">
-              <th colspan="4">
-                <label for="">Pesquisar</label>
-                <input type="text" name="" id="">
-                <button type="button" class="btn">Pesquisar</button>
+            <tr colspan="4" class="tr-pesquisa" >
+              <th colspan="4" >
+                  <div class="row">
+                    <div class="col" style="background-color: tomato;">
+                      <input class="form-control form-control-sm input-pesquisar" type="text" placeholder="Nome paciente">
+                    </div>
+                    <div class="col" style="background-color: brown;">
+                      <button type="button" class="btn btn-primary botao-pesquisar">Pesquisar</button>
+                    </div>
+                  </div>
               </th>
             </tr>
             <tr>
-              <th scope="col">Prontuário</th>
-              <th scope="col">Nome completo</th>
-              <th scope="col">Data último atend.</th>
-              <th scope="col">Perfil</th>
+              <th class="sub-titulo-tabela" scope="col">Prontuário</th>
+              <th class="sub-titulo-tabela" scope="col">Nome completo</th>
+              <th class="sub-titulo-tabela" scope="col">Data último atend.</th>
+              <th class="sub-titulo-tabela" scope="col">Perfil</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr >
               <th scope="row">0001</th>
               <td>Roberto Clarlos Silva</td>
               <td>24/09/2024</td>
