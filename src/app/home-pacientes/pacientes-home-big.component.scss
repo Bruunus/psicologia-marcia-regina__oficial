@@ -108,7 +108,7 @@ $color-border-table: #EED4EE;
 .container-inferior {
   // padding: 0;
   // border: 1px solid red;  //{Debug}\\
-  // // background-color: #fd8d79;
+  // background-color: #fd8d79;
   width: 98.967% !important;  /* Tamanho calculado do container inferior */
   // flex: 1;
   max-height: 88vh;   /* Atenção: Essa é a altura calculada do container da tabela, não pode ser alterada */
@@ -125,18 +125,63 @@ $color-border-table: #EED4EE;
 
 /* Estilo tabela */
 .container-table {
-  border: 1px solid $color-border-table ;  //{Debug}\\
+  border: 1px solid $color-border-table ;  //{Debug}\\  //  cor original
   width: 70%;
-  height: 90%;
-  overflow: auto;
+  height: 88.4%;
+  overflow: none;
   border-radius: 4px;
 }
 
-.container-table thead th, .container-table tbody tr, .container-table tbody td, th {
+
+
+
+/*****
+  TESTE DE TABLEA FIXADA (O CÓDIGO ABAIXO SE NÃO DER CERTO VAI SER DESCARTADO)
+*****/
+// .container-fluid {
+//   // overflow: hidden;
+// }
+// .container-table .tabela_pacientes tbody {
+//   overflow-y: auto;
+//   height: 1106.420px;
+//   max-height: 1106.420px;
+// }
+
+// .container-table .tabela_pacientes thead, tbody, tr, td, th {
+//   display: block !important;
+// }
+
+// .container-table .tabela_pacientes tbody th, td {
+//   float: left;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.container-table .tabela_pacientes thead th {
   border-bottom: 1px solid $color-border-table !important;
 }
 
-.container-table .titulo-tabela {
+.container-table .tabela_pacientes tbody tr, .container-table tbody td, th {
+  border-bottom: 1px solid $color-border-table !important;
+}
+
+.container-table .tabela_pacientes .titulo-tabela {
   text-align: center;
   background-color: #F8E7F8;
   // #E0E6EA; // escolhida
@@ -152,13 +197,13 @@ $color-border-table: #EED4EE;
 
 .sub-titulo-tabela {
   background-color: #FAEBFA;
-  color: #782C78 !important;
+  color: #608FCB !important;
 }
 
 
 /* hover da tabela */
 .table-hover tbody tr:hover { /* Bootstrap */
-  background-color: #EDEDED !important;
+  background-color: #FAEBFA !important;
 }
 
 
@@ -168,14 +213,75 @@ $color-border-table: #EED4EE;
   text-align: right;
 }
 
+.tr-pesquisa th {
+  padding: 0.25rem 0.75rem !important;  /* Bootstrap */
+  background-color: #F8E7F8;
+}
 
+
+.tr-pesquisa .div-row-pesquisar {
+  /* Essa medida é  */
+  margin: 0;
+  padding: 0;
+  background-color: #F8E7F8;
+
+}
+
+/* Estilização do input pesquisar */
 .tr-pesquisa .input-pesquisar {
-
+  width: 200px;
+  margin-right: 15px;
+  border: 1px solid $color-border-table !important; /* Bootstrap */
+}
+.tr-pesquisa .input-pesquisar:focus {
+  box-shadow: none !important;
+  border: 1px solid #d39ad3 !important;
 }
 
+
+/* Estilização do botão pesquisar */
 .tr-pesquisa .botao-pesquisar {
+  // padding: .225rem .75rem !important;  /* Bootstrap */
+  color: #fff;
+  background-color: #77A1D6 !important;
+  border-color: #77A1D6  !important;
+}
+.tr-pesquisa .botao-pesquisar:hover {
+  background-color: #5486c4 !important;
+  border-color: #5486c4  !important;
+}
+// .tr-pesquisa .botao-pesquisar:active {
+//   background-color: #77A1D6 !important;
+//   border-color: #77A1D6 !important;
+//   box-shadow: none !important;
+// }
+
+.tr-pesquisa .botao-pesquisar:disabled, .tr-pesquisa .botao-pesquisar:disabled {
+  color: #fff;
+  background-color: #77A1D6 !important;
+  border-color: #77A1D6  !important;
+}
+.tr-pesquisa .btn-primary:not(:disabled):not(.disabled):active:focus,
+.tr-pesquisa .btn-primary:not(:disabled):not(.disabled).active:focus,
+.tr-pesquisa .show > .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #5486c4;
+  border-color: #396eaf;
+}
+
+.tr-pesquisa .botao-pesquisar:focus {
+  box-shadow: none !important;
 
 }
+
+.tr-pesquisa .botao-pesquisar:active {
+  background-color: #3a70b3 !important;
+  border-color: #3a70b3  !important;
+
+}
+
+
+
 
 
 
@@ -184,6 +290,12 @@ $color-border-table: #EED4EE;
 
 .tabela_pacientes tbody:hover {
    cursor: pointer;
+}
+
+
+/* Estilo registro das linhas da tabela */
+.tabela_pacientes tbody tr th, .tabela_pacientes tbody tr td {
+  color: #000f22 !important;
 }
 
 
