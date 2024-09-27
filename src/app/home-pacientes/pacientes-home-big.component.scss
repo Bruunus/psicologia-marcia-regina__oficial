@@ -124,63 +124,18 @@ $color-border-table: #EED4EE;
 
 
 /* Estilo tabela */
+
 .container-table {
   border: 1px solid $color-border-table ;  //{Debug}\\  //  cor original
   width: 70%;
-  height: 88.4%;
+  height: 88.9%;
   overflow: none;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
+// Cebeçalho da tabelas
 
-
-
-/*****
-  TESTE DE TABLEA FIXADA (O CÓDIGO ABAIXO SE NÃO DER CERTO VAI SER DESCARTADO)
-*****/
-// .container-fluid {
-//   // overflow: hidden;
-// }
-// .container-table .tabela_pacientes tbody {
-//   overflow-y: auto;
-//   height: 1106.420px;
-//   max-height: 1106.420px;
-// }
-
-// .container-table .tabela_pacientes thead, tbody, tr, td, th {
-//   display: block !important;
-// }
-
-// .container-table .tabela_pacientes tbody th, td {
-//   float: left;
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.container-table .tabela_pacientes thead th {
-  border-bottom: 1px solid $color-border-table !important;
-}
-
-.container-table .tabela_pacientes tbody tr, .container-table tbody td, th {
-  border-bottom: 1px solid $color-border-table !important;
-}
-
+// Sessão de titulo
 .container-table .tabela_pacientes .titulo-tabela {
   text-align: center;
   background-color: #F8E7F8;
@@ -194,21 +149,9 @@ $color-border-table: #EED4EE;
 }
 
 
+// Sessão de pesquisa
 
-.sub-titulo-tabela {
-  background-color: #FAEBFA;
-  color: #608FCB !important;
-}
-
-
-/* hover da tabela */
-.table-hover tbody tr:hover { /* Bootstrap */
-  background-color: #FAEBFA !important;
-}
-
-
-
-
+// configurações preliminares
 .tr-pesquisa {
   text-align: right;
 }
@@ -220,14 +163,13 @@ $color-border-table: #EED4EE;
 
 
 .tr-pesquisa .div-row-pesquisar {
-  /* Essa medida é  */
   margin: 0;
   padding: 0;
   background-color: #F8E7F8;
 
 }
 
-/* Estilização do input pesquisar */
+// input
 .tr-pesquisa .input-pesquisar {
   width: 200px;
   margin-right: 15px;
@@ -241,7 +183,6 @@ $color-border-table: #EED4EE;
 
 /* Estilização do botão pesquisar */
 .tr-pesquisa .botao-pesquisar {
-  // padding: .225rem .75rem !important;  /* Bootstrap */
   color: #fff;
   background-color: #77A1D6 !important;
   border-color: #77A1D6  !important;
@@ -250,12 +191,6 @@ $color-border-table: #EED4EE;
   background-color: #5486c4 !important;
   border-color: #5486c4  !important;
 }
-// .tr-pesquisa .botao-pesquisar:active {
-//   background-color: #77A1D6 !important;
-//   border-color: #77A1D6 !important;
-//   box-shadow: none !important;
-// }
-
 .tr-pesquisa .botao-pesquisar:disabled, .tr-pesquisa .botao-pesquisar:disabled {
   color: #fff;
   background-color: #77A1D6 !important;
@@ -279,6 +214,54 @@ $color-border-table: #EED4EE;
   border-color: #3a70b3  !important;
 
 }
+
+
+
+// Sessão corpo da tabela
+
+//  Configurações preliminares
+
+.container-table .tabela_pacientes tbody, thead, tr, th, td {
+  display: block;
+}
+
+/* Ajustes de dimensionamento das colunas e linhas  */
+.container-table .tabela_pacientes thead .tr-topo-tabela th,
+.container-table .tabela_pacientes tbody tr th,
+.container-table .tabela_pacientes tbody tr td  {
+  float: left;
+  width: 25%;
+}
+
+.container-table .tabela_pacientes thead th {
+  border-bottom: 1px solid $color-border-table !important;
+}
+
+.sub-titulo-tabela {
+  background-color: #FAEBFA;
+  color: #608FCB !important;
+}
+
+
+// Corpo da tabela
+
+.container-table .tabela_pacientes tbody {
+  height: 343px !important;
+  overflow-y: auto;
+  width: 100%;
+}
+
+
+
+/* hover da tabela */
+.container-table .tabela_pacientes tbody tr th:hover,
+.container-table .tabela_pacientes tbody tr td:hover { /* Bootstrap */
+  background-color: #a72aa7 !important;
+}
+
+
+
+
 
 
 
