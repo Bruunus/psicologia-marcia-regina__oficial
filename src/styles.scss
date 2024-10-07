@@ -25,3 +25,31 @@
   height: 35px;
   line-height: 1rem !important;
 }
+
+
+/* Sprint */
+
+.container-sprint {
+  margin: 0 auto;
+  width: 50%;
+  margin-top: 5rem;
+}
+
+.sprint {
+  margin-bottom: 2em;
+  width: 100%;
+}
+.sprint thead tr, .sprint tbody tr, .sprint tbody td, .sprint thead th, .sprint thead, .sprint tbody {
+  border: 1px solid lightgrey;
+  border-collapse: collapse;
+}
+.criada { color: tomato; }
+.executando { color: blue; }
+.finalizada {
+text-decoration: line-through;
+color: green;
+background-color: lightgray;
+}
+.rollback {
+color: #dd9001;
+}

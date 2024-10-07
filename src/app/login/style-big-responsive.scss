@@ -161,22 +161,6 @@
 
 
 
-.sprint {
-  margin-bottom: 2em;
-  width: 100%;
-}
-.sprint, tr, td, th, thead, tbody {
-  border: 1px solid lightgrey;
-  border-collapse: collapse;
-}
 
-.criada { color: tomato; }
-.executando { color: blue; }
-.finalizada {
-text-decoration: line-through;
-color: green;
-background-color: lightgray;
-}
-.rollback {
-color: #dd9001;
-}
+
+
