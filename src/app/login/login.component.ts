@@ -24,63 +24,40 @@ export class LoginComponent implements OnInit {
   // Angular services
   formularioDeLogin!: FormGroup;
   subscription: Subscription = new Subscription();
+  token: string | null = localStorage.getItem('token');
 
   private usuarioAutenticado: boolean = false;
-  private estadoMensagem: boolean = false;
   private statusInputFocus: boolean = false;
-  private tentativasDeAcesso: number = 0
-
   private errorMessageServer: string = '';
   protected errorMessageLogin: string = '';
   protected errorMessageSenha: string = '';
   protected errorMessageAutenticacao: string = '';
   protected ativarLoading: boolean = false;
-
-
-
-  token: string | null = localStorage.getItem('token');
-
   protected loginInvalido: boolean = true;
   protected usuario: Usuario = new Usuario();
 
-
-
-
   constructor(
-    private router: Router, private autenticacaoService: AutenticacaoService,
-    private apiAutenticacaoService: ApiAutenticacaoService, private formBuilder: FormBuilder,
-    private error: ErrorService
+    private router: Router, private autenticacaoService: AutenticacaoService
   ) {}
 
 
   ngOnInit(): void {
 
     let token = localStorage.getItem('token');
-    // alert('Pagina de login ativado')
+
     if(token) {
       let usuario = localStorage.getItem('usuario');
-
-
-      console.log('Usuário que fora logado: ',usuario)
+      // console.log('Usuário que fora logado: ',usuario)   //{Debug}\\
       this.autenticacaoService.deslogar(usuario!);
 
       localStorage.removeItem('token');
       localStorage.removeItem('usuario');
 
-      console.log('Teste após remoção do usuário: ',usuario)
-      console.log('Teste após remoção do token: ',token)
+      // console.log('Teste após remoção do usuário: ',usuario)   //{Debug}\\
+      // console.log('Teste após remoção do token: ',token)   //{Debug}\\
 
       this.router.navigate(['ending-session']);
     }
-
-
-
-
-
-
-
-
-
 
     this.formularioDeLogin = new FormGroup({
       login: new FormControl(
@@ -88,44 +65,32 @@ export class LoginComponent implements OnInit {
         [
           Validators.required,
           Validators.maxLength(15)
-
-
         ]
-
       ),
       senha: new FormControl(this.usuario.senha, Validators.required)
     })
 
     this.setupLoginForm();
 
-
   }
 
 
 
-
+   /**
+    * Método de processamento do autenticação de usuário.
+    * @returns
+    */
    onLogin() {
     localStorage.removeItem('token');
-
-
-    // console.log('Entrado em onLogin e deletando token')
-    // localStorage.removeItem('token');
-    // console.log('Teste com token: ', this.token)
-
     this.clearErrorMessage()
 
     let loginValue = this.formularioDeLogin.get('login')!.value;
     let senhaValue = this.formularioDeLogin.get('senha')!.value;
 
     this.usuario.login = loginValue;
-    this.usuario.senha = senhaValue;
+    this.usuario.senha = senhaValue
 
 
-
-    // this.
-
-
-    // precisar finalizar a validação do login
 
     if(this.usuario.login === '' || this.usuario.login === null /* || busca o usuario lá na API */) {
       this.errorMessageLogin = 'Insira o login para acesso';
