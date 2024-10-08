@@ -26,6 +26,7 @@ export class PacientesHomeComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('Inicio do timeout')
+    console.log('Token de sessão: ', localStorage.getItem('token'))
     this.timeoutService.initSessionTimeout();
 
     this.nomeLogin = localStorage.getItem('usuario')

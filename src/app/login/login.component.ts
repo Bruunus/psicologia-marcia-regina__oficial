@@ -43,21 +43,16 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
+    localStorage.removeItem('token');
+    localStorage.removeItem('usuario');
 
-    if(token) {
-      let usuario = localStorage.getItem('usuario');
-      // console.log('Usuário que fora logado: ',usuario)   //{Debug}\\
-      this.autenticacaoService.deslogar(usuario!);
 
-      localStorage.removeItem('token');
-      localStorage.removeItem('usuario');
-
-      // console.log('Teste após remoção do usuário: ',usuario)   //{Debug}\\
-      // console.log('Teste após remoção do token: ',token)   //{Debug}\\
-
-      this.router.navigate(['ending-session']);
+    if(!token) {
+      this.token = null;
+      console.log('Token de sessão: ', token)
     }
+
 
     this.formularioDeLogin = new FormGroup({
       login: new FormControl(
@@ -177,6 +172,7 @@ export class LoginComponent implements OnInit {
   deletarToken() {
     localStorage.removeItem('token');
     location.reload();
+
   }
 
 
