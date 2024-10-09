@@ -36,23 +36,10 @@ export class AutenticacaoService {
         })
   }
 
-
-
-
-
-
-
-  deslogar(usuario: string) {
-    console.log('entrando em deslogar...');
-    this.router.navigate(['ending-session']);
-
-    this.apiAutenticacaoService.apiDeslogar(usuario).then(() => {
-      localStorage.removeItem('token');
-      this.autenticado = false;
-
-    }
-
-  );
+  deslogar() {
+    setTimeout(() => {
+      this.router.navigate(['ending-session']);
+    }, 995);
 
   }
 

@@ -16,9 +16,11 @@ export class ApiAutenticacaoService {
 
   private token: string = '';
 
+  usuarioCache: string = '';
+
   private usuario: Usuario = new Usuario();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private usuarioObjeto: Usuario) {
     const token = localStorage.getItem('token');
     if (token) {
       this.setToken(token);
@@ -37,6 +39,11 @@ export class ApiAutenticacaoService {
           if (response && response.token) {
             localStorage.setItem('token', response.token);
             localStorage.setItem('usuario', usuario.login);
+            const nome:string = usuario.login;
+            this.setNomeUsuarioCache = nome;
+
+
+
             this.setToken(response.token);
 
             console.log(
@@ -91,7 +98,13 @@ apiDeslogar(user: string): Promise<boolean> {
 }
 
 
+get getNomeUsuarioCache(): string {
+  return this.usuarioCache;
+}
 
+set setNomeUsuarioCache(data: string) {
+  this.usuarioCache = data;
+}
 
 
 

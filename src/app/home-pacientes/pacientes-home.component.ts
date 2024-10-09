@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { AutenticacaoService } from '../login/autenticacao.service';
 import { Usuario } from '../login/usuario';
 import { TimeoutService } from '../login/timeout.service';
+import { Router } from '@angular/router';
+import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticacao.service';
+import { CachePbservable } from '../login/cache-observable.service';
 
 
 @Component({
@@ -15,32 +18,29 @@ import { TimeoutService } from '../login/timeout.service';
 })
 export class PacientesHomeComponent implements OnInit {
 
-  nomeLogin: string | null = ''
+  nomeLogin: string | null = '';
 
 
-  constructor(private http: HttpClient, private autenticacaoService: AutenticacaoService, private usuario: Usuario,
-    private timeoutService: TimeoutService
+  constructor(private router: Router, private timeoutService: TimeoutService,
+    private apiAutenticacaoService: ApiAutenticacaoService,
+
   ) {
 
    }
 
   ngOnInit(): void {
-    console.log('Inicio do timeout')
-    console.log('Token de sessão: ', localStorage.getItem('token'))
+    // console.log('Inicio do timeout')
+    // console.log('Token de sessão: ', localStorage.getItem('token'))
     this.timeoutService.initSessionTimeout();
-
-    this.nomeLogin = localStorage.getItem('usuario')
-
-
-
-
+    this.nomeLogin = localStorage.getItem('usuario');
+    // console.log('Teste com o  objeto usuário ', this.usuario.getLogin())
+    // console.log('LocalStorage: ',this.nomeLogin)
   }
 
 
   logout() {
-    let usuario: string = localStorage.getItem('usuario')!;
-    console.log('Valor do usuario dentro do método logout: ', usuario)
-    this.autenticacaoService.deslogar(usuario);
+    this.router.navigate(['ending-session']);
+    this.apiAutenticacaoService.apiDeslogar(this.nomeLogin!); /* Necessário para atualizar o banco em tempo de execução */
   }
 
 
@@ -59,6 +59,8 @@ export class PacientesHomeComponent implements OnInit {
 
 
 
-
+  getNomeUsuarioLogado(): string {
+    return this.nomeLogin!;
+  }
 
 }
