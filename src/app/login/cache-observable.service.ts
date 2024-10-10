@@ -13,10 +13,12 @@ export class CachePbservable {
 
   constructor(private router: Router, private apiAutenticacaoService: ApiAutenticacaoService) {
     window.addEventListener('storage', () => {
-      // const valorChaveExcluida = localStorage.getItem('usuario')!;
-      // this.nomeLogin = valorChaveExcluida;
-      const test = this.apiAutenticacaoService.getNomeUsuarioCache;
-      console.log("Valor do cache da API: ", test)
+
+      // AINDA COM PROBLEMA DE NÃO ESTAR ATUALIZANDO O BANCO DE DADOS
+
+
+
+
 
       const status = this.checkToken();
       if(!status) {
@@ -29,10 +31,12 @@ export class CachePbservable {
             * Observe se a mensagem de erro aparecerá
         */
         alert("Os dados de sessão do sistema foram excluídos. Será necessário fazer login novamente!");
+        this.apiAutenticacaoService.getStatusPollUsuario()
 
-        this.apiAutenticacaoService.apiDeslogar(this.nomeLogin!); /* Necessário para atualizar o banco em tempo de execução */
-        this.router.navigate(['ending-session']);
-      }   // AINDA COM PROBLEMA DE NÃO ESTAR ATUALIZANDO O BANCO DE DADOS
+        // this.router.navigate(['ending-session']);
+
+
+      }
     });
   }
 

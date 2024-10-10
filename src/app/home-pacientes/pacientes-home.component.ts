@@ -6,6 +6,7 @@ import { TimeoutService } from '../login/timeout.service';
 import { Router } from '@angular/router';
 import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticacao.service';
 import { CachePbservable } from '../login/cache-observable.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -19,6 +20,7 @@ import { CachePbservable } from '../login/cache-observable.service';
 export class PacientesHomeComponent implements OnInit {
 
   nomeLogin: string | null = '';
+  subscription: Subscription = Subscription.EMPTY;
 
 
   constructor(private router: Router, private timeoutService: TimeoutService,
@@ -29,12 +31,23 @@ export class PacientesHomeComponent implements OnInit {
    }
 
   ngOnInit(): void {
+
+
+
+
     // console.log('Inicio do timeout')
     // console.log('Token de sessão: ', localStorage.getItem('token'))
     this.timeoutService.initSessionTimeout();
-    this.nomeLogin = localStorage.getItem('usuario');
+    this.nomeLogin = localStorage.getItem('usuario')!;
     // console.log('Teste com o  objeto usuário ', this.usuario.getLogin())
     // console.log('LocalStorage: ',this.nomeLogin)
+    this.subscription = this.apiAutenticacaoService.getStatusPollUsuario().subscribe(
+      (statusLogin: boolean) => {
+        console.log(statusLogin)
+      }
+    )
+
+
   }
 
 
@@ -61,6 +74,15 @@ export class PacientesHomeComponent implements OnInit {
 
   getNomeUsuarioLogado(): string {
     return this.nomeLogin!;
+  }
+
+
+  ngOnDestroy(): void {
+
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+
+    }
   }
 
 }

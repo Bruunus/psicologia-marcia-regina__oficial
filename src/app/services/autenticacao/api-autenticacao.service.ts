@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { AutenticacaoService } from 'src/app/login/autenticacao.service';
 import { Usuario } from 'src/app/login/usuario';
 import { ErrorService } from '../error/error.service';
+import { BehaviorSubject, interval, Observable, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,15 +13,20 @@ export class ApiAutenticacaoService {
 
   private logon: string = 'http://localhost:8080/login';
   private logout: string = 'http://localhost:8080/deslogar';
-  private status: string = 'http://localhost:8080/status-login';
+  private status: string = 'http://localhost:8080/status-login-get';
+
 
   private token: string = '';
 
   usuarioCache: string = '';
 
-  private usuario: Usuario = new Usuario();
+  dadosDoUsuario: { usuario: string } = {usuario: ''};
+  listaDoUsuario: Array<any> ;
+  private listaDoUsuarioSubject = new BehaviorSubject<any[]>([]);
+
 
   constructor(private http: HttpClient, private usuarioObjeto: Usuario) {
+    this.listaDoUsuario = [];
     const token = localStorage.getItem('token');
     if (token) {
       this.setToken(token);
@@ -39,18 +45,23 @@ export class ApiAutenticacaoService {
           if (response && response.token) {
             localStorage.setItem('token', response.token);
             localStorage.setItem('usuario', usuario.login);
-            const nome:string = usuario.login;
-            this.setNomeUsuarioCache = nome;
+
+
+
+            console.log('Lista de usuários após adicionar o novo usuário:', this.listaDoUsuario);
+
+            const usuarioServer = usuario.login;
+            this.usuarioCache = usuarioServer;
 
 
 
             this.setToken(response.token);
 
-            console.log(
-              'Dados de autenticação:\n\n',
-              'token: ',response.token,'\n',
-              'usuario: ',usuario.login
-            )
+            // console.log(
+            //   'Dados de autenticação:\n\n',
+            //   'token: ',response.token,'\n',
+            //   'usuario: ',usuario.login
+            // )
             // const usuarioLogado = localStorage.getItem('usuario');
             // if(usuarioLogado !== null) {
             //   this.usuario.setLogin(usuarioLogado)
@@ -81,6 +92,30 @@ export class ApiAutenticacaoService {
   }
 
 
+getStatusPollUsuario(/*usuarioStorage: string | null*/): Observable<any> {
+
+
+  // const userNameStatus: {} = { "login": usuarioStorage };
+  console.log('Executando o pooling ...' )
+  return interval(1500).pipe(
+    switchMap(() => {
+      return this.http.post<any>(this.status, null).pipe(
+        tap((statusLogin: any) => {
+
+          console.log('Status de autenticação desse usuário do servidor: ', statusLogin)
+          // console.log('Usuario: ', userNameStatus)
+
+          // if(statusLogin === true && localStorage.getItem('token') === null) {
+          //   this.apiDeslogar(userNameStatus)
+          // }
+          // Implemente o código para manipular os equipamentos recebidos
+          // console.log(equipamentos);   //{Debug}\\
+
+        })
+      );
+    })
+  );
+}
 
 
 
@@ -98,9 +133,10 @@ apiDeslogar(user: string): Promise<boolean> {
 }
 
 
-get getNomeUsuarioCache(): string {
+get getNomeUsuarioCache(): string{
   return this.usuarioCache;
 }
+
 
 set setNomeUsuarioCache(data: string) {
   this.usuarioCache = data;
