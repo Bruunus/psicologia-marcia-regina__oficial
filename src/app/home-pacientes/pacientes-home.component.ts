@@ -41,11 +41,11 @@ export class PacientesHomeComponent implements OnInit {
     this.nomeLogin = localStorage.getItem('usuario')!;
     // console.log('Teste com o  objeto usuário ', this.usuario.getLogin())
     // console.log('LocalStorage: ',this.nomeLogin)
-    this.subscription = this.apiAutenticacaoService.getStatusPollUsuario().subscribe(
-      (statusLogin: boolean) => {
-        console.log(statusLogin)
-      }
-    )
+    // this.subscription = this.apiAutenticacaoService.getStatusPollUsuario().subscribe(
+    //   (statusLogin: boolean) => {
+    //     console.log(statusLogin)
+    //   }
+    // )
 
 
   }
@@ -77,12 +77,12 @@ export class PacientesHomeComponent implements OnInit {
   }
 
 
-  ngOnDestroy(): void {
+  // ngOnDestroy(): void {
 
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+  //   if (this.subscription) {
+  //     this.subscription.unsubscribe();
 
-    }
-  }
+  //   }
+  // }
 
 }

@@ -1,10 +1,8 @@
-import { LoginComponent } from './../../login/login.component';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AutenticacaoService } from 'src/app/login/autenticacao.service';
 import { Usuario } from 'src/app/login/usuario';
-import { ErrorService } from '../error/error.service';
-import { BehaviorSubject, interval, Observable, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +11,7 @@ export class ApiAutenticacaoService {
 
   private logon: string = 'http://localhost:8080/login';
   private logout: string = 'http://localhost:8080/deslogar';
-  private status: string = 'http://localhost:8080/status-login-get';
+  private statusUpdate: string = 'http://localhost:8080/status-update';
 
 
   private token: string = '';
@@ -22,10 +20,10 @@ export class ApiAutenticacaoService {
 
   dadosDoUsuario: { usuario: string } = {usuario: ''};
   listaDoUsuario: Array<any> ;
-  private listaDoUsuarioSubject = new BehaviorSubject<any[]>([]);
 
 
-  constructor(private http: HttpClient, private usuarioObjeto: Usuario) {
+
+  constructor(private http: HttpClient, private router: Router) {
     this.listaDoUsuario = [];
     const token = localStorage.getItem('token');
     if (token) {
@@ -92,29 +90,24 @@ export class ApiAutenticacaoService {
   }
 
 
-getStatusPollUsuario(/*usuarioStorage: string | null*/): Observable<any> {
+updateStatusLogoffUsuario(norepete: boolean): void {
 
+  if(!norepete) {
+    console.log("Logoff realizado")
+  } else {
 
-  // const userNameStatus: {} = { "login": usuarioStorage };
-  console.log('Executando o pooling ...' )
-  return interval(1500).pipe(
-    switchMap(() => {
-      return this.http.post<any>(this.status, null).pipe(
-        tap((statusLogin: any) => {
-
-          console.log('Status de autenticação desse usuário do servidor: ', statusLogin)
-          // console.log('Usuario: ', userNameStatus)
-
-          // if(statusLogin === true && localStorage.getItem('token') === null) {
-          //   this.apiDeslogar(userNameStatus)
-          // }
-          // Implemente o código para manipular os equipamentos recebidos
-          // console.log(equipamentos);   //{Debug}\\
-
+    // const userNameStatus: {} = { "login": usuarioStorage };
+    alert('metodo updateStatusLogoffUsuario')
+    this.http.get<any>(this.statusUpdate).pipe(
+        tap((statusLogin: boolean) => {
+          console.log('Status final: ', statusLogin)
+          if(statusLogin)
+            this.router.navigate(['ending-session']);
         })
       );
-    })
-  );
+
+  }
+
 }
 
 
@@ -141,6 +134,7 @@ get getNomeUsuarioCache(): string{
 set setNomeUsuarioCache(data: string) {
   this.usuarioCache = data;
 }
+
 
 
 

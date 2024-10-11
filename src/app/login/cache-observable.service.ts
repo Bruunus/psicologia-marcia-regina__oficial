@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { BehaviorSubject, using } from "rxjs";
+import { BehaviorSubject, Subscription, using } from "rxjs";
 import { ApiAutenticacaoService } from "../services/autenticacao/api-autenticacao.service";
 
 @Injectable({
@@ -10,32 +10,32 @@ export class CachePbservable {
 
   loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   nomeLogin: string | null = '';
+  subscription: Subscription = Subscription.EMPTY;
+  contador: number = 0
+  private updateStatusLogoffCalled = false;
 
-  constructor(private router: Router, private apiAutenticacaoService: ApiAutenticacaoService) {
-    window.addEventListener('storage', () => {
+  constructor(private apiAutenticacaoService: ApiAutenticacaoService) {
 
-      // AINDA COM PROBLEMA DE NÃO ESTAR ATUALIZANDO O BANCO DE DADOS
+    let lastStorageEventTime = 0;
 
-
-
-
-
+    window.addEventListener('storage', (event) => {
+      const currentTime = new Date().getTime();
+      if (currentTime - lastStorageEventTime < 500) {
+        // Se o evento foi disparado há menos de 500ms, ignora-o
+        return;
+      }
+      lastStorageEventTime = currentTime;
       const status = this.checkToken();
-      if(!status) {
-        /* Alerta temporário até a criação das Exceptions de erro */
-        /*
-          Mesmo após a implantação, precisa testar novamente em outros componentes para
-          verificar se está de fato funcionando, o teste é:
-            * Faça login normalmente
-            * Exclua o cache e cokies do navegador
-            * Observe se a mensagem de erro aparecerá
-        */
-        alert("Os dados de sessão do sistema foram excluídos. Será necessário fazer login novamente!");
-        this.apiAutenticacaoService.getStatusPollUsuario()
-
-        // this.router.navigate(['ending-session']);
-
-
+      if (!status) {
+        setTimeout(() => {
+          if (!this.updateStatusLogoffCalled) {
+            alert("Os dados de sessão do sistema foram excluídos. Será necessário fazer login novamente!");
+            this.apiAutenticacaoService.updateStatusLogoffUsuario(true);
+            this.contador++
+            console.log('Repetição do evento: ', this.contador)
+            this.updateStatusLogoffCalled = true;
+          }
+        }, 0);
       }
     });
   }
@@ -52,6 +52,8 @@ export class CachePbservable {
      this.loggedIn.next(true);
      return true;
   }
+
+
 
 
 
