@@ -1,4 +1,4 @@
-import { AutenticacaoService } from './../../login/autenticacao.service';
+import { GerenciadoDeAutenticacaoService } from '../sessao/gerenciador-de-autenticacao.service';
 import { LoginComponent } from '../../login/login.component';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
@@ -11,8 +11,8 @@ export class AutenticacaoGuard  {
   status: boolean = false;
   subscription: Subscription = new Subscription();
 
-  constructor (private autenticacaoService: AutenticacaoService, private router: Router, private cachePbservable: CachePbservable) {
-    this.cachePbservable.checkToken();
+  constructor (private gerenciadorAutenticacaoService: GerenciadoDeAutenticacaoService, private router: Router, private cachePbservable: CachePbservable) {
+
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
@@ -20,14 +20,14 @@ export class AutenticacaoGuard  {
 
       // console.log('status do usuarioAutenticado() dentro do canActivate, ', this.autenticacaoService.getUsuarioAutenticado())
 
-      if(localStorage.getItem('token') === '' || localStorage.getItem('token') === null && this.autenticacaoService.getUsuarioAutenticado()===false) {
+      if(localStorage.getItem('token') === '' || localStorage.getItem('token') === null && this.gerenciadorAutenticacaoService.getUsuarioAutenticado()===false) {
         // console.log('Login incorreto - redirecionando')  //{Debug}\\
         this.router.navigate(['login'])
         return false;
 
       } else {
         // console.log('status do usuarioAutenticado() dentro do canActivate no else --->>> ', this.autenticacaoService.getUsuarioAutenticado())
-
+        // console.log('Mensagem do AutenticacaoGuard: Usuario conseguiu autenticar? ', this.gerenciadorAutenticacaoService.getUsuarioAutenticado())
         return true;
       }
 

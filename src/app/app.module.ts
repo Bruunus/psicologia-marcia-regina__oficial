@@ -1,6 +1,6 @@
 import { Providers } from './Providers';
 import { AutenticacaoGuard } from './services/autenticacao/autenticacao.guard';
-import { AutenticacaoService } from './login/autenticacao.service';
+import { GerenciadoDeAutenticacaoService } from './services/sessao/gerenciador-de-autenticacao.service';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -36,7 +36,7 @@ import { EndingSessionComponent } from './services/redirecting/ending-session/en
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AutenticacaoService, AutenticacaoGuard, Providers],
+  providers: [GerenciadoDeAutenticacaoService, AutenticacaoGuard, Providers],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

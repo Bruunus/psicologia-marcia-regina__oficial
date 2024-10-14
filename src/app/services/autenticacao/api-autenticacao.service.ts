@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Usuario } from 'src/app/login/usuario';
 import { BehaviorSubject, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { GerenciadoDeAutenticacaoService } from '../sessao/gerenciador-de-autenticacao.service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,7 @@ export class ApiAutenticacaoService {
 
 
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService) {
     this.listaDoUsuario = [];
     const token = localStorage.getItem('token');
     if (token) {
@@ -35,7 +36,7 @@ export class ApiAutenticacaoService {
 
   apiAutenticacao(usuario: Usuario): Promise<boolean> {
 
-    // console.log('JSONData antes de enviar:', JSONData);     //{Debug}\\
+    console.log('JSONData antes de enviar:', usuario);     //{Debug}\\
 
     return new Promise<boolean>((resolve, reject) => {
       this.http.post<any>(this.logon, usuario).subscribe(
@@ -43,6 +44,8 @@ export class ApiAutenticacaoService {
           if (response && response.token) {
             localStorage.setItem('token', response.token);
             localStorage.setItem('usuario', usuario.login);
+
+            this.gerenciadoDeAutenticacaoService.setUsuarioAutenticado(true);
 
 
 

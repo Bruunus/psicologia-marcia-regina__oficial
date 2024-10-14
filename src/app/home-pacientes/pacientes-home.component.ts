@@ -1,11 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, Injectable, OnInit } from '@angular/core';
-import { AutenticacaoService } from '../login/autenticacao.service';
-import { Usuario } from '../login/usuario';
-import { TimeoutService } from '../login/timeout.service';
+import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
+import { TimeoutService } from '../services/sessao/timeout.service';
 import { Router } from '@angular/router';
 import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticacao.service';
-import { CachePbservable } from '../login/cache-observable.service';
 import { Subscription } from 'rxjs';
 
 
@@ -25,27 +22,18 @@ export class PacientesHomeComponent implements OnInit {
 
   constructor(private router: Router, private timeoutService: TimeoutService,
     private apiAutenticacaoService: ApiAutenticacaoService,
+    private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService
 
   ) {
 
    }
 
   ngOnInit(): void {
-
-
-
-
     // console.log('Inicio do timeout')
     // console.log('Token de sessão: ', localStorage.getItem('token'))
     this.timeoutService.initSessionTimeout();
     this.nomeLogin = localStorage.getItem('usuario')!;
-    // console.log('Teste com o  objeto usuário ', this.usuario.getLogin())
-    // console.log('LocalStorage: ',this.nomeLogin)
-    // this.subscription = this.apiAutenticacaoService.getStatusPollUsuario().subscribe(
-    //   (statusLogin: boolean) => {
-    //     console.log(statusLogin)
-    //   }
-    // )
+
 
 
   }

@@ -1,3 +1,4 @@
+import { GerenciadoDeAutenticacaoService } from './../../sessao/gerenciador-de-autenticacao.service';
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -11,19 +12,12 @@ import { ApiAutenticacaoService } from '../../autenticacao/api-autenticacao.serv
 })
 export class EndingSessionComponent implements OnInit {
 
-  nomeLogin: string | null = '';
+  nomeLogin: string = '';
 
-  constructor(private router: Router, private apiAutenticacaoService: ApiAutenticacaoService) { }
+  constructor(private router: Router, private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService, private apiAutenticacaoService: ApiAutenticacaoService) { }
 
   ngOnInit(): void {
-    const usuario = localStorage.getItem('usuario');
-    console.log('Usuário LocalStorage: ', usuario)
-    if(this.nomeLogin !== null) {
-      this.nomeLogin = usuario;
-    } else {
-      console.error("Erro ao armazenar o nome de usuário em cache");
-    }
-
+    this.nomeLogin = this.gerenciadoDeAutenticacaoService.getUsuario();
     setTimeout(() => {
       this.logoff();
     }, 995);  // tempo de timeout necessário para carregamento da pag para informar o usuário da sessão encerrada.

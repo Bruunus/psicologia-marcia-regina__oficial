@@ -1,12 +1,9 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { RedirectComponent } from '../services/redirecting/redirect/redirect.component';
-import { BehaviorSubject, interval, Observable, Subscription, takeLast } from 'rxjs';
-import { AutenticacaoService } from './autenticacao.service';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Usuario } from './usuario';
 import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticacao.service';
-import { ErrorService } from '../services/error/error.service';
 
 @Injectable({providedIn: 'root'})
 @Component({
@@ -36,8 +33,7 @@ export class LoginComponent implements OnInit {
   protected loginInvalido: boolean = true;
   protected usuario: Usuario = new Usuario();
 
-  constructor(
-    private router: Router, private autenticacaoService: AutenticacaoService
+  constructor(private router: Router, private apiAutenticacaoService: ApiAutenticacaoService
   ) {}
 
 
@@ -105,7 +101,7 @@ export class LoginComponent implements OnInit {
      else {
 
       this.ativarLoading = true;
-      this.autenticacaoService.fazerLogin(this.usuario);
+      this.apiAutenticacaoService.apiAutenticacao(this.usuario);
 
 
       setTimeout(() => {

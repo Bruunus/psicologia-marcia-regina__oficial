@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { GerenciadoDeAutenticacaoService } from './gerenciador-de-autenticacao.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ export class TimeoutService {
   private timeout: any;
   private readonly SESSION_TIMEOUT = 15 * 60 * 1000;   /* 15 minutos - Tempo padrão usado */
   // private readonly SESSION_TIMEOUT = 10 * 1000;   /* 10 segundos - Para testes*/
-  constructor(private router: Router) {
+
+  constructor(private router: Router, private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService) {
 
    }
 
@@ -21,6 +23,7 @@ export class TimeoutService {
     */
    initSessionTimeout() {
     this.resetSessionTimeout();
+    this.gerenciadoDeAutenticacaoService.initObservadorLocalStorage()
     document.addEventListener('mousemove', () => this.resetSessionTimeout());
     document.addEventListener('keypress', () => this.resetSessionTimeout());
     document.addEventListener('click', () => this.resetSessionTimeout());
