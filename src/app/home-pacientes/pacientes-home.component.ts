@@ -32,7 +32,9 @@ export class PacientesHomeComponent implements OnInit {
     // console.log('Inicio do timeout')
     // console.log('Token de sessão: ', localStorage.getItem('token'))
     this.timeoutService.initSessionTimeout();
-    this.nomeLogin = localStorage.getItem('usuario')!;
+    this.nomeLogin = this.gerenciadoDeAutenticacaoService.getUsuario();
+
+    console.log('Usuario do gerenciador', this.nomeLogin)
 
 
 

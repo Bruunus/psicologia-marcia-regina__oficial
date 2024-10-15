@@ -1,10 +1,5 @@
-import { TimeoutService } from './timeout.service';
-import { ApiAutenticacaoService } from '../autenticacao/api-autenticacao.service';
 import { Router } from '@angular/router';
-import { forwardRef, Inject, Injectable } from '@angular/core';
-import { Usuario } from '../../login/usuario';
-import { interval, Subscription } from 'rxjs';
-import { ErrorService } from '../error/error.service';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +15,7 @@ export class GerenciadoDeAutenticacaoService {
 
 
   initObservadorLocalStorage(): void {
-    window.addEventListener('storage', (event) => {
+    window.addEventListener('storage', () => {
       this.router.navigate(['ending-session']);
     });
     setInterval(() => {
@@ -46,9 +41,9 @@ export class GerenciadoDeAutenticacaoService {
     localStorage.setItem('token', token);
   }
 
-  setUsuario(username: string) {
-    this.usuario = username;
-    localStorage.setItem('username', username);
+  setUsuario(usuario: string) {
+    this.usuario = usuario;
+    localStorage.setItem('usuario', usuario);
   }
 
   setUsuarioAutenticado(status: boolean): void {
@@ -59,7 +54,7 @@ export class GerenciadoDeAutenticacaoService {
     this.token = '';
     this.usuario = '';
     localStorage.removeItem('token');
-    localStorage.removeItem('username');
+    localStorage.removeItem('usuario');
   }
 
 

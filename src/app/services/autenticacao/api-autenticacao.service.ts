@@ -36,39 +36,17 @@ export class ApiAutenticacaoService {
 
   apiAutenticacao(usuario: Usuario): Promise<boolean> {
 
-    console.log('JSONData antes de enviar:', usuario);     //{Debug}\\
-
     return new Promise<boolean>((resolve, reject) => {
       this.http.post<any>(this.logon, usuario).subscribe(
         (response) => {
           if (response && response.token) {
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('usuario', usuario.login);
-
+            const username = response.usuario;
             this.gerenciadoDeAutenticacaoService.setUsuarioAutenticado(true);
+            this.gerenciadoDeAutenticacaoService.setToken(response.token);
+            this.gerenciadoDeAutenticacaoService.setUsuario(usuario.login);
+            console.log('Usuario: ', usuario.login)
 
 
-
-            console.log('Lista de usuários após adicionar o novo usuário:', this.listaDoUsuario);
-
-            const usuarioServer = usuario.login;
-            this.usuarioCache = usuarioServer;
-
-
-
-            this.setToken(response.token);
-
-            // console.log(
-            //   'Dados de autenticação:\n\n',
-            //   'token: ',response.token,'\n',
-            //   'usuario: ',usuario.login
-            // )
-            // const usuarioLogado = localStorage.getItem('usuario');
-            // if(usuarioLogado !== null) {
-            //   this.usuario.setLogin(usuarioLogado)
-            //   console.log('constante: ',usuarioLogado)
-            //   console.log('Objeto Usuario', this.usuario.getLogin())
-            // }
             resolve(true);
             return true;
           } else {

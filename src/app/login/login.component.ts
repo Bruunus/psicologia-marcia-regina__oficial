@@ -102,12 +102,11 @@ export class LoginComponent implements OnInit {
 
       this.ativarLoading = true;
       this.apiAutenticacaoService.apiAutenticacao(this.usuario);
-
+      console.log('[login component] => Enviado para apiAutenticação')
 
       setTimeout(() => {
 
         const token = localStorage.getItem('token');
-
         if(!token) {
 
           this.ativarLoading = false;

@@ -3,7 +3,6 @@ import { LoginComponent } from '../../login/login.component';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { CachePbservable } from 'src/app/login/cache-observable.service';
 
 @Injectable()
 export class AutenticacaoGuard  {
@@ -11,7 +10,7 @@ export class AutenticacaoGuard  {
   status: boolean = false;
   subscription: Subscription = new Subscription();
 
-  constructor (private gerenciadorAutenticacaoService: GerenciadoDeAutenticacaoService, private router: Router, private cachePbservable: CachePbservable) {
+  constructor (private gerenciadorAutenticacaoService: GerenciadoDeAutenticacaoService, private router: Router) {
 
   }
 
