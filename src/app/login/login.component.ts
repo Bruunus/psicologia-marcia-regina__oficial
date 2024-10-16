@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Usuario } from './usuario';
 import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticacao.service';
+import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
 
 @Injectable({providedIn: 'root'})
 @Component({
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
   // Angular services
   formularioDeLogin!: FormGroup;
   subscription: Subscription = new Subscription();
-  token: string | null = localStorage.getItem('token');
+  // token: string | null = localStorage.getItem('token');
 
   private usuarioAutenticado: boolean = false;
   private statusInputFocus: boolean = false;
@@ -33,31 +34,19 @@ export class LoginComponent implements OnInit {
   protected loginInvalido: boolean = true;
   protected usuario: Usuario = new Usuario();
 
-  constructor(private router: Router, private apiAutenticacaoService: ApiAutenticacaoService
-  ) {}
+  constructor(private router: Router, private apiAutenticacaoService: ApiAutenticacaoService,
+    private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService) {}
 
 
   ngOnInit(): void {
-
-    const token = localStorage.getItem('token');
-    localStorage.removeItem('token');
-    localStorage.removeItem('usuario');
-
-
-    if(!token) {
-      this.token = null;
-      console.log('Token de sessão: ', token)
+    this.gerenciadoDeAutenticacaoService.clearUserData();
+    if(!this.gerenciadoDeAutenticacaoService.getToken()) {
+      const token = this.gerenciadoDeAutenticacaoService.setToken(null);
+      // console.log('Token de sessão: ', token) //{Debug}\\
     }
 
-
     this.formularioDeLogin = new FormGroup({
-      login: new FormControl(
-        this.usuario.login,
-        [
-          Validators.required,
-          Validators.maxLength(15)
-        ]
-      ),
+      login: new FormControl(this.usuario.login,[Validators.required, Validators.maxLength(15)]),
       senha: new FormControl(this.usuario.senha, Validators.required)
     })
 
@@ -68,12 +57,13 @@ export class LoginComponent implements OnInit {
 
 
    /**
-    * Método de processamento do autenticação de usuário.
+    * Método de processamento do autenticação de usuário. O primeiro bloco vai seguir com regras de entrada e,
+    * o bloco do else segue com o processamento caso nenhuma das opções seja verdadeira.
     * @returns
     */
    onLogin() {
-    localStorage.removeItem('token');
-    this.clearErrorMessage()
+
+    this.clearErrorMessage();
 
     let loginValue = this.formularioDeLogin.get('login')!.value;
     let senhaValue = this.formularioDeLogin.get('senha')!.value;
@@ -81,9 +71,7 @@ export class LoginComponent implements OnInit {
     this.usuario.login = loginValue;
     this.usuario.senha = senhaValue
 
-
-
-    if(this.usuario.login === '' || this.usuario.login === null /* || busca o usuario lá na API */) {
+    if(this.usuario.login === '' || this.usuario.login === null) {
       this.errorMessageLogin = 'Insira o login para acesso';
       this.errorMessageSenha = '';
       this.errorMessageAutenticacao = '';
@@ -102,11 +90,11 @@ export class LoginComponent implements OnInit {
 
       this.ativarLoading = true;
       this.apiAutenticacaoService.apiAutenticacao(this.usuario);
-      console.log('[login component] => Enviado para apiAutenticação')
 
       setTimeout(() => {
 
-        const token = localStorage.getItem('token');
+        const token = this.gerenciadoDeAutenticacaoService.getToken();
+
         if(!token) {
 
           this.ativarLoading = false;
@@ -148,8 +136,11 @@ export class LoginComponent implements OnInit {
 
 
 
-
-  setupLoginForm(): void {
+  /**
+   * Funcionalidade para regular o input do usuário como regra para aceitar o login somente com
+   * letra minúscula
+   */
+  private setupLoginForm(): void {
     this.formularioDeLogin.get('login')?.valueChanges.subscribe((value: string) => {
       this.formularioDeLogin.get('login')?.patchValue(value.toLowerCase(), { emitEvent: false });
     });

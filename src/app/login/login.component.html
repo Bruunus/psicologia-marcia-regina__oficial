@@ -1,51 +1,33 @@
 <form (ngSubmit)="onLogin()" [formGroup]="formularioDeLogin">
   <div class="container-fluid pai">
     <div class="filho row">
-     <div class="col-12 div-contorno">
-       <div class="col-12">
-         <!-- logo -->
-         <img src="../../assets/img/logo-vertical-img.png" alt="logo" class="img-fluid no-select-img">
-       </div>
-       <div class="col-12">
+      <div class="col-12 div-contorno">
+        <div class="col-12">
+          <!-- logo -->
+          <img src="../../assets/img/logo-vertical-img.png" alt="logo" class="img-fluid no-select-img">
+        </div>
+        <div class="col-12">
+          <input type="text" class="form-control" id="login" aria-describedby="login" placeholder="Login"
+          formControlName="login" name="login" value="bruno" maxlength="8"  (focus)="focusLoginIn()">
 
-         <input type="text" class="form-control" id="login" aria-describedby="login" placeholder="Login"
-         formControlName="login" name="login" value="bruno" maxlength="8"  (focus)="focusLoginIn()"
-         >
+          <input type="password" name="senha" class="form-control" id="senha" aria-describedby="emailHelp"
+          formControlName="senha" placeholder="Senha" value="12345678" maxlength="200" (focus)="focusSenhaIn()">
 
-         <input type="password" name="senha" class="form-control" id="senha" aria-describedby="emailHelp"
-         formControlName="senha" placeholder="Senha" value="12345678" maxlength="200" (focus)="focusSenhaIn()"
-        >
-
-         <button type="submit" class="btn btn-primary btn-login" id="btn-entrar">Entrar</button>
-       </div>
-
-     </div>
-
-    <div class="col-12 error-message"  >
-      {{ errorMessageLogin }}
-      {{ errorMessageSenha }}
-      {{ errorMessageAutenticacao }}
-      <!-- SeuComponente.component.html   -->
-      <div *ngIf="ativarLoading">
-        <img src="../../assets/img/loading.gif" alt="Carregando..." class="img-loading no-select-img" />
+          <button type="submit" class="btn btn-primary btn-login" id="btn-entrar">Entrar</button>
+        </div>
       </div>
-
+      <div class="col-12 error-message">
+        {{ errorMessageLogin }}
+        {{ errorMessageSenha }}
+        {{ errorMessageAutenticacao }}
+        <div *ngIf="ativarLoading">
+          <img src="../../assets/img/loading.gif" alt="Carregando..." class="img-loading no-select-img" />
+        </div>
+      </div>
     </div>
-
-
-
-
-    </div>
-
   </div>
-
-
-
-
 </form>
 
-<button (click)="deletarToken()">Deletar token</button>
-<p><b>Detector de token: </b> {{token}} </p>
 
 <!-- criada -->
 <!-- executando -->
@@ -179,6 +161,23 @@
        a terra
       </td>
       <td>08/out/2024 - 16:25</td>
+    </tr>
+
+    <tr class="criada">
+      <td>
+       Na funcionalidade de registrar /register no servidor ao criar o usuário o campo 'status' no banco está vindo como nulo, não pode,
+       precisa vir como 0
+      </td>
+      <td>15/out/2024 - 19:56
+      </td>
+    </tr>
+
+    <tr class="criada">
+      <td>
+       O outline do button está para cima das telas grandes (casa) principalmente
+      </td>
+      <td>15/out/2024 - 20:36
+      </td>
     </tr>
 
 

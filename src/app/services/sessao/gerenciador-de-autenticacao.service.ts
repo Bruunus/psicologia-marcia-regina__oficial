@@ -18,7 +18,7 @@ export class GerenciadoDeAutenticacaoService {
     window.addEventListener('storage', () => {
       this.router.navigate(['ending-session']);
     });
-    setInterval(() => {
+    setTimeout(() => {
       console.log('Observando LocalStorage com timeout')
     },2500)
   }
@@ -36,7 +36,7 @@ export class GerenciadoDeAutenticacaoService {
     return this.usuarioAutenticado;
   }
 
-  setToken(token: string) {
+  setToken(token: any) {
     this.token = token;
     localStorage.setItem('token', token);
   }

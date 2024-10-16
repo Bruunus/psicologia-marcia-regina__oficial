@@ -25,7 +25,7 @@ export class EndingSessionComponent implements OnInit {
 
   logoff() {
     // console.log('Finalizando sessão'); //{Debug}\\
-    this.apiAutenticacaoService.apiDeslogar(this.nomeLogin!).then(() => {
+    this.apiAutenticacaoService.apiDeslogar(this.nomeLogin).then(() => {
       localStorage.removeItem('token');/*Nunca remover*/
     }
   );

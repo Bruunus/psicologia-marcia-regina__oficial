@@ -99,6 +99,7 @@ apiDeslogar(user: string): Promise<boolean> {
     this.http.post<any>(this.logout, usuario).subscribe(
       (response) => {
         if(response.status === 200) {
+          console.log('Usuario deslogado: ', usuario.login)
           resolve(true);
         }
       }
