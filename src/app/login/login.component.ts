@@ -89,6 +89,7 @@ export class LoginComponent implements OnInit {
      else {
 
       this.ativarLoading = true;
+      console.log(this.usuario)
       this.apiAutenticacaoService.apiAutenticacao(this.usuario);
 
       setTimeout(() => {
