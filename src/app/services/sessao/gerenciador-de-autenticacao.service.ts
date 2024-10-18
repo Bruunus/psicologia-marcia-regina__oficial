@@ -10,7 +10,7 @@ export class GerenciadoDeAutenticacaoService {
   private usuario: string = '';
   private usuarioAutenticado: boolean = false;
 
-  constructor(private router: Router) {  }
+  constructor(private router: Router) { }
 
 
 
