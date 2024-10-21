@@ -64,15 +64,17 @@
 
 /* default login and senha */
 .filho > .div-contorno div:nth-child(2) #login,  .filho > .div-contorno div:nth-child(2) #senha {
+  display: inline;
   width: 100%;
-  height: 2em;
-  padding: 12px;
+  height: 2em !important;
+  padding: 8px 9px;
   color: #523f5a;     //3f3f3f
   font-family: 'font-login', sans-serif;
   border-color: #bd96cb9c;
   outline: none; /* Remove a borda de foco */
   box-shadow: none; /* Remove a sombra de foco */
-  font-size: 17px;
+  font-size: 1rem;
+
 }
 
 /* senha */
