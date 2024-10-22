@@ -2,17 +2,23 @@
   <div class="container-fluid pai">
     <div class="filho row">
       <div class="col-12 div-contorno">
-        <div class="col-12">
-          <!-- logo -->
-          <img src="../../assets/img/logo-vertical-img.png" alt="logo" class="img-fluid no-select-img">
+
+        <div class="col-12">  <!-- :first-child -->
+
+          <img src="../../assets/img/logo-vertical-img.png" alt="logo" class="img-fluid no-select-img">   <!-- logo -->
         </div>
-        <div class="col-12">
 
-          <input type="text" class="form-control text-justify" id="login" aria-describedby="login" placeholder="Login"
-          formControlName="login" name="login" value="bruno" maxlength="8"  (focus)="focusLoginIn()">
+        <div class="col-12"> <!-- :nth-child(2) -->
 
-          <input type="password" name="senha" class="form-control" id="senha" aria-describedby="emailHelp"
-          formControlName="senha" placeholder="Senha" value="12345678" maxlength="200" (focus)="focusSenhaIn()">
+          <div class="input-text-container">
+            <input type="text" class="form-control text-justify" id="login" aria-describedby="login" placeholder="Login"
+            formControlName="login" name="login" value="bruno" maxlength="8"  (focus)="focusLoginIn()">
+          </div>
+
+          <div class="input-password-container">
+            <input type="password" name="senha" class="form-control" id="senha" aria-describedby="emailHelp"
+            formControlName="senha" placeholder="Senha" value="12345678" maxlength="200" (focus)="focusSenhaIn()">
+          </div>
 
           <button type="submit" class="btn btn-primary btn-login" id="btn-entrar">Entrar</button>
         </div>

@@ -48,8 +48,9 @@
 
  /* style img */
 .filho > .div-contorno div:first-child {
-  height: 290px;
+  // height: 290px;
   text-align: center;
+  margin-bottom: 1rem;
 }
 .filho > .div-contorno div:first-child img {
  height: 16.4666666em;
@@ -57,24 +58,51 @@
 }
 
 /* inputs */
-.filho > .div-contorno  div:nth-child(2) {
+
+.input-text-container, .input-password-container {
+  display: flex;
+  align-items: center;
+}
+
+
+
+
+.filho > .div-contorno  div:nth-child(2)   {
   // background-color: #e5fcf5;
-  margin-top: 2em;
+  // margin-top: 2em !important;
 }
 
 /* default login and senha */
-.filho > .div-contorno div:nth-child(2) #login,  .filho > .div-contorno div:nth-child(2) #senha {
-  display: inline;
-  width: 100%;
-  height: 2em !important;
-  padding: 8px 9px;
-  color: #523f5a;     //3f3f3f
-  font-family: 'font-login', sans-serif;
-  border-color: #bd96cb9c;
-  outline: none; /* Remove a borda de foco */
-  box-shadow: none; /* Remove a sombra de foco */
-  font-size: 1rem;
+.filho > .div-contorno div:nth-child(2) .input-text-container #login,
+.filho > .div-contorno div:nth-child(2) .input-password-container #senha {
 
+
+
+
+  // display: inline;
+  // width: 100%;
+  height: 33px !important;
+  line-height: 33px;
+  // box-sizing: border-box; /* Inclui o padding na altura total */
+  // padding: 8px 9px;
+  padding: 10px 6px;
+  // color: #523f5a;     //3f3f3f
+  // font-family: 'font-login', sans-serif;
+  // border-color: #bd96cb9c;
+  // outline: none;      /* Remove a borda de foco */
+  // box-shadow: none;   /* Remove a sombra de foco */
+  // font-size: 1rem;
+
+}
+
+.filho > .div-contorno div:nth-child(2) .input-text-container #login {
+
+}
+
+.filho > .div-contorno div:nth-child(2) .input-password-container #senha {
+  padding: 10px; /* Defina um padding */
+  font-size: 16px; /* Defina um tamanho de fonte */
+  line-height: 33px;
 }
 
 /* senha */
@@ -94,6 +122,16 @@
   color: #999999;
   font-family: 'font-login', sans-serif;
   // font-style: italic;
+}
+
+/* Para lidar com o preenchimento automático */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px white inset; /* Remove o fundo do autofill */
+  box-shadow: 0 0 0 30px white inset; /* Remove o fundo do autofill */
+  transition: background-color 5000s ease-in-out 0s; /* Mantém a cor de fundo */
+  font-family: Arial, sans-serif; /* Defina a fonte desejada */
+  font-size: 16px; /* Defina o tamanho da fonte */
+  line-height: 20px; /* Ajuste o line-height para centralizar verticalmente */
 }
 
 /* submit */
