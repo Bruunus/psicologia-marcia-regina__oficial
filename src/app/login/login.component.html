@@ -1,37 +1,85 @@
 <form (ngSubmit)="onLogin()" [formGroup]="formularioDeLogin">
   <div class="container-fluid pai">
-    <div class="filho row">
-      <div class="col-12 div-contorno">
+    <div class="filho-row row" style="background-color: #7fffd41e; ">
+      <div class="col-12 container-col-form">
 
-        <div class="col-12">  <!-- :first-child -->
+        <div class="row container-form-filho-layout-row">
 
-          <img src="../../assets/img/logo-vertical-img.png" alt="logo" class="img-fluid no-select-img">   <!-- logo -->
-        </div>
-
-        <div class="col-12"> <!-- :nth-child(2) -->
-
-          <div class="input-text-container">
-            <input type="text" class="form-control text-justify" id="login" aria-describedby="login" placeholder="Login"
-            formControlName="login" name="login" value="bruno" maxlength="8"  (focus)="focusLoginIn()">
+          <div class="col-12 container-img" >
+            <img src="../../assets/img/logo-vertical-img.png" alt="logo" id="img-logo" class="img-fluid no-select-img">
           </div>
 
-          <div class="input-password-container">
-            <input type="password" name="senha" class="form-control" id="senha" aria-describedby="emailHelp"
-            formControlName="senha" placeholder="Senha" value="12345678" maxlength="200" (focus)="focusSenhaIn()">
+          <div class="col-12 container-form">
+            <input type="text" class="form-control" name="login" id="login" placeholder="Login" maxlength="8"
+            (focus)="focusLoginIn()" aria-describedby="login" formControlName="login">
+
+            <input type="password" class="form-control" name="Senha" id="senha" placeholder="Senha"
+            (focus)="onFocusPlaceHolder($event)"
+            (blur)="onBlurPlaceHolder($event)"
+            (input)="onInputDetectorLetterSpacing($event)"
+            >
+
+            <button type="submit" class="btn btn-primary btn-login" id="btn-entrar">Entrar</button>
           </div>
 
-          <button type="submit" class="btn btn-primary btn-login" id="btn-entrar">Entrar</button>
+          <div class="col-12 error-message">
+
+            Error test phase
+            {{ errorMessageLogin }}
+            {{ errorMessageSenha }}
+            {{ errorMessageAutenticacao }}
+
+            <div *ngIf="ativarLoading">
+              <img src="../../assets/img/loading.gif" alt="Carregando..." class="img-loading no-select-img" />
+            </div>
+
+          </div>
+
         </div>
-      </div>
-      <div class="col-12 error-message">
-        {{ errorMessageLogin }}
-        {{ errorMessageSenha }}
-        {{ errorMessageAutenticacao }}
-        <div *ngIf="ativarLoading">
-          <img src="../../assets/img/loading.gif" alt="Carregando..." class="img-loading no-select-img" />
-        </div>
-      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <!-- <div class="col-12">
+
+
+          </div>
+
+          <div class="col-12" style="background-color: #f8ebd7;">
+
+            <div class="input-text-container">
+              <input type="text" class=" text-justify " id="login"  name="login" value="bruno" >
+            </div>
+
+            <div class="input-password-container">
+              <input type="password" name="senha" class="form-control" id="senha" aria-describedby="emailHelp"
+              formControlName="senha" placeholder="Senha" value="12345678" maxlength="200" (focus)="focusSenhaIn()">
+            </div>
+
+
+          </div> -->
+
+        <!-- </div> -->
+
+
+      <!-- </div> -->
+
+
     </div>
+
+
+
+    </div>
+
   </div>
 </form>
 

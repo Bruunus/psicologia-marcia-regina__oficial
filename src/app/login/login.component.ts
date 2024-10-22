@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit, TestabilityRegistry } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -146,6 +146,50 @@ export class LoginComponent implements OnInit {
       this.formularioDeLogin.get('login')?.patchValue(value.toLowerCase(), { emitEvent: false });
     });
   }
+
+
+
+
+
+  /**
+   * Adiciona o focused para limpar o input
+   */
+  protected onFocusPlaceHolder(event: Event) {
+    const target = event.target as HTMLInputElement;
+    target.classList.add('focused');
+  }
+
+  protected onBlurPlaceHolder(event: Event) {
+    const target = event.target as HTMLInputElement;
+    target.classList.remove('focused');
+  }
+
+  protected onFocusLetterSpacing(event: Event) {
+    const target = event.target as HTMLInputElement;
+    target.classList.add('letter-spacing'); // Adiciona a classe ao focar
+  }
+
+  protected onBlurLetterSpacing(event: Event) {
+    const target = event.target as HTMLInputElement;
+    // Remove a classe se o input estiver vazio
+    if (target.value === '') {
+      target.classList.remove('letter-spacing');
+    }
+  }
+
+  protected onInputDetectorLetterSpacing(event: Event) {
+    const target = event.target as HTMLInputElement;
+    // Adiciona a classe se houver caracteres, remove se estiver vazio
+    if (target.value.length > 0) {
+      target.classList.add('letter-spacing');
+    } else {
+      target.classList.remove('letter-spacing');
+    }
+  }
+
+
+
+
 
 
 

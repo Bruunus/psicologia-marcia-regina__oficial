@@ -13,25 +13,25 @@
     height: 29em;         // diminuido a altura da caixa
   }
 
-  // /* img */
-  .filho > .div-contorno div:first-child img {
-    height: 13.4666666em;   // diferença de 3em para o largo
-    margin-top: 0.8em;    // diminuido a altura da img
-  }
+  // // /* img */
+  // .filho > .div-contorno div:first-child img {
+  //   height: 13.4666666em;   // diferença de 3em para o largo
+  //   margin-top: 0.8em;    // diminuido a altura da img
+  // }
 
 
-  // /* inputs */
-  .filho > .div-contorno div:nth-child(2) {
-    // background-color: #e5fcf5;
-    height: 11em;
-    margin-top: -3.166666em;
-    font-size: 10px;
-  }
+  // // /* inputs */
+  // .filho > .div-contorno div:nth-child(2) {
+  //   // background-color: #e5fcf5;
+  //   height: 11em;
+  //   margin-top: -3.166666em;
+  //   font-size: 10px;
+  // }
 
-  .filho > .div-contorno div:nth-child(2) #login,  .filho > .div-contorno div:nth-child(2) #senha {
-    height: 30px; // diminuido altura
-    font-size: 1rem;  // diminuido a fonte
-  }
+  // .filho > .div-contorno div:nth-child(2) #login,  .filho > .div-contorno div:nth-child(2) #senha {
+  //   height: 30px; // diminuido altura
+  //   font-size: 1rem;  // diminuido a fonte
+  // }
 
   .filho > .div-contorno div:nth-child(2) #btn-entrar {
     height: 2.1em;
