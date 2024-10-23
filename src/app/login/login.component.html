@@ -10,21 +10,25 @@
           </div>
 
           <div class="col-12 container-form">
-            <input type="text" class="form-control" name="login" id="login" placeholder="Login" maxlength="8"
-            (focus)="focusLoginIn()" aria-describedby="login" formControlName="login">
 
-            <input type="password" class="form-control" name="Senha" id="senha" placeholder="Senha"
-            (focus)="onFocusPlaceHolder($event)"
-            (blur)="onBlurPlaceHolder($event)"
-            (input)="onInputDetectorLetterSpacing($event)"
-            >
+            <div class="form-group">
+              <input type="text" class="form-control" name="login" id="login" placeholder="Login" maxlength="8"
+              (focus)="focusLoginIn()" aria-describedby="login" formControlName="login">
+            </div>
 
-            <button type="submit" class="btn btn-primary btn-login" id="btn-entrar">Entrar</button>
+            <div class="form-group">
+              <input type="password" class="form-control" name="Senha" id="senha" placeholder="Senha" maxlength="200"
+              formControlName="senha" (focus)="focusSenhaIn()">
+            </div>
+
+            <div class="form-group container-btn">
+              <button type="submit" class="btn btn-primary btn-login" id="btn-login">Entrar</button>
+            </div>
+
           </div>
 
-          <div class="col-12 error-message">
+          <div class="col-12 error-message no-select">
 
-            Error test phase
             {{ errorMessageLogin }}
             {{ errorMessageSenha }}
             {{ errorMessageAutenticacao }}
@@ -61,8 +65,8 @@
             </div>
 
             <div class="input-password-container">
-              <input type="password" name="senha" class="form-control" id="senha" aria-describedby="emailHelp"
-              formControlName="senha" placeholder="Senha" value="12345678" maxlength="200" (focus)="focusSenhaIn()">
+              <input type="password"  c aria-describedby="emailHelp"
+              formControlName="senha" placeholder="Senha" value="12345678" >
             </div>
 
 
@@ -88,6 +92,12 @@
 <!-- executando -->
 <!-- finalizada -->
 <!-- rollback -->
+
+
+
+<!--
+
+
 
 
 <table class="sprint"  >
@@ -201,11 +211,12 @@
       <td>07/out/2024 - 16:25</td>
     </tr>
 
-    <tr class="criada">
+    <tr class="finalizada">
       <td>
         A altura dos inputs "Line-height" está muito alta, centralize todas.
       </td>
       <td>08/out/2024 - 16:25</td>
+      <td>23/out/2024 - 16:15</td>
     </tr>
 
     <tr class="criada">
@@ -235,15 +246,11 @@
       </td>
     </tr>
 
-
-
-
-
-
-
   </tbody>
 </table>
 
 
 
 
+
+-->

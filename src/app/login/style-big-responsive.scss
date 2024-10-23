@@ -1,9 +1,4 @@
-@font-face {
-  font-family: 'font-login';
-  src: url('../../assets/fonts/omega/Omega-Light.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
+@import url('../../styles.scss');
 
 
 /**   ../../assets/fonts/omega/Omega-Light.otf
@@ -75,162 +70,108 @@
   max-height: 40% !important;  /* Tamanho proporcional ao container-img */
 }
 
+/**
+* Editando a configuração do bootstrap para modo mais flexível com a aplicação
+*/
+.form-group {
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 0.6rem !important;
+}
+
+.container-btn {
+  // background-color: #ff505085;
+  margin-bottom: 0rem !important; /* Sobrepondo Bootstrap */
+  position: relative !important;
+  top: 0.4666666rem !important;
+}
+
+
+
 
 /* Imagem logo */
-.container-img #img-logo {
+#img-logo {
   height: 14.3666666rem; /* Tamanho oficial da imagem em tela grande */
+  position: relative;
+  top: 0.7rem;
 }
 
-.container-form #login {
+/* Inputs */
+
+#login, #senha {
+  width: 100%;
+  height: 33px !important;
+  color: #714b81 !important;    //3f3f3f
+  border-color: #bd96cb9c;
+  box-shadow: none;   /* Remove a sombra de foco */
+}
+
+#login:focus, #senha:focus {
+
+  border-color: #c199d08a !important;
+  box-shadow: 0 0 10px 0.6px #c199d0c7 !important;
+}
+
+
+
+#login {
   font-family: 'font-login';
+  line-height: 34px;
 }
 
-.container-form #senha.focused::placeholder {
-  color: transparent;
-  letter-spacing: 0.1em;
+#login::placeholder, #senha::placeholder {
+  opacity: 0.9;
 }
 
-.container-form #senha:active {
-  letter-spacing: 0.1em;
+ #senha {
+  font-family: Arial, Helvetica, sans-serif, Times, serif;
+  letter-spacing: 0.1rem;
+  line-height: 33px;
+  box-sizing: border-box !important;
+  color: #714b81;
 }
 
+#senha::placeholder {
+  font-family: 'font-login';
+  letter-spacing: 0rem; /* Remove o letter-spacing do placeholder */
 
+}
 
-
-
-
-
-
-
-
-
-
-//  /* style img */
-
-// .filho > .div-contorno div:first-child {
-//   //
-//   text-align: center;
-//   margin-bottom: 1rem;
-// }
-// .filho > .div-contorno div:first-child img {
-//  height: 16.4666666em;
-//  margin-top: 1em;
-// }
-
-// /* inputs */
-
-// .input-text-container, .input-password-container {
-//   display: flex;
-//   align-items: center;
-// }
-
-
-
-
-// .filho > .div-contorno  div:nth-child(2)   {
-//   // background-color: #e5fcf5;
-//   // margin-top: 2em !important;
-// }
-
-// /* default login and senha */
-// .filho > .div-contorno div:nth-child(2) .input-text-container #login,
-// .filho > .div-contorno div:nth-child(2) .input-password-container #senha {
-
-//   // display: inline;
-//   // width: 100%;
-//   height: 33px !important;
-//   line-height: 33px;
-//   // box-sizing: border-box; /* Inclui o padding na altura total */
-//   // padding: 8px 9px;
-
-//   // color: #523f5a;     //3f3f3f
-//   // font-family: 'font-login', sans-serif;
-//   // border-color: #bd96cb9c;
-//   // outline: none;      /* Remove a borda de foco */
-//   // box-shadow: none;   /* Remove a sombra de foco */
-//   // font-size: 1rem;
-
-// }
-
-// .filho > .div-contorno div:nth-child(2) .input-text-container #login {
-//   padding: 10px 6px;
-//   margin-top: 3rem !important; /* Definição da altura da caixa aqui */
-// }
-
-// .filho > .div-contorno div:nth-child(2) .input-password-container #senha {
-//   padding: 10px; /* Defina um padding */
-//   font-size: 16px; /* Defina um tamanho de fonte */
-
-// }
-
-// /* senha */
-// .filho > .div-contorno div:nth-child(2) #senha {
-//   margin: 0.5em 0 1.5em;
-// }
-
-// /* fucus login and senha */
-// .filho > .div-contorno div:nth-child(2) #login:focus,
-// .filho > .div-contorno div:nth-child(2) #senha:focus {
-//   border-color: #c199d08a;
-//   box-shadow: 0 0 7px 0.4px #c199d0a8;
-// }
-
-// /* placeholder input */
-// .filho > .div-contorno div:nth-child(2) #login::placeholder, textarea::placeholder {
-//   color: #999999;
-//   font-family: 'font-login', sans-serif;
-//   // font-style: italic;
-// }
-
-/* Para lidar com o preenchimento automático */
-// .filho > .div-contorno div:nth-child(2) .input-text-container #login {
-//   // -webkit-box-shadow: 0 0 0 30px white inset; /* Remove o fundo do autofill */
-//   // box-shadow: 0 0 0 30px white inset; /* Remove o fundo do autofill */
-//   // transition: background-color 5000s ease-in-out 0s; /* Mantém a cor de fundo */
-//   // font-family: Arial, sans-serif; /* Defina a fonte desejada */
-//   // font-size: 16px; /* Defina o tamanho da fonte */
-//   // line-height: 20px; /* Ajuste o line-height para centralizar verticalmente */
-
-//   -webkit-user-select: text; /* Para navegadores baseados em WebKit (Safari, Chrome) */
-//      -moz-user-select: text; /* Para o Firefox */
-//       -ms-user-select: text; /* Para o Internet Explorer/Edge */
-//           user-select: text;
-// }
 
 /* submit */
-.filho > .div-contorno div:nth-child(2) #btn-entrar {
+
+#btn-login {
   width: 100%;
   height: 2.5em;
-  font-family: 'font-login', sans-serif;
-  font-weight: bold;
-}
-
-
-.btn-login {
   color: #fff;
   background-color: #e46896 !important;
   border-color: #e46896;
+  font-family: 'font-login', sans-serif;
+  font-weight: bold;
+  line-height: 30px !important;
 }
 
-.btn-login:hover {
+#btn-login:hover {
   color: #fff;
   background-color: #d15f8b !important; // ca5c86
   border-color: #d15f8b !important;
 }
 
-.btn-login:focus, .btn-login.focus {
+#btn-login:focus, #btn-login.focus {
   outline: none;
   box-shadow: none;
 }
 
-.btn-login.disabled, .btn-login:disabled {
+#btn-login.disabled, #btn-login:disabled {
   color: #fff;
   background-color: #cacaca !important;
   border-color: #cacaca !important;
 }
 
-.btn-login:not(:disabled):not(.disabled):active, .btn-login:not(:disabled):not(.disabled).active,
-.show > .btn-login.dropdown-toggle {
+#btn-login:not(:disabled):not(.disabled):active, #btn-login:not(:disabled):not(.disabled).active,
+.show > #btn-login.dropdown-toggle {
   color: #fff;
   background-color: #C2386B !important;
   border-color: #C2386B !important;
@@ -238,18 +179,18 @@
   // border-color: #005cbf;
 }
 
-.btn-login:not(:disabled):not(.disabled):active:focus, .btn-login:not(:disabled):not(.disabled).active:focus,
-.show > .btn-login.dropdown-toggle:focus {
+#btn-login:not(:disabled):not(.disabled):active:focus, #btn-login:not(:disabled):not(.disabled).active:focus,
+.show > #btn-login.dropdown-toggle:focus {
   // box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
-  outline: none;
-  box-shadow: none;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 
 
 .error-message {
   height: 2.6rem !important;
-  background-color: aquamarine;
+  // background-color: aquamarine;
   margin-top: 2.5em;
   text-align: center;
   font-style: italic;
@@ -261,7 +202,7 @@
 
 .img-loading {
   height: 47px;
-  margin-top: 0.7em;
+  margin-top: 0.2em;
 }
 
 

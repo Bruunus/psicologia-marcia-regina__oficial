@@ -1,9 +1,8 @@
-/* ajustes de template */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-
+@font-face {
+  font-family: 'font-login';
+  src: url('../src/assets/fonts/omega/Omega-Light.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 .no-select-img, .no-select {

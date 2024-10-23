@@ -32,13 +32,17 @@ export class LoginComponent implements OnInit {
   protected errorMessageAutenticacao: string = '';
   protected ativarLoading: boolean = false;
   protected loginInvalido: boolean = true;
-  protected usuario: Usuario = new Usuario();
+  protected usuario: Usuario;
 
   constructor(private router: Router, private apiAutenticacaoService: ApiAutenticacaoService,
-    private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService) {}
+    private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService) {
+      this.usuario = new Usuario();
+    }
 
 
   ngOnInit(): void {
+
+
     this.gerenciadoDeAutenticacaoService.clearUserData();
     if(!this.gerenciadoDeAutenticacaoService.getToken()) {
       const token = this.gerenciadoDeAutenticacaoService.setToken(null);
@@ -97,7 +101,6 @@ export class LoginComponent implements OnInit {
         const token = this.gerenciadoDeAutenticacaoService.getToken();
 
         if(!token) {
-
           this.ativarLoading = false;
           this.errorMessageAutenticacao = '';
           this.errorMessageSenha = 'Dados de autenticação inválidos, acesso recusado';
@@ -148,35 +151,6 @@ export class LoginComponent implements OnInit {
   }
 
 
-
-
-
-  /**
-   * Adiciona o focused para limpar o input
-   */
-  protected onFocusPlaceHolder(event: Event) {
-    const target = event.target as HTMLInputElement;
-    target.classList.add('focused');
-  }
-
-  protected onBlurPlaceHolder(event: Event) {
-    const target = event.target as HTMLInputElement;
-    target.classList.remove('focused');
-  }
-
-  protected onFocusLetterSpacing(event: Event) {
-    const target = event.target as HTMLInputElement;
-    target.classList.add('letter-spacing'); // Adiciona a classe ao focar
-  }
-
-  protected onBlurLetterSpacing(event: Event) {
-    const target = event.target as HTMLInputElement;
-    // Remove a classe se o input estiver vazio
-    if (target.value === '') {
-      target.classList.remove('letter-spacing');
-    }
-  }
-
   protected onInputDetectorLetterSpacing(event: Event) {
     const target = event.target as HTMLInputElement;
     // Adiciona a classe se houver caracteres, remove se estiver vazio
@@ -189,15 +163,9 @@ export class LoginComponent implements OnInit {
 
 
 
-
-
-
-
-
   statusAutenticacao() {
     return this.usuarioAutenticado;
   }
-
 
 
   deletarToken() {
