@@ -44,20 +44,16 @@ export class ApiAutenticacaoService {
             this.gerenciadoDeAutenticacaoService.setUsuarioAutenticado(true);
             this.gerenciadoDeAutenticacaoService.setToken(response.token);
             this.gerenciadoDeAutenticacaoService.setUsuario(usuario.login);
-            console.log('Usuario: ', usuario.login)
-
-
+            // console.log('Usuario: ', usuario.login);
             resolve(true);
             return true;
           } else {
+            // console.log('Usuario não autenticado: ', usuario.login)
+            this.gerenciadoDeAutenticacaoService.setUsuarioAutenticado(false);
             resolve(false);
             return false;
           }
-        },
-        (error) => {
-          // reject(error);
-          return false;
-      });
+        });
     })
 
   }

@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { Usuario } from './usuario';
 import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticacao.service';
 import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
+import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
 
 @Injectable({providedIn: 'root'})
 @Component({
@@ -35,13 +36,15 @@ export class LoginComponent implements OnInit {
   protected usuario: Usuario;
 
   constructor(private router: Router, private apiAutenticacaoService: ApiAutenticacaoService,
-    private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService) {
+    private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService,
+    protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev) {
       this.usuario = new Usuario();
     }
 
 
   ngOnInit(): void {
 
+    this.calculadorDeTelaModoDev.atualizarTamanhoTela();
 
     this.gerenciadoDeAutenticacaoService.clearUserData();
     if(!this.gerenciadoDeAutenticacaoService.getToken()) {
@@ -83,7 +86,7 @@ export class LoginComponent implements OnInit {
       return;
 
      } else if(this.usuario.senha === '' || this.usuario.senha === null) {
-      this.errorMessageSenha = 'Insira uma senha';
+      this.errorMessageSenha = 'Insira a senha';
       this.errorMessageLogin = '';
       this.errorMessageAutenticacao = ''
       this.statusInputFocus = false;  // deu submit
@@ -94,13 +97,14 @@ export class LoginComponent implements OnInit {
 
       this.ativarLoading = true;
       console.log(this.usuario)
+
       this.apiAutenticacaoService.apiAutenticacao(this.usuario);
 
       setTimeout(() => {
 
-        const token = this.gerenciadoDeAutenticacaoService.getToken();
+        const statusAutenticacao = this.gerenciadoDeAutenticacaoService.getUsuarioAutenticado();
 
-        if(!token) {
+        if(!statusAutenticacao) {
           this.ativarLoading = false;
           this.errorMessageAutenticacao = '';
           this.errorMessageSenha = 'Dados de autenticação inválidos, acesso recusado';
@@ -108,7 +112,7 @@ export class LoginComponent implements OnInit {
           return;
         }
 
-        else if(token) {
+        else if(statusAutenticacao) {
 
           this.formularioDeLogin.get('login')!.setValue('');
           this.formularioDeLogin.get('senha')!.setValue('');
@@ -119,7 +123,7 @@ export class LoginComponent implements OnInit {
               window.location.reload()
             }, 100);  //   tempo para redirecionamento
 
-            this.router.navigate(['authenticating']);
+            this.router.navigate(['authenticating']);  // sup de guarde de rotas
             console.log(this.usuario)  //{Debug}\\
 
           }, 100);  // tempo para limpar os campos
