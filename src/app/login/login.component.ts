@@ -12,6 +12,7 @@ import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
   selector: 'app-pagina1',
   templateUrl: './login.component.html',
   styleUrls: [
+    './style-default.scss',
     './style-big-responsive.scss',
     './style-middle-responsive.scss',
     './style-small-responsive.scss',
@@ -96,7 +97,7 @@ export class LoginComponent implements OnInit {
      else {
 
       this.ativarLoading = true;
-      console.log(this.usuario)
+      // console.log(this.usuario)    //{Debug}\\
 
       this.apiAutenticacaoService.apiAutenticacao(this.usuario);
 
@@ -107,7 +108,7 @@ export class LoginComponent implements OnInit {
         if(!statusAutenticacao) {
           this.ativarLoading = false;
           this.errorMessageAutenticacao = '';
-          this.errorMessageSenha = 'Dados de autenticação inválidos, acesso recusado';
+          this.errorMessageSenha = 'Dados de autenticação inválidos ou servidor fora do ar, acesso recusado';
           this.errorMessageLogin = '';
           return;
         }
@@ -117,16 +118,16 @@ export class LoginComponent implements OnInit {
           this.formularioDeLogin.get('login')!.setValue('');
           this.formularioDeLogin.get('senha')!.setValue('');
 
+          // Timeout para atualizar e redirecionar
           setTimeout(() => {
             this.ativarLoading = false;
             setTimeout(() => {
               window.location.reload()
-            }, 100);  //   tempo para redirecionamento
+            }, 100);  //   tempo de redirecionamento
+            this.router.navigate(['authenticating']);
+            // console.log(this.usuario)  //{Debug}\\
 
-            this.router.navigate(['authenticating']);  // sup de guarde de rotas
-            console.log(this.usuario)  //{Debug}\\
-
-          }, 100);  // tempo para limpar os campos
+          }, 100);
 
          } else {
           this.ativarLoading = false;

@@ -21,13 +21,13 @@ export class AutenticacaoGuard  {
 
       if(this.gerenciadorAutenticacaoService.getUsuario() === '' || this.gerenciadorAutenticacaoService.getUsuario() === null ||
       this.gerenciadorAutenticacaoService.getToken() === null && this.gerenciadorAutenticacaoService.getUsuarioAutenticado()===false) {
-        console.log('Login incorreto - redirecionando')  //{Debug}\\
+        // console.log('Login incorreto - redirecionando')  //{Debug}\\
         // this.router.navigate(['login'])
         return false;
 
       } else {
-        console.log('status do usuarioAutenticado() dentro do canActivate no else --->>> ', this.gerenciadorAutenticacaoService.getUsuarioAutenticado())
-        console.log('Mensagem do AutenticacaoGuard: Usuario conseguiu autenticar? ', this.gerenciadorAutenticacaoService.getUsuarioAutenticado())
+        // console.log('status do usuarioAutenticado() dentro do canActivate no else --->>> ', this.gerenciadorAutenticacaoService.getUsuarioAutenticado())
+        // console.log('Mensagem do AutenticacaoGuard: Usuario conseguiu autenticar? ', this.gerenciadorAutenticacaoService.getUsuarioAutenticado())
         return true;
       }
 

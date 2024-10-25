@@ -5,6 +5,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'font-home';
+  src: url('../src/assets/fonts/Assistant/static/Assistant-Regular.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .no-select-img, .no-select {
 
   pointer-events: none;  /* Impede que a imagem seja arrastada */

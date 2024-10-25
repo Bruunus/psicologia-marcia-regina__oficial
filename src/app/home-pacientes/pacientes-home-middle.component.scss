@@ -1,10 +1,13 @@
-/**
-* A Regra do media neste projeto é sempre da ordem da mais mais larga à menor
-*/
+@import url('../../styles.scss');
 
-@media(max-width:1601px) and (min-width: 1301px) {
-  // Teste de detecção responsiva
-  // .container-fluid {
-  //   background-color: rgb(214, 171, 114);
-  // }
+/* Estilo para telas grandes e maiores (De 992px até 1200px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+
 }
+
+
+/* Estilo para telas médias e maiores (De 768px até 992px) */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+

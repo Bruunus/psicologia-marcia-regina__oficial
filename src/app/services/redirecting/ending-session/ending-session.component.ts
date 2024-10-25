@@ -29,8 +29,18 @@ export class EndingSessionComponent implements OnInit {
       localStorage.removeItem('token');/*Nunca remover*/
     }
   );
-    this.router.navigate(['login']);
-    window.location.reload();
+
+    // Timeout para atualizar e redirecionar
+    setTimeout(() => {
+      setTimeout(() => {
+        window.location.reload()
+      }, 50);  //   tempo de redirecionamento
+      this.router.navigate(['login']);
+    }, 1);
+
+
+
+    // window.location.reload();
   }
 
 

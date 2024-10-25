@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-pacientes-home',
   templateUrl: './pacientes-home.component.html',
   styleUrls: [
+    './style-default.scss',
     './pacientes-home-big.component.scss',
     'pacientes-home-middle.component.scss',
     'pacientes-home-small.component.scss']

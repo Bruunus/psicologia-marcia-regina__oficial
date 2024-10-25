@@ -1,105 +1,24 @@
 @import url('../../styles.scss');
 
-/* Tela grande */
-@media(max-width:1601px) and (min-width: 1301px) {
-
-  .media {
-    background-color: orange;
+/* Estilo para telas grandes e maiores (De 992px até 1200px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .filho-row {
+    width: 19rem !important;
   }
-
-
-  /* box-login */
-  .filho {
-    width: 21.666666rem;  // diminuido a largura da caixa
-    height: 29em;         // diminuido a altura da caixa
+  #img-logo {
+    height: 12.6666666rem;
   }
-
-  // // /* img */
-  // .filho > .div-contorno div:first-child img {
-  //   height: 13.4666666em;   // diferença de 3em para o largo
-  //   margin-top: 0.8em;    // diminuido a altura da img
-  // }
-
-
-  // // /* inputs */
-  // .filho > .div-contorno div:nth-child(2) {
-  //   // background-color: #e5fcf5;
-  //   height: 11em;
-  //   margin-top: -3.166666em;
-  //   font-size: 10px;
-  // }
-
-  // .filho > .div-contorno div:nth-child(2) #login,  .filho > .div-contorno div:nth-child(2) #senha {
-  //   height: 30px; // diminuido altura
-  //   font-size: 1rem;  // diminuido a fonte
-  // }
-
-  .filho > .div-contorno div:nth-child(2) #btn-entrar {
-    height: 2.1em;
-  }
-
-
-  .img-loading {
-    height: 47px;
-  }
-
-
-  .error-message {
-    margin-top: 2em;
-  }
-
-
-
-
-
 }
 
 
-/* Tela pequena */
-@media(max-width: 1300px) and (min-width: 1199px) {
-
-  .media_pequena {
-    background-color: tomato;
+/* Estilo para telas médias e maiores (De 768px até 992px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .filho-row {
+    width: 17.7rem !important;
   }
 
-  /* box-login */
-  .filho {
-    width: 20.666666rem;  // diminuido a largura da caixa
-    height: 28em;         // diminuido a altura da caixa
+  #img-logo {
+    height: 12.566667rem;
   }
-
-  .filho > .div-contorno div:first-child img {
-    height: 12.8666666em;   // diferença de 3em para o largo
-    margin-top: 0.8em;
-  }
-
-  // /* inputs */
-  .filho > .div-contorno div:nth-child(2) {
-    // background-color: #e5fcf5;
-    height: 11em;
-    margin-top: -4.166666em;
-    font-size: 10px;
-  }
-
-  .filho > .div-contorno div:nth-child(2) #login,  .filho > .div-contorno div:nth-child(2) #senha {
-    height: 29px; // diminuido altura
-    font-size: 15px;  // diminuido a fonte
-  }
-
-  .filho > .div-contorno div:nth-child(2) #btn-entrar {
-    height: 2.1em;  // diminuido altura
-    font-size: 15px;  // diminuido a fonte do button
-  }
-
-
-
-  .error-message {
-    background-color: aquamarine;
-    margin-top: 2em;
-    font-size: 15px;  // diminuido a fonte
-  }
-
-
-
-
 }
+
