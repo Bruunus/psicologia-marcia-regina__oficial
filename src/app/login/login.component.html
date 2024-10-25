@@ -1,26 +1,8 @@
-<span style="
-    height: 45px;
-    position: fixed;
-    bottom: 10px;    /* Autera os lados aqui */
-    left: 10px;   /* Autera os lados aqui */
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    box-shadow: 0 0 0 rgba(6, 12, 2, 0.5);
-">   <!-- Teste responsividade -->
-  <p>LxA: <b>{{ this.calculadorDeTelaModoDev.largura }}</b><small>px</small> x
-    <b>{{ this.calculadorDeTelaModoDev.altura }}</b><small>px</small></p>
-</span>
 <form (ngSubmit)="onLogin()" [formGroup]="formularioDeLogin">
   <div class="container-fluid pai">
-
     <div class="filho-row row" style="background-color: #7fffd41e; ">
-
       <div class="col-12 container-col-form">
-
         <div class="row container-form-filho-layout-row">
-
 
           <div class="col-12 container-img" >
             <img src="../../assets/img/logo-vertical-img.png" alt="logo" id="img-logo" class="img-fluid no-select-img">
@@ -45,66 +27,18 @@
           </div>
 
           <div class="col-12 error-message no-select">
-
             {{ errorMessageLogin }}
             {{ errorMessageSenha }}
             {{ errorMessageAutenticacao }}
-
             <div *ngIf="ativarLoading">
               <img src="../../assets/img/loading.gif" alt="Carregando..." class="img-loading no-select-img" />
             </div>
-
           </div>
 
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          <!-- <div class="col-12">
-
-
-          </div>
-
-          <div class="col-12" style="background-color: #f8ebd7;">
-
-            <div class="input-text-container">
-              <input type="text" class=" text-justify " id="login"  name="login" value="bruno" >
-            </div>
-
-            <div class="input-password-container">
-              <input type="password"  c aria-describedby="emailHelp"
-              formControlName="senha" placeholder="Senha" value="12345678" >
-            </div>
-
-
-          </div> -->
-
-        <!-- </div> -->
-
-
-      <!-- </div> -->
-
-
+      </div>
     </div>
-
-
-
-    </div>
-
-
   </div>
-
 </form>
 
 

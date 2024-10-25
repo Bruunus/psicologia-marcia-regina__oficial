@@ -4,6 +4,7 @@ import { TimeoutService } from '../services/sessao/timeout.service';
 import { Router } from '@angular/router';
 import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticacao.service';
 import { Subscription } from 'rxjs';
+import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
 
 
 @Component({
@@ -23,13 +24,15 @@ export class PacientesHomeComponent implements OnInit {
 
   constructor(private router: Router, private timeoutService: TimeoutService,
     private apiAutenticacaoService: ApiAutenticacaoService,
-    private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService
+    private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService,
+    protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev
 
   ) {
 
    }
 
   ngOnInit(): void {
+    this.calculadorDeTelaModoDev.atualizarTamanhoTela();
     // console.log('Inicio do timeout')
     // console.log('Token de sessão: ', localStorage.getItem('token'))
     this.timeoutService.initSessionTimeout();

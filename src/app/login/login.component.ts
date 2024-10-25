@@ -1,11 +1,10 @@
-import { Component, Injectable, OnInit, TestabilityRegistry } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Usuario } from './usuario';
 import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticacao.service';
 import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
-import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
 
 @Injectable({providedIn: 'root'})
 @Component({
@@ -37,15 +36,12 @@ export class LoginComponent implements OnInit {
   protected usuario: Usuario;
 
   constructor(private router: Router, private apiAutenticacaoService: ApiAutenticacaoService,
-    private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService,
-    protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev) {
+    private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService) {
       this.usuario = new Usuario();
     }
 
 
   ngOnInit(): void {
-
-    this.calculadorDeTelaModoDev.atualizarTamanhoTela();
 
     this.gerenciadoDeAutenticacaoService.clearUserData();
     if(!this.gerenciadoDeAutenticacaoService.getToken()) {
