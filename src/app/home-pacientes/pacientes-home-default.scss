@@ -118,7 +118,7 @@ $color-border-table: #EED4EE;
 
 .container-table {
   border: 1px solid $color-border-table ;  //{Debug}\\  //  cor original
-  width: 70%;
+  width: 88%;
   height: 88.9%;
   overflow: none;
   // border-radius: 2px;
@@ -160,6 +160,12 @@ $color-border-table: #EED4EE;
   padding: 0;
   background-color: #F8E7F8;
 
+}
+
+.tr-pesquisa .div-row-pesquisar form {
+  display: flex;
+  width: 100% !important;
+  justify-content: end;
 }
 
 // input
@@ -249,8 +255,39 @@ $color-border-table: #EED4EE;
 }
 
 .sub-titulo-tabela {
+  padding: .75rem .0rem !important; /* Alterado padrão de layout bootstrap */
   background-color: #FAEBFA;
   color: #608FCB !important;
+
+}
+
+
+
+/* Texto-título das th's (Posições) */
+.sub-titulo-tabela .prontuario_Titulo {
+  margin-left: .70rem;
+  // background-color: burlywood;
+}
+
+.sub-titulo-tabela .nomeCompleto_Titulo {
+  margin-left: 0.6rem;
+  // background-color: burlywood;
+}
+
+.sub-titulo-tabela .dataUltimoAtend_titulo {
+  margin-left: 0.3666666rem;
+  // background-color: burlywood;
+}
+
+.sub-titulo-tabela .perfil_titulo {
+  margin-left: 0.3rem;
+  // background-color: burlywood;
+}
+
+
+.tabela_pacientes thead tr th span:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .tabela_pacientes tbody tr:hover {
@@ -289,7 +326,7 @@ $color-border-table: #EED4EE;
   // }
 
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
   }
 
   /* Track */

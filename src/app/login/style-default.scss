@@ -21,7 +21,7 @@
   border-radius: 6px;
   background-color: white;
   // box-shadow: 3px 3px 10px #bd96cb54; // old
-  box-shadow: 5px 5px 13px rgba(189, 150, 203, 0.486) !important;
+  box-shadow: 5px 5px 13px #bd96cb7c !important;
 }
 
 
@@ -104,8 +104,8 @@
 
 #login:focus, #senha:focus {
 
-  border-color: #c199d08a !important;
-  box-shadow: 0 0 10px 0.6px #c199d0c7 !important;
+  // border: 1px solid #bd96cb9c !important;
+  box-shadow: 0px 0px 5.6px 2px #bd96cb96 !important;
 }
 
 

@@ -5,13 +5,16 @@ import { Router } from '@angular/router';
 import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticacao.service';
 import { Subscription } from 'rxjs';
 import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { PesquisaPaciente } from '../model/pesquisa-paciente';
+import { ErrorComponent } from '../services/error/error.component';
 
 
 @Component({
   selector: 'app-pacientes-home',
   templateUrl: './pacientes-home.component.html',
   styleUrls: [
-    './style-default.scss',
+    './pacientes-home-default.scss',
     './pacientes-home-big.component.scss',
     'pacientes-home-middle.component.scss',
     'pacientes-home-small.component.scss']
@@ -20,15 +23,19 @@ export class PacientesHomeComponent implements OnInit {
 
   nomeLogin: string | null = '';
   subscription: Subscription = Subscription.EMPTY;
+  pesquisaDePaciente!: FormGroup;
+  pesquisaPaciente: PesquisaPaciente;
 
 
-  constructor(private router: Router, private timeoutService: TimeoutService,
+  constructor(
+    private router: Router, private timeoutService: TimeoutService,
     private apiAutenticacaoService: ApiAutenticacaoService,
     private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService,
+    private errorComponent: ErrorComponent,
     protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev
 
   ) {
-
+    this.pesquisaPaciente = new PesquisaPaciente();
    }
 
   ngOnInit(): void {
@@ -37,8 +44,11 @@ export class PacientesHomeComponent implements OnInit {
     // console.log('Token de sessão: ', localStorage.getItem('token'))
     this.timeoutService.initSessionTimeout();
     this.nomeLogin = this.gerenciadoDeAutenticacaoService.getUsuario();
+    // console.log('Usuario do gerenciador', this.nomeLogin)
 
-    console.log('Usuario do gerenciador', this.nomeLogin)
+    this.pesquisaDePaciente = new FormGroup({
+      pesquisa: new FormControl(this.pesquisaPaciente.parametro, [Validators.required, Validators.maxLength(15)])
+    });
 
 
 
@@ -51,17 +61,6 @@ export class PacientesHomeComponent implements OnInit {
   }
 
 
-  // getFrutas() {
-  //   this.http.get<any[]>('http://localhost:8080/api/list').subscribe(
-  //     response => {
-  //       this.frutas = response;
-  //     },
-  //     error => {
-
-  //       console.error(error);
-  //     }
-  //   );
-  // }
 
 
 
@@ -71,12 +70,21 @@ export class PacientesHomeComponent implements OnInit {
   }
 
 
-  // ngOnDestroy(): void {
+  protected procurarPaciente(): void {
 
-  //   if (this.subscription) {
-  //     this.subscription.unsubscribe();
+    if(this.pesquisa === null || this.pesquisa === '') {
 
-  //   }
-  // }
+    } else {
+      console.log(this.pesquisa)
+    }
+
+  }
+
+
+
+  get pesquisa(): string {
+    // o valro de pesquisa já é adicionar não dependendo de passar o value
+    return this.pesquisaDePaciente.get('pesquisa')!.value;
+  }
 
 }

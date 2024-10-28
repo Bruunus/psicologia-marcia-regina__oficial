@@ -8,7 +8,8 @@ import { GerenciadoDeAutenticacaoService } from './gerenciador-de-autenticacao.s
 export class TimeoutService {
 
   private timeout: any;
-  private readonly SESSION_TIMEOUT = 15 * 60 * 1000;   /* 15 minutos - Tempo padrão usado */
+  private readonly SESSION_TIMEOUT = 30 * 60 * 1000; // Timeout de 30 minutos em milissegundos - Tempo padrão usado
+  // private readonly SESSION_TIMEOUT = 15 * 60 * 1000;   /* 15 minutos  */
   // private readonly SESSION_TIMEOUT = 10 * 1000;   /* 10 segundos - Para testes*/
 
   constructor(private router: Router, private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService) {

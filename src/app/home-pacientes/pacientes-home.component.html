@@ -26,7 +26,7 @@
       <a [routerLink]="['/pacientes']"><img src="../../assets/img/img-logo-alfa.png" class=" img-menu no-select-img" alt=""></a>
     </div>
 
-    <div class="col-9 col-centro d-flex align-items-center pl-5 div-filho-centro">
+    <div class="col-lg-8 col-xl-8 col-sm-7 col-centro d-flex align-items-center pl-5 div-filho-centro">
       <ul class="nav">
         <li class="nav-item">
           <a class="nav-link menu-item-link pb-4 pt-4"  [routerLink]="['/pacientes']">Home</a></li>
@@ -41,7 +41,7 @@
       </ul>
     </div>
 
-    <div class="col-2 col-dir d-flex align-items-center  justify-content-center div-filho-direito">
+    <div class=" col-lg-3 col-xl-3 col-sm-4 col-dir d-flex align-items-center  justify-content-center div-filho-direito">
       <div class="no-select d-flex flex-column justify-content-center">
         <p class="align-middle m-0 nick-name text-center">Olá, {{nomeLogin}}</p>
       </div>
@@ -65,26 +65,29 @@
             </tr>
             <tr colspan="4" class="tr-pesquisa" >
               <th colspan="4" >
-                  <div class="row d-flex div-row-pesquisar align-items-center justify-content-end" style="">
-                      <input class="form-control form-control input-system-psico input-pesquisar" type="text" placeholder="Paciente">
-                      <button type="button" class="btn btn-primary btn-system-psico botao-pesquisar">Pesquisar</button>
-                  </div>
+                <div class="row d-flex div-row-pesquisar align-items-center justify-content-end" style="">
+                  <form (ngSubmit)="procurarPaciente()" [formGroup]="pesquisaDePaciente">
+                    <input class="form-control form-control input-system-psico input-pesquisar" type="text"
+                    placeholder="Paciente" formControlName="pesquisa">
+                    <button type="submit" class="btn btn-primary btn-system-psico botao-pesquisar" >Pesquisar</button>
+                  </form>
+                </div>
               </th>
             </tr>
-            <tr class="no-select tr-topo-tabela" style="background-color: #f1f1f1;">
-              <th class="sub-titulo-tabela" scope="col">Prontuário</th>
-              <th class="sub-titulo-tabela" scope="col">Nome completo</th>
-              <th class="sub-titulo-tabela" scope="col">Data último atend.</th>
-              <th class="sub-titulo-tabela" scope="col">Perfil</th>
+            <tr class="tr-topo-tabela" style="background-color: #f1f1f1;">
+              <th class="sub-titulo-tabela" scope="col"><span class="prontuario_Titulo">Prontuário</span></th>
+              <th class="sub-titulo-tabela" scope="col"><span class="nomeCompleto_Titulo">Nome completo</span></th>
+              <th class="sub-titulo-tabela" scope="col"><span class="dataUltimoAtend_titulo">Data último atendimento</span></th>
+              <th class="sub-titulo-tabela" scope="col"><span class="perfil_titulo">Perfil</span></th>
             </tr>
           </thead>
 
           <tbody>
             <tr>
-              <th scope="row">0001</th>
-              <td>Roberto Clarlos Silva</td>
-              <td>24/09/2024</td>
-              <td>Psicoterapia</td>
+              <th scope="row"><span style="">0001</span></th>
+              <td><span style="">Roberto Clarlos Silva</span></td>
+              <td><span style="">24/09/2024</span></td>
+              <td><span style="">Psicoterapia</span></td>
             </tr>
             <tr>
               <th scope="row">0002</th>
@@ -157,6 +160,13 @@
 
     </div>
 
+    <div class="alert alert-danger" role="alert">
+      This is a danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+      <br>
+      bleble
+      <br>
+      blabla
+    </div>
 
 
 
@@ -165,6 +175,7 @@
 <!-- executando -->
 <!-- finalizada -->
 <!-- rollback -->
+
 
 <div class="container-sprint">
 
@@ -203,12 +214,13 @@
         </td>
         <td>07/out/2024 - 19:00</td>
       </tr>
-      <tr class="rollback">
+      <tr class="finalizada">
         <td>
           <b>Tabela</b><br>
           Realize todos os ajustes responsivos da tela de pacientes
         </td>
         <td>07/out/2024 - 19:00</td>
+        <td>28/out/2024 - 11:21</td>
       </tr>
       <tr class="rollback">
         <td>
@@ -231,15 +243,28 @@
           <b>Tabela</b><br>
           Implante a funcionalidade da tabela dinamica (a mesma que voce implantou na tabela de dentista do DentalClean) para quando clicar
           na descrição seja ordenado a lista novamente em ordem alfabética, assim por diante de acordo com cada descrição.
+          <br>
+          <b>Resposta:</b> Vamos deixar em análize e aguardo por enquanto, ao que pacere esse efeito só acontece em modo
+          desenvolvimento e quando aumentamos a porcentagem do devtools. (Analizado em: 28/10/2024)
         </td>
         <td>07/out/2024 - 19:00</td>
+
       </tr>
       <tr class="rollback">
         <td>
           <b>Tabela</b><br>
           Ajustar a cor do hover das trs da tabela, está muito forte igual a própria cor da tabela
+          (Somente em casa)
         </td>
         <td>07/out/2024 - 19:00</td>
+      </tr>
+
+      <tr class="criada">
+        <td>
+          <b>Tabela</b><br>
+
+        </td>
+        <td>28/out/2024 - 11:31</td>
       </tr>
 
 

@@ -16,6 +16,7 @@ import { RedirectComponent } from './services/redirecting/redirect/redirect.comp
 import { Pag3Component } from './pag3/pag3.component';
 import { RedirectingComponent } from './services/redirecting/redirecting.component';
 import { EndingSessionComponent } from './services/redirecting/ending-session/ending-session.component';
+import { ErrorComponent } from './services/error/error.component';
 
 
 
@@ -27,7 +28,8 @@ import { EndingSessionComponent } from './services/redirecting/ending-session/en
     RedirectComponent,
     Pag3Component,
     RedirectingComponent,
-    EndingSessionComponent
+    EndingSessionComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

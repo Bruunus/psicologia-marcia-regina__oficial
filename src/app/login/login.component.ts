@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.formularioDeLogin = new FormGroup({
-      login: new FormControl(this.usuario.login,[Validators.required, Validators.maxLength(15)]),
+      login: new FormControl(this.usuario.login,[Validators.required, Validators.maxLength(15)]), //Isso significa que, ao criar o formulário, o campo login será preenchido com o valor atual da propriedade login do objeto usuario.
       senha: new FormControl(this.usuario.senha, Validators.required)
     })
 
