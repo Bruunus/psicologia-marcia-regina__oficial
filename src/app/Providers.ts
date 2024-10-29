@@ -5,10 +5,11 @@ import { NgModule } from "@angular/core";
 import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
 import { PesquisaPaciente } from './model/pesquisa-paciente';
 import { ErrorComponent } from './services/error/error.component';
+import { ErrorService } from './services/error/error.service';
 
 @NgModule({
   providers: [
-    ApiAutenticacaoService, Usuario, TimeoutService, PesquisaPaciente, ErrorComponent, CalculadorDeTelaModoDev
+    ApiAutenticacaoService, Usuario, TimeoutService, PesquisaPaciente, ErrorService, ErrorComponent, CalculadorDeTelaModoDev
   ]
 })
 export class Providers {}

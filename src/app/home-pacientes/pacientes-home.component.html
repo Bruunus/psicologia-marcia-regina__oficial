@@ -68,7 +68,7 @@
                 <div class="row d-flex div-row-pesquisar align-items-center justify-content-end" style="">
                   <form (ngSubmit)="procurarPaciente()" [formGroup]="pesquisaDePaciente">
                     <input class="form-control form-control input-system-psico input-pesquisar" type="text"
-                    placeholder="Paciente" formControlName="pesquisa">
+                    placeholder="Paciente" formControlName="pesquisa" (focus)="onCloseMessage()">
                     <button type="submit" class="btn btn-primary btn-system-psico botao-pesquisar" >Pesquisar</button>
                   </form>
                 </div>
@@ -160,13 +160,7 @@
 
     </div>
 
-    <div class="alert alert-danger" role="alert">
-      This is a danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-      <br>
-      bleble
-      <br>
-      blabla
-    </div>
+
 
 
 

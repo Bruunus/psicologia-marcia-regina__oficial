@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RedirectComponent } from './services/redirecting/redirect/redirect.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Pag3Component } from './pag3/pag3.component';
 import { RedirectingComponent } from './services/redirecting/redirecting.component';
@@ -36,7 +37,8 @@ import { ErrorComponent } from './services/error/error.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [GerenciadoDeAutenticacaoService, AutenticacaoGuard, Providers],
   bootstrap: [AppComponent]

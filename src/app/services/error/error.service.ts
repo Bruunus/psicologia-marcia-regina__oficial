@@ -1,11 +1,38 @@
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorService {
 
+  // mensagens de erros
+  ERROR_SEACH_PATIENT: string = 'Não foi possível encontrar o paciente';
 
+
+  private errorSubject = new Subject<string>();
+  private closeSubject = new Subject<void>();
+
+  public error$ = this.errorSubject.asObservable();
+  close$ = this.closeSubject.asObservable();
+
+
+
+  constructor() { }
+
+
+
+  showError(errorMessage: string) {
+    this.errorSubject.next(errorMessage);
+  }
+
+  // getError(): Observable<string> {
+  //   return this.errorSubject.asObservable();
+  // }
+
+  closeError() {
+    this.closeSubject.next(); // Notifica que o erro deve ser fechado
+  }
 
 
 

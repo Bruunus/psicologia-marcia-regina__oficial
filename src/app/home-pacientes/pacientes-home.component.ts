@@ -1,13 +1,14 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
 import { TimeoutService } from '../services/sessao/timeout.service';
 import { Router } from '@angular/router';
 import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticacao.service';
 import { Subscription } from 'rxjs';
 import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PesquisaPaciente } from '../model/pesquisa-paciente';
 import { ErrorComponent } from '../services/error/error.component';
+import { ErrorService } from '../services/error/error.service';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class PacientesHomeComponent implements OnInit {
     private apiAutenticacaoService: ApiAutenticacaoService,
     private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService,
     private errorComponent: ErrorComponent,
+    private errorService: ErrorService,
     protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev
 
   ) {
@@ -52,6 +54,8 @@ export class PacientesHomeComponent implements OnInit {
 
 
 
+
+
   }
 
 
@@ -60,6 +64,9 @@ export class PacientesHomeComponent implements OnInit {
     this.apiAutenticacaoService.apiDeslogar(this.nomeLogin!); /* Necessário para atualizar o banco em tempo de execução */
   }
 
+  onCloseMessage(): void {
+    this.errorService.closeError()
+  }
 
 
 
@@ -73,7 +80,7 @@ export class PacientesHomeComponent implements OnInit {
   protected procurarPaciente(): void {
 
     if(this.pesquisa === null || this.pesquisa === '') {
-
+      this.errorService.showError(this.errorService.ERROR_SEACH_PATIENT);
     } else {
       console.log(this.pesquisa)
     }
