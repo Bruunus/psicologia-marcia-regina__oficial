@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Usuario } from 'src/app/login/usuario';
-import { BehaviorSubject, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { GerenciadoDeAutenticacaoService } from '../sessao/gerenciador-de-autenticacao.service';
 
@@ -36,7 +36,7 @@ export class ApiAutenticacaoService {
 
   apiAutenticacao(usuario: Usuario): Promise<boolean> {
 
-    return new Promise<boolean>((resolve, reject) => {
+    return new Promise<boolean>(() => {
       this.http.post<any>(this.logon, usuario).subscribe(
         (response) => {
           if (response && response.token) {
@@ -45,15 +45,32 @@ export class ApiAutenticacaoService {
             this.gerenciadoDeAutenticacaoService.setToken(response.token);
             this.gerenciadoDeAutenticacaoService.setUsuario(usuario.login);
             // console.log('Usuario: ', usuario.login);
-            resolve(true);
+
             return true;
           } else {
-            // console.log('Usuario não autenticado: ', usuario.login)
+            console.log('Não foi possível logar');
             this.gerenciadoDeAutenticacaoService.setUsuarioAutenticado(false);
-            resolve(false);
-            return false;
+             return false;
           }
+        },
+        (error: HttpErrorResponse) => {
+          const status = error.status; // Aqui você acessa o status do erro
+          if(status === 0 && error.statusText === 'Unknown Error') {
+            this.gerenciadoDeAutenticacaoService.setErrorMessage('O servidor está fora do ar, por favor contate o adminsitrador');
+          } else if(status === 401 && error.error === 'senha_incorreta') {
+            this.gerenciadoDeAutenticacaoService.
+              setErrorMessage('Senha incorreta')
+          } else if(status === 401 && error.error === 'usuario_ja_logado') {
+            this.gerenciadoDeAutenticacaoService.
+              setErrorMessage('Acesso negado, este usuário já está logado')
+          } else if(status === 401 && error.error === 'usuario_inexiste') {
+            this.gerenciadoDeAutenticacaoService.
+              setErrorMessage('Usuário inexistente')
+          }
+            return false;
+
         });
+
     })
 
   }

@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
 
   private usuarioAutenticado: boolean = false;
   private statusInputFocus: boolean = false;
+  protected errorMessage: string = '';
   private errorMessageServer: string = '';
   protected errorMessageLogin: string = '';
   protected errorMessageSenha: string = '';
@@ -76,16 +77,12 @@ export class LoginComponent implements OnInit {
     this.usuario.senha = senhaValue
 
     if(this.usuario.login === '' || this.usuario.login === null) {
-      this.errorMessageLogin = 'Insira o login para acesso';
-      this.errorMessageSenha = '';
-      this.errorMessageAutenticacao = '';
+      this.errorMessage = 'Insira o login para acesso';
       this.statusInputFocus = false;  // deu submit
       return;
 
      } else if(this.usuario.senha === '' || this.usuario.senha === null) {
       this.errorMessageSenha = 'Insira a senha';
-      this.errorMessageLogin = '';
-      this.errorMessageAutenticacao = ''
       this.statusInputFocus = false;  // deu submit
       return;
      }
@@ -103,9 +100,8 @@ export class LoginComponent implements OnInit {
 
         if(!statusAutenticacao) {
           this.ativarLoading = false;
-          this.errorMessageAutenticacao = '';
-          this.errorMessageSenha = 'Dados de autenticação inválidos ou servidor fora do ar, acesso recusado';
-          this.errorMessageLogin = '';
+          // this.errorMessageSenha = 'Dados de autenticação inválidos ou servidor fora do ar, acesso negado';
+          this.errorMessage = this.gerenciadoDeAutenticacaoService.getErrorMessage();
           return;
         }
 
@@ -125,12 +121,6 @@ export class LoginComponent implements OnInit {
 
           }, 100);
 
-         } else {
-          this.ativarLoading = false;
-          this.errorMessageAutenticacao = '';
-          this.errorMessageSenha = 'Existe um usuário logado com esta conta, acesso negado.';
-          this.errorMessageLogin = '';
-          return;
          }
 
       }, 1500)  // tempo de espera da chegada do token
@@ -150,6 +140,8 @@ export class LoginComponent implements OnInit {
       this.formularioDeLogin.get('login')?.patchValue(value.toLowerCase(), { emitEvent: false });
     });
   }
+
+
 
 
   protected onInputDetectorLetterSpacing(event: Event) {
@@ -180,29 +172,36 @@ export class LoginComponent implements OnInit {
 
   focusLoginIn() {
     this.errorMessageLogin = '';
+    this.clearErrorMessage()
+    this.clearErrorMessageSenha()
   }
 
   focusSenhaIn() {
     this.errorMessageSenha = '';
+    this.clearErrorMessageSenha()
   }
 
 
 
 
   clearErrorMessage() {
+    this.errorMessage = '';
     this.errorMessageLogin = '';
-    this.errorMessageSenha = '';
     this.errorMessageAutenticacao = ''
   }
 
-
-
-  getErrorMessageServer() {
-    return this.errorMessageServer;
+  clearErrorMessageSenha() {
+    this.errorMessageSenha = '';
   }
 
-  setErrorMessageServer(message: string) {
-    this.errorMessageServer = message;
+
+
+  getErrorMessage() {
+    return this.errorMessage;
+  }
+
+  setErrorMessage(message: string) {
+    this.errorMessage = message;
   }
 
 

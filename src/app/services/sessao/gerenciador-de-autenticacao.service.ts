@@ -9,6 +9,7 @@ export class GerenciadoDeAutenticacaoService {
   private token: string = '';
   private usuario: string = '';
   private usuarioAutenticado: boolean = false;
+  private errorMessage: string = '';
 
   constructor(private router: Router) { }
 
@@ -40,6 +41,10 @@ export class GerenciadoDeAutenticacaoService {
     return this.usuarioAutenticado;
   }
 
+  getErrorMessage(): string {
+    return this.errorMessage;
+  }
+
   setToken(token: any) {
     this.token = token;
     localStorage.setItem('token', token);
@@ -52,6 +57,10 @@ export class GerenciadoDeAutenticacaoService {
 
   setUsuarioAutenticado(status: boolean): void {
     this.usuarioAutenticado = status;
+  }
+
+  setErrorMessage(message: string): void {
+    this.errorMessage = message;
   }
 
   clearUserData() {
