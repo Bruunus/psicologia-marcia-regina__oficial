@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Usuario } from 'src/app/login/usuario';
+import { Usuario } from 'src/app/model/usuario';
 import { tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { GerenciadoDeAutenticacaoService } from '../sessao/gerenciador-de-autenticacao.service';
@@ -56,17 +56,46 @@ export class ApiAutenticacaoService {
         (error: HttpErrorResponse) => {
           const status = error.status; // Aqui você acessa o status do erro
           if(status === 0 && error.statusText === 'Unknown Error') {
-            this.gerenciadoDeAutenticacaoService.setErrorMessage('O servidor está fora do ar, por favor contate o adminsitrador');
-          } else if(status === 401 && error.error === 'senha_incorreta') {
-            this.gerenciadoDeAutenticacaoService.
-              setErrorMessage('Senha incorreta')
-          } else if(status === 401 && error.error === 'usuario_ja_logado') {
-            this.gerenciadoDeAutenticacaoService.
-              setErrorMessage('Acesso negado, este usuário já está logado')
-          } else if(status === 401 && error.error === 'usuario_inexiste') {
-            this.gerenciadoDeAutenticacaoService.
-              setErrorMessage('Usuário inexistente')
+            this.gerenciadoDeAutenticacaoService.setErrorMessage('Servidor offline, contate o administrador');
+          } else if(status === 401) {
+            const message401 = error.error;
+            // console.log(message401)
+            switch (message401) {
+              case 'senha_incorreta':
+                this.gerenciadoDeAutenticacaoService.setErrorMessage('Senha incorreta');
+                break;
+
+              case 'usuario_inexistente':
+                this.gerenciadoDeAutenticacaoService.setErrorMessage('Usuário inexistente');
+              break;
+
+              case 'usuario_ja_logado':
+                this.gerenciadoDeAutenticacaoService.setErrorMessage('Acesso negado, este usuário já está logado');
+              break;
+
+              default:
+                break;
+            }
           }
+
+
+
+
+
+
+          //   && error.error === 'senha_incorreta') {
+          //
+          // }
+          // else if(status === 401 && error.error === 'usuario_inexiste') {
+          //   this.gerenciadoDeAutenticacaoService.
+          //     setErrorMessage('Usuário inexistente')
+          // }
+
+
+          // else if(status === 401 && error.error === 'usuario_ja_logado') {
+          //   this.gerenciadoDeAutenticacaoService.
+          //     setErrorMessage('Acesso negado, este usuário já está logado')
+          // }
             return false;
 
         });

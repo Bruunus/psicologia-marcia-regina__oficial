@@ -2,7 +2,7 @@ import { Component, Injectable, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Usuario } from './usuario';
+import { Usuario } from '../model/usuario';
 import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticacao.service';
 import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
 

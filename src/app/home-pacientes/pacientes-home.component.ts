@@ -6,7 +6,7 @@ import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticaca
 import { Subscription } from 'rxjs';
 import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PesquisaPaciente } from '../model/pesquisa-paciente';
+import { Paciente } from '../model/paciente';
 import { ErrorComponent } from '../services/error/error.component';
 import { ErrorService } from '../services/error/error.service';
 
@@ -25,7 +25,7 @@ export class PacientesHomeComponent implements OnInit {
   nomeLogin: string | null = '';
   subscription: Subscription = Subscription.EMPTY;
   pesquisaDePaciente!: FormGroup;
-  pesquisaPaciente: PesquisaPaciente;
+  paciente: Paciente;
 
 
   constructor(
@@ -37,7 +37,7 @@ export class PacientesHomeComponent implements OnInit {
     protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev
 
   ) {
-    this.pesquisaPaciente = new PesquisaPaciente();
+    this.paciente = new Paciente();
    }
 
   ngOnInit(): void {
@@ -49,12 +49,8 @@ export class PacientesHomeComponent implements OnInit {
     // console.log('Usuario do gerenciador', this.nomeLogin)
 
     this.pesquisaDePaciente = new FormGroup({
-      pesquisa: new FormControl(this.pesquisaPaciente.parametro, [Validators.required, Validators.maxLength(15)])
+      pesquisa: new FormControl(this.paciente.parametro, [Validators.required, Validators.maxLength(15)])
     });
-
-
-
-
 
   }
 
@@ -82,6 +78,7 @@ export class PacientesHomeComponent implements OnInit {
     if(this.pesquisa === null || this.pesquisa === '') {
       this.errorService.showError(this.errorService.ERROR_SEACH_PATIENT);
     } else {
+
       console.log(this.pesquisa)
     }
 
@@ -93,5 +90,7 @@ export class PacientesHomeComponent implements OnInit {
     // o valro de pesquisa já é adicionar não dependendo de passar o value
     return this.pesquisaDePaciente.get('pesquisa')!.value;
   }
+
+
 
 }

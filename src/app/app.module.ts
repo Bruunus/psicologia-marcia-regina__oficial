@@ -1,4 +1,4 @@
-import { Providers } from './Providers';
+import { AuthenticationProvider } from './providers/authentication-provider';
 import { AutenticacaoGuard } from './services/autenticacao/autenticacao.guard';
 import { GerenciadoDeAutenticacaoService } from './services/sessao/gerenciador-de-autenticacao.service';
 
@@ -18,6 +18,10 @@ import { Pag3Component } from './pag3/pag3.component';
 import { RedirectingComponent } from './services/redirecting/redirecting.component';
 import { EndingSessionComponent } from './services/redirecting/ending-session/ending-session.component';
 import { ErrorComponent } from './services/error/error.component';
+import { ErrorsProvider } from './providers/errors-provider';
+import { AngularProvider } from './providers/angular-provider';
+import { ModelProvider } from './providers/model-provider';
+import { ApiServicesProvider } from './providers/api-services-provider';
 
 
 
@@ -40,7 +44,7 @@ import { ErrorComponent } from './services/error/error.component';
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
-  providers: [GerenciadoDeAutenticacaoService, AutenticacaoGuard, Providers],
+  providers: [AngularProvider,AutenticacaoGuard, AuthenticationProvider, ErrorsProvider, ModelProvider, ApiServicesProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
