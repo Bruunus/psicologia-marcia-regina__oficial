@@ -14,7 +14,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RedirectComponent } from './services/redirecting/redirect/redirect.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { Pag3Component } from './pag3/pag3.component';
 import { RedirectingComponent } from './services/redirecting/redirecting.component';
 import { EndingSessionComponent } from './services/redirecting/ending-session/ending-session.component';
 import { ErrorComponent } from './services/error/error.component';
@@ -22,6 +21,8 @@ import { ErrorsProvider } from './providers/errors-provider';
 import { AngularProvider } from './providers/angular-provider';
 import { ModelProvider } from './providers/model-provider';
 import { ApiServicesProvider } from './providers/api-services-provider';
+import { CadastroComponent } from './cadastro/cadastro.component';
+import { MenuPrincipalComponent } from './templates/menu-principal/menu-principal.component';
 
 
 
@@ -31,10 +32,11 @@ import { ApiServicesProvider } from './providers/api-services-provider';
     PacientesHomeComponent,
     LoginComponent,
     RedirectComponent,
-    Pag3Component,
     RedirectingComponent,
     EndingSessionComponent,
-    ErrorComponent
+    ErrorComponent,
+    CadastroComponent,
+    MenuPrincipalComponent
   ],
   imports: [
     BrowserModule,
