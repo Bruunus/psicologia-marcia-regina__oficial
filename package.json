@@ -20,7 +20,9 @@
     "@angular/router": "^16.2.12",
     "bootstrap": "^4.1.1",
     "hover.css": "^2.3.2",
+    "jquery": "^3.7.1",
     "rxjs": "~7.5.0",
+    "select2": "^4.1.0-rc.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.3"
   },
@@ -29,6 +31,8 @@
     "@angular/cli": "~16.2.15",
     "@angular/compiler-cli": "^16.2.12",
     "@types/jasmine": "~4.0.0",
+    "@types/jquery": "^3.5.32",
+    "@types/select2": "^4.0.63",
     "jasmine-core": "~4.1.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",

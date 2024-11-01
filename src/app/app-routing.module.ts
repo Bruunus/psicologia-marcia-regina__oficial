@@ -11,7 +11,7 @@ import { CadastroComponent } from './cadastro/cadastro.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'pacientes', component: PacientesHomeComponent, canActivate: [AutenticacaoGuard] },
-  { path: 'cadastro' , component: CadastroComponent, canActivate: [AutenticacaoGuard]},
+  { path: 'novo-paciente' , component: CadastroComponent, canActivate: [AutenticacaoGuard]},
 
 
 

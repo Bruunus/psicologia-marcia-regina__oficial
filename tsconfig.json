@@ -22,7 +22,8 @@
       "es2020",
       "dom"
     ],
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "esModuleInterop": true // Add this line
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,0 +1,93 @@
+@import url('../../../styles.scss');
+
+//vars
+$background_color_menu_completo: #EDEDED;
+$color-item-menu: #ca72ca;
+//#66D2D5 - verde da árvore
+//#555555 - grafite
+
+.container-fluid {
+
+  // font-size: 11pt;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.menu-bar-pacientes {
+  font-family: 'font-home';
+  height: 74.333333px !important;
+  border-bottom: 1px solid #e4e4e4c9;
+  margin: 0 !important;
+
+}
+
+.menu-bar-pacientes div {
+  height: 100%;
+}
+
+.div-filho-esquerdo, .div-filho-centro, .div-filho-direito {
+  background-color: $background_color_menu_completo;
+}
+
+.img-menu {
+  height: 48px;
+}
+
+.nav .nav-item {
+  height: 100%;
+}
+
+
+.menu-item-link {
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+}
+
+
+
+.menu-item-link {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  font-weight: bold;
+  box-sizing: border-box;
+  color: $color-item-menu;
+  overflow: hidden;
+  // -webkit-transition-duration: 0.01s;
+  // transition-duration: 0.01s;
+-webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
+  background-color: $background_color_menu_completo;
+}
+
+// ao passar o mouse
+.menu-item-link:hover {
+  background-color: #EBEBEB;
+  color: #B744B7 !important;
+}
+
+// ao clicar
+.menu-item-link:active, .menu-item-link:focus {
+  background-color: $background_color_menu_completo  !important;
+  // transform: none;
+  // transition: none;
+}
+
+// após o clique
+.menu-item-link:hover:focus:not(:active) {
+  background-color: #EBEBEB !important; /*igual o hover*/
+  color: #BB4ABB !important;
+}
+/*******************************************************************************/
+
+
+.nick-name, .link-logout {
+  color: $color-item-menu;
+}

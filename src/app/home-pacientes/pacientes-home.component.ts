@@ -15,7 +15,7 @@ import { ErrorService } from '../services/error/error.service';
   selector: 'app-pacientes-home',
   templateUrl: './pacientes-home.component.html',
   styleUrls: [
-    './pacientes-home-default.scss',
+    './pacientes-home-default.component.scss',
     './pacientes-home-big.component.scss',
     'pacientes-home-middle.component.scss',
     'pacientes-home-small.component.scss']

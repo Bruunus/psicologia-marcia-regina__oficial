@@ -30,6 +30,17 @@
 .btn-system-psico {
   height: 35px;
   line-height: 1rem !important;
+
+}
+
+
+.container-fluid {
+
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 
