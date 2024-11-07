@@ -1,10 +1,10 @@
 import { NgModule } from "@angular/core";
 import { Usuario } from "../model/usuario";
-import { Paciente } from "../model/paciente";
+import { PacienteSeach } from "../model/paciente-seach";
 
 @NgModule({
   providers: [
-    Paciente
+    PacienteSeach
   ]
 })
 export class ModelProvider {}

@@ -6,7 +6,7 @@ import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticaca
 import { Subscription } from 'rxjs';
 import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Paciente } from '../model/paciente';
+import { PacienteSeach } from '../model/paciente-seach';
 import { ErrorComponent } from '../services/error/error.component';
 import { ErrorService } from '../services/error/error.service';
 
@@ -25,7 +25,7 @@ export class PacientesHomeComponent implements OnInit {
   nomeLogin: string | null = '';
   subscription: Subscription = Subscription.EMPTY;
   pesquisaDePaciente!: FormGroup;
-  paciente: Paciente;
+  paciente: PacienteSeach;
 
 
   constructor(
@@ -37,7 +37,7 @@ export class PacientesHomeComponent implements OnInit {
     protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev
 
   ) {
-    this.paciente = new Paciente();
+    this.paciente = new PacienteSeach();
    }
 
   ngOnInit(): void {

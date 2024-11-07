@@ -1,18 +1,31 @@
-import { Injectable } from "@angular/core";
+export interface Paciente {
 
-@Injectable({
-  providedIn: 'root'
-})
-export class Paciente {
-
-  parametro: string = '';
-
-  public getParametroPesquisa() {
-    return this.parametro;
+  nomeCompleto: string;
+  cpf: string;
+  email: string;
+  telefone: string;
+  telefoneParaContato: string;
+  idade: string;
+  dataDeNascimento: string;
+  estadoCivil: string;
+  filhos: string;
+  qtdFilhos: string;
+  grauEscolaridade: string;
+  profissao: string;
+  perfil: string;
+  endereco: {
+    rua: string;
+    numero: string;
+    complemento: string;
+    bairro: string;
+    cidade: string;
+    estado: string;
+    cep: string;
+  }
+  queixa: {
+    queixa: string;
   }
 
-  public setParametroPesquisa(parametro: string) {
-    this.parametro = parametro
-  }
+
 
 }

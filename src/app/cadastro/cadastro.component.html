@@ -3,70 +3,84 @@
 
 
   <div>
-    <form action="">
+    <form (ngSubmit)="cadastrar()" [formGroup]="formValidation">
 
       <label for="nomeCompleto">Nome Completo</label>
-      <input type="text" name="nomeCompleto" id="nomeCompleto">
+      <input type="text" name="nomeCompleto"  formControlName="nomeCompleto" id="nomeCompleto" maxlength="45">
+
+      <div *ngIf="nomeCompleto?.invalid && (nomeCompleto?.touched)" class="validation-error">
+        <ng-container *ngIf="nomeCompleto?.errors?.['required']">
+          <p style="font-size: 0.8rem; color: tomato;">
+            Nome obrigatório
+          </p>
+        </ng-container>
+        <ng-container *ngIf="nomeCompleto?.errors?.['maxlength']">
+          <p style="font-size: 0.8rem; color: tomato;">
+            Descrição de nome inválido
+          </p>
+        </ng-container>
+      </div>
 
       <label for="cpf">CPF</label>
-      <input type="text" name="cpf" id="cpf">
+      <input type="text" name="cpf" formControlName="cpf" id="cpf">
 
       <label for="email">E-mail</label>
-      <input type="text" name="email" id="email">
+      <input type="text" name="email" formControlName="email" id="email">
 
       <label for="telefone">Telefone</label>
-      <input type="text" name="telefone" id="telefone">
+      <input type="text" name="telefone" formControlName="telefone" id="telefone">
 
       <label for="telefone-para-contato">Telefone para contato</label>
-      <input type="text" name="telefone-para-contato" id="telefone-para-contato">
+      <input type="text" name="telefone-para-contato" formControlName="telefoneParaContato" id="telefone-para-contato">
 
       <label for="idade">Idade</label>
-      <input type="number" name="idade" id="idade">
+      <input type="number" name="idade" formControlName="idade" id="idade">
 
       <label for="data-de-nascimento">Data de nascimento</label>
-      <input type="date" name="data-de-nascimento" id="data-de-nascimento">
+      <input type="date" name="data-de-nascimento" formControlName="dataDeNascimento" id="data-de-nascimento">
 
       <label for="estado-civil">Estado Civil</label>
-      <input type="text" name="estado-civil" id="estado-civil">
+      <input type="text" name="estado-civil" formControlName="estadoCivil" id="estado-civil">
 
       <label for="filhos">Filhos</label>
-      <select name="filhos" id="filhos">
+      <select name="filhos" formControlName="filhos" id="filhos">
         <option value="sim">Sim</option>
         <option value="nao">Não</option>
       </select>
 
-      <label for="quantidade-filhos">Qtd. de filhos</label>
-      <input type="number" name="quantidade-filhos" id="quantidade-filhos">
+      <label for="qtdFilhos">Qtd. de filhos</label>
+      <input type="number" name="qtdFilhos" formControlName="qtdFilhos" id="qtdFilhos">
 
       <label for="grau-escolaridade">Grau de escolaridade</label>
-      <input type="text" name="grau-escolaridade" id="grau-escolaridade">
+      <input type="text" name="grau-escolaridade" formControlName="grauEscolaridade" id="grau-escolaridade">
 
       <label for="profissao">Profissão</label>
-      <input type="text" name="profissao" id="profissao">
+      <input type="text" name="profissao" formControlName="profissao" id="profissao">
 
       <label for="perfil">Perfil</label>
-      <select name="perfil" id="perfil">  <!-- dados renderizados da api -->
+      <select name="perfil" formControlName="perfil" id="perfil">  <!-- dados renderizados da api -->
         <option value="psicologia">Psicologia</option>
         <option value="psicoterapia">Psicoterapia</option>
+        <option value="orcamento">Orçamento</option>
       </select>
 
       <label for="rua">Rua</label>
-      <input type="text" name="rua" id="rua">
+      <input type="text" name="rua" formControlName="rua" id="rua">
 
       <label for="numero">Número</label>
-      <input type="text" name="numero" id="numero">   <!-- tratar como number | aceitar apenas numeros  -->
+      <input type="text" name="numero" formControlName="numero" id="numero">   <!-- tratar como number | aceitar apenas numeros  -->
 
       <label for="complemento">Complemento</label>
-      <input type="text" name="complemento" id="complemento">
+      <input type="text" name="complemento" formControlName="complemento" id="complemento">
 
       <label for="bairro">Bairro</label>
-      <input type="text" name="bairro" id="bairro">
+      <input type="text" name="bairro" formControlName="bairro" id="bairro">
 
       <label for="cidade">Cidade</label>
-      <input type="text" name="cidade" id="cidade">
+      <input type="text" name="cidade" formControlName="cidade" id="cidade">
 
       <label for="uf">UF</label>
-      <select  name="state" id="estados-cadastro-paciente">
+      <select  name="estado" formControlName="estado" id="estado">
         <!-- PEsquisa sobre fazer pesquisa no select dinamicamente -->
         <option value="">-- Selecione --</option>
         <option value="AC">Acre</option>
@@ -99,11 +113,12 @@
       </select>
 
       <label for="cep">CEP</label>
-      <input type="text" name="cep" id="cep">
+      <input type="text" name="cep" formControlName="cep" id="cep">
 
       <label for="queixa">Queixa do paciente</label>
-    <textarea name="queixa" id="queixa"></textarea>
+    <textarea name="queixa" formControlName="queixa" id="queixa"></textarea>
 
+    <button type="submit">Registrar</button>
 
     </form>
   </div>

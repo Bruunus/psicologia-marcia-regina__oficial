@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Usuario } from 'src/app/model/usuario';
-import { tap } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { GerenciadoDeAutenticacaoService } from '../sessao/gerenciador-de-autenticacao.service';
 
@@ -16,7 +16,7 @@ export class ApiAutenticacaoService {
 
 
   private token: string = '';
-
+  private unsubscribe$ = new Subject<void>();
   usuarioCache: string = '';
 
   dadosDoUsuario: { usuario: string } = {usuario: ''};
@@ -35,73 +35,47 @@ export class ApiAutenticacaoService {
 
 
   apiAutenticacao(usuario: Usuario): Promise<boolean> {
-
-    return new Promise<boolean>(() => {
-      this.http.post<any>(this.logon, usuario).subscribe(
-        (response) => {
-          if (response && response.token) {
-            const username = response.usuario;
-            this.gerenciadoDeAutenticacaoService.setUsuarioAutenticado(true);
-            this.gerenciadoDeAutenticacaoService.setToken(response.token);
-            this.gerenciadoDeAutenticacaoService.setUsuario(usuario.login);
-            // console.log('Usuario: ', usuario.login);
-
-            return true;
-          } else {
-            console.log('Não foi possível logar');
-            this.gerenciadoDeAutenticacaoService.setUsuarioAutenticado(false);
-             return false;
-          }
-        },
-        (error: HttpErrorResponse) => {
-          const status = error.status; // Aqui você acessa o status do erro
-          if(status === 0 && error.statusText === 'Unknown Error') {
-            this.gerenciadoDeAutenticacaoService.setErrorMessage('Servidor offline, contate o administrador');
-          } else if(status === 401) {
-            const message401 = error.error;
-            // console.log(message401)
-            switch (message401) {
-              case 'senha_incorreta':
-                this.gerenciadoDeAutenticacaoService.setErrorMessage('Senha incorreta');
-                break;
-
-              case 'usuario_inexistente':
-                this.gerenciadoDeAutenticacaoService.setErrorMessage('Usuário inexistente');
-              break;
-
-              case 'usuario_ja_logado':
-                this.gerenciadoDeAutenticacaoService.setErrorMessage('Acesso negado, este usuário já está logado');
-              break;
-
-              default:
-                break;
+    return new Promise<boolean>((resolve) => {
+      this.http.post<any>(this.logon, usuario)
+        .pipe(takeUntil(this.unsubscribe$)) // Cancela a assinatura quando unsubscribe$ emite
+        .subscribe({
+          next: (response) => {
+            if (response && response.token) {
+              const username = response.usuario;
+              this.gerenciadoDeAutenticacaoService.setUsuarioAutenticado(true);
+              this.gerenciadoDeAutenticacaoService.setToken(response.token);
+              this.gerenciadoDeAutenticacaoService.setUsuario(usuario.login);
+              resolve(true); // Resolve a Promise com true
+            } else {
+              console.log('Não foi possível logar');
+              this.gerenciadoDeAutenticacaoService.setUsuarioAutenticado(false);
+              resolve(false); // Resolve a Promise com false
             }
+          },
+          error: (error: HttpErrorResponse) => {
+            const status = error.status; // Aqui você acessa o status do erro
+            if (status === 0 && error.statusText === 'Unknown Error') {
+              this.gerenciadoDeAutenticacaoService.setErrorMessage('Servidor offline, contate o administrador');
+            } else if (status === 401) {
+              const message401 = error.error;
+              switch (message401) {
+                case 'senha_incorreta':
+                  this.gerenciadoDeAutenticacaoService.setErrorMessage('Senha incorreta');
+                  break;
+                case 'usuario_inexistente':
+                  this.gerenciadoDeAutenticacaoService.setErrorMessage('Usuário inexistente');
+                  break;
+                case 'usuario_ja_logado':
+                  this.gerenciadoDeAutenticacaoService.setErrorMessage('Acesso negado, este usuário já está logado');
+                  break;
+                default:
+                  break;
+              }
+            }
+            resolve(false); // Resolve a Promise com false em caso de erro
           }
-
-
-
-
-
-
-          //   && error.error === 'senha_incorreta') {
-          //
-          // }
-          // else if(status === 401 && error.error === 'usuario_inexiste') {
-          //   this.gerenciadoDeAutenticacaoService.
-          //     setErrorMessage('Usuário inexistente')
-          // }
-
-
-          // else if(status === 401 && error.error === 'usuario_ja_logado') {
-          //   this.gerenciadoDeAutenticacaoService.
-          //     setErrorMessage('Acesso negado, este usuário já está logado')
-          // }
-            return false;
-
         });
-
-    })
-
+    });
   }
 
   setToken(token: string) {
@@ -160,7 +134,11 @@ set setNomeUsuarioCache(data: string) {
 }
 
 
-
+ngOnDestroy() {
+  // Emite um valor para cancelar todas as assinaturas
+  this.unsubscribe$.next();
+  this.unsubscribe$.complete();
+}
 
 
 
