@@ -59,7 +59,7 @@ export class GerenciadoDeAutenticacaoService {
     this.usuarioAutenticado = status;
   }
 
-  setErrorMessage(message: string): void {
+    setErrorMessage(message: string): void {
     this.errorMessage = message;
   }
 

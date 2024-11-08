@@ -1,23 +1,21 @@
-import { Component, Injectable, Input, OnInit } from '@angular/core';
-import { ErrorService } from './error.service';
-import { trigger, state, style, transition, animate, ɵPRE_STYLE } from '@angular/animations';
+import { MessageApiService } from './../../message-api.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-@Injectable({ providedIn: 'root' })
 @Component({
-  selector: 'app-error-message',
+  selector: 'app-display-info-message',
   template: `
 
-    <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show alert-error-message" role="alert" [@slideInOut]="isVisible ? 'in' : 'out'">
-      {{ errorMessage }}
-      <button type="button" class="close" (click)="closeError()" aria-label="Close">
+    <div *ngIf="infoMessage" class="alert alert-info alert-dismissible fade show alert-info-message" role="alert" [@slideInOut]="isVisible ? 'in' : 'out'">
+      {{ infoMessage }}
+      <button type="button" class="close" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
 
   `,
-  styleUrls: ['../../../styles.scss'],
-
+  styleUrls: ['../../../../../../styles.scss'],
   animations: [
     trigger('slideInOut',[
       state('in', style({ transform: 'translateX(0)', opacity: 1 })),
@@ -27,38 +25,34 @@ import { Subscription } from 'rxjs';
     ])
   ]
 
-
 })
-export class ErrorComponent implements OnInit {
+export class DisplayInfoMessageComponent implements OnInit {
 
-  errorMessage: string | null = null;
+  infoMessage: string | null = '';
   isVisible: boolean = false;
   timeoutId: any;
 
   private subscription: Subscription = new Subscription();
 
-  constructor(private errorService: ErrorService) {
+  constructor(private messageApiService: MessageApiService) {
 
   }
 
   ngOnInit() {
 
     this.subscription.add(
-      this.errorService.error$.subscribe((message) => {
-        this.errorMessage = message;
+      this.messageApiService.info$.subscribe((message) => {
+        this.infoMessage = message;
         this.isVisible = true;
 
         this.timeoutId = setTimeout(() => {
           this.closeError();
         }, 4000); // 5 segundos
       })
-    );
+    )
 
-    // Subscrição para fechar o erro via serviço
-    this.errorService.close$.subscribe(() => {
-      this.closeError(); // Chama o método closeError do componente
-    });
   }
+
 
 
 
@@ -68,17 +62,17 @@ export class ErrorComponent implements OnInit {
 
     // Limpar a mensagem após a animação de saída
     setTimeout(() => {
-      this.errorMessage = null;
+      this.infoMessage = null;
     }, 500); // Tempo para a animação de saída
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
     }
   }
 
-
   ngOnDestroy() {
     // Unsubscribe to prevent memory leaks
     this.subscription.unsubscribe();
   }
+
 
 }

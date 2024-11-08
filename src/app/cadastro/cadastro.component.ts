@@ -1,7 +1,9 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { Estados } from '../model/estados';
+import { EstadosInterface } from '../model/estados-interface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Paciente } from '../model/paciente';
+import { PacienteInterface } from '../model/paciente-interface';
+import { CreateService } from '../services/api/create/create.service';
+import { PerfilEnum } from '../model/perfil-enum';
 
 
 @Component({
@@ -12,7 +14,8 @@ import { Paciente } from '../model/paciente';
 export class CadastroComponent implements OnInit  {
 
   formValidation: FormGroup;
-  pacienteCadastro: Paciente = {
+  PERFIL!: PerfilEnum;
+  pacienteCadastro: PacienteInterface = {
     nomeCompleto: '',
     cpf:  '',
     email:  '',
@@ -21,11 +24,11 @@ export class CadastroComponent implements OnInit  {
     idade: '',
     dataDeNascimento:  '',
     estadoCivil:  '',
-    filhos:  '',
+    filhos:  false,
     qtdFilhos:  '',
     grauEscolaridade:  '',
     profissao:  '',
-    perfil:  '',
+    perfil:  ,
     endereco: {
       rua:  '',
       numero:  '',
@@ -42,7 +45,7 @@ export class CadastroComponent implements OnInit  {
 
   };
 
-  constructor() {
+  constructor(private createService: CreateService) {
     this.formValidation = new FormGroup({
       nomeCompleto: new FormControl('', Validators.maxLength(45)),
       cpf: new FormControl(''),
@@ -52,11 +55,11 @@ export class CadastroComponent implements OnInit  {
       idade: new FormControl(''),
       dataDeNascimento: new FormControl(''),
       estadoCivil: new FormControl(''),
-      filhos: new FormControl(''),
-      qtdFilhos: new FormControl(''),
+      filhos: new FormControl('nao'),
+      qtdFilhos: new FormControl('', [Validators.min(0)]),
       grauEscolaridade: new FormControl(''),
       profissao: new FormControl(''),
-      perfil: new FormControl(''),
+      PERFIL: new FormControl(''),
       cep: new FormControl(''),
       rua: new FormControl(''),
       numero: new FormControl(''),
@@ -68,7 +71,7 @@ export class CadastroComponent implements OnInit  {
     });
   }
 
-  estados: Estados[] = [
+  estados: EstadosInterface[] = [
     { sigla: 'AC', nome: 'Acre' },
     { sigla: 'AL', nome: 'Alagoas' },
     { sigla: 'AP', nome: 'Amapá' },
@@ -137,6 +140,8 @@ export class CadastroComponent implements OnInit  {
 
     }
 
+    this.createService.registerPatient(this.pacienteCadastro)
+
     console.log(this.pacienteCadastro)
 
 
@@ -178,7 +183,8 @@ export class CadastroComponent implements OnInit  {
   }
 
   get filhos() {
-    return this.formValidation.get('filhos')?.value;
+    const value = this.formValidation.get('filhos')?.value;
+    return value === 'sim'; // Retorna true se o valor for "sim", caso contrário, retorna false
   }
 
   get qtdFilhos() {

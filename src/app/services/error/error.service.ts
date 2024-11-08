@@ -14,11 +14,7 @@ export class ErrorService {
   private closeSubject = new Subject<void>();
 
   public error$ = this.errorSubject.asObservable();
-  close$ = this.closeSubject.asObservable();
-
-
-
-  constructor() { }
+  public close$ = this.closeSubject.asObservable();
 
 
 

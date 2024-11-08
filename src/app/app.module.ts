@@ -23,6 +23,7 @@ import { ModelProvider } from './providers/model-provider';
 import { ApiServicesProvider } from './providers/api-services-provider';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { MenuPrincipalComponent } from './templates/menu-principal/menu-principal.component';
+import { DisplayInfoMessageComponent } from './services/messagers/info-message/display-info-message/display-info-message/display-info-message.component';
 
 
 
@@ -36,7 +37,8 @@ import { MenuPrincipalComponent } from './templates/menu-principal/menu-principa
     EndingSessionComponent,
     ErrorComponent,
     CadastroComponent,
-    MenuPrincipalComponent
+    MenuPrincipalComponent,
+    DisplayInfoMessageComponent
   ],
   imports: [
     BrowserModule,

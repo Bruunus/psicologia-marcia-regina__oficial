@@ -1,4 +1,6 @@
-export interface Paciente {
+import { PerfilEnum } from "./perfil-enum";
+
+export interface PacienteInterface {
 
   nomeCompleto: string;
   cpf: string;
@@ -8,11 +10,11 @@ export interface Paciente {
   idade: string;
   dataDeNascimento: string;
   estadoCivil: string;
-  filhos: string;
+  filhos: boolean;
   qtdFilhos: string;
   grauEscolaridade: string;
   profissao: string;
-  perfil: string;
+  perfil: PerfilEnum;   /// causa do erro
   endereco: {
     rua: string;
     numero: string;

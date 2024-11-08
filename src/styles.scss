@@ -12,6 +12,7 @@
   font-style: normal;
 }
 
+
 .no-select-img, .no-select {
 
   pointer-events: none;  /* Impede que a imagem seja arrastada */
@@ -22,11 +23,12 @@
   }
 
 
-
+/* Tamanho padrão de input do sistema */
 .input-system-psico {
   height: 35px;
 }
 
+/* Tamanho padrão button sistems */
 .btn-system-psico {
   height: 35px;
   line-height: 1rem !important;
@@ -34,14 +36,48 @@
 }
 
 
+/* Container  fluid global*/
 .container-fluid {
-
   display: flex;
   flex-direction: column;
   height: 100vh;
   padding: 0 !important;
   margin: 0 !important;
 }
+
+
+
+/*
+ *  Estilos globais de mensageria do sistema
+ *
+*/
+
+// info-message
+.alert-info-message {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  transition: opacity 0.5s ease;
+}
+.close:focus {
+  outline: none;
+}
+
+
+// error-message
+.alert-error-message {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  transition: opacity 0.5s ease;
+}
+.close:focus {
+  outline: none;
+}
+
+
+
+
 
 
 /* Sprint */
