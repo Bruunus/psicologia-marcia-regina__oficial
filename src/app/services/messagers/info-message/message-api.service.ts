@@ -15,15 +15,15 @@ export class MessageApiService {
 
 
 
-  showError(errorMessage: string) {
+  showInfo(errorMessage: string) {
     this.infoSubject.next(errorMessage);
   }
 
-  closeError() {
+  closeInfo() {
     this.closeSubject.next(); // Notifica que o erro deve ser fechado
   }
 
-  setErrorMessage(message: string): void {
+  setInfoMessage(message: string): void {
     this.infoSubject.next(message);
   }
 

@@ -6,22 +6,22 @@ export interface PacienteInterface {
   cpf: string;
   email: string;
   telefone: string;
-  telefoneParaContato: string;
+  telefoneContato: string;
   idade: string;
-  dataDeNascimento: string;
+  dataNascimento: string;
   estadoCivil: string;
   filhos: boolean;
   qtdFilhos: string;
   grauEscolaridade: string;
   profissao: string;
-  perfil: PerfilEnum;   /// causa do erro
+  perfil: string;   // Necessário ser string para converter o enum para uppercase
   endereco: {
     rua: string;
     numero: string;
     complemento: string;
     bairro: string;
     cidade: string;
-    estado: string;
+    uf: string;
     cep: string;
   }
   queixa: {
