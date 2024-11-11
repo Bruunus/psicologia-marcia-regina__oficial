@@ -1,7 +1,6 @@
 <div class="container-fluid">
   <app-menu-principal></app-menu-principal>
 
-
   <div>
     <form (ngSubmit)="cadastrar()" [formGroup]="formValidation">
 
@@ -116,6 +115,10 @@
     <button type="submit">Registrar</button>
 
     </form>
+  </div>
+
+  <div *ngIf="ativarLoading">
+    <img src="../../assets/img/loading-eclipse.gif" alt="Carregando..." class="img-loading no-select-img" />
   </div>
 
 

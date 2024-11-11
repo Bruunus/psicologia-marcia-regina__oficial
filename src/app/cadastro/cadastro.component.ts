@@ -46,30 +46,31 @@ export class CadastroComponent implements OnInit  {
 
   selectUfInstance = new selectUf();
   optionUf: { sigla: string, nome: string } [] = [] as { sigla: string, nome: string }[];
+  protected ativarLoading: boolean = false;
 
   constructor(private createService: CreateService) {
     this.formValidation = new FormGroup({
-      nomeCompleto: new FormControl('', Validators.maxLength(45)),
-      cpf: new FormControl(''),
-      email: new FormControl(''),
-      telefone: new FormControl(''),
-      telefoneContato: new FormControl(''),
-      idade: new FormControl(''),
+      nomeCompleto: new FormControl('Bruno Fernandes', Validators.maxLength(45)),
+      cpf: new FormControl('352.795.388-41'),
+      email: new FormControl('brunus@brunus.mail.br'),
+      telefone: new FormControl('11 9 7777-7777'),
+      telefoneContato: new FormControl('11 9 7777-7777'),
+      idade: new FormControl('35'),
       dataNascimento: new FormControl(''),
       estadoCivil: new FormControl(''),
       filhos: new FormControl('nao'),
       qtdFilhos: new FormControl('', [Validators.min(0)]),
       grauEscolaridade: new FormControl(''),
-      profissao: new FormControl(''),
+      profissao: new FormControl('Desenvolvedor Java'),
       perfil: new FormControl('', Validators.required),
-      cep: new FormControl(''),
-      rua: new FormControl(''),
-      numero: new FormControl(''),
-      complemento: new FormControl(''),
-      bairro: new FormControl(''),
-      cidade: new FormControl(''),
+      cep: new FormControl('085-35364'),
+      rua: new FormControl('Flor de Caboclo'),
+      numero: new FormControl('275'),
+      complemento: new FormControl('Apartamento 10'),
+      bairro: new FormControl('Parque Guarani'),
+      cidade: new FormControl('São Paulo'),
       uf: new FormControl(''),
-      queixa: new FormControl('')
+      queixa: new FormControl('Lore..')
     });
   }
 
@@ -89,6 +90,8 @@ export class CadastroComponent implements OnInit  {
 
 
   cadastrar(): void {
+
+
 
     this.pacienteCadastro = {
 
@@ -125,9 +128,29 @@ export class CadastroComponent implements OnInit  {
 
     }
 
-    this.createService.registerPatient(this.pacienteCadastro)
 
-    console.log(this.pacienteCadastro)
+   this.createService.registerPatient(this.pacienteCadastro);
+
+
+   /*
+    estou usando o angular e irei chamar uma api para cadastrar os dados
+
+    const connect = this.createService.registerPatient(this.pacienteCadastro);
+
+    essa api retorna boolean e também tenho o meu gif de loading
+
+    <div *ngIf="ativarLoading">
+        <img src="../../assets/img/loading-eclipse.gif" alt="Carregando..." class="img-loading no-select-img" />
+      </div>
+
+    que para executar ele aguarda a alteração da variável para true
+
+    o que eu quero é que entre em loading imediatamente ao clicar no submit dispare a chadama da api imediatamente, depois faça um if
+    em conect para saber se é true, se for então aguarde 1,5
+   */
+
+
+    console.log(this.pacienteCadastro);
 
 
 
