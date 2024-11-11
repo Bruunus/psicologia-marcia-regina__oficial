@@ -34,9 +34,9 @@ export class EndingSessionComponent implements OnInit {
     setTimeout(() => {
       setTimeout(() => {
         window.location.reload()
-      }, 50);  //   tempo de redirecionamento
+      }, 800);  //   tempo de redirecionamento
       this.router.navigate(['login']);
-    }, 1);
+    }, 1000);
 
 
 

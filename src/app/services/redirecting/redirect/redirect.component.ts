@@ -15,15 +15,10 @@ export class RedirectComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
-
+    // também é executado um settimeout com a outra classe que o chama
     setTimeout(() => {
       this.router.navigate(['pacientes']);
     }, 500);
-
-
-
   }
 
 

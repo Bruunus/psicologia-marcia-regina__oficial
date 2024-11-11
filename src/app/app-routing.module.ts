@@ -3,10 +3,11 @@ import { LoginComponent } from './login/login.component';
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RedirectComponent } from './services/redirecting/redirect/redirect.component';
 import { EndingSessionComponent } from './services/redirecting/ending-session/ending-session.component';
 import { PacientesHomeComponent } from './home-pacientes/pacientes-home.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
+import { RedirectingComponent } from './services/redirecting/redirecting.component';
+import { RedirectComponent } from './services/redirecting/redirect/redirect.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -17,7 +18,8 @@ const routes: Routes = [
 
 
 
-  { path: 'authenticating', component: RedirectComponent, canActivate: [AutenticacaoGuard] },
+  { path: 'redirect-home', component: RedirectComponent, canActivate: [AutenticacaoGuard] },
+  // { path: 'rederect', component: RedirectingComponent, canActivate: [AutenticacaoGuard] },
   { path: 'ending-session', component: EndingSessionComponent, canActivate: [AutenticacaoGuard] },
   { path: '**', redirectTo: '/login', pathMatch: 'full'},
   { path: '', redirectTo: '/login', pathMatch: 'full'}

@@ -1,7 +1,7 @@
-import { MessageApiService } from './../../message-api.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { MessageCadastroPacienteService } from '../message-cadastro-paciente.service';
 
 @Component({
   selector: 'app-display-info-message',
@@ -26,7 +26,7 @@ import { Subscription } from 'rxjs';
   ]
 
 })
-export class DisplayInfoMessageComponent implements OnInit {
+export class CadastroPacienteInfoMessageComponent implements OnInit {
 
   infoMessage: string | null = '';
   isVisible: boolean = false;
@@ -34,14 +34,14 @@ export class DisplayInfoMessageComponent implements OnInit {
 
   private subscription: Subscription = new Subscription();
 
-  constructor(private messageApiService: MessageApiService) {
+  constructor(private messageCadastroPacienteService: MessageCadastroPacienteService) {
 
   }
 
   ngOnInit() {
 
     this.subscription.add(
-      this.messageApiService.info$.subscribe((message) => {
+      this.messageCadastroPacienteService.info$.subscribe((message) => {
         this.infoMessage = message;
         this.isVisible = true;
 

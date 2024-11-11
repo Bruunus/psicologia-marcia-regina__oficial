@@ -58,7 +58,7 @@
 
       <label for="grau-escolaridade">Grau de escolaridade</label>
       <select type="text" name="grau-escolaridade" formControlName="grauEscolaridade" id="grau-escolaridade">
-        <option value="">-- Select --</option>
+        <option value=""></option>
         <option value="Doutorado">Doutorado</option>
         <option value="Ensino Fundamental Completo">Ensino Fundamental Completo</option>
         <option value="Ensino Fundamental Incompleto">Ensino Fundamental Incompleto</option>
@@ -102,7 +102,7 @@
       <label for="uf">UF</label>
       <select  name="uf" formControlName="uf" id="estado">
         <!-- PEsquisa sobre fazer pesquisa no select dinamicamente -->
-        <option value="">-- Selecione --<option>
+        <option value=""><option>
         <option *ngFor="let uf of  optionUf" [value]="uf.sigla">{{ uf.nome }}</option>
       </select>
 
@@ -112,14 +112,18 @@
       <label for="queixa">Queixa do paciente</label>
     <textarea name="queixa" formControlName="queixa" id="queixa"></textarea>
 
+    <br>
+
     <button type="submit">Registrar</button>
+
+    <div *ngIf="ativarLoading" style="margin-left: 1rem;">
+      <img src="../../assets/img/loading-tela-cadastro-paciente.gif" alt="Aguarde..." class="img-loading no-select-img" />
+    </div>
 
     </form>
   </div>
 
-  <div *ngIf="ativarLoading">
-    <img src="../../assets/img/loading-eclipse.gif" alt="Carregando..." class="img-loading no-select-img" />
-  </div>
+
 
 
 </div>

@@ -1,9 +1,11 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PacienteInterface } from '../model/paciente-interface';
 import { CreateService } from '../services/api/create/create.service';
 import { PerfilEnum } from '../model/perfil-enum';
 import { selectUf } from '../services/utilits/select-uf';
+import { Router } from '@angular/router';
+import { MessageCadastroPacienteService } from '../services/messagers/info-message/cadastro-paciente/message-cadastro-paciente.service';
 declare var $: any;
 
 
@@ -48,29 +50,33 @@ export class CadastroComponent implements OnInit  {
   optionUf: { sigla: string, nome: string } [] = [] as { sigla: string, nome: string }[];
   protected ativarLoading: boolean = false;
 
-  constructor(private createService: CreateService) {
+  constructor(
+    private createService: CreateService,
+    private router: Router,
+    private cadastroPacienteInfoMessage: MessageCadastroPacienteService) {
+
     this.formValidation = new FormGroup({
-      nomeCompleto: new FormControl('Bruno Fernandes', Validators.maxLength(45)),
-      cpf: new FormControl('352.795.388-41'),
-      email: new FormControl('brunus@brunus.mail.br'),
-      telefone: new FormControl('11 9 7777-7777'),
-      telefoneContato: new FormControl('11 9 7777-7777'),
-      idade: new FormControl('35'),
-      dataNascimento: new FormControl(''),
-      estadoCivil: new FormControl(''),
-      filhos: new FormControl('nao'),
-      qtdFilhos: new FormControl('', [Validators.min(0)]),
-      grauEscolaridade: new FormControl(''),
-      profissao: new FormControl('Desenvolvedor Java'),
-      perfil: new FormControl('', Validators.required),
-      cep: new FormControl('085-35364'),
-      rua: new FormControl('Flor de Caboclo'),
-      numero: new FormControl('275'),
-      complemento: new FormControl('Apartamento 10'),
-      bairro: new FormControl('Parque Guarani'),
-      cidade: new FormControl('São Paulo'),
-      uf: new FormControl(''),
-      queixa: new FormControl('Lore..')
+      nomeCompleto: new FormControl('Bruno Fernandes', Validators.maxLength(45)),  // Bruno Fernandes
+      cpf: new FormControl('358.498.688-74'),   // 358.498.688-74
+      email: new FormControl('brunus@mail.com'), // brunus@mail.com
+      telefone: new FormControl('11 9 9854-8756'),  // 11 9 9854-8756
+      telefoneContato: new FormControl('11 9 9854-8000'), // 11 9 9854-8000
+      idade: new FormControl('35'),   //  35
+      dataNascimento: new FormControl('1977-05-22'),  // 1977-05-22
+      estadoCivil: new FormControl('Casado'), // Casado
+      filhos: new FormControl(''),
+      qtdFilhos: new FormControl('', [Validators.min(0)]),  //
+      grauEscolaridade: new FormControl('Ensino_Superior Completo'),  //  Ensino_Superior Completo
+      profissao: new FormControl('Desenvolvedor'), // Desenvolvedor
+      perfil: new FormControl('PSICOLOGIA', Validators.required), // PSICOLOGIA
+      cep: new FormControl('05468-857'),   //  05468-857
+      rua: new FormControl('Das Flores'),   //  Das Flores
+      numero: new FormControl('105'),  // 105
+      complemento: new FormControl('Apartamento  10'), // Apartamento  10
+      bairro: new FormControl('Parque_Guarano'),  // Parque_Guarano
+      cidade: new FormControl('São Paulo'),    // São Paulo
+      uf: new FormControl('SP'),  // SP
+      queixa: new FormControl('Loren ..') // Loren ..
     });
   }
 
@@ -89,7 +95,9 @@ export class CadastroComponent implements OnInit  {
 
 
 
-  cadastrar(): void {
+  async cadastrar(): Promise<void> {
+
+
 
 
 
@@ -123,13 +131,56 @@ export class CadastroComponent implements OnInit  {
       }
 
       //chama a api para cadastrar no banco
+    }
+
+    this.ativarLoading = true;
+
+    const sendDataAPI = await this.createService.registerPatient(this.pacienteCadastro);
+
+    if (sendDataAPI) {
+      // 1° Ativa o loading
+      // 2° Limpa os campos
+      // 3° Desativa o loading
+      // 3° Aviso na tela
 
 
 
+
+
+      setTimeout(() => {
+        this.limparCampos();
+        this.ativarLoading = false
+      }, 2000);
+
+
+      setTimeout(() => {
+        this.cadastroPacienteInfoMessage.setInfoMessage('Paciente cadastrado com sucesso.');
+      }, 3000);
+
+
+
+
+
+
+      // Mecanismo de atraso de redirecionamento com o componente RedirectComponent
+      setTimeout(() => {
+
+
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 100);
+
+        this.router.navigate(['redirect-home']);
+      }, 6000); //   tempo de redirecionamento
+
+    } else {
+      // Lógica para lidar com o caso em que sendDataAPI é false
     }
 
 
-   this.createService.registerPatient(this.pacienteCadastro);
+
+
 
 
    /*
@@ -157,6 +208,32 @@ export class CadastroComponent implements OnInit  {
   }
 
 
+  private limparCampos(): void {
+    this.formValidation.get('nomeCompleto')!.setValue('');
+    this.formValidation.get('cpf')!.setValue('');
+    this.formValidation.get('email')!.setValue('');
+    this.formValidation.get('telefone')!.setValue('');
+    this.formValidation.get('telefoneContato')!.setValue('');
+    this.formValidation.get('idade')!.setValue('');
+    this.formValidation.get('dataNascimento')!.setValue('');
+    this.formValidation.get('estadoCivil')!.setValue('');
+    this.formValidation.get('filhos')!.setValue('');
+    this.formValidation.get('qtdFilhos')!.setValue('');
+    this.formValidation.get('grauEscolaridade')!.setValue('');
+    this.formValidation.get('profissao')!.setValue('');
+    this.formValidation.get('perfil')!.setValue('');
+    this.formValidation.get('cep')!.setValue('');
+    this.formValidation.get('rua')!.setValue('');
+    this.formValidation.get('numero')!.setValue('');
+    this.formValidation.get('complemento')!.setValue('');
+    this.formValidation.get('bairro')!.setValue('');
+    this.formValidation.get('cidade')!.setValue('');
+    this.formValidation.get('uf')!.setValue('');
+    this.formValidation.get('queixa')!.setValue('');
+
+
+
+  }
 
 
 

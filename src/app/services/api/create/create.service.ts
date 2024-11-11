@@ -1,5 +1,5 @@
-import { ErrorService } from './../../error/error.service';
-import { MessageApiService } from './../../messagers/info-message/message-api.service';
+import { ErrorService } from '../../messagers/error-message/error.service';
+import { MessageApiGenericsService } from '../../messagers/info-message/display-info-message-generics/message-api-generics.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
@@ -14,8 +14,7 @@ export class CreateService {
   private registarOfPatient: string = 'http://localhost:8080/cadastro/paciente';
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private http: HttpClient, private messageApiService: MessageApiService,
-    private errorMessage: GerenciadoDeAutenticacaoService
+  constructor(private http: HttpClient, private errorMessage: GerenciadoDeAutenticacaoService
   ) { }
 
 
@@ -35,6 +34,7 @@ export class CreateService {
    * @throws {Error} - Lança um erro se a requisição falhar ou se o status da resposta não for 200.
   */
   registerPatient(patient: PacienteInterface): Promise<boolean> {
+
   return new Promise<boolean>((resolve, reject) => {
     this.http.post<PacienteInterface>(this.registarOfPatient, patient, { observe: 'response' })
       .pipe(takeUntil(this.unsubscribe$)).subscribe({
@@ -43,14 +43,21 @@ export class CreateService {
             console.log(response.status);
             // Aciona o serviço de mensagem e declare
             console.log('Paciente cadastrado com sucesso.');
-            this.messageApiService.setInfoMessage('Paciente cadastrado com sucesso.');
+
+
+
+
+
             // Paciente cadastrado com sucesso
+
+
+
             resolve(true);
-            } else {
-              // Se o status não for 200, você pode tratar isso aqui
-              console.warn('Status inesperado:', response.status);
-              reject(false);
-            }
+          } else {
+            // Se o status não for 200, você pode tratar isso aqui
+            console.warn('Status inesperado:', response.status);
+            reject(false);
+          }
         },
         error: (err) => {
           console.error('Erro na requisição:', err);

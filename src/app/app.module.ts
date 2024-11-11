@@ -16,14 +16,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { RedirectingComponent } from './services/redirecting/redirecting.component';
 import { EndingSessionComponent } from './services/redirecting/ending-session/ending-session.component';
-import { ErrorComponent } from './services/error/error.component';
+import { ErrorComponent } from './services/messagers/error-message/error.component';
 import { ErrorsProvider } from './providers/errors-provider';
 import { AngularProvider } from './providers/angular-provider';
 import { ModelProvider } from './providers/model-provider';
 import { ApiServicesProvider } from './providers/api-services-provider';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { MenuPrincipalComponent } from './templates/menu-principal/menu-principal.component';
-import { DisplayInfoMessageComponent } from './services/messagers/info-message/display-info-message/display-info-message/display-info-message.component';
+import { DisplayInfoMessageComponent } from './services/messagers/info-message/display-info-message-generics/display-info-message/display-info-message.component';
+import { LoadingComponent } from './services/waiting/loading/loading.component';
 
 
 
@@ -38,7 +39,8 @@ import { DisplayInfoMessageComponent } from './services/messagers/info-message/d
     ErrorComponent,
     CadastroComponent,
     MenuPrincipalComponent,
-    DisplayInfoMessageComponent
+    DisplayInfoMessageComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

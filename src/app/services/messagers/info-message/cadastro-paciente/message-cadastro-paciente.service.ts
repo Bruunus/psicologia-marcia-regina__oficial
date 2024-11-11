@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class MessageApiService {
+export class MessageCadastroPacienteService {
 
   private message: string = ''
   private infoSubject = new Subject<string>();

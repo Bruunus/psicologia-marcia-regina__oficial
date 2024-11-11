@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-redirecting',
@@ -9,7 +10,15 @@ export class RedirectingComponent implements OnInit {
 
   constructor() { }
 
+
+
+
   ngOnInit(): void {
+
   }
+
+
+
+
 
 }

@@ -116,7 +116,7 @@ export class LoginComponent implements OnInit {
             setTimeout(() => {
               window.location.reload()
             }, 100);  //   tempo de redirecionamento
-            this.router.navigate(['authenticating']);
+            this.router.navigate(['redirect-home']);
             // console.log(this.usuario)  //{Debug}\\
 
           }, 100);

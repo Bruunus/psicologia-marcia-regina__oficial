@@ -7,8 +7,8 @@ import { Subscription } from 'rxjs';
 import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PacienteSeach } from '../model/paciente-seach';
-import { ErrorComponent } from '../services/error/error.component';
-import { ErrorService } from '../services/error/error.service';
+import { ErrorComponent } from '../services/messagers/error-message/error.component';
+import { ErrorService } from '../services/messagers/error-message/error.service';
 
 
 @Component({

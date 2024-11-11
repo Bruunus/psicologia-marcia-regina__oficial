@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
-import { ErrorService } from "../services/error/error.service";
-import { ErrorComponent } from "../services/error/error.component";
+import { ErrorService } from "../services/messagers/error-message/error.service";
+import { ErrorComponent } from "../services/messagers/error-message/error.component";
 
 
 @NgModule({
