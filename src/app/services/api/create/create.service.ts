@@ -44,24 +44,19 @@ export class CreateService {
             // Aciona o serviço de mensagem e declare
             console.log('Paciente cadastrado com sucesso.');
 
-
-
-
-
             // Paciente cadastrado com sucesso
 
-
-
             resolve(true);
-          } else {
+          } /*else {
             // Se o status não for 200, você pode tratar isso aqui
             console.warn('Status inesperado:', response.status);
             reject(false);
-          }
+          }*/
         },
         error: (err) => {
           console.error('Erro na requisição:', err);
           this.errorMessage.setErrorMessage('Erro ao cadastrar paciente: ' + err.message);
+          this.errorMessage.getErrorMessage()
           reject(false);
         }
       });

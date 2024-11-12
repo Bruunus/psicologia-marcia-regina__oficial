@@ -6,6 +6,7 @@ import { PerfilEnum } from '../model/perfil-enum';
 import { selectUf } from '../services/utilits/select-uf';
 import { Router } from '@angular/router';
 import { MessageCadastroPacienteService } from '../services/messagers/info-message/cadastro-paciente/message-cadastro-paciente.service';
+import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
 declare var $: any;
 
 
@@ -53,7 +54,8 @@ export class CadastroComponent implements OnInit  {
   constructor(
     private createService: CreateService,
     private router: Router,
-    private cadastroPacienteInfoMessage: MessageCadastroPacienteService) {
+    private cadastroPacienteInfoMessage: MessageCadastroPacienteService, private errorMessage: GerenciadoDeAutenticacaoService
+  ) {
 
     this.formValidation = new FormGroup({
       nomeCompleto: new FormControl('Bruno Fernandes', Validators.maxLength(45)),  // Bruno Fernandes
@@ -148,18 +150,17 @@ export class CadastroComponent implements OnInit  {
 
 
       setTimeout(() => {
-        this.limparCampos();
         this.ativarLoading = false
-      }, 2000);
 
+      }, 3290); // tempo para encerrar o loading
 
       setTimeout(() => {
         this.cadastroPacienteInfoMessage.setInfoMessage('Paciente cadastrado com sucesso.');
-      }, 3000);
+      }, 3300); //  tempo para aparecer a mensagem
 
-
-
-
+      setTimeout(() => {
+        this.limparCampos();
+      }, 2000); // tempo para limpar os campos
 
 
       // Mecanismo de atraso de redirecionamento com o componente RedirectComponent
@@ -172,12 +173,9 @@ export class CadastroComponent implements OnInit  {
         }, 100);
 
         this.router.navigate(['redirect-home']);
-      }, 6000); //   tempo de redirecionamento
+      }, 5400); //   tempo de redirecionamento
 
-    } else {
-      // Lógica para lidar com o caso em que sendDataAPI é false
     }
-
 
 
 

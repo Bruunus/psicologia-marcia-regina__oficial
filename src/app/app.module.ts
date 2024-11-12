@@ -25,6 +25,8 @@ import { CadastroComponent } from './cadastro/cadastro.component';
 import { MenuPrincipalComponent } from './templates/menu-principal/menu-principal.component';
 import { DisplayInfoMessageComponent } from './services/messagers/info-message/display-info-message-generics/display-info-message/display-info-message.component';
 import { LoadingComponent } from './services/waiting/loading/loading.component';
+import { ServicesProvider } from './providers/services-provider';
+import { CadastroPacienteInfoMessageComponent } from './services/messagers/info-message/cadastro-paciente/display-cadastro-paciente/cadastro-paciente-info-message.component';
 
 
 
@@ -40,7 +42,8 @@ import { LoadingComponent } from './services/waiting/loading/loading.component';
     CadastroComponent,
     MenuPrincipalComponent,
     DisplayInfoMessageComponent,
-    LoadingComponent
+    LoadingComponent,
+    CadastroPacienteInfoMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,15 @@ import { LoadingComponent } from './services/waiting/loading/loading.component';
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
-  providers: [AngularProvider,AutenticacaoGuard, AuthenticationProvider, ErrorsProvider, ModelProvider, ApiServicesProvider],
+  providers: [
+    AngularProvider,
+    AutenticacaoGuard,
+    AuthenticationProvider,
+    ErrorsProvider,
+    ModelProvider,
+    ApiServicesProvider,
+    ServicesProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

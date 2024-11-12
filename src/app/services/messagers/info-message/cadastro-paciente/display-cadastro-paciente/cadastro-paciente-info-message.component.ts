@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { MessageCadastroPacienteService } from '../message-cadastro-paciente.service';
 
 @Component({
-  selector: 'app-display-info-message',
+  selector: 'app-display-info-message-cadastro-paciente',
   template: `
 
     <div *ngIf="infoMessage" class="alert alert-info alert-dismissible fade show alert-info-message" role="alert" [@slideInOut]="isVisible ? 'in' : 'out'">
@@ -47,7 +47,7 @@ export class CadastroPacienteInfoMessageComponent implements OnInit {
 
         this.timeoutId = setTimeout(() => {
           this.closeError();
-        }, 4000); // 5 segundos
+        }, 2000); // 5 segundos
       })
     )
 
