@@ -46,7 +46,7 @@ export class CadastroPacienteInfoMessageComponent implements OnInit {
         this.isVisible = true;
 
         this.timeoutId = setTimeout(() => {
-          this.closeError();
+          this.closeMessage();
         }, 2000); // 5 segundos
       })
     )
@@ -57,13 +57,13 @@ export class CadastroPacienteInfoMessageComponent implements OnInit {
 
 
 
-  closeError() {
+  closeMessage() {
     this.isVisible = false; // Inicia a animação de saída
 
     // Limpar a mensagem após a animação de saída
     setTimeout(() => {
       this.infoMessage = null;
-    }, 500); // Tempo para a animação de saída
+    }, 400); // Tempo para a animação de saída
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
     }

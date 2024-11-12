@@ -152,11 +152,11 @@ export class CadastroComponent implements OnInit  {
       setTimeout(() => {
         this.ativarLoading = false
 
-      }, 3290); // tempo para encerrar o loading
+      }, 2290); // tempo para encerrar o loading
 
       setTimeout(() => {
         this.cadastroPacienteInfoMessage.setInfoMessage('Paciente cadastrado com sucesso.');
-      }, 3300); //  tempo para aparecer a mensagem
+      }, 2300); //  tempo para aparecer a mensagem
 
       setTimeout(() => {
         this.limparCampos();
@@ -165,8 +165,6 @@ export class CadastroComponent implements OnInit  {
 
       // Mecanismo de atraso de redirecionamento com o componente RedirectComponent
       setTimeout(() => {
-
-
 
         setTimeout(() => {
           window.location.reload();
