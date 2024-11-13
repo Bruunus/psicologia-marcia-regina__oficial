@@ -18,13 +18,13 @@ export class ErrorService {
 
 
 
-  showError(errorMessage: string) {
+  setError(errorMessage: string) {
     this.errorSubject.next(errorMessage);
   }
 
-  // getError(): Observable<string> {
-  //   return this.errorSubject.asObservable();
-  // }
+  getError(): Observable<string> {
+    return this.errorSubject.asObservable();
+  }
 
   closeError() {
     this.closeSubject.next(); // Notifica que o erro deve ser fechado

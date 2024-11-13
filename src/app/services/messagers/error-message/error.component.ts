@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-error-message',
   template: `
 
-    <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show alert-error-message" role="alert" [@slideInOut]="isVisible ? 'in' : 'out'">
+    <div *ngIf="errorMessage" [ngClass]="alertClass"] class=" alert-dismissible fade show alert-error-message" role="alert" [@slideInOut]="isVisible ? 'in' : 'out'">
       {{ errorMessage }}
       <button type="button" class="close" (click)="closeError()" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -31,9 +31,10 @@ import { Subscription } from 'rxjs';
 })
 export class ErrorComponent implements OnInit {
 
-  errorMessage: string | null = null;
-  isVisible: boolean = false;
-  timeoutId: any;
+  protected errorMessage: string | null = null;
+  protected isVisible: boolean = false;
+  private timeoutId: any;
+  protected alertClass: string = '';
 
   private subscription: Subscription = new Subscription();
 
@@ -72,6 +73,24 @@ export class ErrorComponent implements OnInit {
     }, 500); // Tempo para a animação de saída
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
+    }
+  }
+
+  typeAlert(typeAlert: string) {
+    switch (typeAlert) {
+      case 'ALERT_ERROR':
+
+        break;
+      case 'ALERT_INFO':
+
+      break;
+
+      case 'ALERT_ALERT':
+
+      break;
+
+      default:
+        break;
     }
   }
 

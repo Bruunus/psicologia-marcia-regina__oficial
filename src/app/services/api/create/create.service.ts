@@ -1,6 +1,6 @@
 import { ErrorService } from '../../messagers/error-message/error.service';
 import { MessageApiGenericsService } from '../../messagers/info-message/display-info-message-generics/message-api-generics.service';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { PacienteInterface } from 'src/app/model/paciente-interface';
@@ -14,7 +14,7 @@ export class CreateService {
   private registarOfPatient: string = 'http://localhost:8080/cadastro/paciente';
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private http: HttpClient, private errorMessage: GerenciadoDeAutenticacaoService
+  constructor(private http: HttpClient, private errorMessage: ErrorService
   ) { }
 
 
@@ -53,10 +53,22 @@ export class CreateService {
             reject(false);
           }*/
         },
-        error: (err) => {
-          console.error('Erro na requisição:', err);
-          this.errorMessage.setErrorMessage('Erro ao cadastrar paciente: ' + err.message);
-          this.errorMessage.getErrorMessage()
+        error: (errorResponse: HttpErrorResponse) => {
+          const erro404 = errorResponse.status;
+          const errorMessage = errorResponse.error || 'Erro desconhecido';
+
+          console.log(errorMessage)
+          if(errorResponse.status === 400) {
+            console.log('Deu erro  ',erro404);
+            this.errorMessage.setError(`Erro ${errorResponse.status}: ${errorMessage}`);
+            this.errorMessage.getError();
+          } else if(errorResponse.status === 500) {
+            this.errorMessage.setError(`Erro ${errorResponse.status}: ${errorMessage}`);
+            this.errorMessage.getError()
+          }
+          // console.error('Erro na requisição:', err);
+          // this.errorMessage.setErrorMessage('Erro ao cadastrar paciente: ' + err.message);
+          // this.errorMessage.getErrorMessage()
           reject(false);
         }
       });

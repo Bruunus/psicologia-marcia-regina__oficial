@@ -76,7 +76,8 @@ export class PacientesHomeComponent implements OnInit {
   protected procurarPaciente(): void {
 
     if(this.pesquisa === null || this.pesquisa === '') {
-      this.errorService.showError(this.errorService.ERROR_SEACH_PATIENT);
+      this.errorService.setError(this.errorService.ERROR_SEACH_PATIENT);
+      this.errorService.getError();
     } else {
 
       console.log(this.pesquisa)
