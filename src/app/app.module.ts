@@ -16,7 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { RedirectingComponent } from './services/redirecting/redirecting.component';
 import { EndingSessionComponent } from './services/redirecting/ending-session/ending-session.component';
-import { ErrorComponent } from './services/messagers/error-message/error.component';
+import { MessageComponent } from './services/messagers/message/message.component';
 import { ErrorsProvider } from './providers/errors-provider';
 import { AngularProvider } from './providers/angular-provider';
 import { ModelProvider } from './providers/model-provider';
@@ -38,7 +38,7 @@ import { CadastroPacienteInfoMessageComponent } from './services/messagers/info-
     RedirectComponent,
     RedirectingComponent,
     EndingSessionComponent,
-    ErrorComponent,
+    MessageComponent,
     CadastroComponent,
     MenuPrincipalComponent,
     DisplayInfoMessageComponent,

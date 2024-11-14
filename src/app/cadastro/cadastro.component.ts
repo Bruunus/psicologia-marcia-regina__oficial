@@ -54,7 +54,7 @@ export class CadastroComponent implements OnInit  {
   constructor(
     private createService: CreateService,
     private router: Router,
-    private cadastroPacienteInfoMessage: MessageCadastroPacienteService, private errorMessage: GerenciadoDeAutenticacaoService
+    private message: MessageCadastroPacienteService, private errorMessage: GerenciadoDeAutenticacaoService
   ) {
 
     this.formValidation = new FormGroup({
@@ -155,7 +155,7 @@ export class CadastroComponent implements OnInit  {
       }, 2290); // tempo para encerrar o loading
 
       setTimeout(() => {
-        this.cadastroPacienteInfoMessage.setInfoMessage('Paciente cadastrado com sucesso.');
+
       }, 2300); //  tempo para aparecer a mensagem
 
       setTimeout(() => {

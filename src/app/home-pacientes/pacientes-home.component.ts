@@ -7,8 +7,8 @@ import { Subscription } from 'rxjs';
 import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PacienteSeach } from '../model/paciente-seach';
-import { ErrorComponent } from '../services/messagers/error-message/error.component';
-import { ErrorService } from '../services/messagers/error-message/error.service';
+import { MessageComponent } from '../services/messagers/message/message.component';
+import { MessageService } from '../services/messagers/message/message.service';
 
 
 @Component({
@@ -32,8 +32,8 @@ export class PacientesHomeComponent implements OnInit {
     private router: Router, private timeoutService: TimeoutService,
     private apiAutenticacaoService: ApiAutenticacaoService,
     private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService,
-    private errorComponent: ErrorComponent,
-    private errorService: ErrorService,
+    private errorComponent: MessageComponent,
+    private errorService: MessageService,
     protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev
 
   ) {
@@ -61,7 +61,7 @@ export class PacientesHomeComponent implements OnInit {
   }
 
   onCloseMessage(): void {
-    this.errorService.closeError()
+    this.errorService.closeMessage()
   }
 
 
@@ -76,8 +76,8 @@ export class PacientesHomeComponent implements OnInit {
   protected procurarPaciente(): void {
 
     if(this.pesquisa === null || this.pesquisa === '') {
-      this.errorService.setError(this.errorService.ERROR_SEACH_PATIENT);
-      this.errorService.getError();
+      this.errorService.setMessage(this.errorService.ERROR_SEACH_PATIENT, 'ALERT_INFO');
+      this.errorService.getMessage();
     } else {
 
       console.log(this.pesquisa)

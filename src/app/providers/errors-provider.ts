@@ -1,11 +1,11 @@
 import { NgModule } from "@angular/core";
-import { ErrorService } from "../services/messagers/error-message/error.service";
-import { ErrorComponent } from "../services/messagers/error-message/error.component";
+import { MessageService } from "../services/messagers/message/message.service";
+import { MessageComponent } from "../services/messagers/message/message.component";
 
 
 @NgModule({
   providers: [
-    ErrorService, ErrorComponent
+    MessageService, MessageComponent
   ]
 })
 export class ErrorsProvider {}

@@ -1,4 +1,4 @@
-import { ErrorService } from '../../messagers/error-message/error.service';
+import { MessageService } from '../../messagers/message/message.service';
 import { MessageApiGenericsService } from '../../messagers/info-message/display-info-message-generics/message-api-generics.service';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -14,7 +14,7 @@ export class CreateService {
   private registarOfPatient: string = 'http://localhost:8080/cadastro/paciente';
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private http: HttpClient, private errorMessage: ErrorService
+  constructor(private http: HttpClient, private userMessage: MessageService
   ) { }
 
 
@@ -33,47 +33,38 @@ export class CreateService {
    *
    * @throws {Error} - Lança um erro se a requisição falhar ou se o status da resposta não for 200.
   */
+
   registerPatient(patient: PacienteInterface): Promise<boolean> {
 
-  return new Promise<boolean>((resolve, reject) => {
-    this.http.post<PacienteInterface>(this.registarOfPatient, patient, { observe: 'response' })
-      .pipe(takeUntil(this.unsubscribe$)).subscribe({
-        next: (response: HttpResponse<PacienteInterface>) => {
-          if (response && response.status === 200) {
-            console.log(response.status);
-            // Aciona o serviço de mensagem e declare
-            console.log('Paciente cadastrado com sucesso.');
+    return new Promise<boolean>((resolve, reject) => {
 
-            // Paciente cadastrado com sucesso
-
-            resolve(true);
-          } /*else {
-            // Se o status não for 200, você pode tratar isso aqui
-            console.warn('Status inesperado:', response.status);
-            reject(false);
-          }*/
-        },
-        error: (errorResponse: HttpErrorResponse) => {
-          const erro404 = errorResponse.status;
-          const errorMessage = errorResponse.error || 'Erro desconhecido';
-
-          console.log(errorMessage)
-          if(errorResponse.status === 400) {
-            console.log('Deu erro  ',erro404);
-            this.errorMessage.setError(`Erro ${errorResponse.status}: ${errorMessage}`);
-            this.errorMessage.getError();
-          } else if(errorResponse.status === 500) {
-            this.errorMessage.setError(`Erro ${errorResponse.status}: ${errorMessage}`);
-            this.errorMessage.getError()
+      this.http.post<PacienteInterface>(this.registarOfPatient, patient, { observe: 'response' })
+        .pipe(takeUntil(this.unsubscribe$)).subscribe({
+          next: (response: HttpResponse<any>) => { //any só pra poder retornar uma mensagem
+            if (response && response.status === 200) {
+              // console.log(response.status,' ',response.statusText);
+              // this.userMessage.setMessage(`${response.body.message}`, 'ALERT_SUCCESS');
+              resolve(true);
+            }
+          },
+          error: (errorResponse: HttpErrorResponse) => {
+            // const erroCodigo = errorResponse.status;
+            if(errorResponse.status === 400) {
+              // console.log('Deu erro  ',erroCodigo);
+              this.userMessage.setMessage(`Erro ${errorResponse.status}: ${errorResponse.error.message}`, 'ALERT_ALERT');
+              this.userMessage.getMessage();
+              resolve(false);
+            } else if(errorResponse.status === 500) {
+              // console.log('Deu erro  ',erroCodigo);
+              this.userMessage.setMessage(`Erro ${errorResponse.status}: ${errorResponse.error.message}`, 'ALERT_ERROR');
+              this.userMessage.getMessage()
+              resolve(false);
+            }
           }
-          // console.error('Erro na requisição:', err);
-          // this.errorMessage.setErrorMessage('Erro ao cadastrar paciente: ' + err.message);
-          // this.errorMessage.getErrorMessage()
-          reject(false);
-        }
-      });
-  });
-}
+        });
+    });
+  }
+
 
 
   ngOnDestroy() {

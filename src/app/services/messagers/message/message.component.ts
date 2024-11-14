@@ -1,5 +1,5 @@
 import { Component, Injectable, Input, OnInit } from '@angular/core';
-import { ErrorService } from './error.service';
+import { MessageService } from './message.service';
 import { trigger, state, style, transition, animate, ɵPRE_STYLE } from '@angular/animations';
 import { Subscription } from 'rxjs';
 
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-error-message',
   template: `
 
-    <div *ngIf="errorMessage" [ngClass]="alertClass"] class=" alert-dismissible fade show alert-error-message" role="alert" [@slideInOut]="isVisible ? 'in' : 'out'">
+    <div *ngIf="errorMessage" [ngClass]="alertClass" class="alert alert-dismissible fade show alert-error-message" role="alert" [@slideInOut]="isVisible ? 'in' : 'out'">
       {{ errorMessage }}
       <button type="button" class="close" (click)="closeError()" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -29,7 +29,7 @@ import { Subscription } from 'rxjs';
 
 
 })
-export class ErrorComponent implements OnInit {
+export class MessageComponent implements OnInit {
 
   protected errorMessage: string | null = null;
   protected isVisible: boolean = false;
@@ -38,15 +38,16 @@ export class ErrorComponent implements OnInit {
 
   private subscription: Subscription = new Subscription();
 
-  constructor(private errorService: ErrorService) {
+  constructor(private errorService: MessageService) {
 
   }
 
   ngOnInit() {
 
     this.subscription.add(
-      this.errorService.error$.subscribe((message) => {
+      this.errorService.message$.subscribe(({message, type}) => {
         this.errorMessage = message;
+        this.alertClass = this.typeAlert(type);
         this.isVisible = true;
 
         this.timeoutId = setTimeout(() => {
@@ -76,21 +77,18 @@ export class ErrorComponent implements OnInit {
     }
   }
 
-  typeAlert(typeAlert: string) {
-    switch (typeAlert) {
+  typeAlert(type: string): string {
+    switch (type) {
+      case 'ALERT_SUCCESS':
+        return 'alert-success'
       case 'ALERT_ERROR':
-
-        break;
+        return 'alert-danger'; // Classe do Bootstrap para erro
       case 'ALERT_INFO':
-
-      break;
-
+        return 'alert-info'; // Classe do Bootstrap para informação
       case 'ALERT_ALERT':
-
-      break;
-
+        return 'alert-warning'; // Classe do Bootstrap para alerta
       default:
-        break;
+        return ''; // Classe padrão se o tipo não for reconhecido
     }
   }
 
