@@ -7,6 +7,7 @@ import { selectUf } from '../services/utilits/select-uf';
 import { Router } from '@angular/router';
 import { MessageCadastroPacienteService } from '../services/messagers/info-message/cadastro-paciente/message-cadastro-paciente.service';
 import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
+import { MessageService } from '../services/messagers/message/message.service';
 declare var $: any;
 
 
@@ -54,7 +55,7 @@ export class CadastroComponent implements OnInit  {
   constructor(
     private createService: CreateService,
     private router: Router,
-    private message: MessageCadastroPacienteService, private errorMessage: GerenciadoDeAutenticacaoService
+    private message: MessageService, private errorMessage: GerenciadoDeAutenticacaoService
   ) {
 
     this.formValidation = new FormGroup({
@@ -99,13 +100,7 @@ export class CadastroComponent implements OnInit  {
 
   async cadastrar(): Promise<void> {
 
-
-
-
-
     this.pacienteCadastro = {
-
-
       nomeCompleto: this.nomeCompleto,
       cpf: this.cpf,
       email: this.email,
@@ -131,36 +126,23 @@ export class CadastroComponent implements OnInit  {
       queixa: {
         queixa: this.queixa
       }
-
-      //chama a api para cadastrar no banco
     }
-
-    this.ativarLoading = true;
 
     const sendDataAPI = await this.createService.registerPatient(this.pacienteCadastro);
 
     if (sendDataAPI) {
-      // 1° Ativa o loading
-      // 2° Limpa os campos
-      // 3° Desativa o loading
-      // 3° Aviso na tela
 
-
-
-
+      this.ativarLoading = true;
 
       setTimeout(() => {
         this.ativarLoading = false
-
-      }, 2290); // tempo para encerrar o loading
-
-      setTimeout(() => {
-
-      }, 2300); //  tempo para aparecer a mensagem
+        this.message.setMessage('Paciente cadastrado com sucesso !!!','ALERT_SUCCESS');
+        this.message.getMessage();
+      }, 2100); //  tempo para aparecer a mensagem
 
       setTimeout(() => {
         this.limparCampos();
-      }, 2000); // tempo para limpar os campos
+      }, 1310); // tempo para limpar os campos
 
 
       // Mecanismo de atraso de redirecionamento com o componente RedirectComponent
@@ -171,36 +153,11 @@ export class CadastroComponent implements OnInit  {
         }, 100);
 
         this.router.navigate(['redirect-home']);
-      }, 5400); //   tempo de redirecionamento
+      }, 3500); //   tempo de redirecionamento
 
+    } else {
+      this.ativarLoading = false;
     }
-
-
-
-
-
-   /*
-    estou usando o angular e irei chamar uma api para cadastrar os dados
-
-    const connect = this.createService.registerPatient(this.pacienteCadastro);
-
-    essa api retorna boolean e também tenho o meu gif de loading
-
-    <div *ngIf="ativarLoading">
-        <img src="../../assets/img/loading-eclipse.gif" alt="Carregando..." class="img-loading no-select-img" />
-      </div>
-
-    que para executar ele aguarda a alteração da variável para true
-
-    o que eu quero é que entre em loading imediatamente ao clicar no submit dispare a chadama da api imediatamente, depois faça um if
-    em conect para saber se é true, se for então aguarde 1,5
-   */
-
-
-    console.log(this.pacienteCadastro);
-
-
-
   }
 
 
@@ -226,9 +183,6 @@ export class CadastroComponent implements OnInit  {
     this.formValidation.get('cidade')!.setValue('');
     this.formValidation.get('uf')!.setValue('');
     this.formValidation.get('queixa')!.setValue('');
-
-
-
   }
 
 
@@ -236,7 +190,6 @@ export class CadastroComponent implements OnInit  {
   getPerfilEnumKeys(): string[] {
     return Object.values(PerfilEnum);
   }
-
 
   get nomeCompleto() {
     return this.formValidation.get('nomeCompleto')?.value;
