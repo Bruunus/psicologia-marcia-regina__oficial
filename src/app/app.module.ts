@@ -2,6 +2,8 @@ import { AuthenticationProvider } from './providers/authentication-provider';
 import { AutenticacaoGuard } from './services/autenticacao/autenticacao.guard';
 import { GerenciadoDeAutenticacaoService } from './services/sessao/gerenciador-de-autenticacao.service';
 
+
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { PacientesHomeComponent } from './home-pacientes/pacientes-home.component';
@@ -27,6 +29,7 @@ import { DisplayInfoMessageComponent } from './services/messagers/info-message/d
 import { LoadingComponent } from './services/waiting/loading/loading.component';
 import { ServicesProvider } from './providers/services-provider';
 import { CadastroPacienteInfoMessageComponent } from './services/messagers/info-message/cadastro-paciente/display-cadastro-paciente/cadastro-paciente-info-message.component';
+import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
 
 
 
@@ -51,7 +54,9 @@ import { CadastroPacienteInfoMessageComponent } from './services/messagers/info-
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxMaskDirective,
+    NgxMaskPipe
   ],
   providers: [
     AngularProvider,
@@ -60,7 +65,8 @@ import { CadastroPacienteInfoMessageComponent } from './services/messagers/info-
     ErrorsProvider,
     ModelProvider,
     ApiServicesProvider,
-    ServicesProvider
+    ServicesProvider,
+    provideEnvironmentNgxMask()
   ],
   bootstrap: [AppComponent]
 })

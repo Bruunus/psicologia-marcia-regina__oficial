@@ -5,29 +5,33 @@
     <form (ngSubmit)="cadastrar()" [formGroup]="formValidation">
 
       <label for="nomeCompleto">Nome Completo</label>
-      <input type="text" name="nomeCompleto"  formControlName="nomeCompleto" id="nomeCompleto" maxlength="45">
+      <input type="text" name="nomeCompleto"  formControlName="nomeCompleto" id="nomeCompleto" maxlength="45" required>
 
-      <div *ngIf="nomeCompleto?.invalid && (nomeCompleto?.touched)" class="validation-error">
-        <ng-container *ngIf="nomeCompleto?.errors?.['required']">
-          <p style="font-size: 0.8rem; color: tomato;">
-            Nome obrigatório
-          </p>
-        </ng-container>
-        <ng-container *ngIf="nomeCompleto?.errors?.['maxlength']">
-          <p style="font-size: 0.8rem; color: tomato;">
-            Descrição de nome inválido
-          </p>
-        </ng-container>
+      <div *ngIf="(formValidation.get('nomeCompleto')?.invalid &&  formSubmitted) && !formReset" class="validation-error">
+        <p *ngIf="formValidation.get('nomeCompleto')?.errors?.['required']" style="font-size: 0.8rem; color: tomato;">
+          Nome obrigatório
+        </p>
       </div>
 
+
+
       <label for="cpf">CPF</label>
-      <input type="text" name="cpf" formControlName="cpf" id="cpf">
+      <input type="text" name="cpf" mask="000.000.000-00" formControlName="cpf" id="cpf" (input)="onCpf($event)" required>
+
+      <div *ngIf="true">
+        <p>
+
+        </p>
+        <p>
+
+        </p>
+      </div>
 
       <label for="email">E-mail</label>
       <input type="text" name="email" formControlName="email" id="email">
 
       <label for="telefone">Telefone</label>
-      <input type="text" name="telefone" formControlName="telefone" id="telefone">
+      <input type="tel" name="telefone" formControlName="telefone" id="telefone">
 
       <label for="telefone-para-contato">Telefone para contato</label>
       <input type="text" name="telefone-para-contato" formControlName="telefoneContato" id="telefone-para-contato">

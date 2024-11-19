@@ -19,6 +19,7 @@ declare var $: any;
 export class CadastroComponent implements OnInit  {
 
   formValidation: FormGroup;
+  formSubmitted: boolean = false;
   PERFIL!: PerfilEnum;
   pacienteCadastro: PacienteInterface = {
     nomeCompleto: '',
@@ -51,6 +52,7 @@ export class CadastroComponent implements OnInit  {
   selectUfInstance = new selectUf();
   optionUf: { sigla: string, nome: string } [] = [] as { sigla: string, nome: string }[];
   protected ativarLoading: boolean = false;
+  protected formReset: boolean = false;  // evita de aparecer msn de erro após o envio
 
   constructor(
     private createService: CreateService,
@@ -59,8 +61,8 @@ export class CadastroComponent implements OnInit  {
   ) {
 
     this.formValidation = new FormGroup({
-      nomeCompleto: new FormControl('Bruno Fernandes', Validators.maxLength(45)),  // Bruno Fernandes
-      cpf: new FormControl('358.498.688-74'),   // 358.498.688-74
+      nomeCompleto: new FormControl('', Validators.required),  // Bruno Fernandes
+      cpf: new FormControl('',[Validators.required]),   // 358.498.688-74
       email: new FormControl('brunus@mail.com'), // brunus@mail.com
       telefone: new FormControl('11 9 9854-8756'),  // 11 9 9854-8756
       telefoneContato: new FormControl('11 9 9854-8000'), // 11 9 9854-8000
@@ -100,68 +102,91 @@ export class CadastroComponent implements OnInit  {
 
   async cadastrar(): Promise<void> {
 
-    this.pacienteCadastro = {
-      nomeCompleto: this.nomeCompleto,
-      cpf: this.cpf,
-      email: this.email,
-      telefone: this.telefone,
-      telefoneContato: this.telefoneContato,
-      idade: this.idade,
-      dataNascimento: this.dataNascimento,
-      estadoCivil: this.estadoCivil,
-      filhos: this.filhos,
-      qtdFilhos: this.qtdFilhos,
-      grauEscolaridade: this.grauEscolaridade,
-      profissao: this.profissao,
-      perfil: this.perfil,
-      endereco: {
-        rua: this.rua,
-        numero: this.numero,
-        complemento: this.complemento,
-        bairro: this.bairro,
-        cidade: this.cidade,
-        uf: this.uf,
-        cep: this.cep
-      },
-      queixa: {
-        queixa: this.queixa
+    this.formSubmitted = true;
+
+    if(this.formValidation.invalid) {
+      console.log('Formulário inválido'); // Para depuração
+      return;
+    } else {
+      console.log('Formulário válido');
+
+
+      this.pacienteCadastro = {
+        nomeCompleto: this.nomeCompleto,
+        cpf: this.cpf,
+        email: this.email,
+        telefone: this.telefone,
+        telefoneContato: this.telefoneContato,
+        idade: this.idade,
+        dataNascimento: this.dataNascimento,
+        estadoCivil: this.estadoCivil,
+        filhos: this.filhos,
+        qtdFilhos: this.qtdFilhos,
+        grauEscolaridade: this.grauEscolaridade,
+        profissao: this.profissao,
+        perfil: this.perfil,
+        endereco: {
+          rua: this.rua,
+          numero: this.numero,
+          complemento: this.complemento,
+          bairro: this.bairro,
+          cidade: this.cidade,
+          uf: this.uf,
+          cep: this.cep
+        },
+        queixa: {
+          queixa: this.queixa
+        }
       }
-    }
 
-    const sendDataAPI = await this.createService.registerPatient(this.pacienteCadastro);
+      // const sendDataAPI = await this.createService.registerPatient(this.pacienteCadastro);
 
-    if (sendDataAPI) {
+      if (true/*sendDataAPI*/) {
 
-      this.ativarLoading = true;
-
-      setTimeout(() => {
-        this.ativarLoading = false
-        this.message.setMessage('Paciente cadastrado com sucesso !!!','ALERT_SUCCESS');
-        this.message.getMessage();
-      }, 2100); //  tempo para aparecer a mensagem
-
-      setTimeout(() => {
-        this.limparCampos();
-      }, 1310); // tempo para limpar os campos
-
-
-      // Mecanismo de atraso de redirecionamento com o componente RedirectComponent
-      setTimeout(() => {
+        this.ativarLoading = true;
 
         setTimeout(() => {
-          window.location.reload();
-        }, 100);
+          this.ativarLoading = false
+          this.message.setMessage('Paciente cadastrado com sucesso !!!','ALERT_SUCCESS');
+          this.message.getMessage();
+        }, 2100); //  tempo para aparecer a mensagem
 
-        this.router.navigate(['redirect-home']);
-      }, 3500); //   tempo de redirecionamento
+        setTimeout(() => {
+          this.limparCampos();
+        }, 1310); // tempo para limpar os campos
 
-    } else {
-      this.ativarLoading = false;
+
+        // Mecanismo de atraso de redirecionamento com o componente RedirectComponent
+        setTimeout(() => {
+
+          setTimeout(() => {
+            window.location.reload();
+          }, 100);
+
+          this.router.navigate(['redirect-home']);
+        }, 3500); //   tempo de redirecionamento
+
+      } else {
+        this.ativarLoading = false;
+      }
+
     }
   }
 
 
+  // validações e mascaras
+
+  protected onCpf(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const valorFiltrado = input.value.replace(/\D/g,'');
+    this.formValidation.get('cpf')?.setValue(valorFiltrado);
+    console.log('Valor filtrado do cpf:' , this.cpf)
+  }
+
+
+
   private limparCampos(): void {
+    this.formReset = true;
     this.formValidation.get('nomeCompleto')!.setValue('');
     this.formValidation.get('cpf')!.setValue('');
     this.formValidation.get('email')!.setValue('');
