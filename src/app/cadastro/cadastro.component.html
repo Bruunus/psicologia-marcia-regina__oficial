@@ -7,44 +7,51 @@
       <label for="nomeCompleto">Nome Completo</label>
       <input type="text" name="nomeCompleto"  formControlName="nomeCompleto" id="nomeCompleto" maxlength="45" required>
 
-      <div *ngIf="(formValidation.get('nomeCompleto')?.invalid &&  formSubmitted) && !formReset" class="validation-error">
-        <p *ngIf="formValidation.get('nomeCompleto')?.errors?.['required']" style="font-size: 0.8rem; color: tomato;">
-          Nome obrigatório
+      <div *ngIf="(formValidation.get('nomeCompleto')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <p *ngIf="formValidation.get('nomeCompleto')?.errors?.['required']" class="message-error-formValidation">
+          Nome completo obrigatório
         </p>
       </div>
-
 
 
       <label for="cpf">CPF</label>
       <input type="text" name="cpf" mask="000.000.000-00" formControlName="cpf" id="cpf" (input)="onCpf($event)" required>
-
-      <div *ngIf="true">
-        <p>
-
-        </p>
-        <p>
-
-        </p>
+      <div *ngIf="(formValidation.get('cpf')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <ng-container *ngIf="formValidation.get('cpf')?.errors?.['required']; else cpfIncorreto">
+          <p class="message-error-formValidation">CPF obrigatório</p>
+        </ng-container>
+        <ng-template #cpfIncorreto>
+          <p class="message-error-formValidation">CPF incorreto</p>
+        </ng-template>
       </div>
 
+
       <label for="email">E-mail</label>
-      <input type="text" name="email" formControlName="email" id="email">
+      <input type="text" name="email" formControlName="email" id="email" required>
+      <div *ngIf="(formValidation.get('email')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <ng-container *ngIf="formValidation.get('email')?.errors?.['required']; else emailIncorreto" >
+          <p class="message-error-formValidation">E-mail obrigatório</p>
+        </ng-container>
+        <ng-template #emailIncorreto>
+          <p class="message-error-formValidation">Declaração de e-mail incorreto  </p>
+        </ng-template>
+      </div>
 
       <label for="telefone">Telefone</label>
-      <input type="tel" name="telefone" formControlName="telefone" id="telefone">
+      <input type="tel" name="telefone" formControlName="telefone" id="telefone" required>
 
       <label for="telefone-para-contato">Telefone para contato</label>
-      <input type="text" name="telefone-para-contato" formControlName="telefoneContato" id="telefone-para-contato">
+      <input type="text" name="telefone-para-contato" formControlName="telefoneContato" id="telefone-para-contato" required>
 
       <label for="idade">Idade</label>
-      <input type="number" name="idade" formControlName="idade" id="idade">
+      <input type="number" name="idade" formControlName="idade" id="idade" required>
 
       <label for="data-de-nascimento">Data de nascimento</label>
-      <input type="date" name="data-de-nascimento" formControlName="dataNascimento" id="data-de-nascimento">
+      <input type="date" name="data-de-nascimento" formControlName="dataNascimento" id="data-de-nascimento" required>
 
       <label for="estado-civil">Estado Civil</label>
 
-      <select name="estado-civil" id="estado-civil" formControlName="estadoCivil">
+      <select name="estado-civil" id="estado-civil" formControlName="estadoCivil" required>
         <option value="solteiro">Solteiro(a)</option>
         <option value="casado">Casado(a)</option>
         <option value="divorcioado">Divorciado(a)</option>
@@ -52,16 +59,16 @@
       </select>
 
       <label for="filhos">Filhos</label>
-      <select name="filhos" formControlName="filhos" id="filhos">
+      <select name="filhos" formControlName="filhos" id="filhos" required>
         <option value="sim">Sim</option>
         <option value="nao">Não</option>
       </select>
 
       <label for="qtdFilhos">Qtd. de filhos</label>
-      <input type="number" name="qtdFilhos" formControlName="qtdFilhos" id="qtdFilhos">
+      <input type="number" name="qtdFilhos" formControlName="qtdFilhos" id="qtdFilhos" required>
 
       <label for="grau-escolaridade">Grau de escolaridade</label>
-      <select type="text" name="grau-escolaridade" formControlName="grauEscolaridade" id="grau-escolaridade">
+      <select type="text" name="grau-escolaridade" formControlName="grauEscolaridade" id="grau-escolaridade" required>
         <option value=""></option>
         <option value="Doutorado">Doutorado</option>
         <option value="Ensino Fundamental Completo">Ensino Fundamental Completo</option>
@@ -75,7 +82,7 @@
       </select>
 
       <label for="profissao">Profissão</label>
-      <input type="text" name="profissao" formControlName="profissao" id="profissao">
+      <input type="text" name="profissao" formControlName="profissao" id="profissao" required>
 
       <label for="perfil">Perfil</label>
       <select name="perfil" formControlName="perfil" id="perfil">  <!-- dados renderizados da api -->
@@ -89,32 +96,32 @@
       </select>
 
       <label for="rua">Rua</label>
-      <input type="text" name="rua" formControlName="rua" id="rua">
+      <input type="text" name="rua" formControlName="rua" id="rua" required>
 
       <label for="numero">Número</label>
-      <input type="text" name="numero" formControlName="numero" id="numero">   <!-- tratar como number | aceitar apenas numeros  -->
+      <input type="text" name="numero" formControlName="numero" id="numero" required>   <!-- tratar como number | aceitar apenas numeros  -->
 
       <label for="complemento">Complemento</label>
-      <input type="text" name="complemento" formControlName="complemento" id="complemento">
+      <input type="text" name="complemento" formControlName="complemento" id="complemento" required>
 
       <label for="bairro">Bairro</label>
-      <input type="text" name="bairro" formControlName="bairro" id="bairro">
+      <input type="text" name="bairro" formControlName="bairro" id="bairro" required>
 
       <label for="cidade">Cidade</label>
-      <input type="text" name="cidade" formControlName="cidade" id="cidade">
+      <input type="text" name="cidade" formControlName="cidade" id="cidade" required>
 
       <label for="uf">UF</label>
-      <select  name="uf" formControlName="uf" id="estado">
+      <select  name="uf" formControlName="uf" id="estado" required>
         <!-- PEsquisa sobre fazer pesquisa no select dinamicamente -->
         <option value=""><option>
         <option *ngFor="let uf of  optionUf" [value]="uf.sigla">{{ uf.nome }}</option>
       </select>
 
       <label for="cep">CEP</label>
-      <input type="text" name="cep" formControlName="cep" id="cep">
+      <input type="text" name="cep" formControlName="cep" id="cep" required>
 
       <label for="queixa">Queixa do paciente</label>
-    <textarea name="queixa" formControlName="queixa" id="queixa"></textarea>
+    <textarea name="queixa" formControlName="queixa" id="queixa" required></textarea>
 
     <br>
 

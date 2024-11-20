@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ValidatorFn, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { PacienteInterface } from '../model/paciente-interface';
 import { CreateService } from '../services/api/create/create.service';
 import { PerfilEnum } from '../model/perfil-enum';
@@ -61,19 +61,19 @@ export class CadastroComponent implements OnInit  {
   ) {
 
     this.formValidation = new FormGroup({
-      nomeCompleto: new FormControl('', Validators.required),  // Bruno Fernandes
-      cpf: new FormControl('',[Validators.required]),   // 358.498.688-74
-      email: new FormControl('brunus@mail.com'), // brunus@mail.com
+      nomeCompleto: new FormControl('Bruno Fernandes', Validators.required),  // Bruno Fernandes
+      cpf: new FormControl('352.785.699-41', [Validators.required, this.validacaoCpf()]),   // 358.498.688-74
+      email: new FormControl('brunos@icon.mail', [Validators.required, Validators.email]), // brunus@mail.com
       telefone: new FormControl('11 9 9854-8756'),  // 11 9 9854-8756
       telefoneContato: new FormControl('11 9 9854-8000'), // 11 9 9854-8000
       idade: new FormControl('35'),   //  35
       dataNascimento: new FormControl('1977-05-22'),  // 1977-05-22
       estadoCivil: new FormControl('Casado'), // Casado
       filhos: new FormControl(''),
-      qtdFilhos: new FormControl('', [Validators.min(0)]),  //
+      qtdFilhos: new FormControl('0', [Validators.min(0)]),  //
       grauEscolaridade: new FormControl('Ensino_Superior Completo'),  //  Ensino_Superior Completo
       profissao: new FormControl('Desenvolvedor'), // Desenvolvedor
-      perfil: new FormControl('PSICOLOGIA', Validators.required), // PSICOLOGIA
+      perfil: new FormControl('PSICOLOGIA', /*Validators.required*/), // PSICOLOGIA
       cep: new FormControl('05468-857'),   //  05468-857
       rua: new FormControl('Das Flores'),   //  Das Flores
       numero: new FormControl('105'),  // 105
@@ -83,6 +83,8 @@ export class CadastroComponent implements OnInit  {
       uf: new FormControl('SP'),  // SP
       queixa: new FormControl('Loren ..') // Loren ..
     });
+
+    this.formValidation.get('filhos')?.setValue('nao');
   }
 
 
@@ -104,7 +106,10 @@ export class CadastroComponent implements OnInit  {
 
     this.formSubmitted = true;
 
+    console.log('Estado do formulário:', this.formValidation);
+
     if(this.formValidation.invalid) {
+      console.log(this.formValidation.invalid)
       console.log('Formulário inválido'); // Para depuração
       return;
     } else {
@@ -174,13 +179,33 @@ export class CadastroComponent implements OnInit  {
   }
 
 
-  // validações e mascaras
+  // validações, mascaras e eventos de validação
 
   protected onCpf(event: Event): void {
     const input = event.target as HTMLInputElement;
     const valorFiltrado = input.value.replace(/\D/g,'');
     this.formValidation.get('cpf')?.setValue(valorFiltrado);
     console.log('Valor filtrado do cpf:' , this.cpf)
+  }
+
+
+  /**
+   * Método de validação do campo cpf para verificar se a quantidade dos digitos
+   * estão de acordo com o padrão do documento
+   * @returns Retorna uma função de validação do Angular na interfaco ValidatorFn.
+   * O control representa o controle (input) do formGroup que será validado. O tipo
+   * de retorno aceito pode ser um objeto de erros ou nulo. A expressão regular
+   * remove todos os caracteres que não existe na sequancia do CPF que não seja de 0-9.
+   */
+  protected validacaoCpf(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const cpfValue = control.value;
+
+      if(cpfValue && cpfValue.replace(/\D/g,'').length === 11) {
+        return null;
+      }
+      return { cpfValido: true}
+    };
   }
 
 
