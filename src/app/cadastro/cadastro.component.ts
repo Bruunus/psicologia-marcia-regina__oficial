@@ -5,9 +5,9 @@ import { CreateService } from '../services/api/create/create.service';
 import { PerfilEnum } from '../model/perfil-enum';
 import { selectUf } from '../services/utilits/select-uf';
 import { Router } from '@angular/router';
-import { MessageCadastroPacienteService } from '../services/messagers/info-message/cadastro-paciente/message-cadastro-paciente.service';
 import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
 import { MessageService } from '../services/messagers/message/message.service';
+import { ValidationFormService } from './utilits/validation-form.service';
 declare var $: any;
 
 
@@ -57,20 +57,22 @@ export class CadastroComponent implements OnInit  {
   constructor(
     private createService: CreateService,
     private router: Router,
-    private message: MessageService, private errorMessage: GerenciadoDeAutenticacaoService
+    private message: MessageService,
+    private errorMessage: GerenciadoDeAutenticacaoService,
+    private validationFormService: ValidationFormService
   ) {
 
     this.formValidation = new FormGroup({
       nomeCompleto: new FormControl('Bruno Fernandes', Validators.required),  // Bruno Fernandes
-      cpf: new FormControl('352.785.699-41', [Validators.required, this.validacaoCpf()]),   // 358.498.688-74
+      cpf: new FormControl('35278569941', [Validators.required, this.validationFormService.validacaoCpf()]),   // 358.498.688-74
       email: new FormControl('brunos@icon.mail', [Validators.required, Validators.email]), // brunus@mail.com
-      telefone: new FormControl('11 9 9854-8756'),  // 11 9 9854-8756
-      telefoneContato: new FormControl('11 9 9854-8000'), // 11 9 9854-8000
+      telefone: new FormControl('', [Validators.required, this.validationFormService.validacaoTelefone()]),  // 11 9 9854-8756
+      telefoneContato: new FormControl('11998548000'), // 11 9 9854-8000
       idade: new FormControl('35'),   //  35
       dataNascimento: new FormControl('1977-05-22'),  // 1977-05-22
       estadoCivil: new FormControl('Casado'), // Casado
       filhos: new FormControl(''),
-      qtdFilhos: new FormControl('0', [Validators.min(0)]),  //
+      qtdFilhos: new FormControl('', [Validators.min(0)]),  //
       grauEscolaridade: new FormControl('Ensino_Superior Completo'),  //  Ensino_Superior Completo
       profissao: new FormControl('Desenvolvedor'), // Desenvolvedor
       perfil: new FormControl('PSICOLOGIA', /*Validators.required*/), // PSICOLOGIA
@@ -108,6 +110,8 @@ export class CadastroComponent implements OnInit  {
 
     console.log('Estado do formulário:', this.formValidation);
 
+
+
     if(this.formValidation.invalid) {
       console.log(this.formValidation.invalid)
       console.log('Formulário inválido'); // Para depuração
@@ -115,13 +119,15 @@ export class CadastroComponent implements OnInit  {
     } else {
       console.log('Formulário válido');
 
+      const celular1Formatado = this.validationFormService.formatarTelefone(this.telefone);
+      const celular2Formatado = this.validationFormService.formatarTelefone(this.telefoneContato);
 
       this.pacienteCadastro = {
         nomeCompleto: this.nomeCompleto,
         cpf: this.cpf,
         email: this.email,
-        telefone: this.telefone,
-        telefoneContato: this.telefoneContato,
+        telefone: celular1Formatado,
+        telefoneContato: celular2Formatado,
         idade: this.idade,
         dataNascimento: this.dataNascimento,
         estadoCivil: this.estadoCivil,
@@ -143,6 +149,8 @@ export class CadastroComponent implements OnInit  {
           queixa: this.queixa
         }
       }
+
+      console.log(this.pacienteCadastro)
 
       // const sendDataAPI = await this.createService.registerPatient(this.pacienteCadastro);
 
@@ -171,8 +179,6 @@ export class CadastroComponent implements OnInit  {
           this.router.navigate(['redirect-home']);
         }, 3500); //   tempo de redirecionamento
 
-      } else {
-        this.ativarLoading = false;
       }
 
     }
@@ -181,32 +187,14 @@ export class CadastroComponent implements OnInit  {
 
   // validações, mascaras e eventos de validação
 
-  protected onCpf(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const valorFiltrado = input.value.replace(/\D/g,'');
-    this.formValidation.get('cpf')?.setValue(valorFiltrado);
-    console.log('Valor filtrado do cpf:' , this.cpf)
-  }
 
 
-  /**
-   * Método de validação do campo cpf para verificar se a quantidade dos digitos
-   * estão de acordo com o padrão do documento
-   * @returns Retorna uma função de validação do Angular na interfaco ValidatorFn.
-   * O control representa o controle (input) do formGroup que será validado. O tipo
-   * de retorno aceito pode ser um objeto de erros ou nulo. A expressão regular
-   * remove todos os caracteres que não existe na sequancia do CPF que não seja de 0-9.
-   */
-  protected validacaoCpf(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const cpfValue = control.value;
 
-      if(cpfValue && cpfValue.replace(/\D/g,'').length === 11) {
-        return null;
-      }
-      return { cpfValido: true}
-    };
-  }
+
+
+
+
+
 
 
 

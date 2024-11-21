@@ -15,7 +15,7 @@
 
 
       <label for="cpf">CPF</label>
-      <input type="text" name="cpf" mask="000.000.000-00" formControlName="cpf" id="cpf" (input)="onCpf($event)" required>
+      <input type="text" name="cpf" mask="000.000.000-00" formControlName="cpf" id="cpf" required>
       <div *ngIf="(formValidation.get('cpf')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <ng-container *ngIf="formValidation.get('cpf')?.errors?.['required']; else cpfIncorreto">
           <p class="message-error-formValidation">CPF obrigatório</p>
@@ -38,10 +38,19 @@
       </div>
 
       <label for="telefone">Telefone</label>
-      <input type="tel" name="telefone" formControlName="telefone" id="telefone" required>
+      <input type="tel" name="telefone" mask="(00) 0 0000-0000" formControlName="telefone" id="telefone" required>
+      <div *ngIf="(formValidation.get('telefone')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <ng-container *ngIf="formValidation.get('telefone')?.errors?.['required']; else telefoneIncorreto">
+          <p class="message-error-formValidation">Telefone obrigatório</p>
+        </ng-container>
+        <ng-template #telefoneIncorreto>
+          <p class="message-error-formValidation">Telefone incorreto</p>
+        </ng-template>
+      </div>
+
 
       <label for="telefone-para-contato">Telefone para contato</label>
-      <input type="text" name="telefone-para-contato" formControlName="telefoneContato" id="telefone-para-contato" required>
+      <input type="text" name="telefone-para-contato" mask="(00) 0 0000-0000" formControlName="telefoneContato" id="telefone-para-contato" required>
 
       <label for="idade">Idade</label>
       <input type="number" name="idade" formControlName="idade" id="idade" required>
