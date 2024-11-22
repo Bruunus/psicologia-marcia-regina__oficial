@@ -69,4 +69,25 @@ export class ValidationFormService {
   }
 
 
+
+  idadeAutomatica(dataNascimento: string): number| null {
+    if(!dataNascimento) {
+      return null;
+    }
+
+    const dataNascimentoFormulario = new Date(dataNascimento);
+    const dataDeHoje = new Date();
+
+    let idade = dataDeHoje.getFullYear();
+    const mes = dataDeHoje.getMonth() - dataNascimentoFormulario.getMonth();
+
+    // Ajusta a idade se o aniversário ainda não tiver ocorrido este ano
+    if (mes < 0 || (mes === 0 && dataDeHoje.getDate() < dataNascimentoFormulario.getDate())) {
+      idade--;
+    }
+
+    return idade;
+  }
+
+
 }

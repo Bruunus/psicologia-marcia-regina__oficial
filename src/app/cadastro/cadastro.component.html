@@ -48,15 +48,18 @@
         </ng-template>
       </div>
 
-
       <label for="telefone-para-contato">Telefone para contato</label>
-      <input type="text" name="telefone-para-contato" mask="(00) 0 0000-0000" formControlName="telefoneContato" id="telefone-para-contato" required>
-
-      <label for="idade">Idade</label>
-      <input type="number" name="idade" formControlName="idade" id="idade" required>
+      <input type="text" name="telefone-para-contato" mask="(00) 0 0000-0000" readonly formControlName="telefoneContato" id="telefone-para-contato">
 
       <label for="data-de-nascimento">Data de nascimento</label>
       <input type="date" name="data-de-nascimento" formControlName="dataNascimento" id="data-de-nascimento" required>
+
+      <br>
+
+      <label for="idade">Idade</label>
+      <input type="number" name="idade"  formControlName="idade" id="idade" required>
+
+
 
       <label for="estado-civil">Estado Civil</label>
 

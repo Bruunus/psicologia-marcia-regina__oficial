@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
 import { MessageService } from '../services/messagers/message/message.service';
 import { ValidationFormService } from './utilits/validation-form.service';
+import { Observable } from 'rxjs';
 declare var $: any;
 
 
@@ -54,6 +55,7 @@ export class CadastroComponent implements OnInit  {
   protected ativarLoading: boolean = false;
   protected formReset: boolean = false;  // evita de aparecer msn de erro após o envio
 
+
   constructor(
     private createService: CreateService,
     private router: Router,
@@ -61,6 +63,8 @@ export class CadastroComponent implements OnInit  {
     private errorMessage: GerenciadoDeAutenticacaoService,
     private validationFormService: ValidationFormService
   ) {
+
+
 
     this.formValidation = new FormGroup({
       nomeCompleto: new FormControl('Bruno Fernandes', Validators.required),  // Bruno Fernandes
