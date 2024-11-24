@@ -1,8 +1,8 @@
 import { AuthenticationProvider } from './providers/authentication-provider';
 import { AutenticacaoGuard } from './services/autenticacao/autenticacao.guard';
-import { GerenciadoDeAutenticacaoService } from './services/sessao/gerenciador-de-autenticacao.service';
-
-
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+import { LOCALE_ID } from '@angular/core';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,6 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RedirectComponent } from './services/redirecting/redirect/redirect.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule } from 'primeng/calendar';
+
 
 import { RedirectingComponent } from './services/redirecting/redirecting.component';
 import { EndingSessionComponent } from './services/redirecting/ending-session/ending-session.component';
@@ -30,8 +32,9 @@ import { LoadingComponent } from './services/waiting/loading/loading.component';
 import { ServicesProvider } from './providers/services-provider';
 import { CadastroPacienteInfoMessageComponent } from './services/messagers/info-message/cadastro-paciente/display-cadastro-paciente/cadastro-paciente-info-message.component';
 import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
+import { TesteDeComponentesComponent } from './testes/teste-de-componentes/teste-de-componentes.component';
 
-
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
@@ -46,7 +49,8 @@ import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-ma
     MenuPrincipalComponent,
     DisplayInfoMessageComponent,
     LoadingComponent,
-    CadastroPacienteInfoMessageComponent
+    CadastroPacienteInfoMessageComponent,
+    TesteDeComponentesComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +60,8 @@ import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-ma
     ReactiveFormsModule,
     BrowserAnimationsModule,
     NgxMaskDirective,
-    NgxMaskPipe
+    NgxMaskPipe,
+    CalendarModule
   ],
   providers: [
     AngularProvider,
@@ -66,7 +71,8 @@ import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-ma
     ModelProvider,
     ApiServicesProvider,
     ServicesProvider,
-    provideEnvironmentNgxMask()
+    provideEnvironmentNgxMask(),
+    { provide: LOCALE_ID, useValue: 'pt' }
   ],
   bootstrap: [AppComponent]
 })

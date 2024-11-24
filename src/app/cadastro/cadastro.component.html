@@ -48,16 +48,36 @@
         </ng-template>
       </div>
 
-      <label for="telefone-para-contato">Telefone para contato</label>
-      <input type="text" name="telefone-para-contato" mask="(00) 0 0000-0000" readonly formControlName="telefoneContato" id="telefone-para-contato">
 
-      <label for="data-de-nascimento">Data de nascimento</label>
-      <input type="date" name="data-de-nascimento" formControlName="dataNascimento" id="data-de-nascimento" required>
+      <label for="telefone-para-contato">Telefone para contato</label>
+      <input type="text" name="telefone-para-contato" mask="(00) 0 0000-0000" formControlName="telefoneContato" id="telefone-para-contato">
+      <div *ngIf="(formValidation.get('telefoneContato')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <p class="message-error-formValidation">Telefone incorreto</p>
+      </div>
+
+
+      <!-- <label for="data-de-nascimento">Data de nascimento</label>
+      <input type="date" name="data-de-nascimento" formControlName="dataNascimento" id="data-de-nascimento"
+      (blur)="onBlurDataNascimento()" required > -->
+
+      <p-calendar
+        formControlName="dataNascimento"
+        id="data-de-nascimento"
+        (onBlur)="onBlurDataNascimento()"
+        [required]="true"
+        mask="'99/99/9999'"
+        dataType="string"
+        dateFormat="dd/mm/yy"
+        placeholder="Selecione a data"
+        class="custom-calendar">
+    </p-calendar>
+
+
 
       <br>
 
       <label for="idade">Idade</label>
-      <input type="number" name="idade"  formControlName="idade" id="idade" required>
+      <input type="number" name="idade"  formControlName="idade" id="idade" required (focus)="onFocusIdade()">
 
 
 
@@ -68,6 +88,7 @@
         <option value="casado">Casado(a)</option>
         <option value="divorcioado">Divorciado(a)</option>
         <option value="viuvo">Viuvo(a)</option>
+        <option value="outro">Outro</option>
       </select>
 
       <label for="filhos">Filhos</label>

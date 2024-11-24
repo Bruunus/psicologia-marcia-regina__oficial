@@ -70,24 +70,51 @@ export class ValidationFormService {
 
 
 
-  idadeAutomatica(dataNascimento: string): number| null {
-    if(!dataNascimento) {
-      return null;
+  idadeAutomatica(dataNascimento: string): number | null {
+    if (!dataNascimento) {
+        return null;
     }
 
     const dataNascimentoFormulario = new Date(dataNascimento);
     const dataDeHoje = new Date();
 
-    let idade = dataDeHoje.getFullYear();
+    // Calcula a idade subtraindo o ano de nascimento do ano atual
+    let idade = dataDeHoje.getFullYear() - dataNascimentoFormulario.getFullYear();
     const mes = dataDeHoje.getMonth() - dataNascimentoFormulario.getMonth();
 
     // Ajusta a idade se o aniversário ainda não tiver ocorrido este ano
     if (mes < 0 || (mes === 0 && dataDeHoje.getDate() < dataNascimentoFormulario.getDate())) {
-      idade--;
+        idade--;
     }
 
     return idade;
   }
 
+  transformarTipoDeData(data: string): string {
+    const partes = data.split('/');
+
+    // if (partes.length != 3) {
+    //   throw new Error("Formato de saída inválido. Use dd/mm/yy.")
+    // }
+
+    const dia = partes[0];
+    const mes = partes[1];
+    const ano = partes[2];
+
+    // if(ano.length === 2) {
+    //   const anoInt = parseInt(ano, 10);
+    //   if(anoInt > 0 && anoInt < 49) {
+    //     ano = '20'+ano;
+    //   } else {
+    //     ano = '19'+ano;
+    //   }
+    // }
+
+    const dataFormatada = `${ano}-${mes}-${dia}`;
+
+    console.log('Data formatada: ', dataFormatada)
+
+    return dataFormatada;
+  }
 
 }

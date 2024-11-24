@@ -8,11 +8,13 @@ import { PacientesHomeComponent } from './home-pacientes/pacientes-home.componen
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { RedirectingComponent } from './services/redirecting/redirecting.component';
 import { RedirectComponent } from './services/redirecting/redirect/redirect.component';
+import { TesteDeComponentesComponent } from './testes/teste-de-componentes/teste-de-componentes.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'pacientes', component: PacientesHomeComponent, canActivate: [AutenticacaoGuard] },
   { path: 'novo-paciente' , component: CadastroComponent, canActivate: [AutenticacaoGuard]},
+  { path: 'teste', component: TesteDeComponentesComponent, canActivate: [AutenticacaoGuard]},
 
 
 
