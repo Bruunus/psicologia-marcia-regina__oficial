@@ -112,7 +112,7 @@ export class ValidationFormService {
 
     const dataFormatada = `${ano}-${mes}-${dia}`;
 
-    console.log('Data formatada: ', dataFormatada)
+    // console.log('Data formatada: ', dataFormatada)
 
     return dataFormatada;
   }

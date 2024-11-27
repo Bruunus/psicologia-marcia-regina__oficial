@@ -11,6 +11,7 @@ import { ValidationFormService } from './utilits/validation-form.service';
 import { PrimeNGConfig } from 'primeng/api';
 import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
+import { Observable, Subject, Subscription, switchMap, takeUntil, tap } from 'rxjs';
 
 
 declare var $: any;
@@ -59,6 +60,11 @@ export class CadastroComponent implements OnInit  {
   protected ativarLoading: boolean = false;
   protected formReset: boolean = false;  // evita de aparecer msn de erro após o envio
 
+  private destroy$: Subject<boolean> = new Subject();
+  private idadeSubscription: Subscription = new Subscription();
+
+
+
 
 
 
@@ -71,6 +77,8 @@ export class CadastroComponent implements OnInit  {
     private validationFormService: ValidationFormService,
     private primengConfig: PrimeNGConfig
   ) {
+
+    ;
 
     const dataInicial = new Date(2000, 0, 1); // abertura do calendário padrão
 
@@ -98,7 +106,27 @@ export class CadastroComponent implements OnInit  {
       queixa: new FormControl('Loren ..') // Loren ..
     });
 
+
     registerLocaleData(localePt);
+
+    this.formValidation.get('dataNascimento')?.valueChanges.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((valor) => {
+      console.log('Novo valor da data:', valor);
+    })
+
+
+    const idadeControl = this.formValidation.get('idade');
+    if (idadeControl) {
+      this.idadeSubscription = idadeControl.valueChanges.subscribe((novoValor) => {
+        console.log('Novo valor da idade:', novoValor);
+        // Faça o que for necessário com o novo valor da idade aqui
+      });
+    }
+
+
+
+
 
     this.formValidation.get('filhos')?.setValue('nao');
   }
@@ -127,7 +155,7 @@ export class CadastroComponent implements OnInit  {
   }
 
   onBlurDataNascimento() {
-    console.log('Formato da data: ', this.dataNascimento)
+    // console.log('Formato da data: ', this.dataNascimento)
     const dataNascimento = this.formValidation.get('dataNascimento')?.value;
 
     const dataFormatada = this.validationFormService.transformarTipoDeData(dataNascimento);
@@ -135,8 +163,12 @@ export class CadastroComponent implements OnInit  {
     this.formValidation.get('idade')?.setValue(idade);
   }
 
+  /**
+   * Evento que lança o valor da idade com base na data de nascimento fornecida
+   */
   onFocusIdade() {
     const dataNascimento = this.formValidation.get('dataNascimento')?.value;
+    console.log('Data digitada: ', dataNascimento)
     const idade = this.validationFormService.idadeAutomatica(dataNascimento);
     this.formValidation.get('idade')?.setValue(idade);
   }
@@ -163,6 +195,9 @@ export class CadastroComponent implements OnInit  {
 
       const celular1Formatado = this.validationFormService.formatarTelefone(this.telefone);
       const celular2Formatado = this.validationFormService.formatarTelefone(this.telefoneContato);
+      const dataFormatada = this.validationFormService.transformarTipoDeData(this.dataNascimento);
+
+
 
       this.pacienteCadastro = {
         nomeCompleto: this.nomeCompleto,
@@ -171,7 +206,7 @@ export class CadastroComponent implements OnInit  {
         telefone: celular1Formatado,
         telefoneContato: celular2Formatado,
         idade: this.idade,
-        dataNascimento: this.dataNascimento,
+        dataNascimento: dataFormatada,
         estadoCivil: this.estadoCivil,
         filhos: this.filhos,
         qtdFilhos: this.qtdFilhos,
@@ -196,7 +231,7 @@ export class CadastroComponent implements OnInit  {
 
       // const sendDataAPI = await this.createService.registerPatient(this.pacienteCadastro);
 
-      if (true/*sendDataAPI*/) {
+      if (false/*sendDataAPI*/) {
 
         this.ativarLoading = true;
 
@@ -265,6 +300,12 @@ export class CadastroComponent implements OnInit  {
     this.formValidation.get('queixa')!.setValue('');
   }
 
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
+    this.idadeSubscription.unsubscribe();
+  }
 
 
   getPerfilEnumKeys(): string[] {

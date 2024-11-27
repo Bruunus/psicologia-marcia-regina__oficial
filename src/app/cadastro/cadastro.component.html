@@ -63,15 +63,23 @@
       <p-calendar
         formControlName="dataNascimento"
         id="data-de-nascimento"
-        (onBlur)="onBlurDataNascimento()"
+        (onSelect)="onBlurDataNascimento()"
         [required]="true"
         mask="'99/99/9999'"
         dataType="string"
         dateFormat="dd/mm/yy"
         placeholder="Selecione a data"
         class="custom-calendar">
-    </p-calendar>
+      </p-calendar>
 
+      <div *ngIf="(formValidation.get('dataNascimento')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <ng-container *ngIf="formValidation.get('dataNascimento')?.errors?.['required']; else dataNascimentoIncorreta">
+          <p class="message-error-formValidation">Data de nascimento obrigatória</p>
+        </ng-container>
+        <ng-template #dataNascimentoIncorreta>
+          <p class="message-error-formValidation">Data de nascimento incorreta</p>
+        </ng-template>
+      </div>
 
 
       <br>
@@ -168,6 +176,13 @@
   </div>
 
 
+  <h5 style="margin-top: 3rem;">Validação</h5>
+  <ul>
+    <li style="color: tomato;">Quando voce digita a data pelo teclado a idade não está sendo calculada, precisa por um
+      subscribe
+    </li>
+    <!-- <li style="color: tomato;"></li> -->
+  </ul>
 
 
 </div>
