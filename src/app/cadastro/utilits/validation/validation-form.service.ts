@@ -88,5 +88,34 @@ public validacaoDataNascimento(): ValidatorFn {
 
 
 
+public validacaoQtdFilhos(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const valor = control.value;
+
+    if(valor === 0 || valor !== null || valor !== undefined) {
+      return null;
+    } else if(valor < 0){
+      return { invalidData: true };
+    }
+
+    return null;
+
+
+  }
+}
+
+public validacaoProfissao(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const valor = control.value;
+
+    if(valor.length < 4) {
+      return  { invalidData: true };;
+    } else {
+      return null;
+    }
+  }
+}
+
+
 
 }

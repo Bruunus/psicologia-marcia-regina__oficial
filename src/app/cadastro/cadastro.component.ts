@@ -27,6 +27,7 @@ export class CadastroComponent implements OnInit  {
 
   formValidation: FormGroup;
   formSubmitted: boolean = false;
+  formQtdFilhos: boolean = false;
   PERFIL!: PerfilEnum;
   pacienteCadastro: PacienteInterface = {
     nomeCompleto: '',
@@ -94,10 +95,10 @@ export class CadastroComponent implements OnInit  {
       dataNascimento: new FormControl('' , [Validators.required, this.validationFormService.validacaoDataNascimento()]),
       estadoCivil: new FormControl('', [Validators.required]),
       filhos: new FormControl(''),
-      qtdFilhos: new FormControl({ value: null, disabled: true}, []),
-      grauEscolaridade: new FormControl('Ensino_Superior Completo'),  //  Ensino_Superior Completo
-      profissao: new FormControl('Desenvolvedor'), // Desenvolvedor
-      perfil: new FormControl('PSICOLOGIA', /*Validators.required*/), // PSICOLOGIA
+      qtdFilhos: new FormControl({ value: null, disabled: true}, this.validationFormService.validacaoQtdFilhos()), // required personalizado
+      grauEscolaridade: new FormControl('', [Validators.required]),
+      profissao: new FormControl('', [Validators.required, this.validationFormService.validacaoProfissao()]),
+      perfil: new FormControl('', [Validators.required]),
       cep: new FormControl('05468-857'),   //  05468-857
       rua: new FormControl('Das Flores'),   //  Das Flores
       numero: new FormControl('105'),  // 105
@@ -147,6 +148,8 @@ export class CadastroComponent implements OnInit  {
       clear: 'Limpar',
     });
 
+    this.onSelectFilhos();
+
   }
 
 
@@ -178,13 +181,34 @@ export class CadastroComponent implements OnInit  {
         // Se a dataNascimento for inválida, você pode definir a idade como vazia ou zero
         this.formValidation.get('idade')?.setValue(null); // ou 0, dependendo da sua lógica
     }
-}
+  }
+
+
+  private onSelectFilhos(): void {
+    this.formValidation.get('filhos')?.valueChanges.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((valor) => {
+      console.log(valor)
+      if(valor === 'sim') {
+        this.formQtdFilhos = true;
+        this.formValidation.get('qtdFilhos')?.enable();
+        console.log(this.formQtdFilhos)
+      } else {
+        this.formQtdFilhos = false;
+        let qtdFilho = this.formValidation.get('qtdFilhos')
+        qtdFilho?.disable();
+        qtdFilho?.reset('')
+
+        console.log(this.formQtdFilhos)
+      }
+    })
+  }
 
 
 
   /**
-   * Evento que lança o valor da idade com base na data de nascimento fornecida
-   */
+  * Evento que lança o valor da idade com base na data de nascimento fornecida
+  */
   onFocusIdade() {
     const dataNascimento = this.formValidation.get('dataNascimento')?.value;
     console.log('Data digitada: ', dataNascimento)
@@ -197,7 +221,6 @@ export class CadastroComponent implements OnInit  {
   async cadastrar(): Promise<void> {
 
     this.formSubmitted = true;
-    this.formValidation.markAllAsTouched();
 
     // console.log('Estado do formulário:', this.formValidation);
 

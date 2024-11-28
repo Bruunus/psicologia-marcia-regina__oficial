@@ -113,7 +113,12 @@
       </select>
 
       <label for="qtdFilhos">Qtd. de filhos</label>
-      <input type="number" name="qtdFilhos" formControlName="qtdFilhos" id="qtdFilhos" required>
+      <input type="number" name="qtdFilhos" formControlName="qtdFilhos" id="qtdFilhos" required min="1">
+
+      <div *ngIf="(formValidation.get('qtdFilhos')?.invalid && formSubmitted) && !formReset && formQtdFilhos" class="validation-error">
+        <p class="message-error-formValidation">Informe a quantidade</p>
+      </div>
+
 
       <label for="grau-escolaridade">Grau de escolaridade</label>
       <select type="text" name="grau-escolaridade" formControlName="grauEscolaridade" id="grau-escolaridade" required>
@@ -129,8 +134,24 @@
         <option value="Pós-graduação">Pós-graduação</option>
       </select>
 
+      <div *ngIf="(formValidation.get('grauEscolaridade')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <p class="message-error-formValidation">Informe o grau de escolaridade</p>
+      </div>
+
+
       <label for="profissao">Profissão</label>
-      <input type="text" name="profissao" formControlName="profissao" id="profissao" required>
+      <input type="text" name="profissao" formControlName="profissao" id="profissao" maxlength="50" required>
+
+      <div *ngIf="(formValidation.get('profissao')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <ng-container *ngIf="formValidation.get('profissao')?.errors?.['required']; else profissaoIncorreta">
+          <p class="message-error-formValidation">Informe a profissão</p>
+        </ng-container>
+        <ng-template #profissaoIncorreta>
+          <p class="message-error-formValidation">Valor minimo 3 caracteres</p>
+        </ng-template>
+      </div>
+
+
 
       <label for="perfil">Perfil</label>
       <select name="perfil" formControlName="perfil" id="perfil">  <!-- dados renderizados da api -->
@@ -142,6 +163,18 @@
         <option value="psicoterapia">Psicoterapia</option>
         <option value="orcamento">Orçamento</option> -->
       </select>
+
+      <div *ngIf="(formValidation.get('perfil')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <p class="message-error-formValidation">Informe o perfil do paciente</p>
+      </div>
+
+
+
+
+
+      <label for="cep">CEP</label>
+      <input type="text" name="cep" formControlName="cep" id="cep" required>
+
 
       <label for="rua">Rua</label>
       <input type="text" name="rua" formControlName="rua" id="rua" required>
@@ -165,8 +198,7 @@
         <option *ngFor="let uf of  optionUf" [value]="uf.sigla">{{ uf.nome }}</option>
       </select>
 
-      <label for="cep">CEP</label>
-      <input type="text" name="cep" formControlName="cep" id="cep" required>
+
 
       <label for="queixa">Queixa do paciente</label>
     <textarea name="queixa" formControlName="queixa" id="queixa" required></textarea>
