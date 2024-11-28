@@ -7,11 +7,12 @@ import { selectUf } from '../services/utilits/select-uf';
 import { Router } from '@angular/router';
 import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
 import { MessageService } from '../services/messagers/message/message.service';
-import { ValidationFormService } from './utilits/validation-form.service';
+import { ValidationFormService } from './utilits/validation/validation-form.service';
 import { PrimeNGConfig } from 'primeng/api';
 import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { Observable, Subject, Subscription, switchMap, takeUntil, tap } from 'rxjs';
+import { MascaraService } from './utilits/mascaras/mascara.service';
 
 
 declare var $: any;
@@ -75,6 +76,7 @@ export class CadastroComponent implements OnInit  {
     private message: MessageService,
     private errorMessage: GerenciadoDeAutenticacaoService,
     private validationFormService: ValidationFormService,
+    private mascaraService: MascaraService,
     private primengConfig: PrimeNGConfig
   ) {
 
@@ -83,16 +85,16 @@ export class CadastroComponent implements OnInit  {
     const dataInicial = new Date(2000, 0, 1); // abertura do calendário padrão
 
     this.formValidation = new FormGroup({
-      nomeCompleto: new FormControl('Bruno Fernandes', Validators.required),  // Bruno Fernandes
-      cpf: new FormControl('35278569941', [Validators.required, this.validationFormService.validacaoCpf()]),   // 358.498.688-74
-      email: new FormControl('brunos@icon.mail', [Validators.required, Validators.email]), // brunus@mail.com
-      telefone: new FormControl('', [Validators.required, this.validationFormService.validacaoTelefone()]),  // 11 9 9854-8756
-      telefoneContato: new FormControl('', [this.validationFormService.validacaoTelefone()]), // 11 9 9854-8000
-      idade: new FormControl({ value: null, disabled: true}),   //  35
-      dataNascimento: new FormControl([dataInicial] , [Validators.required]),  // 1977-05-22
-      estadoCivil: new FormControl('Casado'), // Casado
+      nomeCompleto: new FormControl('Bruno Fernandes', Validators.required),
+      cpf: new FormControl('35278569941', [Validators.required, this.validationFormService.validacaoCpf()]),
+      email: new FormControl('brunos@icon.mail', [Validators.required, Validators.email]),
+      telefone: new FormControl('', [Validators.required, this.validationFormService.validacaoTelefone()]),
+      telefoneContato: new FormControl('', [this.validationFormService.validacaoTelefone()]),
+      idade: new FormControl({ value: null, disabled: true}),
+      dataNascimento: new FormControl('' , [Validators.required, this.validationFormService.validacaoDataNascimento()]),
+      estadoCivil: new FormControl('', [Validators.required]),
       filhos: new FormControl(''),
-      qtdFilhos: new FormControl('', [Validators.min(0)]),  //
+      qtdFilhos: new FormControl({ value: null, disabled: true}, []),
       grauEscolaridade: new FormControl('Ensino_Superior Completo'),  //  Ensino_Superior Completo
       profissao: new FormControl('Desenvolvedor'), // Desenvolvedor
       perfil: new FormControl('PSICOLOGIA', /*Validators.required*/), // PSICOLOGIA
@@ -154,14 +156,31 @@ export class CadastroComponent implements OnInit  {
     return this.optionUf = this.selectUfInstance.getUf();
   }
 
+  //  evento data de nascimento
   onBlurDataNascimento() {
-    // console.log('Formato da data: ', this.dataNascimento)
+      this.atualizarIdade();
+  }
+
+  onInputDataNascimento() {
+    this.atualizarIdade();
+  }
+
+
+  private atualizarIdade() {
     const dataNascimento = this.formValidation.get('dataNascimento')?.value;
 
-    const dataFormatada = this.validationFormService.transformarTipoDeData(dataNascimento);
-    const idade = this.validationFormService.idadeAutomatica(dataFormatada);
-    this.formValidation.get('idade')?.setValue(idade);
-  }
+    // Verifica se a dataNascimento é válida antes de processar
+    if (dataNascimento) {
+        const dataFormatada = this.mascaraService.transformarTipoDeData(dataNascimento);
+        const idade = this.mascaraService.idadeAutomatica(dataFormatada);
+        this.formValidation.get('idade')?.setValue(idade);
+    } else {
+        // Se a dataNascimento for inválida, você pode definir a idade como vazia ou zero
+        this.formValidation.get('idade')?.setValue(null); // ou 0, dependendo da sua lógica
+    }
+}
+
+
 
   /**
    * Evento que lança o valor da idade com base na data de nascimento fornecida
@@ -169,7 +188,7 @@ export class CadastroComponent implements OnInit  {
   onFocusIdade() {
     const dataNascimento = this.formValidation.get('dataNascimento')?.value;
     console.log('Data digitada: ', dataNascimento)
-    const idade = this.validationFormService.idadeAutomatica(dataNascimento);
+    const idade = this.mascaraService.idadeAutomatica(dataNascimento);
     this.formValidation.get('idade')?.setValue(idade);
   }
 
@@ -178,6 +197,7 @@ export class CadastroComponent implements OnInit  {
   async cadastrar(): Promise<void> {
 
     this.formSubmitted = true;
+    this.formValidation.markAllAsTouched();
 
     // console.log('Estado do formulário:', this.formValidation);
 
@@ -193,9 +213,9 @@ export class CadastroComponent implements OnInit  {
     } else {
       console.log('Formulário válido');
 
-      const celular1Formatado = this.validationFormService.formatarTelefone(this.telefone);
-      const celular2Formatado = this.validationFormService.formatarTelefone(this.telefoneContato);
-      const dataFormatada = this.validationFormService.transformarTipoDeData(this.dataNascimento);
+      const celular1Formatado = this.mascaraService.formatarTelefone(this.telefone);
+      const celular2Formatado = this.mascaraService.formatarTelefone(this.telefoneContato);
+      const dataFormatada = this.mascaraService.transformarTipoDeData(this.dataNascimento);
 
 
 
@@ -338,6 +358,10 @@ export class CadastroComponent implements OnInit  {
 
   get dataNascimento() {
     return this.formValidation.get('dataNascimento')?.value;
+  }
+
+  set dataNascimento(value: string) {
+    this.formValidation.get('dataNascimento')?.setValue(value);
   }
 
   get estadoCivil() {

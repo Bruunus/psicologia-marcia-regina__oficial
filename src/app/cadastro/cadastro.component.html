@@ -9,7 +9,7 @@
 
       <div *ngIf="(formValidation.get('nomeCompleto')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <p *ngIf="formValidation.get('nomeCompleto')?.errors?.['required']" class="message-error-formValidation">
-          Nome completo obrigatório
+          Informe o nome completo
         </p>
       </div>
 
@@ -18,7 +18,7 @@
       <input type="text" name="cpf" mask="000.000.000-00" formControlName="cpf" id="cpf" required>
       <div *ngIf="(formValidation.get('cpf')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <ng-container *ngIf="formValidation.get('cpf')?.errors?.['required']; else cpfIncorreto">
-          <p class="message-error-formValidation">CPF obrigatório</p>
+          <p class="message-error-formValidation">Informe o CPF</p>
         </ng-container>
         <ng-template #cpfIncorreto>
           <p class="message-error-formValidation">CPF incorreto</p>
@@ -30,7 +30,7 @@
       <input type="text" name="email" formControlName="email" id="email" required>
       <div *ngIf="(formValidation.get('email')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <ng-container *ngIf="formValidation.get('email')?.errors?.['required']; else emailIncorreto" >
-          <p class="message-error-formValidation">E-mail obrigatório</p>
+          <p class="message-error-formValidation">Informe um e-mail</p>
         </ng-container>
         <ng-template #emailIncorreto>
           <p class="message-error-formValidation">Declaração de e-mail incorreto  </p>
@@ -41,7 +41,7 @@
       <input type="tel" name="telefone" mask="(00) 0 0000-0000" formControlName="telefone" id="telefone" required>
       <div *ngIf="(formValidation.get('telefone')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <ng-container *ngIf="formValidation.get('telefone')?.errors?.['required']; else telefoneIncorreto">
-          <p class="message-error-formValidation">Telefone obrigatório</p>
+          <p class="message-error-formValidation">Informe um telefone</p>
         </ng-container>
         <ng-template #telefoneIncorreto>
           <p class="message-error-formValidation">Telefone incorreto</p>
@@ -55,7 +55,6 @@
         <p class="message-error-formValidation">Telefone incorreto</p>
       </div>
 
-
       <!-- <label for="data-de-nascimento">Data de nascimento</label>
       <input type="date" name="data-de-nascimento" formControlName="dataNascimento" id="data-de-nascimento"
       (blur)="onBlurDataNascimento()" required > -->
@@ -64,6 +63,7 @@
         formControlName="dataNascimento"
         id="data-de-nascimento"
         (onSelect)="onBlurDataNascimento()"
+        (onInput)="onInputDataNascimento()"
         [required]="true"
         mask="'99/99/9999'"
         dataType="string"
@@ -74,7 +74,7 @@
 
       <div *ngIf="(formValidation.get('dataNascimento')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <ng-container *ngIf="formValidation.get('dataNascimento')?.errors?.['required']; else dataNascimentoIncorreta">
-          <p class="message-error-formValidation">Data de nascimento obrigatória</p>
+          <p class="message-error-formValidation">Informe a data de nascimento</p>
         </ng-container>
         <ng-template #dataNascimentoIncorreta>
           <p class="message-error-formValidation">Data de nascimento incorreta</p>
@@ -98,6 +98,13 @@
         <option value="viuvo">Viuvo(a)</option>
         <option value="outro">Outro</option>
       </select>
+
+      <div *ngIf="(formValidation.get('estadoCivil')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <p class="message-error-formValidation">Informe o estado civil</p>
+      </div>
+
+
+
 
       <label for="filhos">Filhos</label>
       <select name="filhos" formControlName="filhos" id="filhos" required>
