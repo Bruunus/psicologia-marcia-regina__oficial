@@ -16,7 +16,7 @@ export interface PacienteInterface {
   profissao: string;
   perfil: string;   // Necessário ser string para converter o enum para uppercase
   endereco: {
-    rua: string;
+    logradouro: string;
     numero: string;
     complemento: string;
     bairro: string;

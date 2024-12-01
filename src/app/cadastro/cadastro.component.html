@@ -167,41 +167,75 @@
       <div *ngIf="(formValidation.get('perfil')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <p class="message-error-formValidation">Informe o perfil do paciente</p>
       </div>
-
+      <div *ngIf="(formValidation.get('perfil')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <p class="message-error-formValidation">Informe o perfil do paciente</p>
+      </div>
 
 
 
 
       <label for="cep">CEP</label>
-      <input type="text" name="cep" formControlName="cep" id="cep" required>
+      <input type="text" name="cep" formControlName="cep" id="cep" mask="00000-000" maxlength="9" required>
+
+      <div *ngIf="(formValidation.get('cep')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <ng-container *ngIf="formValidation.get('cep')?.errors?.['required']; else profissaoIncorreta">
+          <p class="message-error-formValidation">Informe o CEP</p>
+        </ng-container>
+        <ng-template #profissaoIncorreta>
+          <p class="message-error-formValidation">CEP inválido</p>
+        </ng-template>
+      </div>
 
 
-      <label for="rua">Rua</label>
-      <input type="text" name="rua" formControlName="rua" id="rua" required>
+      <label for="logradouro">Rua</label>
+      <input type="text" name="logradouro" formControlName="logradouro" id="logradouro" required>
+      <div *ngIf="(formValidation.get('logradouro')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <p class="message-error-formValidation">Informe a rua</p>
+      </div>
+
 
       <label for="numero">Número</label>
-      <input type="text" name="numero" formControlName="numero" id="numero" required>   <!-- tratar como number | aceitar apenas numeros  -->
+      <input type="number" name="numero" formControlName="numero" id="numero" min="1" maxlength="60" required>   <!-- tratar como number | aceitar apenas numeros  -->
+      <div *ngIf="(formValidation.get('numero')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <ng-container *ngIf="formValidation.get('numero')?.errors?.['required']; else profissaoIncorreta">
+          <p class="message-error-formValidation">Informe o número do local</p>
+        </ng-container>
+        <ng-template #profissaoIncorreta>
+          <p class="message-error-formValidation">Número inválido</p>
+        </ng-template>
+      </div>
 
       <label for="complemento">Complemento</label>
-      <input type="text" name="complemento" formControlName="complemento" id="complemento" required>
+      <input type="text" name="complemento" formControlName="complemento" id="complemento" maxlength="45" required>
 
       <label for="bairro">Bairro</label>
-      <input type="text" name="bairro" formControlName="bairro" id="bairro" required>
+      <input type="text" name="bairro" formControlName="bairro" id="bairro" maxlength="40" required>
+      <div *ngIf="(formValidation.get('bairro')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <p class="message-error-formValidation">Informe o bairro</p>
+      </div>
 
       <label for="cidade">Cidade</label>
       <input type="text" name="cidade" formControlName="cidade" id="cidade" required>
+      <div *ngIf="(formValidation.get('cidade')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <p class="message-error-formValidation">Informe a cidade</p>
+      </div>
+
 
       <label for="uf">UF</label>
       <select  name="uf" formControlName="uf" id="estado" required>
-        <!-- PEsquisa sobre fazer pesquisa no select dinamicamente -->
-        <option value=""><option>
         <option *ngFor="let uf of  optionUf" [value]="uf.sigla">{{ uf.nome }}</option>
       </select>
+      <div *ngIf="(formValidation.get('uf')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <p class="message-error-formValidation">Informe um estado</p>
+      </div>
 
 
 
       <label for="queixa">Queixa do paciente</label>
-    <textarea name="queixa" formControlName="queixa" id="queixa" required></textarea>
+      <textarea name="queixa" formControlName="queixa" id="queixa" required></textarea>
+      <div *ngIf="(formValidation.get('queixa')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <p class="message-error-formValidation">Descreva a queixa do paciente</p>
+      </div>
 
     <br>
 
@@ -215,13 +249,7 @@
   </div>
 
 
-  <h5 style="margin-top: 3rem;">Validação</h5>
-  <ul>
-    <li style="color: tomato;">Quando voce digita a data pelo teclado a idade não está sendo calculada, precisa por um
-      subscribe
-    </li>
-    <!-- <li style="color: tomato;"></li> -->
-  </ul>
+
 
 
 </div>

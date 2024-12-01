@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ValidatorFn, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormControl, FormGroup, ValidatorFn, Validators, AbstractControl, ValidationErrors, FormBuilder } from '@angular/forms';
 import { PacienteInterface } from '../model/paciente-interface';
 import { CreateService } from '../services/api/create/create.service';
 import { PerfilEnum } from '../model/perfil-enum';
@@ -44,7 +44,7 @@ export class CadastroComponent implements OnInit  {
     profissao:  '',
     perfil: PerfilEnum.PSICOTERAPIA,
     endereco: {
-      rua:  '',
+      logradouro:  '',
       numero:  '',
       complemento:  '',
       bairro:  '',
@@ -72,10 +72,8 @@ export class CadastroComponent implements OnInit  {
 
 
   constructor(
-    private createService: CreateService,
     private router: Router,
     private message: MessageService,
-    private errorMessage: GerenciadoDeAutenticacaoService,
     private validationFormService: ValidationFormService,
     private mascaraService: MascaraService,
     private primengConfig: PrimeNGConfig
@@ -95,18 +93,18 @@ export class CadastroComponent implements OnInit  {
       dataNascimento: new FormControl('' , [Validators.required, this.validationFormService.validacaoDataNascimento()]),
       estadoCivil: new FormControl('', [Validators.required]),
       filhos: new FormControl(''),
-      qtdFilhos: new FormControl({ value: null, disabled: true}, this.validationFormService.validacaoQtdFilhos()), // required personalizado
+      qtdFilhos: new FormControl({ value: null, disabled: true}, this.validationFormService.validacaoQtdFilhos()),
       grauEscolaridade: new FormControl('', [Validators.required]),
       profissao: new FormControl('', [Validators.required, this.validationFormService.validacaoProfissao()]),
       perfil: new FormControl('', [Validators.required]),
-      cep: new FormControl('05468-857'),   //  05468-857
-      rua: new FormControl('Das Flores'),   //  Das Flores
-      numero: new FormControl('105'),  // 105
-      complemento: new FormControl('Apartamento  10'), // Apartamento  10
-      bairro: new FormControl('Parque_Guarano'),  // Parque_Guarano
-      cidade: new FormControl('São Paulo'),    // São Paulo
-      uf: new FormControl('SP'),  // SP
-      queixa: new FormControl('Loren ..') // Loren ..
+      cep: new FormControl('', [Validators.required, this.validationFormService.validacaoCep()]),
+      logradouro: new FormControl('', [Validators.required]),
+      numero: new FormControl('', [Validators.required, this.validationFormService.validacaoNumero()]),
+      complemento: new FormControl(''), // s/ validação
+      bairro: new FormControl('', [Validators.required]),
+      cidade: new FormControl('', [Validators.required]),    // São Paulo
+      uf: new FormControl('', [Validators.required]),  // SP
+      queixa: new FormControl('', [Validators.required]) // Loren ..
     });
 
 
@@ -149,6 +147,9 @@ export class CadastroComponent implements OnInit  {
     });
 
     this.onSelectFilhos();
+    this.observeInputCep()
+
+
 
   }
 
@@ -218,18 +219,80 @@ export class CadastroComponent implements OnInit  {
 
 
 
+
+  // metodos
+
+  /**
+   * Método que observa as inserções do campo cep, para cada inserção o subscribe formada os dados
+   * removendo os caracteres especiais para forma o padrão cep, oito caracteres. Realiza a chamada
+   * para API para obter o endereço fornecido pelo cep. Após isso realiza a configuração de focus.
+   */
+  private observeInputCep() {
+
+    this.formValidation.get('cep')?.valueChanges.pipe(
+      takeUntil(this.destroy$)
+    )
+    .subscribe((valor: string) => {
+      const cepFormatado = this.mascaraService.formatarCEP(valor);
+      console.log('saida do cep após formatação: ',cepFormatado)
+      if(cepFormatado.length == 8) {
+
+        this.validationFormService.getEnderecoPorCEP(this.cep).pipe(
+          takeUntil(this.destroy$)
+        ).subscribe({
+          next: (response) => {
+            this.formValidation.patchValue({
+              logradouro: response?.logradouro,
+              bairro: response?.bairro,
+              cidade: response?.localidade,
+              uf: response?.uf
+
+            })
+            this.remanejadorDeFucosCep();
+
+          }
+        })
+
+
+
+
+
+      }
+    })
+  }
+
+
+  /**
+   * Este método verifica se o campo cep está no formado correto do cep sem caracter, se sim ele
+   * remaneja o focus do formulário para o campo número.
+   */
+  remanejadorDeFucosCep() {
+    const cepControl = this.formValidation.get('cep');
+    if (cepControl && cepControl.value.length === 8) {
+      // Mover o foco para o próximo input
+      const numeroInput = document.querySelector('input[formControlName="numero"]') as HTMLInputElement;
+
+      const validacaoCEP = this.validationFormService.validacaoCep();
+
+      if (validacaoCEP === null) {
+        numeroInput.focus();
+      } else {
+        return;
+      }
+    }
+  }
+
+
+
+
+
   async cadastrar(): Promise<void> {
 
     this.formSubmitted = true;
 
     // console.log('Estado do formulário:', this.formValidation);
 
-
-
-
-
-
-    if(this.formValidation.invalid) {
+    if(false/*this.formValidation.invalid*/) {
       console.log(this.formValidation.invalid)
       console.log('Formulário inválido'); // Para depuração
       return;
@@ -257,7 +320,7 @@ export class CadastroComponent implements OnInit  {
         profissao: this.profissao,
         perfil: this.perfil,
         endereco: {
-          rua: this.rua,
+          logradouro: this.logradouro,
           numero: this.numero,
           complemento: this.complemento,
           bairro: this.bairro,
@@ -351,6 +414,8 @@ export class CadastroComponent implements OnInit  {
   }
 
 
+  // getters
+
   getPerfilEnumKeys(): string[] {
     return Object.values(PerfilEnum);
   }
@@ -417,8 +482,8 @@ export class CadastroComponent implements OnInit  {
     return this.formValidation.get('cep')?.value;
   }
 
-  get rua() {
-    return this.formValidation.get('rua')?.value;
+  get logradouro() {
+    return this.formValidation.get('logradouro')?.value;
   }
 
   get numero() {

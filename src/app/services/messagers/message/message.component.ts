@@ -52,7 +52,7 @@ export class MessageComponent implements OnInit {
 
         this.timeoutId = setTimeout(() => {
           this.closeError();
-        }, 2300); // 5 segundos
+        }, 7000); // 5 segundos
       })
     );
 

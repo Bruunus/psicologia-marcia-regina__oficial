@@ -95,4 +95,10 @@ export class MascaraService {
   }
 
 
+
+  formatarCEP(cep: string): string {
+    return cep = cep.replace(/\D/g, '');
+  }
+
+
 }

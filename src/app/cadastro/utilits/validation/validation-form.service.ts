@@ -1,12 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { CepFormatter } from 'src/app/model/cep-formatter';
+import { MessageService } from 'src/app/services/messagers/message/message.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ValidationFormService {
 
-  constructor() { }
+  constructor(private http: HttpClient, private message: MessageService) { }
 
 
 
@@ -88,6 +93,12 @@ public validacaoDataNascimento(): ValidatorFn {
 
 
 
+/**
+ * Esta validação verifica se o campo de qtdFilho possui a quantidade de caracter necessária para
+ * aceitar a inserção.
+ * @returns Retorna a validação do campo de qtdFilhos baseado na presença do preenchimento do campo.
+ *
+ */
 public validacaoQtdFilhos(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const valor = control.value;
@@ -104,14 +115,85 @@ public validacaoQtdFilhos(): ValidatorFn {
   }
 }
 
+/**
+ * Esta validação verifica se o campo de profissão possui a quantidade de caracter necessária para
+ * aceitar a inserção. A descrição da profissão não pode ser menos que 4 digitos.
+ * @returns Retorna a validação do campo de profissao baseado na quantidade de caracter adicionado.
+ *
+ */
 public validacaoProfissao(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const valor = control.value;
-
     if(valor.length < 4) {
       return  { invalidData: true };;
     } else {
       return null;
+    }
+  }
+}
+
+
+/**
+ * Esta validação verifica se o campo de cep possui a quantidade de caracter necessária para
+ * aceitar a inserção.
+ * @returns Retorna a validação do campo de cep baseado na quantidade de caracter adicionado,
+ * contanto também com o digito da máscara.
+ */
+public validacaoCep(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const valor = control.value;
+    if(valor.length < 8) {
+      return  { invalidData: true };;
+    } else {
+      return null;
+    }
+  }
+}
+
+
+/**
+ * API responsável por buscar o endereço do paciente para popular
+ * os campos do formulário. Caso o valor do cep esteja inválido será exibida uma mensagem
+ * ao usuário de cep inválido, será lançada uma throw e cairá em catchError do rxjs na qual
+ * interpretará a mensagem da throw. O retorno é um observable com valor nulo.
+ * @param cep Retorna o CEP buscado pela webservices ViaCep
+ * @returns
+ */
+getEnderecoPorCEP(cep: string) {
+  return this.http.get<CepFormatter>(`https://viacep.com.br/ws/${cep}/json/`).pipe(
+    map((response) => {
+      // Verifica se a resposta contém um erro      (até a documentação)
+      if (response && response.erro) {
+        this.message.setMessage('Não foi detectado um CEP validado','ALERT_ALERT');
+        // Lança um erro se o CEP for inválido        (até a documentação)
+        throw new Error('CEP inválido'); // Lança um erro     (até a documentação)
+      }
+      console.log(response);
+      return response; // Retorna a resposta válida         (até a documentação)
+    }),
+    catchError((error) => {
+      console.error('Erro ao buscar endereço:', error.message);
+      // Retorna um Observable com valor nulo               (até a documentação)
+      return of(null); // Retorna um Observable com valor nulo        (até a documentação)
+    })
+  );
+}
+
+
+
+
+public validacaoNumero(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const valor = control.value;
+
+    // Converte o valor para string
+    const valorString = valor !== null ? String(valor) : '';
+
+    // Verifica se o valor é uma string vazia ou se começa com '0' e não é igual a '0'
+    if (valorString.length === 0 || (valorString.length > 1 && valorString.startsWith('0'))) {
+      return { invalidData: true }; // inválido
+    } else {
+      return null; // válido
     }
   }
 }
