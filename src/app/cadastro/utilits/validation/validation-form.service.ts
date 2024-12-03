@@ -95,7 +95,8 @@ public validacaoDataNascimento(): ValidatorFn {
 
 /**
  * Esta validação verifica se o campo de qtdFilho possui a quantidade de caracter necessária para
- * aceitar a inserção.
+ * aceitar a inserção. O valor não poder ser nulo, undefined ou com o valor zero, do contrário a
+ * validação passa.
  * @returns Retorna a validação do campo de qtdFilhos baseado na presença do preenchimento do campo.
  *
  */
@@ -180,8 +181,11 @@ getEnderecoPorCEP(cep: string) {
 }
 
 
-
-
+/**
+ * O campo número para ser validado o seu valor passado é e convertido em string para poder utilizar
+ * o metodo startWith para validação. A validação verifica se o valor é uma string ou se inicia com '0'
+ * e não é igual a '0'. Essas verificações leva à um resultado inválido, do contrário ela passa.
+ */
 public validacaoNumero(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const valor = control.value;

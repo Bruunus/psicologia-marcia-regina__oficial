@@ -76,7 +76,8 @@ export class CadastroComponent implements OnInit  {
     private message: MessageService,
     private validationFormService: ValidationFormService,
     private mascaraService: MascaraService,
-    private primengConfig: PrimeNGConfig
+    private primengConfig: PrimeNGConfig,
+    private createService: CreateService
   ) {
 
     ;
@@ -84,9 +85,9 @@ export class CadastroComponent implements OnInit  {
     const dataInicial = new Date(2000, 0, 1); // abertura do calendário padrão
 
     this.formValidation = new FormGroup({
-      nomeCompleto: new FormControl('Bruno Fernandes', Validators.required),
-      cpf: new FormControl('35278569941', [Validators.required, this.validationFormService.validacaoCpf()]),
-      email: new FormControl('brunos@icon.mail', [Validators.required, Validators.email]),
+      nomeCompleto: new FormControl('', Validators.required),
+      cpf: new FormControl('', [Validators.required, this.validationFormService.validacaoCpf()]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       telefone: new FormControl('', [Validators.required, this.validationFormService.validacaoTelefone()]),
       telefoneContato: new FormControl('', [this.validationFormService.validacaoTelefone()]),
       idade: new FormControl({ value: null, disabled: true}),
@@ -160,7 +161,10 @@ export class CadastroComponent implements OnInit  {
     return this.optionUf = this.selectUfInstance.getUf();
   }
 
-  //  evento data de nascimento
+  /**
+   * Evento de perda de foco do campo dataNascimento, a cada momento de perda de foco
+   * o método atualizarIdade analiza o campo se existe valor, se sim o campo
+   */
   onBlurDataNascimento() {
       this.atualizarIdade();
   }
@@ -170,6 +174,10 @@ export class CadastroComponent implements OnInit  {
   }
 
 
+  /**
+   * Método que formata o campo data de nascimento para o formato de padrão americano
+   * aceitado pelo servidor.
+   */
   private atualizarIdade() {
     const dataNascimento = this.formValidation.get('dataNascimento')?.value;
 
@@ -292,7 +300,7 @@ export class CadastroComponent implements OnInit  {
 
     // console.log('Estado do formulário:', this.formValidation);
 
-    if(false/*this.formValidation.invalid*/) {
+    if(this.formValidation.invalid) {
       console.log(this.formValidation.invalid)
       console.log('Formulário inválido'); // Para depuração
       return;
@@ -335,9 +343,9 @@ export class CadastroComponent implements OnInit  {
 
       console.log(this.pacienteCadastro)
 
-      // const sendDataAPI = await this.createService.registerPatient(this.pacienteCadastro);
+      const sendDataAPI = await this.createService.registerPatient(this.pacienteCadastro);
 
-      if (false/*sendDataAPI*/) {
+      if (sendDataAPI) {
 
         this.ativarLoading = true;
 
