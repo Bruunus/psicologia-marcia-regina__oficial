@@ -169,6 +169,7 @@ export class CadastroComponent implements OnInit  {
       this.atualizarIdade();
   }
 
+
   onInputDataNascimento() {
     this.atualizarIdade();
   }
@@ -293,7 +294,10 @@ export class CadastroComponent implements OnInit  {
 
 
 
-
+  /**
+   * Método principal que processa os valores do formulário e salva no banco de dados.
+   * @returns
+   */
   async cadastrar(): Promise<void> {
 
     this.formSubmitted = true;

@@ -11,7 +11,7 @@ import { GerenciadoDeAutenticacaoService } from '../../sessao/gerenciador-de-aut
 })
 export class CreateService {
 
-  private registarOfPatient: string = 'http://localhost:8080/cadastro/paciente';
+  private URLRegistrarPaciente: string = 'http://localhost:8080/cadastro/paciente';
   private unsubscribe$ = new Subject<void>();
 
   constructor(private http: HttpClient, private userMessage: MessageService
@@ -33,18 +33,16 @@ export class CreateService {
    *
    * @throws {Error} - Lança um erro se a requisição falhar ou se o status da resposta não for 200.
   */
-
   registerPatient(patient: PacienteInterface): Promise<boolean> {
 
-    return new Promise<boolean>((resolve, reject) => {
+    return new Promise<boolean>((resolve) => {
 
-      this.http.post<PacienteInterface>(this.registarOfPatient, patient, { observe: 'response' })
+      this.http.post<PacienteInterface>(this.URLRegistrarPaciente, patient, { observe: 'response' })
         .pipe(takeUntil(this.unsubscribe$)).subscribe({
           next: (response: HttpResponse<any>) => { //any só pra poder retornar uma mensagem
             if (response && response.status === 200) {
               console.log('Cadastrado')
               // console.log(response.status,' ',response.statusText);
-              // this.userMessage.setMessage(`${response.body.message}`, 'ALERT_SUCCESS');
               resolve(true);
             }
           },

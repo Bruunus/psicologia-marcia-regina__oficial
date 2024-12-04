@@ -8,18 +8,15 @@ export class MascaraService {
   constructor() { }
 
   /**
-   * Máscara que após a incersão do campo telefone, atribui um espaço após o
-   * segundo caracter para legibilidade no banco de dados.
+   * Máscara que após a inserção do campo telefone, remove todos os espaços em branco
+   * e traços do número de telefone e adiciona um espaço após o segundo dígito.
    */
   public formatarTelefone(value: string): string {
-    console.log('numero recebido: ',value)
+    // console.log('numero recebido: ',value)
     if (value) {
-      // Remover todos os espaços em branco e traços do número de telefone
       const numeroLimpo = value.replace(/\s/g, '').replace(/-/g, '');
-      // Adicionar um espaço após o segundo dígito
       const numeroFormatado = numeroLimpo.replace(/(\d{2})(\d{1,})/, '$1 $2');
-
-      console.log('Numero formatado: ',numeroFormatado )
+      // console.log('Numero formatado: ',numeroFormatado )
       return numeroFormatado;
     }
     return value;
@@ -27,8 +24,10 @@ export class MascaraService {
 
 
   /**
-   * Máscara que recebe um formato de data do prime ng como dd/mm/yy e é transformada no formato de
-   * yyyy-MM-dd padrão exigido pelo servidor.
+   * Esta mascara verifica a princípio se o valor do parametro é nulo, do contrário
+   * é criado um objeto Date recebendo o valor, e outro objeto com a data atual de
+   * Date. A lógica funciona em calcula a idade subtraindo o ano de nascimento do ano
+   * atual, e, também ajustaa idade se o aniversário ainda não tiver ocorrido este ano.
    *
    * @param dataNascimento string da data que será recebica pelo invocador
    * @returns
@@ -41,11 +40,11 @@ export class MascaraService {
     const dataNascimentoFormulario = new Date(dataNascimento);
     const dataDeHoje = new Date();
 
-    // Calcula a idade subtraindo o ano de nascimento do ano atual
+
     let idade = dataDeHoje.getFullYear() - dataNascimentoFormulario.getFullYear();
     const mes = dataDeHoje.getMonth() - dataNascimentoFormulario.getMonth();
 
-    // Ajusta a idade se o aniversário ainda não tiver ocorrido este ano
+
     if (mes < 0 || (mes === 0 && dataDeHoje.getDate() < dataNascimentoFormulario.getDate())) {
         idade--;
     }
@@ -53,9 +52,18 @@ export class MascaraService {
     return idade;
   }
 
+  /**
+   * Esta máscara é responsável por transformar o formato da data do estilo português
+   * para o estilo inglês: de dd/mm/yy para yyyy-MM-dd para que posse ser salva de
+   * acordo com o padrão do servidor. Inicialmente o método transformarTipoDeData
+   * detecta se o valor fornecido em parâmetro é uma string, do contrário retorna um erro.
+   * Se a condição for false, o valor é uma string, então o método split separa os
+   * valores pela barra (/) e armazena em 3 constantes e reorganiza no formato
+   * EUA utilizando template string.
+   * @param data retorna data formatada no padrão original
+   * @returns
+   */
   transformarTipoDeData(data: string): string {
-
-
 
     if (typeof data !== 'string') {
       console.error('O valor passado para transformarTipoDeData não é uma string:', data);
@@ -68,11 +76,8 @@ export class MascaraService {
     const mes = partes[1];
     const ano = partes[2];
 
-
     const dataFormatada = `${ano}-${mes}-${dia}`;
-
     // console.log('Data formatada: ', dataFormatada)
-
     return dataFormatada;
   }
 
