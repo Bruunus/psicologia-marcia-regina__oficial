@@ -21,7 +21,11 @@ declare var $: any;
 @Component({
   selector: 'app-cadastro',
   templateUrl: './cadastro.component.html',
-  styleUrls: ['./cadastro.component.scss']
+  styleUrls: [
+    './cadastro-default.component.scss',
+    './cadastro-middle.component.scss',
+    './cadastro-small.component.scss',
+    './cadastro-big.component.scss']
 })
 export class CadastroComponent implements OnInit  {
 

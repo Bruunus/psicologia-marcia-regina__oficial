@@ -1,7 +1,17 @@
 <div class="container-fluid">
   <app-menu-principal></app-menu-principal>
 
-  <div>
+  <div class="container-cadastro">
+
+
+
+    <div id="titulo" class="row ml-0 mr-0">
+      <div class="col-12  coluna-cadastro">
+        <h4 class="">Cadastro de Paciente</h4>
+      </div>
+    </div>
+
+
     <form (ngSubmit)="cadastrar()" [formGroup]="formValidation">
 
       <label for="nomeCompleto">Nome Completo</label>
