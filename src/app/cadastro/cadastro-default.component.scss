@@ -1,20 +1,78 @@
+@import url('../../styles.scss');
+
+.container-fluid {
+  font-family: 'font-home';
+}
+
 .container-cadastro {
   background-color: #fcfaf4;
   height: 100vh !important;
-  padding: 40px;
+  padding: 20px 40px;
 }
 
-#titulo {
-  background-color: tomato;
-  align-items: center;
+#titulo-row {
+  // background-color: tomato;
+  height: 2.3rem;
+  margin-bottom: 1rem;
 }
-#titulo h4 {
+
+#titulo-col {
+  // background-color: aqua;
+  display: flex;
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: center; /* Centraliza horizontalmente */
+  height: 100%; /* Garante que o col ocupe toda a altura do row */
+}
+
+#titulo-row #titulo-col h4 {
+  // background-color: cadetblue;
+  width: 15rem;
   text-align: center;
+  margin: 0;
+  font-style: italic;
 }
 
-.coluna-cadastro {
-
+.alt-da-caixa {
+  height: 99.97px !important;
+  //104.97 - anterior
 }
+
+::ng-deep .prime-ng-calendar {
+  width: 100% !important;
+  height: 37.8px !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
