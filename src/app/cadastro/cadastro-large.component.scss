@@ -1,0 +1,40 @@
+/**
+* Grid - A partir de 992px à 1199px
+* Bootstrap - Large .col-lg-
+* Dispositivo alvo: Notebooks e desktops com telas menores
+*/
+@media (min-width: 992px) and (max-width: 1199px) {
+
+  .container-cadastro {
+    padding: 10px 40px;
+  }
+
+  #titulo-row {
+    // background-color: tomato;
+
+    margin-bottom: 0.40rem;
+  }
+
+  .titulo-item {
+    margin-bottom: -0.5rem !important;
+  }
+
+  .alt-da-caixa {
+    height: 81.97px !important;
+    //104.97 - anterior
+  }
+
+  .textarea-queixa {
+    height: 60px;
+    resize: none;
+  }
+
+  .btn-registrar {
+    margin-top: 2.1rem;
+  }
+
+  .btn-registrar button {
+    width: 100%;
+    font-size: 16.666666px;
+  }
+}

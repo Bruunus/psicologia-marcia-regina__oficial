@@ -1,0 +1,34 @@
+@import url('../../styles.scss');
+
+
+/**
+* Grid - A partir de 576px à 767px
+* Bootstrap - Small .col-sm-
+* Dispositivo alvo: Smartphones em modo paisagem e alguns dispositivos menores, como tablets compactos.
+*/
+@media (min-width: 426px) and (max-width: 767px) {
+
+  /* Excessão para caixa na tela small apenas */
+  .cx-textarea-p-small {
+    height: 99.97px !important;
+    margin-bottom: 1rem;
+  }
+
+  .textarea-queixa {
+    height: 80px;
+    resize: none; /* Impedir tamanho */
+  }
+
+  .btn-registrar {
+    margin-top: 2.1rem;
+  }
+
+  .btn-registrar button {
+    height: 50px;
+    width: 100%;
+    font-size: 17.666666px;
+  }
+
+}
+
+

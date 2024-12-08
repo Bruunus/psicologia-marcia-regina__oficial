@@ -1,0 +1,23 @@
+/**
+* Grid - A partir de 768px à 991px
+* Bootstrap - Medium .col-md-
+* Dispositivo alvo: Tablets grandes e notebooks menores
+*/
+@media (min-width: 768px) and (max-width: 991px) {
+
+  .textarea-queixa {
+    height: 80px;
+    resize: none; /* Impedir tamanho */
+  }
+
+  .btn-registrar {
+    margin-top: 2.1rem;
+  }
+
+  .btn-registrar button {
+    height: 79px;
+    width: 100%;
+    font-size: 17.666666px;
+  }
+
+}

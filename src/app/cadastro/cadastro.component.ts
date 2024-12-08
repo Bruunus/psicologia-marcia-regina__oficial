@@ -13,6 +13,7 @@ import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { Observable, Subject, Subscription, switchMap, takeUntil, tap } from 'rxjs';
 import { MascaraService } from './utilits/mascaras/mascara.service';
+import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
 
 
 declare var $: any;
@@ -22,10 +23,13 @@ declare var $: any;
   selector: 'app-cadastro',
   templateUrl: './cadastro.component.html',
   styleUrls: [
-    './cadastro-default.component.scss',
-    './cadastro-middle.component.scss',
+    './cadastro-style-global.component.scss',
+    './cadastro-extra-large.component.scss',
+    './cadastro-large.component.scss',
+    './cadastro-medium.component.scss',
     './cadastro-small.component.scss',
-    './cadastro-big.component.scss']
+    './cadastro-smartphone.component.scss'
+  ]
 })
 export class CadastroComponent implements OnInit  {
 
@@ -75,13 +79,15 @@ export class CadastroComponent implements OnInit  {
 
 
 
+
   constructor(
     private router: Router,
     private message: MessageService,
     private validationFormService: ValidationFormService,
     private mascaraService: MascaraService,
     private primengConfig: PrimeNGConfig,
-    private createService: CreateService
+    private createService: CreateService,
+    protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev  /* Teste responsividade */
   ) {
 
     ;
@@ -140,6 +146,7 @@ export class CadastroComponent implements OnInit  {
 
 
   ngOnInit(): void {
+    this.calculadorDeTelaModoDev.atualizarTamanhoTela();  /* Teste responsividade */
     this.loadListUf()
     this.primengConfig.setTranslation({
       dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],

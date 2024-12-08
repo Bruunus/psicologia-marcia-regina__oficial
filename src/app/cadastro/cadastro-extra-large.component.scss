@@ -1,0 +1,33 @@
+
+/**
+* Grid Extra Large - A partir de 1200px
+* Bootstrap - Extra large .col-xl-
+* Dispositivo alvo: Desktops com telas grandes e monitores de alta resolução.
+*/
+@media(min-width: 1200px) {
+
+  .container-cadastro {
+    height: 100vh;
+
+  }
+
+  .btn-registrar {
+    margin-top: 3rem;
+  }
+
+  .btn-registrar button {
+    width: 10rem;
+  }
+
+
+  .img-loading {
+    height: 47px;
+  }
+
+
+
+
+
+
+
+}

@@ -1,13 +1,11 @@
-@import url('../../styles.scss');
-
 .container-fluid {
   font-family: 'font-home';
+  // background-color: #fcfaf4;
 }
 
 .container-cadastro {
-  background-color: #fcfaf4;
-  height: 100vh !important;
   padding: 20px 40px;
+  background-color: #fcfaf4;
 }
 
 #titulo-row {
@@ -19,7 +17,7 @@
 #titulo-col {
   // background-color: aqua;
   display: flex;
-  align-items: center; /* Centraliza verticalmente */
+  align-items: center;
   justify-content: center; /* Centraliza horizontalmente */
   height: 100%; /* Garante que o col ocupe toda a altura do row */
 }
@@ -42,54 +40,19 @@
   height: 37.8px !important;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.img-loading {
-  height: 47px;
-}
-
-
-.message-error-formValidation {
-  font-size: 0.8rem;
-  color: tomato;
-}
-
 :host ::ng-deep .p-datepicker {
   background-color: #ffffff; /* Cor de fundo do calendário */
 }
 
 :host ::ng-deep .p-datepicker .p-datepicker-calendar {
   background-color: #f0f0f0; /* Cor de fundo da tabela do calendário */
+}
+
+.message-error-formValidation {
+  font-size: 0.8rem;
+  color: tomato;
+}
+
+.input-error {
+  border-color: tomato;
 }

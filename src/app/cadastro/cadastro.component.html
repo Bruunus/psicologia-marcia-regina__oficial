@@ -1,311 +1,312 @@
+
+<span style="
+    height: 45px;
+    position: fixed;
+    top: 80px;    /* Autera os lados aqui */
+    right: 10px;   /* Autera os lados aqui */
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 0 rgba(6, 12, 2, 0.5);
+">   <!-- Teste responsividade -->
+  <p>LxA: <b>{{ this.calculadorDeTelaModoDev.largura }}</b><small>px</small> x
+    <b>{{ this.calculadorDeTelaModoDev.altura }}</b><small>px</small></p>
+</span>
+
+
 <div class="container-fluid">
   <app-menu-principal></app-menu-principal>
 
   <div class="container-cadastro">
 
-
-
     <div id="titulo-row" class="row ml-0 mr-0">
-      <div class="col-12" id="titulo-col">
+      <div class="col-xl-12 col-lg-12 col-md-12" id="titulo-col">
         <h4 class="titulo-item">Cadastro de Paciente</h4>
       </div>
     </div>
 
 
     <form (ngSubmit)="cadastrar()" [formGroup]="formValidation">
-
       <div class="form-group row">
 
-      <div class="col-3 alt-da-caixa">
-        <label for="nomeCompleto" class="titulo-item">Nome Completo</label>
-        <input type="text" class="form-control" name="nomeCompleto"  formControlName="nomeCompleto" id="nomeCompleto" maxlength="45"
-        placeholder="Nome do paciente" required>
-        <div *ngIf="(formValidation.get('nomeCompleto')?.invalid && formSubmitted) && !formReset" class="validation-error">
-          <p *ngIf="formValidation.get('nomeCompleto')?.errors?.['required']" class="message-error-formValidation">
-            Informe o nome completo
-          </p>
+        <div class="col-xl-3 col-lg-4 col-md-6 alt-da-caixa">
+          <label for="nomeCompleto" class="titulo-item">Nome Completo</label>
+          <input type="text" class="form-control" name="nomeCompleto"  formControlName="nomeCompleto" id="nomeCompleto" maxlength="45"
+          placeholder="Nome do paciente" required>
+          <div *ngIf="(formValidation.get('nomeCompleto')?.invalid && formSubmitted) && !formReset" class="validation-error">
+            <p *ngIf="formValidation.get('nomeCompleto')?.errors?.['required']" class="message-error-formValidation ">
+              Informe o nome completo
+            </p>
+          </div>
         </div>
-      </div>
 
 
-
-      <div class="col-3 alt-da-caixa">
-        <label for="cpf" class="titulo-item">CPF</label>
-        <input type="text" class="form-control" name="cpf" mask="000.000.000-00" formControlName="cpf" id="cpf"
-        placeholder="Insira o CPF" required>
-        <div *ngIf="(formValidation.get('cpf')?.invalid && formSubmitted) && !formReset" class="validation-error">
-          <ng-container *ngIf="formValidation.get('cpf')?.errors?.['required']; else cpfIncorreto">
-            <p class="message-error-formValidation">Informe o CPF</p>
-          </ng-container>
-          <ng-template #cpfIncorreto>
-            <p class="message-error-formValidation">CPF incorreto</p>
-          </ng-template>
+        <!-- Adicionar o contorno de erro para o input -->
+        <!-- [ngClass]="{'input-error': (formValidation.get('cpf')?.invalid && formSubmitted) && !formReset}" -->
+        <div class="col-xl-2 col-lg-4 col-md-6 alt-da-caixa">
+          <label for="cpf" class="titulo-item">CPF</label>
+          <input type="text" class="form-control" name="cpf" mask="000.000.000-00" formControlName="cpf" id="cpf"
+          placeholder="Insira o CPF" required>
+          <div *ngIf="(formValidation.get('cpf')?.invalid && formSubmitted) && !formReset" class="validation-error">
+            <ng-container *ngIf="formValidation.get('cpf')?.errors?.['required']; else cpfIncorreto">
+              <p class="message-error-formValidation">Informe o CPF</p>
+            </ng-container>
+            <ng-template #cpfIncorreto>
+              <p class="message-error-formValidation">CPF incorreto</p>
+            </ng-template>
+          </div>
         </div>
-      </div>
 
 
-      <div class="col-6 alt-da-caixa">
-        <label for="email" class="titulo-item">E-mail</label>
-        <input type="text" class="form-control" name="email" formControlName="email" id="email" placeholder="Insira o e-mail" required>
-        <div *ngIf="(formValidation.get('email')?.invalid && formSubmitted) && !formReset" class="validation-error">
-          <ng-container *ngIf="formValidation.get('email')?.errors?.['required']; else emailIncorreto" >
-            <p class="message-error-formValidation">Informe um e-mail</p>
-          </ng-container>
-          <ng-template #emailIncorreto>
-            <p class="message-error-formValidation">Declaração de e-mail incorreto  </p>
-          </ng-template>
+        <div class="col-xl-3 col-lg-4 col-md-12 alt-da-caixa">
+          <label for="email" class="titulo-item">E-mail</label>
+          <input type="text" class="form-control" name="email" formControlName="email" id="email" placeholder="Insira o e-mail" required>
+          <div *ngIf="(formValidation.get('email')?.invalid && formSubmitted) && !formReset" class="validation-error">
+            <ng-container *ngIf="formValidation.get('email')?.errors?.['required']; else emailIncorreto" >
+              <p class="message-error-formValidation">Informe um e-mail</p>
+            </ng-container>
+            <ng-template #emailIncorreto>
+              <p class="message-error-formValidation">Declaração de e-mail incorreto  </p>
+            </ng-template>
+          </div>
         </div>
-      </div>
 
 
+        <div class="col-xl-2 col-lg-6 col-md-6 alt-da-caixa">
+          <label for="telefone" class="titulo-item">Telefone</label>
+          <input type="tel" class="form-control" name="telefone" mask="(00) 0 0000-0000" formControlName="telefone" id="telefone"
+          placeholder="Insira o Telefone" required>
+          <div *ngIf="(formValidation.get('telefone')?.invalid && formSubmitted) && !formReset" class="validation-error">
+            <ng-container *ngIf="formValidation.get('telefone')?.errors?.['required']; else telefoneIncorreto">
+              <p class="message-error-formValidation">Informe um telefone</p>
+            </ng-container>
+            <ng-template #telefoneIncorreto>
+              <p class="message-error-formValidation">Telefone incorreto</p>
+            </ng-template>
+          </div>
+        </div>
 
-      <div class="col-2 alt-da-caixa">
-        <label for="telefone" class="titulo-item">Telefone</label>
-        <input type="tel" class="form-control" name="telefone" mask="(00) 0 0000-0000" formControlName="telefone" id="telefone"
-        placeholder="Insira o Telefone" required>
-        <div *ngIf="(formValidation.get('telefone')?.invalid && formSubmitted) && !formReset" class="validation-error">
-          <ng-container *ngIf="formValidation.get('telefone')?.errors?.['required']; else telefoneIncorreto">
-            <p class="message-error-formValidation">Informe um telefone</p>
-          </ng-container>
-          <ng-template #telefoneIncorreto>
+
+        <div class="col-xl-2 col-lg-6 col-md-6 alt-da-caixa">
+          <label for="telefone-para-contato" class="titulo-item">Telefone para contato</label>
+          <input type="text" class="form-control" name="telefone-para-contato"  mask="(00) 0 0000-0000" formControlName="telefoneContato"
+          placeholder="Outro" id="telefone-para-contato">
+          <div *ngIf="(formValidation.get('telefoneContato')?.invalid && formSubmitted) && !formReset" class="validation-error">
             <p class="message-error-formValidation">Telefone incorreto</p>
-          </ng-template>
+          </div>
         </div>
-      </div>
 
 
-      <div class="col-2 alt-da-caixa">
-        <label for="telefone-para-contato" class="titulo-item">Telefone para contato</label>
-        <input type="text" class="form-control" name="telefone-para-contato"  mask="(00) 0 0000-0000" formControlName="telefoneContato"
-        placeholder="Outro" id="telefone-para-contato">
-        <div *ngIf="(formValidation.get('telefoneContato')?.invalid && formSubmitted) && !formReset" class="validation-error">
-          <p class="message-error-formValidation">Telefone incorreto</p>
+        <div class="col-xl-2 col-lg-10 col-md-10 alt-da-caixa">
+          <label for="dataNascimento" class="titulo-item">Data nascimento</label><br>
+          <p-calendar
+            formControlName="dataNascimento"
+            id="data-de-nascimento"
+            (onSelect)="onBlurDataNascimento()"
+            (onInput)="onInputDataNascimento()"
+            [required]="true"
+            mask="'99/99/9999'"
+            dataType="string"
+            dateFormat="dd/mm/yy"
+            placeholder="Selecione a data"
+            class="custom-calendar "
+            [styleClass]="'prime-ng-calendar'"
+            name="dataNascimento">
+          </p-calendar>
+
+          <div *ngIf="(formValidation.get('dataNascimento')?.invalid && formSubmitted) && !formReset" class="validation-error">
+            <ng-container *ngIf="formValidation.get('dataNascimento')?.errors?.['required']; else dataNascimentoIncorreta">
+              <p class="message-error-formValidation">Informe a data de nascimento</p>
+            </ng-container>
+            <ng-template #dataNascimentoIncorreta>
+              <p class="message-error-formValidation">Data de nascimento incorreta</p>
+            </ng-template>
+          </div>
         </div>
-      </div>
-
-      <!-- <label for="data-de-nascimento">Data de nascimento</label>
-      <input type="date" name="data-de-nascimento" formControlName="dataNascimento" id="data-de-nascimento"
-      (blur)="onBlurDataNascimento()" required > -->
-
-      <div class="col-3 alt-da-caixa">
-        <label for="dataNascimento" class="titulo-item">Data nascimento</label><br>
-        <p-calendar
-          formControlName="dataNascimento"
-          id="data-de-nascimento"
-          (onSelect)="onBlurDataNascimento()"
-          (onInput)="onInputDataNascimento()"
-          [required]="true"
-          mask="'99/99/9999'"
-          dataType="string"
-          dateFormat="dd/mm/yy"
-          placeholder="Selecione a data"
-          class="custom-calendar "
-          [styleClass]="'prime-ng-calendar'"
-          name="dataNascimento">
-        </p-calendar>
 
 
-        <div *ngIf="(formValidation.get('dataNascimento')?.invalid && formSubmitted) && !formReset" class="validation-error">
-          <ng-container *ngIf="formValidation.get('dataNascimento')?.errors?.['required']; else dataNascimentoIncorreta">
-            <p class="message-error-formValidation">Informe a data de nascimento</p>
-          </ng-container>
-          <ng-template #dataNascimentoIncorreta>
-            <p class="message-error-formValidation">Data de nascimento incorreta</p>
-          </ng-template>
+        <div class="col-xl-1 col-lg-2 col-md-2 alt-da-caixa">
+          <label for="idade" class="titulo-item">Idade</label>
+          <input type="number" class="form-control" name="idade" formControlName="idade" id="idade" required (focus)="onFocusIdade()"
+          placeholder="Idade">
         </div>
-      </div>
 
 
-
-
-      <div class="col-1 alt-da-caixa">
-        <label for="idade" class="titulo-item">Idade</label>
-        <input type="number" class="form-control" name="idade" formControlName="idade" id="idade" required (focus)="onFocusIdade()"
-        placeholder="Idade">
-      </div>
-
-
-
-      <div class="col-4 alt-da-caixa">
-        <label for="estado-civil" class="titulo-item">Estado Civil</label>
-        <select name="estado-civil" class="form-control" id="estado-civil" formControlName="estadoCivil"  required>
-          <option value="" style="color: lightgray;">Selecione</option>
-          <option value="solteiro">Solteiro(a)</option>
-          <option value="casado">Casado(a)</option>
-          <option value="divorcioado">Divorciado(a)</option>
-          <option value="viuvo">Viuvo(a)</option>
-          <option value="outro">Outro</option>
-        </select>
-        <div *ngIf="(formValidation.get('estadoCivil')?.invalid && formSubmitted) && !formReset" class="validation-error">
-          <p class="message-error-formValidation">Informe o estado civil</p>
+        <div class="col-xl-2 col-lg-4 col-md-12 alt-da-caixa">
+          <label for="estado-civil" class="titulo-item">Estado Civil</label>
+          <select name="estado-civil" class="form-control" id="estado-civil" formControlName="estadoCivil"  required>
+            <option value="" style="color: lightgray;">Selecione</option>
+            <option value="solteiro">Solteiro(a)</option>
+            <option value="casado">Casado(a)</option>
+            <option value="divorcioado">Divorciado(a)</option>
+            <option value="viuvo">Viuvo(a)</option>
+            <option value="outro">Outro</option>
+          </select>
+          <div *ngIf="(formValidation.get('estadoCivil')?.invalid && formSubmitted) && !formReset" class="validation-error">
+            <p class="message-error-formValidation">Informe o estado civil</p>
+          </div>
         </div>
-      </div>
 
 
-
-
-
-
-      <div class="col-1 alt-da-caixa">
-        <label for="filhos" class="titulo-item">Filhos</label>
-        <select name="filhos" class="form-control" formControlName="filhos" id="filhos" required>
-          <option value="sim">Sim</option>
-          <option value="nao">Não</option>
-        </select>
-      </div>
-
-      <div class="col-1 alt-da-caixa">
-        <label for="qtdFilhos" class="titulo-item">Qtd. de filhos</label>
-        <input type="number" class="form-control" name="qtdFilhos" formControlName="qtdFilhos" id="qtdFilhos" placeholder="Qtd" required min="1">
-        <div *ngIf="(formValidation.get('qtdFilhos')?.invalid && formSubmitted) && !formReset && formQtdFilhos" class="validation-error">
-          <p class="message-error-formValidation">Informe a quantidade</p>
+        <div class="col-xl-2 col-lg-4 col-md-10 alt-da-caixa">
+          <label for="filhos" class="titulo-item">Filhos</label>
+          <select name="filhos" class="form-control" formControlName="filhos" id="filhos" required>
+            <option value="sim">Sim</option>
+            <option value="nao">Não</option>
+          </select>
         </div>
-      </div>
 
 
-      <div class="col-4 alt-da-caixa">
-        <label for="grau-escolaridade" class="titulo-item">Grau de escolaridade</label>
-        <select type="text" name="grau-escolaridade" class="form-control" formControlName="grauEscolaridade" id="grau-escolaridade" required>
-          <option value="" style="color: lightgray;">Selecione</option>
-          <option value="Doutorado">Doutorado</option>
-          <option value="Ensino Fundamental Completo">Ensino Fundamental Completo</option>
-          <option value="Ensino Fundamental Incompleto">Ensino Fundamental Incompleto</option>
-          <option value="Ensino Médio Completo">Ensino Médio Completo</option>
-          <option value="Ensino Médio Incompleto">Ensino Médio Incompleto</option>
-          <option value="Ensino Superior Completo">Ensino Superior Completo</option>
-          <option value="Ensino Superior Incompleto">Ensino Superior Incompleto</option>
-          <option value="Mestrado">Mestrado</option>
-          <option value="Pós-graduação">Pós-graduação</option>
-        </select>
-
-        <div *ngIf="(formValidation.get('grauEscolaridade')?.invalid && formSubmitted) && !formReset" class="validation-error">
-          <p class="message-error-formValidation">Informe o grau de escolaridade</p>
+        <div class="col-xl-2 col-lg-4 col-md-2 alt-da-caixa">
+          <label for="qtdFilhos" class="titulo-item">Qtd. de filhos</label>
+          <input type="number" class="form-control" name="qtdFilhos" formControlName="qtdFilhos" id="qtdFilhos" placeholder="Qtd" required min="1">
+          <div *ngIf="(formValidation.get('qtdFilhos')?.invalid && formSubmitted) && !formReset && formQtdFilhos" class="validation-error">
+            <p class="message-error-formValidation">Informe a quantidade</p>
+          </div>
         </div>
-      </div>
 
 
+        <div class="col-xl-3 col-lg-4 col-md-6 alt-da-caixa">
+          <label for="grau-escolaridade" class="titulo-item">Grau de escolaridade</label>
+          <select type="text" name="grau-escolaridade" class="form-control" formControlName="grauEscolaridade" id="grau-escolaridade" required>
+            <option value="" style="color: lightgray;">Selecione</option>
+            <option value="Doutorado">Doutorado</option>
+            <option value="Ensino Fundamental Completo">Ensino Fundamental Completo</option>
+            <option value="Ensino Fundamental Incompleto">Ensino Fundamental Incompleto</option>
+            <option value="Ensino Médio Completo">Ensino Médio Completo</option>
+            <option value="Ensino Médio Incompleto">Ensino Médio Incompleto</option>
+            <option value="Ensino Superior Completo">Ensino Superior Completo</option>
+            <option value="Ensino Superior Incompleto">Ensino Superior Incompleto</option>
+            <option value="Mestrado">Mestrado</option>
+            <option value="Pós-graduação">Pós-graduação</option>
+          </select>
 
-
-      <div class="col-4 alt-da-caixa">
-        <label for="profissao" class="titulo-item">Profissão</label>
-        <input type="text" name="profissao" class="form-control" formControlName="profissao" id="profissao" maxlength="50"
-        placeholder="Profissão" required>
-        <div *ngIf="(formValidation.get('profissao')?.invalid && formSubmitted) && !formReset" class="validation-error">
-          <ng-container *ngIf="formValidation.get('profissao')?.errors?.['required']; else profissaoIncorreta">
-            <p class="message-error-formValidation">Informe a profissão</p>
-          </ng-container>
-          <ng-template #profissaoIncorreta>
-            <p class="message-error-formValidation">Valor minimo 3 caracteres</p>
-          </ng-template>
+          <div *ngIf="(formValidation.get('grauEscolaridade')?.invalid && formSubmitted) && !formReset" class="validation-error">
+            <p class="message-error-formValidation">Informe o grau de escolaridade</p>
+          </div>
         </div>
-      </div>
 
 
-
-      <div class="col-2 alt-da-caixa">
-        <label for="perfil" class="titulo-item" class="titulo-item">Perfil</label>
-        <select name="perfil" class="form-control" formControlName="perfil" id="perfil">  <!-- dados renderizados da api -->
-          <option value="" style="color: lightgray;">Selecione</option>
-          <option *ngFor="let perfil of getPerfilEnumKeys()" [value]="perfil">
-            {{ perfil }}
-          </option>
-          <!-- <option value="psicologia">Psicologia</option>
-          <option value="psicoterapia">Psicoterapia</option>
-          <option value="orcamento">Orçamento</option> -->
-        </select>
-        <div *ngIf="(formValidation.get('perfil')?.invalid && formSubmitted) && !formReset" class="validation-error">
-          <p class="message-error-formValidation">Informe o perfil do paciente</p>
+        <div class="col-xl-3 col-lg-4 col-md-6 alt-da-caixa">
+          <label for="profissao" class="titulo-item">Profissão</label>
+          <input type="text" name="profissao" class="form-control" formControlName="profissao" id="profissao" maxlength="50"
+          placeholder="Profissão" required>
+          <div *ngIf="(formValidation.get('profissao')?.invalid && formSubmitted) && !formReset" class="validation-error">
+            <ng-container *ngIf="formValidation.get('profissao')?.errors?.['required']; else profissaoIncorreta">
+              <p class="message-error-formValidation">Informe a profissão</p>
+            </ng-container>
+            <ng-template #profissaoIncorreta>
+              <p class="message-error-formValidation">Valor minimo 3 caracteres</p>
+            </ng-template>
+          </div>
         </div>
-      </div>
 
 
+        <div class="col-xl-2 col-lg-4 col-md-12 alt-da-caixa">
+          <label for="perfil" class="titulo-item" class="titulo-item">Perfil</label>
+          <select name="perfil" class="form-control" formControlName="perfil" id="perfil">
+            <option value="" style="color: lightgray;"></option>
+            <option *ngFor="let perfil of getPerfilEnumKeys()" [value]="perfil">
+              {{ perfil }}
+            </option>
 
-
-      <div class="col-2 alt-da-caixa">
-        <label for="cep" class="titulo-item">CEP</label>
-        <input type="text" name="cep" class="form-control" formControlName="cep" id="cep" mask="00000-000" maxlength="9" required>
-        <div *ngIf="(formValidation.get('cep')?.invalid && formSubmitted) && !formReset" class="validation-error">
-          <ng-container *ngIf="formValidation.get('cep')?.errors?.['required']; else profissaoIncorreta">
-            <p class="message-error-formValidation">Informe o CEP</p>
-          </ng-container>
-          <ng-template #profissaoIncorreta>
-            <p class="message-error-formValidation">CEP inválido</p>
-          </ng-template>
+          </select>
+          <div *ngIf="(formValidation.get('perfil')?.invalid && formSubmitted) && !formReset" class="validation-error">
+            <p class="message-error-formValidation">Informe o perfil do paciente</p>
+          </div>
         </div>
-      </div>
 
+<!-- É nesse ponto que  -->
 
-      <div class="col-3 alt-da-caixa">
-        <label for="logradouro" class="titulo-item">Rua</label>
-        <input type="text" class="form-control" name="logradouro" formControlName="logradouro" id="logradouro" required>
-        <div *ngIf="(formValidation.get('logradouro')?.invalid && formSubmitted) && !formReset" class="validation-error">
-          <p class="message-error-formValidation">Informe a rua</p>
+        <div class="col-xl-2 col-lg-2 col-md-12 alt-da-caixa">
+          <label for="cep" class="titulo-item">CEP</label>
+          <input type="text" name="cep" class="form-control" formControlName="cep" id="cep" mask="00000-000" maxlength="9" required>
+          <div *ngIf="(formValidation.get('cep')?.invalid && formSubmitted) && !formReset" class="validation-error">
+            <ng-container *ngIf="formValidation.get('cep')?.errors?.['required']; else profissaoIncorreta">
+              <p class="message-error-formValidation">Informe o CEP</p>
+            </ng-container>
+            <ng-template #profissaoIncorreta>
+              <p class="message-error-formValidation">CEP inválido</p>
+            </ng-template>
+          </div>
         </div>
-      </div>
 
 
-      <div class="col-1 alt-da-caixa">
-        <label for="numero" class="titulo-item">Número</label>
-        <input type="number" class="form-control" name="numero" formControlName="numero" id="numero" min="1" maxlength="60" required>   <!-- tratar como number | aceitar apenas numeros  -->
-        <div *ngIf="(formValidation.get('numero')?.invalid && formSubmitted) && !formReset" class="validation-error">
-          <ng-container *ngIf="formValidation.get('numero')?.errors?.['required']; else profissaoIncorreta">
-            <p class="message-error-formValidation">Informe o número</p>
-          </ng-container>
-          <ng-template #profissaoIncorreta>
-            <p class="message-error-formValidation">Número inválido</p>
-          </ng-template>
+        <div class="col-xl-3 col-lg-3 col-md-9  alt-da-caixa">
+          <label for="logradouro" class="titulo-item">Rua</label>
+          <input type="text" class="form-control" name="logradouro" formControlName="logradouro" id="logradouro" required>
+          <div *ngIf="(formValidation.get('logradouro')?.invalid && formSubmitted) && !formReset" class="validation-error">
+            <p class="message-error-formValidation">Informe a rua</p>
+          </div>
         </div>
-      </div>
 
-      <div class="col-3 alt-da-caixa">
-        <label for="complemento" class="titulo-item">Complemento</label>
-        <input type="text" class="form-control" name="complemento" formControlName="complemento" id="complemento" maxlength="45" required>
-      </div>
 
-      <div class="col-3 alt-da-caixa">
-        <label for="bairro" class="titulo-item">Bairro</label>
-        <input type="text" class="form-control" name="bairro" formControlName="bairro" id="bairro" maxlength="40" required>
-        <div *ngIf="(formValidation.get('bairro')?.invalid && formSubmitted) && !formReset" class="validation-error">
-          <p class="message-error-formValidation">Informe o bairro</p>
+        <div class="col-xl-2 col-lg-2 col-md-3 alt-da-caixa">
+          <label for="numero" class="titulo-item">Número</label>
+          <input type="number" class="form-control" name="numero" formControlName="numero" id="numero" min="1" maxlength="60" required>
+          <div *ngIf="(formValidation.get('numero')?.invalid && formSubmitted) && !formReset" class="validation-error">
+            <ng-container *ngIf="formValidation.get('numero')?.errors?.['required']; else profissaoIncorreta">
+              <p class="message-error-formValidation">Informe o número</p>
+            </ng-container>
+            <ng-template #profissaoIncorreta>
+              <p class="message-error-formValidation">Número inválido</p>
+            </ng-template>
+          </div>
         </div>
-      </div>
 
-      <div class="col-6 alt-da-caixa">
-        <label for="cidade" class="titulo-item">Cidade</label>
-        <input type="text" class="form-control" name="cidade" formControlName="cidade" id="cidade" required>
-        <div *ngIf="(formValidation.get('cidade')?.invalid && formSubmitted) && !formReset" class="validation-error">
-          <p class="message-error-formValidation">Informe a cidade</p>
+        <div class="col-xl-2 col-lg-5 col-md-6 alt-da-caixa">
+          <label for="complemento" class="titulo-item">Complemento</label>
+          <input type="text" class="form-control" name="complemento" formControlName="complemento" id="complemento" maxlength="45" required>
         </div>
-      </div>
 
-
-      <div class="col-6 alt-da-caixa">
-        <label for="uf" class="titulo-item">UF</label>
-        <select  name="uf" class="form-control" formControlName="uf" id="estado" required>
-          <option *ngFor="let uf of  optionUf" [value]="uf.sigla">{{ uf.nome }}</option>
-        </select>
-        <div *ngIf="(formValidation.get('uf')?.invalid && formSubmitted) && !formReset" class="validation-error">
-          <p class="message-error-formValidation">Informe um estado</p>
+        <div class="col-xl-2 col-lg-4 col-md-6 alt-da-caixa">
+          <label for="bairro" class="titulo-item">Bairro</label>
+          <input type="text" class="form-control" name="bairro" formControlName="bairro" id="bairro" maxlength="40" required>
+          <div *ngIf="(formValidation.get('bairro')?.invalid && formSubmitted) && !formReset" class="validation-error">
+            <p class="message-error-formValidation">Informe o bairro</p>
+          </div>
         </div>
-      </div>
 
-
-
-      <div class="col-12">
-        <label for="queixa" class="titulo-item">Queixa do paciente</label>
-        <textarea name="queixa" class="form-control" formControlName="queixa" id="queixa" rows="3" required></textarea>
-        <div *ngIf="(formValidation.get('queixa')?.invalid && formSubmitted) && !formReset" class="validation-error">
-          <p class="message-error-formValidation">Descreva a queixa do paciente</p>
+        <div class="col-xl-4 col-lg-4 col-md-6 alt-da-caixa">
+          <label for="cidade" class="titulo-item">Cidade</label>
+          <input type="text" class="form-control" name="cidade" formControlName="cidade" id="cidade" required>
+          <div *ngIf="(formValidation.get('cidade')?.invalid && formSubmitted) && !formReset" class="validation-error">
+            <p class="message-error-formValidation">Informe a cidade</p>
+          </div>
         </div>
+
+
+        <div class="col-xl-4 col-lg-4 col-md-6 alt-da-caixa">
+          <label for="uf" class="titulo-item">UF</label>
+          <select  name="uf" class="form-control" formControlName="uf" id="estado" required>
+            <option *ngFor="let uf of  optionUf" [value]="uf.sigla">{{ uf.nome }}</option>
+          </select>
+          <div *ngIf="(formValidation.get('uf')?.invalid && formSubmitted) && !formReset" class="validation-error">
+            <p class="message-error-formValidation">Informe um estado</p>
+          </div>
+        </div>
+
+
+
+        <div class="col-xl-12 col-lg-10 col-md-10 col-sm-12 cx-textarea-p-small ">
+          <label for="queixa" class="titulo-item">Queixa do paciente</label>
+          <textarea name="queixa" class="form-control textarea-queixa" formControlName="queixa" id="queixa" rows="4" required></textarea>
+
+          <div *ngIf="(formValidation.get('queixa')?.invalid && formSubmitted) && !formReset" class="validation-error">
+            <p class="message-error-formValidation">Descreva a queixa do paciente</p>
+          </div>
+        </div>
+
+
+
+      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 btn-registrar">
+        <button type="submit" class="btn btn-primary">Registrar</button>
       </div>
 
-    <br>
-
-    <button type="submit">Registrar</button>
-
-    <div *ngIf="ativarLoading" style="margin-left: 1rem;">
-      <img src="../../assets/img/loading-tela-cadastro-paciente.gif" alt="Aguarde..." class="img-loading no-select-img" />
-    </div>
+      <div *ngIf="ativarLoading" style="margin-left: 1rem;">
+        <img src="../../assets/img/loading-tela-cadastro-paciente.gif" alt="Aguarde..." class="img-loading no-select-img" />
+      </div>
 
 
     </div>
