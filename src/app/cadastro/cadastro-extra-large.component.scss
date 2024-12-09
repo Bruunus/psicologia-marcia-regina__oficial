@@ -143,10 +143,10 @@
 /*
 * Resolução para notebooks de largura e altura de 1920 x 1200
 * MacBook Pro 17 (2011) - 17 polegadas
-* Obs:
+* Obs: Essa configuração é a ultima como referência para as demais @queries abaixo
 * Testado
 */
-@media (width: 1920px) and (height: 1200px) {
+@media (min-width: 1920px) and (min-height: 1080px) {
 
   $tamanho_font: 17px !important;
 
@@ -213,7 +213,7 @@
 * Obs:
 * Testado
 */
-@media (width: 1920px) and (height: 1080px) {}
+@media (width: 1920px) and (height: 1080px) {/*NÃO É NECESSÁRIO*/}
 
 
 
@@ -224,7 +224,7 @@
 * Obs:
 * Testado
 */
-@media (width: 1920px) and (height: 1200px) {}
+@media (width: 1920px) and (height: 1200px) {/*NÃO É NECESSÁRIO*/}
 
 
 
@@ -237,7 +237,7 @@
 * Obs:
 * Testado
 */
-@media (width: 1920px) and (height: 1080px) {}
+@media (width: 1920px) and (height: 1080px) {/*NÃO É NECESSÁRIO*/}
 
 
 
@@ -249,7 +249,7 @@
 * Obs:
 * Testado
 */
-@media (width: 1920px) and (height: 1080px) {}
+@media (width: 1920px) and (height: 1080px) {/*NÃO É NECESSÁRIO*/}
 
 
 
@@ -262,7 +262,7 @@
 * Obs:
 * Testado
 */
-@media (width: 2880px) and (height: 1800px) {}
+@media (width: 2880px) and (height: 1800px) {/*NÃO É NECESSÁRIO*/}
 
 
 
