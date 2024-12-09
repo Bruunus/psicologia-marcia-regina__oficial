@@ -4,7 +4,7 @@
 * Bootstrap - Extra large .col-xl-
 * Dispositivo alvo: Desktops com telas grandes e monitores de alta resolução.
 */
-@media(min-width: 1200px) {
+@media(min-width: 1200px) and (min-height: 769px) {
 
   .container-cadastro {
     height: 100vh;
@@ -24,10 +24,248 @@
     height: 47px;
   }
 
+}
+
+
+/*
+* Query para definição de altura para telas menores com altura de até 768px
+* Para notebooks menores antigos: 1366 x 800
+*
+* Esta query engloba todos as resoluções abaixo
+*/
+@media(min-width: 1200px) and (max-height: 800px) {
+
+  .alt-da-caixa {
+    height: 90.97px !important;
+    //104.97 - anterior
+  }
+
+  /* classe bootstrap */
+  .form-control {
+    height: 2.1rem !important;
+    line-height: 2.1rem;
+  }
+
+  .titulo-item {
+    font-size: 0.93rem !important;
+  }
+
+  .textarea-queixa {
+    height: 80px !important;
+    resize: none; /* Impedir tamanho */
+  }
+
+  .btn-registrar {
+    margin-top: 3.5rem;
+  }
+
+  .btn-registrar button {
+    width: 10rem;
+  }
+
+}
+
+/**************** DISPOSITIVOS PERSONALIZADOS COM ALTURA E LARGURA PRÓPRIA ******************/
+
+
+/*
+* Resolução para notebooks de largura e altura de 1280 x 800
+* MacBook Pro 13 (2011) 13.3 polegadas
+* Testado Ok
+*/
+@media (width: 1280px) and (height: 800px) {
+  .textarea-queixa {
+    height: 110px !important;
+    line-height: 1.2;
+    resize: none; /* Impedir tamanho */
+  }
+  .btn-registrar {
+    margin-top: 5rem !important;
+  }
+
+}
+
+
+/*
+* Resolução para notebooks de largura e altura de 1440 x 900
+* MacBook Air 13 (2011) 13.3 polegadas
+*/
+@media (width: 1440px) and (height: 900px) {/*Medidas perfeitas*/}
 
 
 
 
+/*
+* Resolução para notebooks de largura e altura de 1680 x 1050
+* MacBook Air 13 (2011) 13.3 polegadas
+* Obs: Este dispositivo possui a tela muito alta
+* Testado OK
+*/
+@media (width: 1680px) and (height: 1050px) {
+  .container-cadastro {
+    padding: 5rem 3rem 4rem 3rem;
+  }
+  #titulo-row {
+    margin-bottom: 3rem;
+  }
+  .alt-da-caixa {
+    height: 104.97px !important;
+  }
+  .btn-registrar button {
+    width: 12rem;
+  }
+}
+
+
+
+/*
+* Resolução para notebooks de largura e altura de 1600 x 900
+* HP Envy Spectre 14 - 14 polegadas
+* Obs: Dispositivo com altura média alta
+* Testado Ok
+*/
+@media (width: 1600px) and (height: 900px) {
+
+  #titulo-row {
+    margin-bottom: 3rem !important;
+  }
+
+  .container-cadastro {
+    padding: 3rem;
+  }
 
 
 }
+
+
+
+
+/*
+* Resolução para notebooks de largura e altura de 1920 x 1200
+* MacBook Pro 17 (2011) - 17 polegadas
+* Obs:
+* Testado
+*/
+@media (width: 1920px) and (height: 1200px) {
+
+  $tamanho_font: 17px !important;
+
+  .container-cadastro {
+    padding: 8rem 3rem 2rem 3rem;
+  }
+  #titulo-row {
+    margin-bottom: 3rem;
+  }
+
+  .alt-da-caixa {
+    height: 110.97px !important;
+    //104.97 - anterior
+  }
+
+  #titulo-row {
+    margin-bottom: 3rem !important;
+  }
+
+  #titulo-row #titulo-col h4 {
+    font-size: 1.7rem;
+    width: 100%;
+  }
+
+  /* classe bootstrap */
+  .form-control {
+    height: 2.6rem !important;
+    line-height: 2.6rem;
+    font-size: $tamanho_font;
+  }
+
+  .titulo-item {
+    font-size: $tamanho_font !important;
+  }
+
+  .textarea-queixa {
+    height: 120px !important;
+    resize: none; /* Impedir tamanho */
+    font-size: $tamanho_font;
+  }
+
+  .btn-registrar button {
+    font-size: $tamanho_font;
+    width: 13rem;
+  }
+
+}
+
+
+
+/*
+* Resolução para notebooks de largura e altura de 1366 x 768
+* MacBook Air 11 - 11.6 polegadas
+* Obs: Um dos notebooks menores padronizados
+* Testado
+*/
+@media (width: 1366px) and (height: 768px) {}
+
+
+
+/*
+* Resolução para notebooks de largura e altura de 1920 x 1080
+* Alienware m15x - 15.6 polegadas
+* Obs:
+* Testado
+*/
+@media (width: 1920px) and (height: 1080px) {}
+
+
+
+
+/*
+* Resolução para notebooks de largura e altura de 1920 x 1200
+* Lenovo T61p - 14.1 polegadas
+* Obs:
+* Testado
+*/
+@media (width: 1920px) and (height: 1200px) {}
+
+
+
+
+
+/*
+* Resolução para notebooks de largura e altura de 1920 x 1080
+* Sony Vaio Z 13.1 (2012) - 13.1 polegadas
+* Asus Zenbook Prime - 11.6 polegadas
+* Obs:
+* Testado
+*/
+@media (width: 1920px) and (height: 1080px) {}
+
+
+
+
+
+/*
+* Resolução para notebooks de largura e altura de 1920 x 1080
+* Sony Vaio Z 13.1 (2012) - 13.1 polegadas
+* Obs:
+* Testado
+*/
+@media (width: 1920px) and (height: 1080px) {}
+
+
+
+
+
+
+/*
+* Resolução para notebooks de largura e altura de 2880 x 1800
+* MacBook Pro 15 (Retina) - 15.4 polegadas
+* Obs:
+* Testado
+*/
+@media (width: 2880px) and (height: 1800px) {}
+
+
+
+
+
+

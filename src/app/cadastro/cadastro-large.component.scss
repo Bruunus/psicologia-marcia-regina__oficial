@@ -38,3 +38,44 @@
     font-size: 16.666666px;
   }
 }
+
+
+/*
+* Query para definição de altura para telas menores com altura de até 531px
+*/
+@media(min-width: 992px) and (max-width: 1199px)  and (max-height: 768px) {
+
+  $altura_input_768: 2.1rem !important;
+
+  .alt-da-caixa {
+    height: 90.97px !important;
+    //104.97 - anterior
+  }
+
+  /* classe bootstrap */
+  .form-control {
+    height: $altura_input_768;  /*altura do input*/
+    line-height: $altura_input_768;
+  }
+
+  .form-control-select {
+    height: $altura_input_768;  /*altura do input*/
+    line-height: 2.2rem !important;
+  }
+
+  .form-control-select option {
+    line-height: 2.2rem !important;
+  }
+
+  .titulo-item {
+    font-size: 0.93rem !important;
+  }
+
+
+  .textarea-queixa {
+    height: 80px !important;
+    resize: none; /* Impedir tamanho */
+  }
+
+
+}
