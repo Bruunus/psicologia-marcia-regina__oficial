@@ -1,4 +1,5 @@
-@import url('../../styles.scss');
+
+
 
 
 /**
@@ -8,8 +9,15 @@
 */
 @media (min-width: 426px) and (max-width: 767px) {
 
-  /* Excessão para caixa na tela small apenas */
+  /*
+  * Abaixando o container para poder adequar ao menu fixado para tablet
+  */
+  .container-cadastro {
+    margin-top: 6rem;
+  }
+
   .cx-textarea-p-small {
+    /* Excessão para caixa na tela small apenas */
     height: 99.97px !important;
     margin-bottom: 1rem;
   }

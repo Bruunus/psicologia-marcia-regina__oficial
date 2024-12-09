@@ -1,7 +1,71 @@
-@import url('../../../styles.scss');
+
+/**
+* Grid - A partir de 576px à 767px
+* Bootstrap - Small .col-sm-
+* Dispositivo alvo: Smartphones em modo paisagem e alguns dispositivos menores, como tablets compactos.
+*/
+@media (min-width: 426px) and (max-width: 767px) {
 
 
-/* Estilo para telas pequenas e maiores (De 576px até 768px) */
-@media (max-width: 767px) {
+
+  .div-filho-esquerdo a .img-menu {
+      height: 68px;
+      margin-left: 0 !important;
+  }
+
+  .div-filho-centro, .menu-item-link, .div-filho-direito   {
+    height: 50.333333px !important;
+  }
+
+  .div-filho-centro .nav .nav-item .menu-item-link {
+    display: flex;
+    align-items: center ;
+  }
+
+  .link-logout {
+    margin-left: 1rem !important;
+  }
+
+  .menu-bar-pacientes {
+    background-color: #EDEDED;
+    z-index: 1000; // Para garantir que o menu fique acima de outros elementos
+    width: 100%;
+  }
+
+  .menu-bar-pacientes {
+      position: fixed !important;
+      top: 0;
+      left: 0;
+      right: 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  body {
+    padding-top: 60px;
+  }
+
+}
+
+@media (max-width: 652px) {
+
+  .div-filho-centro, .menu-item-link, .div-filho-direito   {
+    height: 38  .333333px !important;
+  }
+
+   .div-filho-centro {
+    flex: 0 0 100%;
+    max-width: 100%;
+    justify-content: center;
+    background-color: burlywood;
+   }
+
+   .div-filho-direito {
+    flex: 0 0 100%;
+    max-width: 100%;
+   }
+
+
+
+
 
 }

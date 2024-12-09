@@ -7,10 +7,12 @@ import { GerenciadoDeAutenticacaoService } from 'src/app/services/sessao/gerenci
   selector: 'app-menu-principal',
   templateUrl: './menu-principal.component.html',
   styleUrls: [
-    './menu-principal-default.component.scss',
-    './menu-principal-big.component.scss',
-    './menu-principal-middle.component.scss',
-    './menu-principal-small.component.scss'
+    './menu-principal-style-global.component.scss',
+    './menu-principal-extra-large.component.scss',
+    './menu-principal-large.component.scss',
+    './menu-principal-medium.component.scss',
+    './menu-principal-small.component.scss',
+    './menu-principal-smartphone.component.scss'
   ]
 })
 export class MenuPrincipalComponent implements OnInit {

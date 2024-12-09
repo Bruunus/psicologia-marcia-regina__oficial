@@ -1,0 +1,46 @@
+@import './menu-principal-style-global.component.scss'; // importando as variáveis
+
+/**
+* Grid - A partir de 768px à 991px
+* Bootstrap - Medium .col-md-
+* Dispositivo alvo: Tablets grandes e notebooks menores
+*/
+@media (min-width: 768px) and (max-width: 991px) {
+
+  /* ajuste da col-1 do logo */
+  .div-filho-esquerdo {
+    flex: 0 0 10.533333%;
+    max-width: 12.133333%;
+  }
+
+  /* Ajuste em conjunto com col-1 nick name e link 'sair' */
+  .div-filho-direito {
+    flex: 0 0 21.2%;
+    max-width: 21%;
+
+  }
+
+
+  body {
+    padding-top: 60px; // Adiciona um espaço no topo do corpo para evitar que o conteúdo fique atrás do menu
+  }
+
+  .menu-bar-pacientes {
+    background-color: $background_color_menu_completo;
+    z-index: 1000; // Para garantir que o menu fique acima de outros elementos
+    width: 100%;
+  }
+
+  .menu-bar-pacientes {
+      position: fixed !important;
+      top: 0;
+      left: 0;
+      right: 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+
+
+
+}
+

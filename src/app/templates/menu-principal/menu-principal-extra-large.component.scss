@@ -1,0 +1,58 @@
+@import url('../../../styles.scss');
+@import './menu-principal-style-global.component.scss'; // importando as variáveis
+
+
+/**
+* Grid Extra Large - A partir de 1200px
+* Bootstrap - Extra large .col-xl-
+* Dispositivo alvo: Desktops com telas grandes e monitores de alta resolução.
+*/
+@media(min-width: 1200px) {
+
+  // ajeitar mais pro canto o nick name e o link Sair
+  .div-filho-direito .link-logout {
+    margin-right: 1.25rem !important;
+  }
+
+}
+
+
+// Até 1500px ajusta a posição do logo
+@media(min-width: 1400px) {
+
+  // ajuste da col-1
+  .div-filho-esquerdo {
+    flex: 0 0 8.333333% !important;
+    max-width: 7.133333% !important;
+  }
+
+  .div-filho-direito {
+    flex: 0 0 26.2% !important;
+    max-width: 30% !important;
+  }
+
+
+}
+
+//
+@media(min-width: 1600px) {
+
+  // ajuste da col-1
+  .div-filho-esquerdo {
+    flex: 0 0 8.333333%;
+    max-width: 5.933333%;
+  }
+
+  .div-filho-direito {
+    flex: 0 0 27.4%;
+    max-width: 30%;
+  }
+
+}
+
+
+
+
+
+
+

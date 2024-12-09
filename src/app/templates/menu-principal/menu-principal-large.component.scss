@@ -1,0 +1,15 @@
+
+/**
+* Grid - A partir de 992px à 1199px
+* Bootstrap - Large .col-lg-
+* Dispositivo alvo: Notebooks e desktops com telas menores
+*/
+@media (min-width: 992px) and (max-width: 1199px) {
+
+  .div-filho-direito .link-logout {
+    margin-right: 1.25rem !important;
+  }
+
+}
+
+

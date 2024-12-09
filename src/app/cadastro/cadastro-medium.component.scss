@@ -5,6 +5,15 @@
 */
 @media (min-width: 768px) and (max-width: 991px) {
 
+
+
+  /*
+  * Abaixando o container para poder adequar ao menu fixado para tablet
+  */
+  .container-cadastro {
+    margin-top: 6rem;
+  }
+
   .textarea-queixa {
     height: 80px;
     resize: none; /* Impedir tamanho */

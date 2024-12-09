@@ -1,10 +1,9 @@
-@import url('../../../styles.scss');
-
 //vars
-$background_color_menu_completo: #EDEDED;
+$background_color_menu_completo: #dfedff;
 $color-item-menu: #ca72ca;
 //#66D2D5 - verde da árvore
 //#555555 - grafite
+
 
 .container-fluid {
 
@@ -21,26 +20,23 @@ $color-item-menu: #ca72ca;
   height: 74.333333px !important;
   border-bottom: 1px solid #e4e4e4c9;
   margin: 0 !important;
-
-
 }
 
 .menu-bar-pacientes div {
   height: 100%;
 }
 
-.div-filho-esquerdo, .div-filho-centro, .div-filho-direito {
-  background-color: $background_color_menu_completo;
-}
-
 .img-menu {
   height: 48px;
+}
+
+.div-filho-esquerdo, .div-filho-centro, .div-filho-direito {
+  background-color: $background_color_menu_completo;
 }
 
 .nav .nav-item {
   height: 100%;
 }
-
 
 .menu-item-link {
   height: 100%;
@@ -48,8 +44,6 @@ $color-item-menu: #ca72ca;
   align-items: center;
 
 }
-
-
 
 .menu-item-link {
   display: inline-block;
@@ -91,4 +85,9 @@ $color-item-menu: #ca72ca;
 
 .nick-name, .link-logout {
   color: $color-item-menu;
+}
+
+
+.div-filho-direito .link-logout {
+  margin-left: 2rem;
 }
