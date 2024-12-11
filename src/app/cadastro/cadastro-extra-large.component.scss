@@ -8,7 +8,6 @@
 
   .container-cadastro {
     height: 100vh;
-
   }
 
   .btn-registrar {
@@ -37,32 +36,17 @@
 
   .alt-da-caixa {
     height: 90.97px !important;
-    //104.97 - anterior
   }
-
-  /* classe bootstrap */
-  .form-control {
-    height: 2.1rem !important;
-    line-height: 2.1rem;
-  }
-
-  .titulo-item {
-    font-size: 0.93rem !important;
-  }
-
   .textarea-queixa {
     height: 80px !important;
     resize: none; /* Impedir tamanho */
   }
-
   .btn-registrar {
     margin-top: 3.5rem;
   }
-
   .btn-registrar button {
     width: 10rem;
   }
-
 }
 
 /**************** DISPOSITIVOS PERSONALIZADOS COM ALTURA E LARGURA PRÓPRIA ******************/
@@ -86,11 +70,62 @@
 }
 
 
+
+/*
+* Resolução para notebooks de largura e altura de 1366 x 768
+* MacBook Air 11 - 11.6 polegadas
+* Obs: Um dos notebooks menores padronizados
+* Testado
+*/
+@media (width: 1366px) and (height: 768px) {/*Medidas perfeitas*/}
+
+
+
+
 /*
 * Resolução para notebooks de largura e altura de 1440 x 900
 * MacBook Air 13 (2011) 13.3 polegadas
 */
-@media (width: 1440px) and (height: 900px) {/*Medidas perfeitas*/}
+@media (width: 1440px) and (height: 900px) {
+  .container-cadastro {
+    padding: 2.5rem 3rem 4rem 3rem;
+  }
+  #titulo-row {
+    margin-bottom: 1.5rem;
+  }
+
+  .textarea-queixa {
+    height: 110px !important;
+    line-height: 1.2;
+    resize: none; /* Impedir tamanho */
+  }
+}
+
+
+
+/*
+* Resolução para notebooks de largura e altura de 1600 x 900
+* HP Envy Spectre 14 - 14 polegadas
+* Obs: Dispositivo com altura média alta
+* Testado Ok
+*/
+@media (width: 1600px) and (height: 900px) {
+
+  #titulo-row {
+    margin-bottom: 3rem !important;
+  }
+
+  .container-cadastro {
+    padding: 3rem;
+  }
+
+  .textarea-queixa {
+    height: 110px !important;
+    line-height: 1.2;
+    resize: none; /* Impedir tamanho */
+  }
+
+}
 
 
 
@@ -118,25 +153,6 @@
 
 
 
-/*
-* Resolução para notebooks de largura e altura de 1600 x 900
-* HP Envy Spectre 14 - 14 polegadas
-* Obs: Dispositivo com altura média alta
-* Testado Ok
-*/
-@media (width: 1600px) and (height: 900px) {
-
-  #titulo-row {
-    margin-bottom: 3rem !important;
-  }
-
-  .container-cadastro {
-    padding: 3rem;
-  }
-
-
-}
-
 
 
 
@@ -148,10 +164,10 @@
 */
 @media (min-width: 1920px) and (min-height: 1080px) {
 
-  $tamanho_font: 17px !important;
+  $tamanho_font: 17.666666px !important;
 
   .container-cadastro {
-    padding: 8rem 3rem 2rem 3rem;
+    padding: 4rem 3rem 2rem 3rem;
   }
   #titulo-row {
     margin-bottom: 3rem;
@@ -171,17 +187,6 @@
     width: 100%;
   }
 
-  /* classe bootstrap */
-  .form-control {
-    height: 2.6rem !important;
-    line-height: 2.6rem;
-    font-size: $tamanho_font;
-  }
-
-  .titulo-item {
-    font-size: $tamanho_font !important;
-  }
-
   .textarea-queixa {
     height: 120px !important;
     resize: none; /* Impedir tamanho */
@@ -189,31 +194,13 @@
   }
 
   .btn-registrar button {
-    font-size: $tamanho_font;
-    width: 13rem;
+    font-size: 17.666666px !important;
+    width: 14rem;
+    height: 3rem;
   }
 
 }
 
-
-
-/*
-* Resolução para notebooks de largura e altura de 1366 x 768
-* MacBook Air 11 - 11.6 polegadas
-* Obs: Um dos notebooks menores padronizados
-* Testado
-*/
-@media (width: 1366px) and (height: 768px) {}
-
-
-
-/*
-* Resolução para notebooks de largura e altura de 1920 x 1080
-* Alienware m15x - 15.6 polegadas
-* Obs:
-* Testado
-*/
-@media (width: 1920px) and (height: 1080px) {/*NÃO É NECESSÁRIO*/}
 
 
 

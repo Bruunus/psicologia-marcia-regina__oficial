@@ -6,11 +6,15 @@
 */
 @media (min-width: 426px) and (max-width: 767px) {
 
-
-
   .div-filho-esquerdo a .img-menu {
       height: 68px;
       margin-left: 0 !important;
+  }
+
+  .div-filho-centro {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center;
   }
 
   .div-filho-centro, .menu-item-link, .div-filho-direito   {
@@ -20,6 +24,7 @@
   .div-filho-centro .nav .nav-item .menu-item-link {
     display: flex;
     align-items: center ;
+    justify-content: center;
   }
 
   .link-logout {
@@ -43,6 +48,21 @@
   body {
     padding-top: 60px;
   }
+
+  .div-filho-direito {
+    height: 28px !important;
+    justify-content: space-between !important;
+    padding-bottom: 0.7rem !important;
+  }
+
+  .div-filho-direito .nick-name {
+    margin-left: 0.5rem !important;
+  }
+
+  .div-filho-direito .link-logout {
+    margin-right: 0.5rem !important;
+  }
+
 
 }
 

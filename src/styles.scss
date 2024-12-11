@@ -106,3 +106,88 @@ background-color: lightgray;
 .rollback {
 color: #dd9001;
 }
+
+
+
+
+
+/****************Estilo Global para caixas de texto do sistema*****************/
+
+
+
+/*
+* Query para definição de altura para telas menores com altura de até 768px
+* Para notebooks menores antigos: 1366 x 800
+*
+* Esta query engloba todos as resoluções abaixo
+*/
+@media(min-width: 1200px) and (max-height: 800px) {
+  .titulo-item {
+    font-size: 0.93rem !important;
+  }
+  /* classe bootstrap */
+  .form-control {
+    $altura_input_ideal: 2rem !important;
+    height: $altura_input_ideal;
+    line-height: $altura_input_ideal;
+  }
+}
+
+
+/*
+* Resolução para notebooks de largura e altura de 1440 x 900
+* MacBook Air 13 (2011) 13.3 polegadas
+*/
+@media (width: 1440px) and (height: 900px) {
+  /* Label */
+  .titulo-item {
+    /* Tamanho ideal - 1rem padrão (Bootstrap) */
+  }
+  .form-control {
+    $altura_input_ideal: 2.1rem !important;
+    height: $altura_input_ideal;
+    line-height: $altura_input_ideal;
+  }
+}
+
+
+
+/*
+* Resolução para notebooks de largura e altura de 1600 x 900
+* HP Envy Spectre 14 - 14 polegadas
+* Obs: Dispositivo com altura média alta
+* Testado Ok
+*/
+@media (width: 1600px) and (height: 900px) {
+  /* Label */
+  .titulo-item {
+    /* Tamanho ideal - 1rem padrão (Bootstrap) */
+  }
+  .form-control {
+    $altura_input_ideal: 2.2rem !important;
+    height: $altura_input_ideal;
+    line-height: $altura_input_ideal;
+  }
+}
+
+
+
+/*
+* Resolução para notebooks de largura e altura de 1920 x 1200
+* MacBook Pro 17 (2011) - 17 polegadas
+* Obs: Essa configuração é a ultima como referência para as demais @queries abaixo
+* Testado
+*/
+@media (min-width: 1920px) and (min-height: 1080px) {
+  $tamanho_font: 17.666666px !important;
+  /* Label */
+  .titulo-item {
+    font-size: $tamanho_font !important;
+  }
+  /* classe bootstrap */
+  .form-control {
+    height: 2.6rem !important;
+    line-height: 2.6rem;
+    font-size: 17px !important;;
+  }
+}
