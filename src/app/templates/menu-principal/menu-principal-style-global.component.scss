@@ -1,5 +1,5 @@
 //vars
-$background_color_menu_completo: #fff4b5;
+$background_color_menu_completo: #fffadf;
 $color-item-menu: #ca72ca;
 //#66D2D5 - verde da árvore
 //#555555 - grafite
@@ -38,6 +38,10 @@ $color-item-menu: #ca72ca;
   height: 100%;
 }
 
+.nav-link {
+  padding: 0 !important; /* Sobreposição bootstrap - para retirar o paddind dos itens do menu */
+}
+
 .menu-item-link {
   height: 100%;
   display: flex;
@@ -64,7 +68,7 @@ $color-item-menu: #ca72ca;
 
 // ao passar o mouse
 .menu-item-link:hover {
-  background-color: #EBEBEB;
+  text-decoration: underline;
   color: #B744B7 !important;
 }
 
@@ -77,8 +81,7 @@ $color-item-menu: #ca72ca;
 
 // após o clique
 .menu-item-link:hover:focus:not(:active) {
-  background-color: #EBEBEB !important; /*igual o hover*/
-  color: #BB4ABB !important;
+  color: #973097 !important;
 }
 /*******************************************************************************/
 

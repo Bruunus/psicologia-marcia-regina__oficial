@@ -1,5 +1,8 @@
 import { Injectable } from "@angular/core";
 
+/**
+ * Service de uso em modo dev durante a construção do projeto
+ */
 @Injectable({
   providedIn: 'root'
 })

@@ -65,6 +65,13 @@
 
 }
 
+
+@media (min-width: 1600px) {
+  .link-logout {
+    margin-right: 1.25rem !important;
+  }
+}
+
 /**************** DISPOSITIVOS PERSONALIZADOS COM ALTURA E LARGURA PRÓPRIA ******************/
 
 
@@ -166,7 +173,7 @@
 * Resolução para notebooks de largura e altura de 1920 x 1200
 * MacBook Pro 17 (2011) - 17 polegadas
 * Obs: Essa configuração é a ultima como referência para as demais @queries abaixo
-* Testado
+* Testado Ok
 */
 @media (min-width: 1920px) and (min-height: 1080px) {
 
@@ -203,7 +210,7 @@
 * Resolução para notebooks de largura e altura de 1366 x 768
 * MacBook Air 11 - 11.6 polegadas
 * Obs: Um dos notebooks menores padronizados
-* Testado
+* Testado Ok
 */
 @media (width: 1366px) and (height: 768px) {/*Medidas perfeitas*/}
 
@@ -213,7 +220,7 @@
 * Resolução para notebooks de largura e altura de 1920 x 1080
 * Alienware m15x - 15.6 polegadas
 * Obs:
-* Testado
+* Testado Ok
 */
 @media (width: 1920px) and (height: 1080px) {/*NÃO É NECESSÁRIO*/}
 
@@ -224,7 +231,7 @@
 * Resolução para notebooks de largura e altura de 1920 x 1200
 * Lenovo T61p - 14.1 polegadas
 * Obs:
-* Testado
+* Testado Ok
 */
 @media (width: 1920px) and (height: 1200px) {/*NÃO É NECESSÁRIO*/}
 
@@ -237,7 +244,7 @@
 * Sony Vaio Z 13.1 (2012) - 13.1 polegadas
 * Asus Zenbook Prime - 11.6 polegadas
 * Obs:
-* Testado
+* Testado Ok
 */
 @media (width: 1920px) and (height: 1080px) {/*NÃO É NECESSÁRIO*/}
 
@@ -249,7 +256,7 @@
 * Resolução para notebooks de largura e altura de 1920 x 1080
 * Sony Vaio Z 13.1 (2012) - 13.1 polegadas
 * Obs:
-* Testado
+* Testado Ok
 */
 @media (width: 1920px) and (height: 1080px) {/*NÃO É NECESSÁRIO*/}
 
@@ -262,7 +269,7 @@
 * Resolução para notebooks de largura e altura de 2880 x 1800
 * MacBook Pro 15 (Retina) - 15.4 polegadas
 * Obs:
-* Testado
+* Testado Ok
 */
 @media (width: 2880px) and (height: 1800px) {/*NÃO É NECESSÁRIO*/}
 

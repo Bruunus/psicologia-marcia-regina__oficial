@@ -12,6 +12,8 @@
   // background-color: tomato;
   height: 2.3rem;
   margin-bottom: 1rem;
+  color: #5e005e;
+  text-decoration: underline;
 }
 
 #titulo-col {
@@ -30,9 +32,17 @@
   font-style: italic;
 }
 
+.titulo-item {
+  color: #6b006b;
+}
+
 .alt-da-caixa {
   height: 99.97px !important;
   //104.97 - anterior
+}
+
+.btn-registrar button {
+  background-color: #29b3b8;
 }
 
 ::ng-deep .prime-ng-calendar {

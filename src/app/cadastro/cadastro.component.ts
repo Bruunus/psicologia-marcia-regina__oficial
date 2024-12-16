@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ValidatorFn, Validators, AbstractControl, ValidationErrors, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PacienteInterface } from '../model/paciente-interface';
 import { CreateService } from '../services/api/create/create.service';
 import { PerfilEnum } from '../model/perfil-enum';
 import { selectUf } from '../services/utilits/select-uf';
 import { Router } from '@angular/router';
-import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
 import { MessageService } from '../services/messagers/message/message.service';
 import { ValidationFormService } from './utilits/validation/validation-form.service';
 import { PrimeNGConfig } from 'primeng/api';
 import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
-import { Observable, Subject, Subscription, switchMap, takeUntil, tap } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { MascaraService } from './utilits/mascaras/mascara.service';
-import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
 
 
 declare var $: any;
@@ -87,7 +85,6 @@ export class CadastroComponent implements OnInit  {
     private mascaraService: MascaraService,
     private primengConfig: PrimeNGConfig,
     private createService: CreateService,
-    protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev  /* Teste responsividade */
   ) {
 
     ;
@@ -146,7 +143,6 @@ export class CadastroComponent implements OnInit  {
 
 
   ngOnInit(): void {
-    this.calculadorDeTelaModoDev.atualizarTamanhoTela();  /* Teste responsividade */
     this.loadListUf()
     this.primengConfig.setTranslation({
       dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
