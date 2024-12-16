@@ -4,7 +4,18 @@
 * Bootstrap - Mobile Large - 425px
 * Dispositivo alvo: Smartphone
 */
-@media (max-width: 425px) and (min-width: 376px) {}
+@media (max-width: 425px) {
+
+  .container-cadastro {
+    margin-top: 9rem !important;
+  }
+
+  #titulo-row {
+    margin-bottom: 2rem;
+  }
+
+}
+
 
 
 /**

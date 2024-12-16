@@ -27,6 +27,10 @@
     justify-content: center;
   }
 
+  .div-filho-direito {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
   .link-logout {
     margin-left: 1rem !important;
   }
@@ -66,26 +70,4 @@
 
 }
 
-@media (max-width: 652px) {
 
-  .div-filho-centro, .menu-item-link, .div-filho-direito   {
-    height: 38  .333333px !important;
-  }
-
-   .div-filho-centro {
-    flex: 0 0 100%;
-    max-width: 100%;
-    justify-content: center;
-    background-color: burlywood;
-   }
-
-   .div-filho-direito {
-    flex: 0 0 100%;
-    max-width: 100%;
-   }
-
-
-
-
-
-}

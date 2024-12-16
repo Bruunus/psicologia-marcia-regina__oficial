@@ -4,7 +4,31 @@
 * Bootstrap - Mobile Large - 425px
 * Dispositivo alvo: Smartphone
 */
-@media (max-width: 425px) and (min-width: 376px) {}
+@media (max-width: 425px) {
+
+  .div-filho-esquerdo {
+    height: 8rem !important;
+  }
+
+  .div-filho-esquerdo a .img-menu {
+    height: 90px;
+    margin-left: 0 !important;
+}
+
+  .div-filho-direito {
+    width: 100%;
+    height: 55% !important;
+    justify-content: space-between !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .div-filho-centro {
+    height: 45% !important;
+    justify-content: center;
+  }
+
+
+}
 
 
 /**
@@ -12,7 +36,18 @@
 * Bootstrap - Mobile Medium - 375px
 * Dispositivo alvo: Smartphone
 */
-@media (max-width: 375px) and (min-width: 321px) {}
+@media (max-width: 375px) {
+
+
+  .div-filho-esquerdo {
+    height: 8rem !important;
+  }
+
+  .div-filho-centro {
+    margin-top: 3rem;
+  }
+
+}
 
 
 /**

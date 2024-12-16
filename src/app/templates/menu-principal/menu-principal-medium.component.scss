@@ -7,17 +7,18 @@
 */
 @media (min-width: 768px) and (max-width: 991px) {
 
-  /* ajuste da col-1 do logo */
-  .div-filho-esquerdo {
-    flex: 0 0 10.533333%;
-    max-width: 12.133333%;
-  }
-
   /* Ajuste em conjunto com col-1 nick name e link 'sair' */
   .div-filho-direito {
-    flex: 0 0 21.2%;
-    max-width: 21%;
+    width: 100%;
+    left: -1rem;
+  }
 
+  .img-menu {
+    margin-left: 0.9rem;
+  }
+
+  .nick-name {
+    width: 5rem;
   }
 
 
