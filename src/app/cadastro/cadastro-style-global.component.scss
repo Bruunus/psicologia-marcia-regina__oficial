@@ -1,3 +1,6 @@
+
+$cor_de_borda: #d5cad5;
+
 .container-fluid {
   font-family: 'font-home';
   background-color: #fcfaf4;
@@ -36,6 +39,11 @@
   color: #6b006b;
 }
 
+/* Editando propriedade bootstrap */
+.form-control {
+  border: 1px solid $cor_de_borda !important;
+}
+
 .alt-da-caixa {
   height: 99.97px !important;
   //104.97 - anterior
@@ -45,9 +53,98 @@
   background-color: #29b3b8;
 }
 
+
+
+
+
 ::ng-deep .prime-ng-calendar {
+  width: 100%;
+  height: 2rem !important;
+  line-height: 2rem !important;
+}
+
+::ng-deep .prime-ng-calendar .p-inputtext {
+  font-family: 'font-home' !important;
+  border: 1px solid #d5cad5 !important;
+  border-radius: .25rem !important; /* Estilo form-control - bootstrap */;
+}
+
+::ng-deep .custom-calendar   {
+  height: 300px;   /* Set the desired height */
+  width: 200px;   /* Set the desired width */
+
+}
+
+/* Dropdown diretamente */
+::ng-deep .p-datepicker {
+  width: 340px !important;  /* Largura das páginas internas - testado ok */
+  max-width: 500px !important;
+  transform: scale(0.85) !important; /* Reduz proporcionalmente */
+  transform-origin: top center !important;
+  border-color: $cor_de_borda;
+  // margin-top: .9rem !important;
+
+  /* Posiciona acima do input */
+  top: -50% !important;
+  bottom: auto !important;
+  left: -1% !important;
+  margin-bottom: 5px !important; /* Aproxima do input */
+
+  /* Mantém o tamanho reduzido */
+  transform: scale(0.85) !important;
+  transform-origin: bottom left !important;
+
+  /* Personalização completa */
+  border: 1px solid $cor_de_borda !important;		/* Borda simples */
+  border-radius: 8px !important;		/* Cantos arredondados */
+  box-shadow: 6px 8px 5px rgba(0, 0, 0, 0.1) !important;	/* Sombra */
+}
+
+/* Ajusta a tabela do calendário */
+::ng-deep .p-datepicker-calendar {
   width: 100% !important;
-  height: 37.8px !important;
+  max-width: 250px !important;
+
+}
+
+/* Cabeçalho */
+
+
+/* Células do calendário */
+::ng-deep .p-datepicker-calendar td {
+  width: 30px !important;
+  height: 25px !important;
+  padding: 2px !important;
+}
+
+
+
+/* Cabeçalho */
+::ng-deep .p-datepicker-header {
+  padding: 5px !important;
+  border-bottom: 1px solid $cor_de_borda !important;
+
+}
+
+/* Descrição dias das semanas - principal 'DayNamesMin' */
+::ng-deep .p-datepicker-calendar thead tr th {
+  text-align: center !important;
+}
+
+/* Hover das td do calendário */
+::ng-deep .p-datepicker-calendar td span:hover {
+  background-color: #e4afe4 !important;
+}
+
+/* Marcação da data do dia atual */
+::ng-deep .p-datepicker .p-datepicker-today span {
+  background-color: #e6c6e6 !important;
+}
+
+
+/* Fontes */
+::ng-deep .p-datepicker {
+  font-size: 16px !important; /* Tamanho da fonte das páginas do calendário prime ng */
 }
 
 :host ::ng-deep .p-datepicker {
@@ -57,6 +154,10 @@
 :host ::ng-deep .p-datepicker .p-datepicker-calendar {
   background-color: #f0f0f0; /* Cor de fundo da tabela do calendário */
 }
+
+
+
+
 
 .message-error-formValidation {
   font-size: 0.8rem;

@@ -1,4 +1,18 @@
 
+<span style="
+    height: 45px;
+    position: fixed;
+    top: 150px;    /* Autera os lados aqui */
+    right: 10px;   /* Autera os lados aqui */
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 0 rgba(6, 12, 2, 0.5);">   <!-- Teste responsividade -->
+  <p>LxA: <b>{{ this.calculadorDeTelaModoDev.largura }}</b><small>px</small> x
+    <b>{{ this.calculadorDeTelaModoDev.altura }}</b><small>px</small></p>
+</span>
+
 <div class="container-fluid">
   <app-menu-principal></app-menu-principal>
 
@@ -6,7 +20,7 @@
 
     <div id="titulo-row" class="row ml-0 mr-0">
       <div class="col-xl-12 col-lg-12 col-md-12" id="titulo-col">
-        <h4 style="font-style: italic;" >Cadastro de Paciente</h4>
+        <h5 style="font-style: italic;" >Cadastro de Paciente</h5>
       </div>
     </div>
 
@@ -82,21 +96,24 @@
         </div>
 
 
-        <div class="col-xl-2 col-lg-10 col-md-10 alt-da-caixa">
-          <label for="dataNascimento" class="titulo-item">Data nascimento</label><br>
+        <div class="col-xl-2 col-lg-4 col-md-10 alt-da-caixa">
+          <label for="data-de-nascimento" (click)="onClickFocusDataNascimentoLabel()" class="titulo-item">Data nascimento</label><br>
           <p-calendar
             formControlName="dataNascimento"
             id="data-de-nascimento"
             (onSelect)="onBlurDataNascimento()"
             (onInput)="onInputDataNascimento()"
+
             [required]="true"
             mask="'99/99/9999'"
             dataType="string"
             dateFormat="dd/mm/yy"
             placeholder="Selecione a data"
-            class="custom-calendar "
+            class="custom-calendar"
             [styleClass]="'prime-ng-calendar'"
-            name="dataNascimento">
+            name="dataNascimento"
+            autoWidth="false"
+            #calendarInput>
           </p-calendar>
 
           <div *ngIf="(formValidation.get('dataNascimento')?.invalid && formSubmitted) && !formReset" class="validation-error">
@@ -110,7 +127,7 @@
         </div>
 
 
-        <div class="col-xl-1 col-lg-2 col-md-2 alt-da-caixa">
+        <div class="col-xl-1 col-lg-8 col-md-2 alt-da-caixa">
           <label for="idade" class="titulo-item">Idade</label>
           <input type="number" class="form-control input-ajuste" name="idade" formControlName="idade" id="idade" required (focus)="onFocusIdade()"
           placeholder="Idade">

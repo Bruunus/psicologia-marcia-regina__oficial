@@ -23,6 +23,15 @@
     //104.97 - anterior
   }
 
+
+  /*** Estilo Calendário Prime NG ***/
+
+   ::ng-deep {}
+
+   ::ng-deep .prime-ng-calendar {
+    width: 99.3%; /* Diminuido proporcional ao tamanho do dropdown do p-calendar (Prime NG) */
+  }
+
   .textarea-queixa {
     height: 60px;
     resize: none;
@@ -36,6 +45,8 @@
     width: 100%;
     font-size: 16.666666px;
   }
+
+
 }
 
 

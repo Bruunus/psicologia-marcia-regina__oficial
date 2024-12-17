@@ -12,6 +12,44 @@
     margin-top: 6rem;
   }
 
+
+  /*** Estilo Calendário Prime NG ***/
+
+  $font_p_calendar: 17.3666666px !important;
+
+  ::ng-deep {}
+
+  ::ng-deep .p-datepicker-calendar {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  ::ng-deep .p-datepicker {
+    z-index: 999 !important; /* Um valor maior que 1 para garantir que fique acima */
+  }
+
+  /*
+  * .p-datepicker-header - Titulo que apresenta os anos
+  * .p-datepicker-year - Título que representa os meses (confirmado)
+  * .p-datepicker-decade - Título que representa as 2 colunas dos anos em décadas
+  * .p-datepicker-month - Título do nome do mês do principal
+  * .p-datepicker-year - Classe que também representa o ano do principal **
+  */
+  ::ng-deep .p-datepicker-header,
+  ::ng-deep .p-datepicker-header .p-datepicker-year,
+  ::ng-deep .p-datepicker-month {
+    font-size: $font_p_calendar;
+  }
+
+  // ::ng-deep .p-datepicker-header {
+  //   border-bottom: 1px solid lightgray;
+  // }
+
+  /* Fontes */
+  ::ng-deep .p-datepicker {
+    font-size: $font_p_calendar; /* Tamanho da fonte das páginas do calendário prime ng */
+  }
+
   .textarea-queixa {
     height: 80px;
     resize: none; /* Impedir tamanho */

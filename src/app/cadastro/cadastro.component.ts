@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PacienteInterface } from '../model/paciente-interface';
 import { CreateService } from '../services/api/create/create.service';
@@ -12,6 +12,9 @@ import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { MascaraService } from './utilits/mascaras/mascara.service';
+
+import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
+import { Calendar } from 'primeng/calendar';
 
 
 declare var $: any;
@@ -68,8 +71,11 @@ export class CadastroComponent implements OnInit  {
   protected ativarLoading: boolean = false;
   protected formReset: boolean = false;  // evita de aparecer msn de erro após o envio
 
+
   private destroy$: Subject<boolean> = new Subject();
   private idadeSubscription: Subscription = new Subscription();
+
+  @ViewChild('calendarInput', { static: false }) calendarInput!: ElementRef;
 
 
 
@@ -85,6 +91,7 @@ export class CadastroComponent implements OnInit  {
     private mascaraService: MascaraService,
     private primengConfig: PrimeNGConfig,
     private createService: CreateService,
+    protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev  /* Teste responsividade */
   ) {
 
     ;
@@ -132,30 +139,28 @@ export class CadastroComponent implements OnInit  {
         // Faça o que for necessário com o novo valor da idade aqui
       });
     }
-
-
-
-
-
     this.formValidation.get('filhos')?.setValue('nao');
   }
 
 
 
   ngOnInit(): void {
-    this.loadListUf()
+    this.loadListUf();
+    this.calculadorDeTelaModoDev.atualizarTamanhoTela();  /* Teste responsividade */
     this.primengConfig.setTranslation({
       dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
       dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
       dayNamesShort: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-      monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-      monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+      monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto',
+        'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+      monthNamesShort: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto',
+        'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
       today: 'Hoje',
       clear: 'Limpar',
     });
 
     this.onSelectFilhos();
-    this.observeInputCep()
+    this.observeInputCep();
 
 
 
@@ -166,6 +171,11 @@ export class CadastroComponent implements OnInit  {
 
   private loadListUf(): Object[] {
     return this.optionUf = this.selectUfInstance.getUf();
+  }
+
+  focusCalendar() {
+    // Foca o campo de entrada do p-calendar
+    this.calendarInput.nativeElement.focus();
   }
 
   /**
@@ -179,6 +189,15 @@ export class CadastroComponent implements OnInit  {
 
   onInputDataNascimento() {
     this.atualizarIdade();
+  }
+
+  onClickFocusDataNascimentoLabel() {
+    const inputElement = document.querySelector('#data-de-nascimento .p-inputtext') as HTMLInputElement;
+    if (inputElement) {
+      inputElement.focus();
+    } else {
+      console.error('Elemento de entrada não encontrado');
+    }
   }
 
 
