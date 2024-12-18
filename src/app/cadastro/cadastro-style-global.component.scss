@@ -1,5 +1,7 @@
 
 $cor_de_borda: #d5cad5;
+$cor_de_borda_com_focus: #6b006b7e !important;
+$cancelar_box_shaddon_p_calendar: 0 0 0 0 #fff !important;
 
 .container-fluid {
   font-family: 'font-home';
@@ -14,9 +16,19 @@ $cor_de_borda: #d5cad5;
 #titulo-row {
   // background-color: tomato;
   height: 2.3rem;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
   color: #5e005e;
-  text-decoration: underline;
+  font-style: italic;
+  // text-decoration: underline;
+  background-color: #a10ba114;
+  // background-color:  #29b3b810;
+  border-radius: .4rem;
+}
+#titulo-row #titulo {
+  border-bottom: 0.5px solid;
+  border-color: #5e005e;
+  padding-bottom: 0.01em;
 }
 
 #titulo-col {
@@ -39,10 +51,16 @@ $cor_de_borda: #d5cad5;
   color: #6b006b;
 }
 
-/* Editando propriedade bootstrap */
-.form-control {
+/* Editando propriedade bootstrap dos inputs */
+.form-control-cadastro {
   border: 1px solid $cor_de_borda !important;
 }
+.form-control-cadastro:focus {
+  border-color: $cor_de_borda_com_focus;
+  box-shadow: none !important;
+  // box-shadow: 0 0 7px 1px #7c057c54!important;
+}
+
 
 .alt-da-caixa {
   height: 99.97px !important;
@@ -55,8 +73,10 @@ $cor_de_borda: #d5cad5;
 
 
 
+/***************************Estilização Datepicker Calendar - Prima NG ***************************/
 
 
+/* Input do p-calendar */
 ::ng-deep .prime-ng-calendar {
   width: 100%;
   height: 2rem !important;
@@ -69,11 +89,6 @@ $cor_de_borda: #d5cad5;
   border-radius: .25rem !important; /* Estilo form-control - bootstrap */;
 }
 
-::ng-deep .custom-calendar   {
-  height: 300px;   /* Set the desired height */
-  width: 200px;   /* Set the desired width */
-
-}
 
 /* Dropdown diretamente */
 ::ng-deep .p-datepicker {
@@ -82,13 +97,12 @@ $cor_de_borda: #d5cad5;
   transform: scale(0.85) !important; /* Reduz proporcionalmente */
   transform-origin: top center !important;
   border-color: $cor_de_borda;
-  // margin-top: .9rem !important;
 
   /* Posiciona acima do input */
   top: -50% !important;
   bottom: auto !important;
   left: -1% !important;
-  margin-bottom: 5px !important; /* Aproxima do input */
+  margin-bottom: 5px !important; /* Margin inferior do dropdown */
 
   /* Mantém o tamanho reduzido */
   transform: scale(0.85) !important;
@@ -96,51 +110,20 @@ $cor_de_borda: #d5cad5;
 
   /* Personalização completa */
   border: 1px solid $cor_de_borda !important;		/* Borda simples */
-  border-radius: 8px !important;		/* Cantos arredondados */
+  border-radius: 0.25rem !important;		/* Em conformidade com o form-control (Bootstrap) */
   box-shadow: 6px 8px 5px rgba(0, 0, 0, 0.1) !important;	/* Sombra */
+}
+
+::ng-deep .prime-ng-calendar .p-inputtext:focus {
+  border-color: $cor_de_borda_com_focus;
+  box-shadow: $cancelar_box_shaddon_p_calendar;
 }
 
 /* Ajusta a tabela do calendário */
 ::ng-deep .p-datepicker-calendar {
   width: 100% !important;
   max-width: 250px !important;
-
 }
-
-/* Cabeçalho */
-
-
-/* Células do calendário */
-::ng-deep .p-datepicker-calendar td {
-  width: 30px !important;
-  height: 25px !important;
-  padding: 2px !important;
-}
-
-
-
-/* Cabeçalho */
-::ng-deep .p-datepicker-header {
-  padding: 5px !important;
-  border-bottom: 1px solid $cor_de_borda !important;
-
-}
-
-/* Descrição dias das semanas - principal 'DayNamesMin' */
-::ng-deep .p-datepicker-calendar thead tr th {
-  text-align: center !important;
-}
-
-/* Hover das td do calendário */
-::ng-deep .p-datepicker-calendar td span:hover {
-  background-color: #e4afe4 !important;
-}
-
-/* Marcação da data do dia atual */
-::ng-deep .p-datepicker .p-datepicker-today span {
-  background-color: #e6c6e6 !important;
-}
-
 
 /* Fontes */
 ::ng-deep .p-datepicker {
@@ -155,6 +138,117 @@ $cor_de_borda: #d5cad5;
   background-color: #f0f0f0; /* Cor de fundo da tabela do calendário */
 }
 
+
+/* Cabeçalho */
+
+/* Seta para esquerda e direita */
+::ng-deep .p-datepicker-header .p-datepicker-prev,
+::ng-deep .p-datepicker-header .p-datepicker-next {
+  color: #6b006b !important;
+}
+::ng-deep .p-datepicker-header .p-datepicker-prev:hover,
+::ng-deep .p-datepicker-header .p-datepicker-next:hover {
+  font-weight: bold;
+  background-color: #e6c6e6 !important;
+}
+::ng-deep .p-datepicker-header .p-datepicker-prev:active,
+::ng-deep .p-datepicker-header .p-datepicker-next:active {
+  box-shadow: 0 0 0 2px #ffd1ff !important;
+}
+::ng-deep .p-datepicker-header .p-datepicker-prev:focus,
+::ng-deep .p-datepicker-header .p-datepicker-next:focus {
+  box-shadow: 0 0 0 2px #ffd1ff !important;
+}
+
+/* Descrição do mês do calendário */
+::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month:hover,
+::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-year:hover {
+  color: #6b006b !important;
+  box-shadow: 0 0 0 0 #fff !important;
+}
+::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month:active,
+::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-year:active,
+::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month:focus,
+::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-year:focus {
+  box-shadow: $cancelar_box_shaddon_p_calendar;
+}
+
+
+/* Corpo do calendário em si */
+
+::ng-deep .p-datepicker-header {
+  padding: 5px !important;
+  border-bottom: 1px solid $cor_de_borda !important;
+}
+
+/* Descrição dias das semanas - principal 'DayNamesMin' */
+::ng-deep .p-datepicker-calendar thead tr th {
+  text-align: center !important;
+}
+
+/* Células do calendário */
+::ng-deep .p-datepicker-calendar td {
+  width: 30px !important;
+  height: 25px !important;
+  padding: 2px !important;
+}
+
+
+/* Corpo do p-calendar em si */
+
+/* Marcação da data do dia atual */
+::ng-deep .p-datepicker .p-datepicker-today span {
+  background-color: #e6c6e6 !important;
+}
+
+/* Hover das td do calendário */
+::ng-deep .p-datepicker-calendar td span:hover {
+  background-color: #e4bde4 !important;
+}
+
+/* Marcação quando clica no dia do mês */
+::ng-deep .p-datepicker table td > span.p-highlight {
+  color: #fff !important;
+  background-color: #e4afe4 !important;
+}
+
+/* Retirando sombra de todos as descrições dos dias */
+::ng-deep .p-datepicker-calendar tbody tr td span:focus {
+  box-shadow: $cancelar_box_shaddon_p_calendar;
+}
+
+
+/* Corpo da página para selecionar o nome do mês */
+
+::ng-deep .p-datepicker .p-monthpicker .p-monthpicker-month {
+  border-radius: 0.25rem !important;
+}
+::ng-deep .p-datepicker .p-monthpicker .p-monthpicker-month:hover {
+  background-color: #f0e3f0 !important;
+}
+::ng-deep .p-datepicker .p-monthpicker .p-monthpicker-month:focus {
+  box-shadow: $cancelar_box_shaddon_p_calendar;
+}
+
+
+/* Corpo da página para selecionar o ano */
+
+/* Marcação do ano atual */
+::ng-deep .p-datepicker .p-yearpicker .p-yearpicker-year.p-highlight  {
+  color: #6b006b  !important;
+}
+/* Definição para todas as caixas do ano */
+::ng-deep .p-datepicker:not(.p-disabled) .p-yearpicker .p-yearpicker-year {
+  border-radius: 0.25rem !important;
+}
+::ng-deep .p-datepicker:not(.p-disabled) .p-yearpicker .p-yearpicker-year:hover {
+  background-color: #f0e3f0 !important;
+}
+::ng-deep .p-datepicker:not(.p-disabled) .p-yearpicker .p-yearpicker-year:not(.p-disabled):focus {
+  box-shadow: $cancelar_box_shaddon_p_calendar;
+}
+
+/***************************Fim da estilização do p-calendar Prime Ng***************************/
 
 
 
