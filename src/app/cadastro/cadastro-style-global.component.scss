@@ -67,8 +67,27 @@ $cancelar_box_shaddon_p_calendar: 0 0 0 0 #fff !important;
   //104.97 - anterior
 }
 
-.btn-registrar button {
+.btn-primary-registrar {
   background-color: #29b3b8;
+  border-color: #29b3b8;
+}
+.btn-primary-registrar:hover {
+  background-color: #23a2a7;
+  border-color: #23a2a7;
+}
+.btn-primary-registrar:focus {
+  box-shadow: 0 0 0.1rem 0.2rem rgba(41, 179, 184, 0.5);
+}
+.btn-primary-registrar, .btn-primary-registrar {
+  background-color: #29b3b8;
+  border-color: #29b3b8;
+}
+.btn-primary-registrar:not(:disabled):not(.disabled):active {
+  background-color: #23a2a7;
+  border-color: #23a2a7;
+}
+.btn-primary-registrar:not(:disabled):not(.disabled):active:focus {
+  box-shadow: 0 0 0.1rem 0.2rem rgba(41, 179, 184, 0.5);
 }
 
 
@@ -249,6 +268,22 @@ $cancelar_box_shaddon_p_calendar: 0 0 0 0 #fff !important;
 }
 
 /***************************Fim da estilização do p-calendar Prime Ng***************************/
+
+
+.container-loading {
+  position: fixed;
+  z-index: 999;
+  display: flex;
+  border: 1px solid tomato;
+  width: 100%;
+  right: 0rem;
+  bottom: 2rem;
+  justify-content: center;
+}
+
+.img-loading {
+  height: 47px;
+}
 
 
 

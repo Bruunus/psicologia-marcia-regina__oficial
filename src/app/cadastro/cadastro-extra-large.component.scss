@@ -12,10 +12,12 @@
     resize: none; /* Impedir tamanho */
   }
   .btn-registrar {
-    margin-top: 4.5rem;
+    margin-top: 5.2rem;
   }
-  .btn-registrar button {
-    width: 10rem;
+  .btn-primary-registrar {
+    width: 12rem;
+    height: 2.3rem;
+    line-height: 1rem;
   }
 
 }
@@ -37,14 +39,12 @@
     margin-top: 5.5rem;
   }
 
-  .btn-registrar button {
+  .btn-primary-registrar {
     width: 10rem;
   }
 
 
-  .img-loading {
-    height: 47px;
-  }
+
 
 }
 
@@ -119,6 +119,22 @@
 
 
 
+/**
+* Estilização global para as Queries media
+* A partir de 1600px
+*/
+@media(min-width: 1600px) {
+  .textarea-queixa {
+    line-height: 1.5rem !important;
+  }
+
+  .btn-primary-registrar {
+    width: 13rem;
+  }
+}
+
+
+
 /*
 * Resolução para notebooks de largura e altura de 1600 x 900
 * HP Envy Spectre 14 - 14 polegadas
@@ -146,25 +162,12 @@
 }
 
 
-
-/**
-* Estilização global para as Queries media
-* A partir de 1600px
-*/
-@media(min-width: 1600px) {
-  .btn-registrar button {
-    width: 13rem;
-  }
-}
-
 /**
 * Estilização global para as Queries media
 * A partir de 1680px
 */
 @media(min-width: 1680px) {
-  .form-control-cadastro, .form-control-select {
-    line-height: 2rem !important;
-  }
+
 
 }
 
@@ -186,7 +189,7 @@
   .alt-da-caixa {
     height: 104.97px !important;
   }
-  .btn-registrar button {
+  .btn-primary-registrar {
     width: 12rem;
   }
 }
@@ -238,7 +241,7 @@
     margin-top: 11rem;
   }
 
-  .btn-registrar button {
+  .btn-primary-registrar {
     font-size: 17.666666px !important;
     width: 14rem;
     height: 3rem;

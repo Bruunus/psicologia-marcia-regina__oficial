@@ -47,7 +47,7 @@ export class CadastroPacienteInfoMessageComponent implements OnInit {
 
         this.timeoutId = setTimeout(() => {
           this.closeMessage();
-        }, 2000); // 5 segundos
+        }, 1000); // 5 segundos
       })
     )
 

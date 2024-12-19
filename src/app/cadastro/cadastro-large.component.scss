@@ -36,6 +36,7 @@
   .textarea-queixa {
     height: 60px;
     resize: none;
+    line-height: 1.4rem !important; /* Sobrepondo a definição do .form-control */
   }
 
   .btn-registrar {
@@ -45,7 +46,7 @@
   .btn-registrar {
     margin-top: 2.6rem;
   }
-  .btn-registrar button {
+  .btn-primary-registrar {
     height: 59px;
     width: 100%;
     font-size: 16.666666px;
@@ -69,20 +70,7 @@
     //104.97 - anterior
   }
 
-  /* classe bootstrap */
-  .form-control {
-    height: $altura_input_768;  /*altura do input*/
-    line-height: $altura_input_768;
-  }
 
-  .form-control-select {
-    height: $altura_input_768;  /*altura do input*/
-    line-height: 2.2rem !important;
-  }
-
-  .form-control-select option {
-    line-height: 2.2rem !important;
-  }
 
   .titulo-item {
     font-size: 0.93rem !important;

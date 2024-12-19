@@ -14,7 +14,6 @@ import { Subject, Subscription, takeUntil } from 'rxjs';
 import { MascaraService } from './utilits/mascaras/mascara.service';
 
 import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
-import { Calendar } from 'primeng/calendar';
 
 
 declare var $: any;
@@ -68,20 +67,13 @@ export class CadastroComponent implements OnInit  {
 
   protected selectUfInstance = new selectUf();
   protected optionUf: { sigla: string, nome: string } [] = [] as { sigla: string, nome: string }[];
-  protected ativarLoading: boolean = false;
+  protected ativarLoading: boolean = true;
   protected formReset: boolean = false;  // evita de aparecer msn de erro após o envio
-
 
   private destroy$: Subject<boolean> = new Subject();
   private idadeSubscription: Subscription = new Subscription();
 
-  @ViewChild('calendarInput', { static: false }) calendarInput!: ElementRef;
-
-
-
-
-
-
+  @ViewChild('calendarInput', { static: false }) calendarInput!: ElementRef; //focus css
 
 
   constructor(
@@ -93,8 +85,6 @@ export class CadastroComponent implements OnInit  {
     private createService: CreateService,
     protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev  /* Teste responsividade */
   ) {
-
-    ;
 
     const dataInicial = new Date(2000, 0, 1); // abertura do calendário padrão
 
@@ -145,6 +135,10 @@ export class CadastroComponent implements OnInit  {
 
 
   ngOnInit(): void {
+
+    this.message.setMessage('TESTE TESTE','ALERT_SUCCESS')
+    this.message.getMessage();
+
     this.loadListUf();
     this.calculadorDeTelaModoDev.atualizarTamanhoTela();  /* Teste responsividade */
     this.primengConfig.setTranslation({
@@ -161,8 +155,6 @@ export class CadastroComponent implements OnInit  {
 
     this.onSelectFilhos();
     this.observeInputCep();
-
-
 
   }
 
@@ -341,8 +333,6 @@ export class CadastroComponent implements OnInit  {
       const celular2Formatado = this.mascaraService.formatarTelefone(this.telefoneContato);
       const dataFormatada = this.mascaraService.transformarTipoDeData(this.dataNascimento);
 
-
-
       this.pacienteCadastro = {
         nomeCompleto: this.nomeCompleto,
         cpf: this.cpf,
@@ -383,7 +373,7 @@ export class CadastroComponent implements OnInit  {
           this.ativarLoading = false
           this.message.setMessage('Paciente cadastrado com sucesso !!!','ALERT_SUCCESS');
           this.message.getMessage();
-        }, 2100); //  tempo para aparecer a mensagem
+        }, 1700); //  tempo para aparecer a mensagem
 
         setTimeout(() => {
           this.limparCampos();
@@ -435,8 +425,7 @@ export class CadastroComponent implements OnInit  {
     this.formValidation.get('profissao')!.setValue('');
     this.formValidation.get('perfil')!.setValue('');
     this.formValidation.get('cep')!.setValue('');
-    this.formValidation.get('rua')!.setValue('');
-    this.formValidation.get('numero')!.setValue('');
+    this.formValidation.get('logradouro')!.setValue('');
     this.formValidation.get('complemento')!.setValue('');
     this.formValidation.get('bairro')!.setValue('');
     this.formValidation.get('cidade')!.setValue('');

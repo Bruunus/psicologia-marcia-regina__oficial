@@ -279,7 +279,7 @@
 
         <div class="col-xl-4 col-lg-4 col-md-6 alt-da-caixa">
           <label for="uf" class="titulo-item">UF</label>
-          <select  name="uf" class="form-control form-control-cadastro form-control-select" formControlName="uf" id="estado" required>
+          <select  name="uf" class="form-control form-control-cadastro form-control-select" formControlName="uf" id="uf" required>
             <option *ngFor="let uf of  optionUf" [value]="uf.sigla">{{ uf.nome }}</option>
           </select>
           <div *ngIf="(formValidation.get('uf')?.invalid && formSubmitted) && !formReset" class="validation-error">
@@ -301,10 +301,10 @@
 
 
       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 btn-registrar">
-        <button type="submit" class="btn btn-primary">Registrar</button>
+        <button type="submit" class="btn btn-primary btn-primary-registrar">Registrar</button>
       </div>
 
-      <div *ngIf="ativarLoading" style="margin-left: 1rem;">
+      <div *ngIf="ativarLoading" class="container-loading">
         <img src="../../assets/img/loading-tela-cadastro-paciente.gif" alt="Aguarde..." class="img-loading no-select-img" />
       </div>
 

@@ -55,6 +55,7 @@
 // info-message
 .alert-info-message {
   position: fixed;
+  z-index: 1000;
   bottom: 10px;
   right: 10px;
   transition: opacity 0.5s ease;
@@ -67,6 +68,7 @@
 // error-message
 .alert-error-message {
   position: fixed;
+  z-index: 1000;
   bottom: 10px;
   right: 10px;
   transition: opacity 0.5s ease;
@@ -113,6 +115,34 @@ color: #dd9001;
 
 /****************Estilo Global para caixas de texto do sistema*****************/
 
+/**
+* Grid - A partir de 992px à 1199px
+* Bootstrap - Large .col-lg-
+* Dispositivo alvo: Notebooks e desktops com telas menores
+*/
+@media (min-width: 992px) and (max-width: 1199px) {}
+
+
+/*
+* Query para definição de altura para telas menores com altura de até 531px
+*/
+@media(min-width: 992px) and (max-width: 1199px)  and (max-height: 768px) {
+
+}
+
+
+/**
+* Estilização global para as Queries media
+* A partir de 1200px
+*/
+@media(min-width: 1200px) {
+  /* classe bootstrap */
+  .form-control {
+    $altura_input_ideal: 2.1rem !important;
+    height: $altura_input_ideal;
+    line-height: 2.1rem;
+  }
+}
 
 
 /*
@@ -125,12 +155,7 @@ color: #dd9001;
   .titulo-item {
     font-size: 0.93rem !important;
   }
-  /* classe bootstrap */
-  .form-control {
-    $altura_input_ideal: 2rem !important;
-    height: $altura_input_ideal;
-    line-height: $altura_input_ideal;
-  }
+
 }
 
 
@@ -143,13 +168,18 @@ color: #dd9001;
   .titulo-item {
     /* Tamanho ideal - 1rem padrão (Bootstrap) */
   }
-  .form-control {
-    $altura_input_ideal: 2.1rem !important;
-    height: $altura_input_ideal;
-    line-height: $altura_input_ideal;
-  }
+
 }
 
+
+
+/**
+* Estilização global para as Queries media
+* A partir de 1600px
+*/
+@media(min-width: 1600px) {
+
+}
 
 
 /*
@@ -163,11 +193,7 @@ color: #dd9001;
   .titulo-item {
     /* Tamanho ideal - 1rem padrão (Bootstrap) */
   }
-  .form-control {
-    $altura_input_ideal: 2.2rem !important;
-    height: $altura_input_ideal;
-    line-height: $altura_input_ideal;
-  }
+
 }
 
 
@@ -176,7 +202,8 @@ color: #dd9001;
 * Resolução para notebooks de largura e altura de 1920 x 1200
 * MacBook Pro 17 (2011) - 17 polegadas
 * Obs: Essa configuração é a ultima como referência para as demais @queries abaixo
-* Testado
+* Ideal para o notebook da Márcia
+* Testado ok
 */
 @media (min-width: 1920px) and (min-height: 1080px) {
   $tamanho_font: 17.666666px !important;
@@ -185,9 +212,5 @@ color: #dd9001;
     font-size: $tamanho_font !important;
   }
   /* classe bootstrap */
-  .form-control {
-    height: 2.6rem !important;
-    line-height: 2.6rem;
-    font-size: 17px !important;;
-  }
+
 }
