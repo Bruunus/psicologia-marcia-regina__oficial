@@ -9,14 +9,11 @@ export class MessageService {
   // mensagens de erros
   ERROR_SEACH_PATIENT: string = 'Não foi possível encontrar o paciente';
 
-
   private messageSubject = new Subject<{ message: string, type: string }>();
   private closeSubject = new Subject<void>();
 
   public message$ = this.messageSubject.asObservable();
   public close$ = this.closeSubject.asObservable();
-
-
 
   setMessage(message: string, type: string) {
     this.messageSubject.next({ message, type }); // Use 'message' em vez de 'errorMessage'

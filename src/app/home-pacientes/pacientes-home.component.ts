@@ -64,10 +64,6 @@ export class PacientesHomeComponent implements OnInit {
     this.errorService.closeMessage()
   }
 
-
-
-
-
   getNomeUsuarioLogado(): string {
     return this.nomeLogin!;
   }
@@ -79,7 +75,6 @@ export class PacientesHomeComponent implements OnInit {
       this.errorService.setMessage(this.errorService.ERROR_SEACH_PATIENT, 'ALERT_INFO');
       this.errorService.getMessage();
     } else {
-
       console.log(this.pesquisa)
     }
 

@@ -52,11 +52,13 @@
  *
 */
 
+$posicao_bottom: 1rem;
+
 // info-message
-.alert-info-message {
+.alert-info-message, .alert-error-message {
   position: fixed;
   z-index: 1000;
-  bottom: 10px;
+  bottom: $posicao_bottom;
   right: 10px;
   transition: opacity 0.5s ease;
 }
@@ -64,18 +66,6 @@
   outline: none;
 }
 
-
-// error-message
-.alert-error-message {
-  position: fixed;
-  z-index: 1000;
-  bottom: 10px;
-  right: 10px;
-  transition: opacity 0.5s ease;
-}
-.close:focus {
-  outline: none;
-}
 
 
 

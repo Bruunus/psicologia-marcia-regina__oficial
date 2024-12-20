@@ -11,7 +11,7 @@ export interface PacienteInterface {
   dataNascimento: string;
   estadoCivil: string;
   filhos: boolean;
-  qtdFilhos: string;
+  qtdFilhos: number;
   grauEscolaridade: string;
   profissao: string;
   perfil: string;   // Necessário ser string para converter o enum para uppercase

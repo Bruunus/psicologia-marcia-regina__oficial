@@ -13,8 +13,6 @@ import { registerLocaleData } from '@angular/common';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { MascaraService } from './utilits/mascaras/mascara.service';
 
-import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
-
 
 declare var $: any;
 
@@ -47,7 +45,7 @@ export class CadastroComponent implements OnInit  {
     telefoneContato: '',
     estadoCivil:  '',
     filhos:  false,
-    qtdFilhos:  '',
+    qtdFilhos:  0,
     grauEscolaridade:  '',
     profissao:  '',
     perfil: PerfilEnum.PSICOTERAPIA,
@@ -67,7 +65,7 @@ export class CadastroComponent implements OnInit  {
 
   protected selectUfInstance = new selectUf();
   protected optionUf: { sigla: string, nome: string } [] = [] as { sigla: string, nome: string }[];
-  protected ativarLoading: boolean = true;
+  protected ativarLoading: boolean = false;
   protected formReset: boolean = false;  // evita de aparecer msn de erro após o envio
 
   private destroy$: Subject<boolean> = new Subject();
@@ -82,8 +80,7 @@ export class CadastroComponent implements OnInit  {
     private validationFormService: ValidationFormService,
     private mascaraService: MascaraService,
     private primengConfig: PrimeNGConfig,
-    private createService: CreateService,
-    protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev  /* Teste responsividade */
+    private createService: CreateService
   ) {
 
     const dataInicial = new Date(2000, 0, 1); // abertura do calendário padrão
@@ -118,14 +115,14 @@ export class CadastroComponent implements OnInit  {
     this.formValidation.get('dataNascimento')?.valueChanges.pipe(
       takeUntil(this.destroy$)
     ).subscribe((valor) => {
-      console.log('Novo valor da data:', valor);
+      // console.log('Novo valor da data:', valor);
     })
 
 
     const idadeControl = this.formValidation.get('idade');
     if (idadeControl) {
       this.idadeSubscription = idadeControl.valueChanges.subscribe((novoValor) => {
-        console.log('Novo valor da idade:', novoValor);
+        // console.log('Novo valor da idade:', novoValor);
         // Faça o que for necessário com o novo valor da idade aqui
       });
     }
@@ -136,11 +133,7 @@ export class CadastroComponent implements OnInit  {
 
   ngOnInit(): void {
 
-    this.message.setMessage('TESTE TESTE','ALERT_SUCCESS')
-    this.message.getMessage();
-
     this.loadListUf();
-    this.calculadorDeTelaModoDev.atualizarTamanhoTela();  /* Teste responsividade */
     this.primengConfig.setTranslation({
       dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
       dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
@@ -216,18 +209,18 @@ export class CadastroComponent implements OnInit  {
     this.formValidation.get('filhos')?.valueChanges.pipe(
       takeUntil(this.destroy$)
     ).subscribe((valor) => {
-      console.log(valor)
+      // console.log(valor)
       if(valor === 'sim') {
         this.formQtdFilhos = true;
         this.formValidation.get('qtdFilhos')?.enable();
-        console.log(this.formQtdFilhos)
+        // console.log(this.formQtdFilhos)
       } else {
         this.formQtdFilhos = false;
         let qtdFilho = this.formValidation.get('qtdFilhos')
         qtdFilho?.disable();
         qtdFilho?.reset('')
 
-        console.log(this.formQtdFilhos)
+        // console.log(this.formQtdFilhos)
       }
     })
   }
@@ -239,7 +232,7 @@ export class CadastroComponent implements OnInit  {
   */
   onFocusIdade() {
     const dataNascimento = this.formValidation.get('dataNascimento')?.value;
-    console.log('Data digitada: ', dataNascimento)
+    // console.log('Data digitada: ', dataNascimento)
     const idade = this.mascaraService.idadeAutomatica(dataNascimento);
     this.formValidation.get('idade')?.setValue(idade);
   }
@@ -261,7 +254,7 @@ export class CadastroComponent implements OnInit  {
     )
     .subscribe((valor: string) => {
       const cepFormatado = this.mascaraService.formatarCEP(valor);
-      console.log('saida do cep após formatação: ',cepFormatado)
+      // console.log('saida do cep após formatação: ',cepFormatado)
       if(cepFormatado.length == 8) {
 
         this.validationFormService.getEnderecoPorCEP(this.cep).pipe(
@@ -323,15 +316,25 @@ export class CadastroComponent implements OnInit  {
     // console.log('Estado do formulário:', this.formValidation);
 
     if(this.formValidation.invalid) {
-      console.log(this.formValidation.invalid)
-      console.log('Formulário inválido'); // Para depuração
+      // console.log(this.formValidation.invalid)
+      // console.log('Formulário inválido'); // Para depuração
       return;
     } else {
-      console.log('Formulário válido');
+      // console.log('Formulário válido');
 
       const celular1Formatado = this.mascaraService.formatarTelefone(this.telefone);
       const celular2Formatado = this.mascaraService.formatarTelefone(this.telefoneContato);
       const dataFormatada = this.mascaraService.transformarTipoDeData(this.dataNascimento);
+      let qtdFilhos_validado;
+
+
+      if (this.qtdFilhos === null || this.qtdFilhos === undefined) {
+        qtdFilhos_validado = 0; // Atribui o valor 0 a this.qtdFilhos se for nulo
+      } else {
+        qtdFilhos_validado = this.qtdFilhos
+      }
+
+
 
       this.pacienteCadastro = {
         nomeCompleto: this.nomeCompleto,
@@ -343,7 +346,7 @@ export class CadastroComponent implements OnInit  {
         dataNascimento: dataFormatada,
         estadoCivil: this.estadoCivil,
         filhos: this.filhos,
-        qtdFilhos: this.qtdFilhos,
+        qtdFilhos: qtdFilhos_validado,
         grauEscolaridade: this.grauEscolaridade,
         profissao: this.profissao,
         perfil: this.perfil,
@@ -361,7 +364,7 @@ export class CadastroComponent implements OnInit  {
         }
       }
 
-      console.log(this.pacienteCadastro)
+      // console.log(this.pacienteCadastro)
 
       const sendDataAPI = await this.createService.registerPatient(this.pacienteCadastro);
 
@@ -537,7 +540,9 @@ export class CadastroComponent implements OnInit  {
     return this.formValidation.get('queixa')?.value;
   }
 
-
+  set qtdFilhos(qtd: number) {
+    this.qtdFilhos = qtd;
+  }
 
 
 

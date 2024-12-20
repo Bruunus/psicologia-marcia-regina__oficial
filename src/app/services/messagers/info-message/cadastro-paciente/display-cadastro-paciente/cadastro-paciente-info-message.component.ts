@@ -53,10 +53,6 @@ export class CadastroPacienteInfoMessageComponent implements OnInit {
 
   }
 
-
-
-
-
   closeMessage() {
     this.isVisible = false; // Inicia a animação de saída
 
