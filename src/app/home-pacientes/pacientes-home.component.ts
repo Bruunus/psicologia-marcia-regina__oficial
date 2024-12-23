@@ -24,12 +24,14 @@ import { TelaHome } from '../model/home/tela-home';
 })
 export class PacientesHomeComponent implements OnInit {
 
-  nomeLogin: string | null = '';
-  subscription: Subscription = Subscription.EMPTY;
-  pesquisaDePaciente!: FormGroup;
-  paciente: PacienteSeach;
-  public listaPacienteHome: TelaHome[] = [];
-  public loading: boolean = true;
+  protected nomeLogin: string | null = '';
+  protected subscription: Subscription = Subscription.EMPTY;
+  protected pesquisaDePaciente!: FormGroup;
+  protected paciente: PacienteSeach;
+  protected ordemAscendente: boolean = true;
+  protected listaPacienteHome: TelaHome[] = [];
+  protected listaPacienteHomeFiltrada: TelaHome[] = [];
+  protected loading: boolean = true;
   private unsubscribe$ = new Subject<void>();
 
   constructor(
@@ -75,43 +77,38 @@ export class PacientesHomeComponent implements OnInit {
   }
 
 
-
+  /**
+   * Para Doc: Traz os dados da api e atribui-lhes a lista listaPacienteHome e renderiza
+   * no usuário final
+   */
   protected carregarTabela(): void {
-    this.apiHomeService.carregarListaHomePacientes().then(
-      (data) => {
-        console.log(data)
-        this.listaPacienteHome = data;
-
-        this.listaPacienteHome.forEach(item => {
-          if(item.dataUltimoAtendimento === null) {
-            //append button
-
-
-            // Cria o botão
-            const button = document.createElement('button');
-            button.innerText = 'Ação'; // Texto do botão
-            button.className = 'btn-acoes'; // Adiciona uma classe, se necessário
-
-            // Adiciona um evento de clique ao botão
-            button.onclick = () => {
-              this.suaFuncao(item); // Chama sua função passando o item
-            };
-
-            // Encontre o elemento onde você deseja adicionar o botão
-            const spanElement = document.querySelector(`.perfil-item[data-id="${item.pacienteId}"]`);
-            if (spanElement) {
-              spanElement.appendChild(button); // Adiciona o botão ao span
-            }
-
-
-          }
-
-        })
-
-
-      }
-    )
+    this.apiHomeService.carregarListaHomePacientes()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+          this.listaPacienteHome = data;
+          this.listaPacienteHomeFiltrada = this.listaPacienteHome;
+        },
+        error: (err) => {
+          console.error('Erro ao carregar pacientes:', err);
+        }
+      })
   }
+
+
+  /**
+   * Evento de clique que captura o cpf do paciente para redirecionar e
+   * renderizar os dados do mesmo
+   * @param paciente objeto correspondente ao cpf
+   */
+  protected redirectPaciente(paciente: TelaHome) {
+    alert(
+      "Paramento para API: "+paciente.cpf+"\nParametro para o componente: "+paciente.perfil)
+    // solicita o carregamento de todos os dados de tratamento do paciente para api usando cpf como base
+
+  }
+
 
 
   protected procurarPaciente(): void {
@@ -120,10 +117,73 @@ export class PacientesHomeComponent implements OnInit {
       this.errorService.setMessage(this.errorService.ERROR_SEACH_PATIENT, 'ALERT_INFO');
       this.errorService.getMessage();
     } else {
-      console.log(this.pesquisa)
+      const pesquisa = this.pesquisaDePaciente.get('pesquisa')?.value.toLowerCase();
+
+      if (pesquisa) {
+        // Filtra a lista de pacientes com base na pesquisa
+        this.listaPacienteHomeFiltrada = this.listaPacienteHome.filter(paciente =>
+          paciente.nomeCompleto.toLowerCase().includes(pesquisa) ||
+          paciente.cpf.includes(pesquisa) // Adicione outros campos que deseja pesquisar
+        );
+      } else {
+        // Se a pesquisa estiver vazia, restaura a lista original
+        this.listaPacienteHomeFiltrada = this.listaPacienteHome;
+      }
     }
 
   }
+
+
+  // Método para restaurar a lista original ao clicar no botão de pesquisa novamente
+  resetarPesquisa(): void {
+    this.pesquisaDePaciente.reset(); // Limpa o campo de pesquisa
+    this.listaPacienteHomeFiltrada = this.listaPacienteHome; // Restaura a lista original
+  }
+
+
+  /**
+   * Alternância de Ordem: A variável ordemAscendente é alternada a cada chamada da função, permitindo que a
+   * tabela seja ordenada em ordem crescente ou decrescente. Método sort: O método sort é utilizado para
+   * ordenar a lista de pacientes. Ele recebe uma função de comparação que determina a ordem dos elementos.
+   * Obtenção de Valores: Os valores das colunas são obtidos usando a string coluna, que representa o nome
+   * da coluna a ser ordenada. Tratamento de Datas: Se a coluna a ser ordenada for dataUltimoAtendimento,
+   * os valores são convertidos para timestamps usando getTime(), o que facilita a comparação.
+   * Tratamento de Nulos: Se um dos valores for nulo, ele é tratado como maior que qualquer data, garantindo
+   * que os pacientes sem data de atendimento sejam posicionados corretamente na lista.
+   * Comparação de Valores: A comparação é feita entre valorA e valorB, retornando -1, 1 ou 0 conforme
+   * necessário para a ordenação.
+   * @param coluna
+   */
+  protected ordenacao(coluna: string): void {
+    this.ordemAscendente = !this.ordemAscendente; // Alterna a ordem entre crescente e decrescente.
+
+    this.listaPacienteHome.sort((a, b) => {
+      let valorA = a[coluna]; // Obtém o valor da coluna para o primeiro item.
+      let valorB = b[coluna]; // Obtém o valor da coluna para o segundo item.
+
+      // Se o campo for uma data, converte para timestamp para comparação.
+      if (coluna === 'dataUltimoAtendimento') {
+        valorA = new Date(valorA).getTime();
+        valorB = new Date(valorB).getTime();
+      }
+
+      // Se o valor for nulo, trata como menor que qualquer data.
+      if (valorA === null) return this.ordemAscendente ? 1 : -1;
+      if (valorB === null) return this.ordemAscendente ? -1 : 1;
+
+      // Compara os valores e retorna -1, 1 ou 0 para a ordenação.
+      if (valorA < valorB) {
+        return this.ordemAscendente ? -1 : 1;
+      }
+      if (valorA > valorB) {
+        return this.ordemAscendente ? 1 : -1;
+      }
+      return 0; // Retorna 0 se os valores forem iguais.
+    });
+  }
+
+
+
 
 
 

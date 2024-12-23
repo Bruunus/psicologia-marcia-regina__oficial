@@ -13,16 +13,9 @@ export class HomeService {
 
   constructor(private http: HttpClient) { }
 
-  carregarListaHomePacientes(): Promise<TelaHome[]> {
-    return new Promise<TelaHome[]>((resolve, reject) => {
-      this.http.get<TelaHome[]>(this.URLCarregarPacientes).pipe(
-        takeUntil(this.unsubscribe$)).subscribe({
-          next: (response) => {
-            // console.log(response)
-            resolve(response);
-          }
-        })
-    })
+  carregarListaHomePacientes(): Observable<TelaHome[]> {
+    return this.http.get<TelaHome[]>(this.URLCarregarPacientes).pipe(
+        takeUntil(this.unsubscribe$))
   }
 
 

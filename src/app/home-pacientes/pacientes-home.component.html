@@ -79,19 +79,38 @@
               </th>
             </tr>
             <tr class="tr-topo-tabela" style="background-color: #f1f1f1;">
-              <th class="sub-titulo-tabela" scope="col"><span class="prontuario_Titulo">Prontuário</span></th>
-              <th class="sub-titulo-tabela" scope="col"><span class="nomeCompleto_Titulo">Nome completo</span></th>
-              <th class="sub-titulo-tabela" scope="col"><span class="dataUltimoAtend_titulo">Data último atendimento</span></th>
-              <th class="sub-titulo-tabela" scope="col"><span class="perfil_titulo">Perfil</span></th>
+              <th class="sub-titulo-tabela" scope="col">
+                <span class="prontuario_Titulo" (click)="ordenacao('pacienteId')">Prontuário</span>
+              </th>
+              <th class="sub-titulo-tabela" scope="col">
+                <span class="nomeCompleto_Titulo" (click)="ordenacao('nomeCompleto')">Nome completo</span>
+              </th>
+              <th class="sub-titulo-tabela" scope="col">
+                <span class="dataUltimoAtend_titulo" (click)="ordenacao('dataUltimoAtendimento')">Data último atendimento</span>
+              </th>
+              <th class="sub-titulo-tabela" scope="col">
+                <span class="perfil_titulo" (click)="ordenacao('perfil')">Perfil</span>
+              </th>
             </tr>
           </thead>
 
-          <tbody *ngIf="listaPacienteHome.length > 0; else noData">
-            <tr *ngFor="let paciente of listaPacienteHome">
+          <tbody *ngIf="listaPacienteHomeFiltrada.length > 0; else noData">
+            <tr
+              *ngFor="let paciente of listaPacienteHomeFiltrada"
+              (click)="paciente.dataUltimoAtendimento != null ? redirectPaciente(paciente) : null"
+            >
+
               <th scope="row"><span>{{ paciente.pacienteId }}</span></th>
               <td><span>{{ paciente.nomeCompleto }}</span></td>
-              <td><span>{{ paciente.dataUltimoAtendimento }}</span></td>
-              <td><span class="perfil-item">{{ paciente.perfil }}</span></td>
+
+              <span *ngIf="paciente.dataUltimoAtendimento; else semAtendimento">{{ paciente.dataUltimoAtendimento }}</span>
+              <ng-template #semAtendimento><span>Sem atendimento</span></ng-template>
+
+              <td class="container-td">
+                <span class="perfil-item">{{ paciente.perfil }}</span>
+                <button *ngIf="paciente.dataUltimoAtendimento === null"
+                class="btn btn-warning" style="margin-left: 2rem;" (click)="redirectPaciente(paciente)">Iniciar Atendimento</button>
+              </td>
             </tr>
           </tbody>
           <ng-template #noData>
