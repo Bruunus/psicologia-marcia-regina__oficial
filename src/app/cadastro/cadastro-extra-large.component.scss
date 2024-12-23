@@ -1,4 +1,21 @@
 
+/*
+
+  LISTA DE TODAS AS RESOLUÇÕES PARA TELAS GRANDES
+
+  1280x800
+  1366x768
+  1440x900
+  1600x900
+  1680x150
+  1920x1080 (Marcia - note)
+  1920x1200
+  1920x1080
+  2880x1800
+
+*/
+
+
 /**
 * Estilização global para as Queries media
 * A partir de 1200px
@@ -61,6 +78,12 @@
     height: 90.97px !important;
   }
 
+  .container-loading {
+    bottom: 2.2rem;
+  }
+
+
+
 }
 
 /**************** DISPOSITIVOS PERSONALIZADOS COM ALTURA E LARGURA PRÓPRIA ******************/
@@ -91,7 +114,11 @@
 * Obs: Um dos notebooks menores padronizados
 * Testado
 */
-@media (width: 1366px) and (height: 768px) {/*Medidas perfeitas*/}
+@media (width: 1366px) and (height: 768px) {
+  .container-loading {
+    bottom: .5rem;
+  }
+}
 
 
 
@@ -113,6 +140,11 @@
     line-height: 1.2;
     resize: none; /* Impedir tamanho */
   }
+
+  .container-loading {
+    bottom: 3.5666666rem;
+  }
+
 }
 
 
@@ -131,6 +163,8 @@
   .btn-primary-registrar {
     width: 13rem;
   }
+
+
 }
 
 
@@ -157,7 +191,9 @@
     resize: none; /* Impedir tamanho */
   }
 
-
+  .container-loading {
+    bottom: 2.9rem;
+  }
 
 }
 
@@ -167,7 +203,9 @@
 * A partir de 1680px
 */
 @media(min-width: 1680px) {
-
+  .container-cadastro {
+    padding: 1rem 3rem 1rem 3rem;
+  }
 
 }
 
@@ -192,6 +230,9 @@
   .btn-primary-registrar {
     width: 12rem;
   }
+  .container-loading {
+    bottom: 7.4rem;
+  }
 }
 
 
@@ -211,10 +252,10 @@
   $tamanho_font: 17.666666px !important;
 
   .container-cadastro {
-    padding: 4rem 3rem 2rem 3rem;
+    padding: 2rem 3rem 2rem 3rem;
   }
   #titulo-row {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
 
   .alt-da-caixa {
@@ -247,7 +288,12 @@
     height: 3rem;
   }
 
+  .container-loading {
+    bottom: 3.5rem;
+  }
+
 }
+
 
 
 
@@ -259,21 +305,11 @@
 * Obs:
 * Testado
 */
-@media (width: 1920px) and (height: 1200px) {/*NÃO É NECESSÁRIO*/}
-
-
-
-
-
-/*
-* Resolução para notebooks de largura e altura de 1920 x 1080
-* Sony Vaio Z 13.1 (2012) - 13.1 polegadas
-* Asus Zenbook Prime - 11.6 polegadas
-* Obs:
-* Testado
-*/
-@media (width: 1920px) and (height: 1080px) {/*NÃO É NECESSÁRIO*/}
-
+@media (width: 1920px) and (height: 1200px) {
+  .container-loading {
+    bottom: 11rem;
+  }
+}
 
 
 

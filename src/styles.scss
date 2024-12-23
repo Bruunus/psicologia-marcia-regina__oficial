@@ -51,7 +51,6 @@
  *  Estilos globais de mensageria do sistema
  *
 */
-
 $posicao_bottom: 1rem;
 
 // info-message
@@ -146,6 +145,23 @@ color: #dd9001;
     font-size: 0.93rem !important;
   }
 
+  .alert-info-message, .alert-error-message {
+    bottom: 1.1rem;
+  }
+
+}
+
+
+/*
+* Resolução para notebooks de largura e altura de 1366 x 768
+* MacBook Air 11 - 11.6 polegadas
+* Obs: Um dos notebooks menores padronizados
+* Testado
+*/
+@media (width: 1366px) and (height: 768px) {
+  .alert-info-message, .alert-error-message {
+    bottom: -.5rem ;
+  }
 }
 
 
@@ -157,6 +173,10 @@ color: #dd9001;
   /* Label */
   .titulo-item {
     /* Tamanho ideal - 1rem padrão (Bootstrap) */
+  }
+
+  .alert-info-message, .alert-error-message {
+    bottom: 2.5rem ;
   }
 
 }
@@ -184,6 +204,22 @@ color: #dd9001;
     /* Tamanho ideal - 1rem padrão (Bootstrap) */
   }
 
+  .alert-info-message, .alert-error-message {
+    bottom: 1.9rem;
+  }
+
+}
+
+/*
+* Resolução para notebooks de largura e altura de 1680 x 1050
+* MacBook Air 13 (2011) 13.3 polegadas
+* Obs: Este dispositivo possui a tela muito alta
+* Testado OK
+*/
+@media (width: 1680px) and (height: 1050px) {
+  .alert-info-message, .alert-error-message {
+    bottom: 6.4rem;
+  }
 }
 
 
@@ -201,6 +237,21 @@ color: #dd9001;
   .titulo-item {
     font-size: $tamanho_font !important;
   }
-  /* classe bootstrap */
+  .alert-info-message, .alert-error-message {
+    bottom: 2.5rem;
+  }
 
+}
+
+
+/*
+* Resolução para notebooks de largura e altura de 1920 x 1200
+* Lenovo T61p - 14.1 polegadas
+* Obs:
+* Testado ok
+*/
+@media (width: 1920px) and (height: 1200px) {
+  .alert-info-message, .alert-error-message {
+    bottom: 10rem;
+  }
 }

@@ -3,7 +3,7 @@ import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticaca
 import { NgModule } from "@angular/core";
 import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
 import { AutenticacaoGuard } from '../services/autenticacao/autenticacao.guard';
-import { Usuario } from '../model/usuario';
+import { Usuario } from '../model/login/usuario';
 
 @NgModule({
   providers: [

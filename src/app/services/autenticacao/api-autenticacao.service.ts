@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Usuario } from 'src/app/model/usuario';
+import { Usuario } from 'src/app/model/login/usuario';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { GerenciadoDeAutenticacaoService } from '../sessao/gerenciador-de-autenticacao.service';

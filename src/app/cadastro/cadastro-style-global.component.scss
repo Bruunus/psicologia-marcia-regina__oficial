@@ -10,7 +10,7 @@ $cancelar_box_shaddon_p_calendar: 0 0 0 0 #fff !important;
 
 .container-cadastro {
   padding: 20px 40px;
-  background-color: #fcfaf4;
+  background-color: #fff;
 }
 
 #titulo-row {
@@ -154,7 +154,7 @@ $cancelar_box_shaddon_p_calendar: 0 0 0 0 #fff !important;
 }
 
 :host ::ng-deep .p-datepicker .p-datepicker-calendar {
-  background-color: #f0f0f0; /* Cor de fundo da tabela do calendário */
+  background-color: #fff; /* Cor de fundo da tabela do calendário */
 }
 
 

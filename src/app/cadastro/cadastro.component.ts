@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PacienteInterface } from '../model/paciente-interface';
+import { PacienteInterface } from '../model/cadastro/paciente-interface';
 import { CreateService } from '../services/api/create/create.service';
-import { PerfilEnum } from '../model/perfil-enum';
+import { PerfilEnum } from '../model/cadastro/perfil-enum';
 import { selectUf } from '../services/utilits/select-uf';
 import { Router } from '@angular/router';
 import { MessageService } from '../services/messagers/message/message.service';
@@ -12,6 +12,8 @@ import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { MascaraService } from './utilits/mascaras/mascara.service';
+
+import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
 
 
 declare var $: any;
@@ -80,7 +82,8 @@ export class CadastroComponent implements OnInit  {
     private validationFormService: ValidationFormService,
     private mascaraService: MascaraService,
     private primengConfig: PrimeNGConfig,
-    private createService: CreateService
+    private createService: CreateService,
+    protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev  /* Teste responsividade */
   ) {
 
     const dataInicial = new Date(2000, 0, 1); // abertura do calendário padrão
@@ -132,6 +135,10 @@ export class CadastroComponent implements OnInit  {
 
 
   ngOnInit(): void {
+
+    this.calculadorDeTelaModoDev.atualizarTamanhoTela();  /* Teste responsividade */
+    // this.message.setMessage('Testando mensagem','ALERT_SUCCESS')
+    // this.message.getMessage()
 
     this.loadListUf();
     this.primengConfig.setTranslation({

@@ -86,17 +86,34 @@
             </tr>
           </thead>
 
-          <tbody>
-            <tr >
-              <th scope="row"><span style="">0001</span></th>
-              <td><span style="">Roberto Clarlos Silva</span></td>
-              <td><span style="">24/09/2024</span></td>
-              <td><span style="">Psicoterapia</span></td>
+          <tbody *ngIf="listaPacienteHome.length > 0; else noData">
+            <tr *ngFor="let paciente of listaPacienteHome">
+              <th scope="row"><span>{{ paciente.pacienteId }}</span></th>
+              <td><span>{{ paciente.nomeCompleto }}</span></td>
+              <td><span>{{ paciente.dataUltimoAtendimento }}</span></td>
+              <td><span class="perfil-item">{{ paciente.perfil }}</span></td>
             </tr>
-
-
-
           </tbody>
+          <ng-template #noData>
+            <tr>
+              <td colspan="4"><p>Nenhum dado encontrado.</p></td>
+            </tr>
+          </ng-template>
+
+
+            <!-- <tr >
+              <th scope="row"><span style="">0002</span></th>
+              <td><span style="">Silvio Barbosa Filho</span></td>
+              <td><span style="">Sem tratamento</span></td>
+              <td>
+                <span style="margin-right: 4rem;">Psicoterapia</span>
+                <button class="btn btn-warning">Iniciar tratamento</button>
+              </td>
+            </tr> -->
+
+
+
+
         </table>
 
 

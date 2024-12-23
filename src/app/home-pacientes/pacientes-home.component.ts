@@ -3,12 +3,14 @@ import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-
 import { TimeoutService } from '../services/sessao/timeout.service';
 import { Router } from '@angular/router';
 import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticacao.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subject, Subscription, takeUntil } from 'rxjs';
 import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PacienteSeach } from '../model/paciente-seach';
+import { PacienteSeach } from '../model/home/paciente-seach';
 import { MessageComponent } from '../services/messagers/message/message.component';
 import { MessageService } from '../services/messagers/message/message.service';
+import { HomeService } from '../services/api/read/home/home.service';
+import { TelaHome } from '../model/home/tela-home';
 
 
 @Component({
@@ -26,7 +28,9 @@ export class PacientesHomeComponent implements OnInit {
   subscription: Subscription = Subscription.EMPTY;
   pesquisaDePaciente!: FormGroup;
   paciente: PacienteSeach;
-
+  public listaPacienteHome: TelaHome[] = [];
+  public loading: boolean = true;
+  private unsubscribe$ = new Subject<void>();
 
   constructor(
     private router: Router, private timeoutService: TimeoutService,
@@ -34,23 +38,25 @@ export class PacientesHomeComponent implements OnInit {
     private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService,
     private errorComponent: MessageComponent,
     private errorService: MessageService,
+    private apiHomeService: HomeService,
     protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev
 
   ) {
     this.paciente = new PacienteSeach();
+    this.pesquisaDePaciente = new FormGroup({
+      pesquisa: new FormControl(this.paciente.parametro, [Validators.required, Validators.maxLength(15)])
+    });
    }
 
   ngOnInit(): void {
     this.calculadorDeTelaModoDev.atualizarTamanhoTela();
-    // console.log('Inicio do timeout')
-    // console.log('Token de sessão: ', localStorage.getItem('token'))
     this.timeoutService.initSessionTimeout();
     this.nomeLogin = this.gerenciadoDeAutenticacaoService.getUsuario();
-    // console.log('Usuario do gerenciador', this.nomeLogin)
+    this.carregarTabela();
 
-    this.pesquisaDePaciente = new FormGroup({
-      pesquisa: new FormControl(this.paciente.parametro, [Validators.required, Validators.maxLength(15)])
-    });
+
+
+
 
   }
 
@@ -61,11 +67,50 @@ export class PacientesHomeComponent implements OnInit {
   }
 
   onCloseMessage(): void {
-    this.errorService.closeMessage()
+    this.errorService.closeMessage();
   }
 
   getNomeUsuarioLogado(): string {
     return this.nomeLogin!;
+  }
+
+
+
+  protected carregarTabela(): void {
+    this.apiHomeService.carregarListaHomePacientes().then(
+      (data) => {
+        console.log(data)
+        this.listaPacienteHome = data;
+
+        this.listaPacienteHome.forEach(item => {
+          if(item.dataUltimoAtendimento === null) {
+            //append button
+
+
+            // Cria o botão
+            const button = document.createElement('button');
+            button.innerText = 'Ação'; // Texto do botão
+            button.className = 'btn-acoes'; // Adiciona uma classe, se necessário
+
+            // Adiciona um evento de clique ao botão
+            button.onclick = () => {
+              this.suaFuncao(item); // Chama sua função passando o item
+            };
+
+            // Encontre o elemento onde você deseja adicionar o botão
+            const spanElement = document.querySelector(`.perfil-item[data-id="${item.pacienteId}"]`);
+            if (spanElement) {
+              spanElement.appendChild(button); // Adiciona o botão ao span
+            }
+
+
+          }
+
+        })
+
+
+      }
+    )
   }
 
 
@@ -87,6 +132,13 @@ export class PacientesHomeComponent implements OnInit {
     return this.pesquisaDePaciente.get('pesquisa')!.value;
   }
 
+
+
+  ngOnDestroy() {
+    // Emite um valor para cancelar todas as assinaturas
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
 
 }

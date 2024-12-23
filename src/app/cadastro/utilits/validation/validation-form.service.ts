@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { CepFormatter } from 'src/app/model/cep-formatter';
+import { CepFormatter } from 'src/app/model/cadastro/validation/cep-formatter';
 import { MessageService } from 'src/app/services/messagers/message/message.service';
 
 @Injectable({

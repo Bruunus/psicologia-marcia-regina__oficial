@@ -3,7 +3,7 @@ import { MessageApiGenericsService } from '../../messagers/info-message/display-
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { PacienteInterface } from 'src/app/model/paciente-interface';
+import { PacienteInterface } from 'src/app/model/cadastro/paciente-interface';
 import { GerenciadoDeAutenticacaoService } from '../../sessao/gerenciador-de-autenticacao.service';
 
 @Injectable({
