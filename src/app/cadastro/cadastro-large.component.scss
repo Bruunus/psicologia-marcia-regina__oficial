@@ -39,17 +39,15 @@
     line-height: 1.4rem !important; /* Sobrepondo a definição do .form-control */
   }
 
-  .btn-registrar {
-    margin-top: 2.1rem;
-  }
-
-  .btn-registrar {
-    margin-top: 2.6rem;
-  }
   .btn-primary-registrar {
     height: 59px;
-    width: 100%;
+    width: 15.4%;
     font-size: 16.666666px;
+    margin-top: 2rem;
+  }
+
+  .container-loading {
+    margin-top: 2.5rem !important;
   }
 
 
@@ -80,6 +78,14 @@
   .textarea-queixa {
     height: 80px !important;
     resize: none; /* Impedir tamanho */
+  }
+
+  .btn-primary-registrar {
+    height: 80px
+  }
+
+  .container-loading {
+    margin-top: 1.5rem !important;
   }
 
 

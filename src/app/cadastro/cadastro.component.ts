@@ -67,7 +67,7 @@ export class CadastroComponent implements OnInit  {
 
   protected selectUfInstance = new selectUf();
   protected optionUf: { sigla: string, nome: string } [] = [] as { sigla: string, nome: string }[];
-  protected ativarLoading: boolean = false;
+  protected ativarLoading: boolean = true;
   protected formReset: boolean = false;  // evita de aparecer msn de erro após o envio
 
   private destroy$: Subject<boolean> = new Subject();

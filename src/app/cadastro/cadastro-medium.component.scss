@@ -60,9 +60,15 @@
   }
 
   .btn-primary-registrar {
-    height: 108px;
-    width: 100%;
     font-size: 17.666666px;
+    height: 60px;
+    width: 96.7%; /* Medida de tamanho do container ideal */
+    margin-left: .9666666rem; /* Medida de tamanho do container ideal */
+    margin-top: 5rem;
+  }
+
+  .container-loading {
+    margin-top: 1.5rem !important;
   }
 
 }

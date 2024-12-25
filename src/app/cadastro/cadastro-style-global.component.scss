@@ -67,6 +67,8 @@ $cancelar_box_shaddon_p_calendar: 0 0 0 0 #fff !important;
   //104.97 - anterior
 }
 
+
+
 .btn-primary-registrar {
   background-color: #29b3b8;
   border-color: #29b3b8;
@@ -271,14 +273,22 @@ $cancelar_box_shaddon_p_calendar: 0 0 0 0 #fff !important;
 
 
 .container-loading {
-  position: fixed;
-  z-index: 999;
-  display: flex;
-  // border: 1px solid tomato;
+  background-color: tomato;
   width: 100%;
-  right: 0rem;
-  bottom: 2rem;
+  height: 47px;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-top: 5rem !important;
+  display: flex;
   justify-content: center;
+  // position: fixed;
+  // z-index: 999;
+  // display: flex;
+  // border: 1px solid tomato;
+  // width: 100%;
+  // right: 0rem;
+  // bottom: 2rem;
+  // justify-content: center;
 }
 
 .img-loading {

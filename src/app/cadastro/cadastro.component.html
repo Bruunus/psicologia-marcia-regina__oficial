@@ -289,7 +289,7 @@
 
 
 
-        <div class="col-xl-12 col-lg-10 col-md-10 col-sm-12 alt-da-caixa cx-textarea-p-small ">
+        <div class="col-xl-12 col-lg-10 col-md-12 col-sm-12 alt-da-caixa cx-textarea-p-small ">
           <label for="queixa" class="titulo-item">Queixa</label>
           <textarea name="queixa" class="form-control form-control-cadastro textarea-queixa" formControlName="queixa" id="queixa" rows="4" required></textarea>
 
@@ -298,16 +298,13 @@
           </div>
         </div>
 
+      <button type="submit" class="btn btn-primary btn-primary-registrar">Registrar</button>
 
+      <div class="row container-loading" style="
 
-      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 btn-registrar">
-        <button type="submit" class="btn btn-primary btn-primary-registrar">Registrar</button>
-      </div>
-
-      <div *ngIf="ativarLoading" class="container-loading">
+      ">
         <img src="../../assets/img/loading-tela-cadastro-paciente.gif" alt="Aguarde..." class="img-loading no-select-img" />
       </div>
-
 
     </div>
 
