@@ -67,7 +67,7 @@ export class CadastroComponent implements OnInit  {
 
   protected selectUfInstance = new selectUf();
   protected optionUf: { sigla: string, nome: string } [] = [] as { sigla: string, nome: string }[];
-  protected ativarLoading: boolean = true;
+  protected ativarLoading: boolean = false;
   protected formReset: boolean = false;  // evita de aparecer msn de erro após o envio
 
   private destroy$: Subject<boolean> = new Subject();
@@ -85,8 +85,6 @@ export class CadastroComponent implements OnInit  {
     private createService: CreateService,
     protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev  /* Teste responsividade */
   ) {
-
-    const dataInicial = new Date(2000, 0, 1); // abertura do calendário padrão
 
     this.formValidation = new FormGroup({
       nomeCompleto: new FormControl('', Validators.required),
@@ -279,10 +277,6 @@ export class CadastroComponent implements OnInit  {
 
           }
         })
-
-
-
-
 
       }
     })
