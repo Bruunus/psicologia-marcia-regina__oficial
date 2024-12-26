@@ -11,10 +11,12 @@ import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-
   selector: 'app-pagina1',
   templateUrl: './login.component.html',
   styleUrls: [
-    './style-default.scss',
-    './style-big-responsive.scss',
-    './style-middle-responsive.scss',
-    './style-small-responsive.scss',
+    './login-style-global.component.scss',
+    './login-extra-large.component.scss',
+    './login-large.component.scss',
+    './login-medium.component.scss',
+    './login-small.component.scss',
+    './login-smartphone.component.scss',
     '../../styles.scss'
   ]
 })
@@ -28,7 +30,6 @@ export class LoginComponent implements OnInit {
   private usuarioAutenticado: boolean = false;
   private statusInputFocus: boolean = false;
   protected errorMessage: string = '';
-  private errorMessageServer: string = '';
   protected errorMessageLogin: string = '';
   protected errorMessageSenha: string = '';
   protected errorMessageAutenticacao: string = '';
@@ -75,6 +76,11 @@ export class LoginComponent implements OnInit {
 
     this.usuario.login = loginValue;
     this.usuario.senha = senhaValue
+
+    console.log(
+      this.usuario.login+"\n"+
+      this.usuario.senha
+    )
 
     if(this.usuario.login === '' || this.usuario.login === null) {
       this.errorMessage = 'Insira o login para acesso';

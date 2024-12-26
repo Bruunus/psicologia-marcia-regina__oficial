@@ -17,10 +17,12 @@ import { TelaHome } from '../model/home/tela-home';
   selector: 'app-pacientes-home',
   templateUrl: './pacientes-home.component.html',
   styleUrls: [
-    './pacientes-home-default.component.scss',
-    './pacientes-home-big.component.scss',
-    'pacientes-home-middle.component.scss',
-    'pacientes-home-small.component.scss']
+    './pacientes-home-style-global.component.scss',
+    './pacientes-home-extra-large.component.scss',
+    './pacientes-home-large.component.scss',
+    'pacientes-home-medium.component.scss',
+    'pacientes-home-small.component.scss',
+    './pacientes-home-smartphone.component.scss']
 })
 export class PacientesHomeComponent implements OnInit {
 
@@ -32,13 +34,13 @@ export class PacientesHomeComponent implements OnInit {
   protected listaPacienteHome: TelaHome[] = [];
   protected listaPacienteHomeFiltrada: TelaHome[] = [];
   protected loading: boolean = true;
+  protected exibirButtonLimpar: boolean = true; // Estado para verificar se a pesquisa foi realizada
   private unsubscribe$ = new Subject<void>();
 
   constructor(
     private router: Router, private timeoutService: TimeoutService,
     private apiAutenticacaoService: ApiAutenticacaoService,
     private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService,
-    private errorComponent: MessageComponent,
     private errorService: MessageService,
     private apiHomeService: HomeService,
     protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev
@@ -55,7 +57,6 @@ export class PacientesHomeComponent implements OnInit {
     this.timeoutService.initSessionTimeout();
     this.nomeLogin = this.gerenciadoDeAutenticacaoService.getUsuario();
     this.carregarTabela();
-
 
 
 
@@ -112,25 +113,24 @@ export class PacientesHomeComponent implements OnInit {
 
 
   protected procurarPaciente(): void {
+    const pesquisa = this.pesquisaDePaciente.get('pesquisa')?.value;
 
-    if(this.pesquisa === null || this.pesquisa === '') {
+    if (pesquisa === null || pesquisa.trim() === '') {
       this.errorService.setMessage(this.errorService.ERROR_SEACH_PATIENT, 'ALERT_INFO');
       this.errorService.getMessage();
+      this.exibirButtonLimpar = false; // Mantém o botão invisível
     } else {
-      const pesquisa = this.pesquisaDePaciente.get('pesquisa')?.value.toLowerCase();
+      const pesquisaLower = pesquisa.toLowerCase();
 
-      if (pesquisa) {
-        // Filtra a lista de pacientes com base na pesquisa
-        this.listaPacienteHomeFiltrada = this.listaPacienteHome.filter(paciente =>
-          paciente.nomeCompleto.toLowerCase().includes(pesquisa) ||
-          paciente.cpf.includes(pesquisa) // Adicione outros campos que deseja pesquisar
-        );
-      } else {
-        // Se a pesquisa estiver vazia, restaura a lista original
-        this.listaPacienteHomeFiltrada = this.listaPacienteHome;
-      }
+      // Filtra a lista de pacientes com base na pesquisa
+      this.listaPacienteHomeFiltrada = this.listaPacienteHome.filter(paciente =>
+        paciente.nomeCompleto.toLowerCase().includes(pesquisaLower) ||
+        paciente.cpf.includes(pesquisa)
+      );
+
+      // Exibe o botão de limpar se houver resultados
+      this.exibirButtonLimpar = this.listaPacienteHomeFiltrada.length > 0;
     }
-
   }
 
 
@@ -138,6 +138,7 @@ export class PacientesHomeComponent implements OnInit {
   resetarPesquisa(): void {
     this.pesquisaDePaciente.reset(); // Limpa o campo de pesquisa
     this.listaPacienteHomeFiltrada = this.listaPacienteHome; // Restaura a lista original
+    this.exibirButtonLimpar = false; // Oculta o botãol
   }
 
 

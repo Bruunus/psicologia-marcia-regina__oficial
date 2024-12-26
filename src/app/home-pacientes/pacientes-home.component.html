@@ -69,12 +69,17 @@
             </tr>
             <tr colspan="4" class="tr-pesquisa" >
               <th colspan="4" >
-                <div class="row d-flex div-row-pesquisar align-items-center justify-content-end" style="">
+                <div class="row d-flex div-row-pesquisar align-items-center justify-content-end" >
+                  <button type="button" class="btn btn-secondary btn-system-psico botao-pesquisar" *ngIf="exibirButtonLimpar" (click)="resetarPesquisa()">
+                    Limpar
+                  </button>
                   <form (ngSubmit)="procurarPaciente()" [formGroup]="pesquisaDePaciente">
                     <input class="form-control form-control input-system-psico input-pesquisar" type="text"
                     placeholder="Paciente" formControlName="pesquisa" (focus)="onCloseMessage()">
                     <button type="submit" class="btn btn-primary btn-system-psico botao-pesquisar" >Pesquisar</button>
+
                   </form>
+
                 </div>
               </th>
             </tr>
