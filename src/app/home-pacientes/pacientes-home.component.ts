@@ -48,7 +48,8 @@ export class PacientesHomeComponent implements OnInit {
   ) {
     this.paciente = new PacienteSeach();
     this.pesquisaDePaciente = new FormGroup({
-      pesquisa: new FormControl(this.paciente.parametro, [Validators.required, Validators.maxLength(15)])
+      pesquisa: new FormControl(this.paciente.parametro, [Validators.required, Validators.maxLength(15)]),
+      cancelar: new FormControl()
     });
    }
 
@@ -57,10 +58,6 @@ export class PacientesHomeComponent implements OnInit {
     this.timeoutService.initSessionTimeout();
     this.nomeLogin = this.gerenciadoDeAutenticacaoService.getUsuario();
     this.carregarTabela();
-
-
-
-
   }
 
 
@@ -192,6 +189,8 @@ export class PacientesHomeComponent implements OnInit {
     // o valro de pesquisa já é adicionar não dependendo de passar o value
     return this.pesquisaDePaciente.get('pesquisa')!.value;
   }
+
+
 
 
 

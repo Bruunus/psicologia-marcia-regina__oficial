@@ -215,36 +215,73 @@ $color-border-table: #EED4EE;
 //  Configurações preliminares
 
 // Cabeçalho da tabela
-.container-table .tabela_pacientes thead .tr-topo-tabela  {
+.container-table .tabela_pacientes .thead-container .tr-topo-tabela  {
   display: flex;
+  height: 2.5rem;
+  line-height: 1rem;
 }
 
-.container-table .tabela_pacientes thead .tr-topo-tabela th  {
-  width: 33%;   /* Largura proporcional calculada via displau flex */
-}
 
-.container-table .tabela_pacientes thead, tbody, tr, th, td {
+
+.container-table .tabela_pacientes .thead-container, tbody, tr, th, td {
   display: block;
 }
 
 .container-table .tabela_pacientes tbody {
-  height: 343px !important;
+  height: auto !important;
   overflow-y: auto;
   width: 100%;
 }
 
 .container-table .tabela_pacientes tbody tr {
   display: flex;
+  height: 3rem;
 }
 
-.container-table .tabela_pacientes tbody tr td,
-.container-table .tabela_pacientes tbody tr th {
-  width: 33%;
+.container-table .tabela_pacientes .thead-container .tr-topo-tabela th {
+  width: 33%;   /* Largura proporcional calculada via display flex */
+}
+
+/* Medidas de todas as colunas */
+
+/* Coluna = Prontuário */
+.container-table .tabela_pacientes tbody tr .coluna_1 {
+  width: 24.9%;
+}
+
+/* Coluna = Nome completo */
+.container-table .tabela_pacientes tbody tr .coluna_2 {
+  width: 24.7%;
+}
+
+/* Coluna = Data do último atendimento */
+.container-table .tabela_pacientes tbody tr .coluna_3 {
+  width: 24.9%;
+}
+
+/* Coluna = Perfil */
+.container-table .tabela_pacientes tbody tr .coluna_4 {
+  width: 11%;
+}
+/* Container botão */
+.container-table .tabela_pacientes tbody tr .coluna_5  {
+  // padding: 0 1rem !important;
+  display: flex;
+  align-items: center;
+}
+/* Coluna = botão */
+.container-table .tabela_pacientes tbody tr .coluna_5 button {
+  margin-left: 1rem;
+  height: 29px;
+  font-size: 0.9rem;
+  line-height: 1rem !important;
 }
 
 .container-table .tabela_pacientes thead th {
   border-bottom: 1px solid $color-border-table !important;
 }
+
+
 
 .sub-titulo-tabela {
   padding: .75rem .0rem !important; /* Alterado padrão de layout bootstrap */
@@ -286,6 +323,7 @@ $color-border-table: #EED4EE;
    cursor: pointer;
    background-color: #FAEBFA !important;
 }
+
 
 
 

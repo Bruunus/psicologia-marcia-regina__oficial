@@ -70,15 +70,20 @@
             <tr colspan="4" class="tr-pesquisa" >
               <th colspan="4" >
                 <div class="row d-flex div-row-pesquisar align-items-center justify-content-end" >
-                  <button type="button" class="btn btn-secondary btn-system-psico botao-pesquisar" *ngIf="exibirButtonLimpar" (click)="resetarPesquisa()">
-                    Limpar
-                  </button>
-                  <form (ngSubmit)="procurarPaciente()" [formGroup]="pesquisaDePaciente">
-                    <input class="form-control form-control input-system-psico input-pesquisar" type="text"
-                    placeholder="Paciente" formControlName="pesquisa" (focus)="onCloseMessage()">
-                    <button type="submit" class="btn btn-primary btn-system-psico botao-pesquisar" >Pesquisar</button>
+                  <div class="col-6 d-flex justify-content-start pl-0">
+                    <button type="button" class="btn btn-secondary btn-system-psico botao-pesquisar" *ngIf="exibirButtonLimpar" (click)="resetarPesquisa()">
+                      Limpar
+                    </button>
+                  </div>
+                  <div class="col-6 pr-0">
+                    <form (ngSubmit)="procurarPaciente()" [formGroup]="pesquisaDePaciente">
+                      <input class="form-control form-control input-system-psico input-pesquisar" type="text"
+                      placeholder="Paciente" formControlName="pesquisa" (focus)="onCloseMessage()">
+                      <button type="submit"  class="btn btn-primary btn-system-psico botao-pesquisar" >Pesquisar</button>
 
-                  </form>
+                    </form>
+                  </div>
+
 
                 </div>
               </th>
@@ -105,17 +110,28 @@
               (click)="paciente.dataUltimoAtendimento != null ? redirectPaciente(paciente) : null"
             >
 
-              <th scope="row"><span>{{ paciente.pacienteId }}</span></th>
-              <td><span>{{ paciente.nomeCompleto }}</span></td>
+              <th scope="row" class="coluna_1"><span>{{ paciente.pacienteId }}</span></th>
 
-              <span *ngIf="paciente.dataUltimoAtendimento; else semAtendimento">{{ paciente.dataUltimoAtendimento }}</span>
+              <td class="coluna_2"><span>{{ paciente.nomeCompleto }}</span></td>
+
+              <td class="coluna_3">
+                <span
+                *ngIf="paciente.dataUltimoAtendimento; else semAtendimento">{{ paciente.dataUltimoAtendimento }}</span>
               <ng-template #semAtendimento><span>Sem atendimento</span></ng-template>
-
-              <td class="container-td">
-                <span class="perfil-item">{{ paciente.perfil }}</span>
-                <button *ngIf="paciente.dataUltimoAtendimento === null"
-                class="btn btn-warning" style="margin-left: 2rem;" (click)="redirectPaciente(paciente)">Iniciar Atendimento</button>
               </td>
+
+              <td class="coluna_4">
+                <span class="perfil-item">{{ paciente.perfil }}</span>
+              </td>
+
+              <td class="coluna_5">
+                <button
+                  *ngIf="paciente.dataUltimoAtendimento === null"
+                  class="btn btn-warning btn-iniciar-atendimento"
+                  style=""
+                  (click)="redirectPaciente(paciente)">Iniciar Atendimento</button>
+              </td>
+
             </tr>
           </tbody>
           <ng-template #noData>

@@ -30,7 +30,7 @@
 
         <div class="col-xl-3 col-lg-4 col-md-6 alt-da-caixa">
           <label for="nomeCompleto" class="titulo-item">Nome Completo</label>
-          <input type="text" class="form-control form-control-cadastro input-ajuste" name="nomeCompleto"  formControlName="nomeCompleto" id="nomeCompleto" maxlength="45"
+          <input type="text" class="form-control form-control-cadastro input-ajuste" name="nomeCompleto"  formControlName="nomeCompleto" id="nomeCompleto" maxlength="35"
           required>
           <div *ngIf="(formValidation.get('nomeCompleto')?.invalid && formSubmitted) && !formReset" class="validation-error">
             <p *ngIf="formValidation.get('nomeCompleto')?.errors?.['required']" class="message-error-formValidation ">
