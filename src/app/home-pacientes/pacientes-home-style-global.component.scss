@@ -1,4 +1,4 @@
-@import url('../../styles.scss');
+// @import url('../../styles.scss');
 
 
   //vars
@@ -11,171 +11,62 @@ $color-border-table: #EED4EE;
 $color-border-table: #EED4EE;
 
 
-
-.menu-bar-pacientes {
-  height: 74.333333px !important;
-  border-bottom: 1px solid #e4e4e4c9;
-  margin: 0 !important;
-
-}
-
-.menu-bar-pacientes div {
-  height: 100%;
-}
-
-.div-filho-esquerdo, .div-filho-centro, .div-filho-direito {
-  background-color: $background_color_menu_completo;
-}
-
-.img-menu {
-  height: 48px;
-}
-
-.nav .nav-item {
-  height: 100%;
-}
-
-
-.menu-item-link {
-  height: 100%;
-  display: flex;
-  align-items: center;
-
-}
-
-/* Fade */
-/*********************************************************************************/
-.menu-item-link {
-  display: inline-block;
-  vertical-align: middle;
-  -webkit-transform: perspective(1px) translateZ(0);
-  transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-  font-weight: bold;
-  box-sizing: border-box;
-  color: $color-item-menu;
-  overflow: hidden;
-  // -webkit-transition-duration: 0.01s;
-  // transition-duration: 0.01s;
--webkit-transition-property: color, background-color;
-  transition-property: color, background-color;
-  background-color: $background_color_menu_completo;
-}
-
-// ao passar o mouse
-.menu-item-link:hover {
-  background-color: #EBEBEB;
-  color: #B744B7 !important;
-}
-
-// ao clicar
-.menu-item-link:active, .menu-item-link:focus {
-  background-color: $background_color_menu_completo  !important;
-  // transform: none;
-  // transition: none;
-}
-
-// após o clique
-.menu-item-link:hover:focus:not(:active) {
-  background-color: #EBEBEB !important; /*igual o hover*/
-  color: #BB4ABB !important;
-}
-/*******************************************************************************/
-
-
-.nick-name, .link-logout {
-  color: $color-item-menu;
-}
-
-
 /* Configurações da parte inferior a tabela */
-.container-inferior {
-  // padding: 0;
-  // border: 1px solid red;  //{Debug}\\
-  // background-color: #fd8d79;
-  width: 98.967% !important;  /* Tamanho calculado do container inferior */
-  max-height: 88vh;   /* Atenção: Essa é a altura calculada do container da tabela, não pode ser alterada */
-  height: 100% !important;
-  margin: 5px auto;
+
+/***** Coluna 1 *****/
+
+.row-container-inferior {
+  /* background-color: tomato; */
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 2rem 4rem 2rem 4rem;
+
+}
+
+/* Estilos 'cabeçalho' da tabela */
+.col-12-container-div-cabecalho {
+  background-color: aliceblue;
+  height: 7.8666666rem;
+  padding: 0;
+  border: 1px solid #dee2e6;
+}
+
+.container-titulo-tabela-do-cabecalho {
   display: flex;
   align-items: center;
   justify-content: center;
-  // overflow: auto
-
+  cursor: default;
+  font-size: 1.3rem;
+  padding-top: .2rem;
+  padding-bottom: .2rem;
+  border-radius: 5px 5px 0 0;
+  border-bottom: 1px solid #dee2e6;
 }
 
-
-/* Estilo tabela */
-
-.container-table {
-  border: 1px solid $color-border-table;  //{Debug}\\  //  cor original
-  width: 88%;
-  height: $altura_ideal_container_pacientes;
-  // border-radius: 2px;
-  overflow: hidden;
-  display: flex;
-}
-.container-table:hover {
-  overflow-y: scroll;
-}
-
-.container-table .tabela_pacientes {
+.row-container-barra-de-pesquisa-do-cabecalho {
   width: 100%;
-  height: $altura_ideal_container_pacientes;
-}
-
-.container-table .thead-container {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0.1px !important;
-  z-index: 1000;
-}
-
-
-
-// Cebeçalho da tabelas
-
-// Sessão de titulo
-.container-table .tabela_pacientes .titulo-tabela {
-  text-align: center;
-  background-color: #F8E7F8;
-  // #E0E6EA; // escolhida
-  color: #782C78;
-  padding: 0.20rem !important;
-}
-
-.titulo-tabela h5 {
-  margin-bottom: .2rem !important; // diminuindo a margen inferior do h5
-}
-
-
-// Sessão de pesquisa
-
-// configurações preliminares
-.tr-pesquisa {
-  text-align: right;
-}
-
-.tr-pesquisa th {
-  padding: 0.25rem 0.75rem !important;  /* Bootstrap */
-  background-color: #F8E7F8;
-}
-
-
-.tr-pesquisa .div-row-pesquisar {
-  margin: 0;
-  padding: 0;
-  background-color: #F8E7F8;
-
-}
-
-.tr-pesquisa .div-row-pesquisar form {
   display: flex;
-  width: 100% !important;
-  justify-content: end;
+  border-bottom: 1px solid #dee2e6;
+  margin: 0;
+  padding-top: .3rem;
+  padding-bottom: .3rem;
 }
 
-// input
+.col-1-container-barra-de-pesquisa-button-limpar {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 0;
+}
+
+.col-2-container-barra-de-pesquisa-form-pesquisa {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding: 0;
+}
 .input-pesquisar {
   width: 200px;
   margin-right: 1rem;
@@ -185,118 +76,129 @@ $color-border-table: #EED4EE;
 .input-pesquisar:focus {
   box-shadow: none !important;
   border: 1px solid #d39ad3 !important;
-
 }
 
-
-/* Estilização do botão pesquisar */
+/* Estilização do botão pesquisar e botão limpar */
 
 // vars
-$background_color_botoes_tabela: #77A1D6;
-$background_color_botoes_tabela_hover: #5486c4;
+$background_color_botoes_tabela_scroll: #77A1D6;
+$background_color_botoes_tabela_scroll_hover: #5486c4;
 $borda_color_botoes_tabela: #77A1D6;
 $active_color_botoes_e_borda_tabela: #3a70b3;
 
-
-
+/* Botão limpar */
 .botao-pesquisar {
   margin-right: 1rem;
   color: #fff;
-  background-color: $background_color_botoes_tabela !important;
+  background-color: $background_color_botoes_tabela_scroll !important;
   border-color: $borda_color_botoes_tabela  !important;
 }
 .botao-pesquisar:hover {
-  background-color: $background_color_botoes_tabela_hover !important;
-  border-color: $background_color_botoes_tabela_hover  !important;
+  background-color: $background_color_botoes_tabela_scroll_hover !important;
+  border-color: $background_color_botoes_tabela_scroll_hover  !important;
 }
 .botao-pesquisar:disabled, .botao-pesquisar:disabled {
   color: #fff;
-  background-color: $background_color_botoes_tabela !important;
-  border-color: $background_color_botoes_tabela  !important;
+  background-color: $background_color_botoes_tabela_scroll !important;
+  border-color: $background_color_botoes_tabela_scroll  !important;
 }
 .btn-primary:not(:disabled):not(.disabled):active:focus,
 .btn-primary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: $background_color_botoes_tabela_hover;
-  border-color: $background_color_botoes_tabela_hover;
+  background-color: $background_color_botoes_tabela_scroll_hover;
+  border-color: $background_color_botoes_tabela_scroll_hover;
 }
-
 .botao-pesquisar:focus {
   box-shadow: none !important;
-
 }
-
 .botao-pesquisar:active {
   background-color: $active_color_botoes_e_borda_tabela !important;
   border-color: $active_color_botoes_e_borda_tabela  !important;
-
 }
 
-
+/* Botão limpar */
 .botao-limpar {
   margin-left: 1rem;
   color: #fff;
-  background-color: $background_color_botoes_tabela !important;
+  background-color: $background_color_botoes_tabela_scroll !important;
   border-color: $borda_color_botoes_tabela  !important;
 }
 .botao-limpar:hover {
-  background-color: $background_color_botoes_tabela_hover !important;
+  background-color: $background_color_botoes_tabela_scroll_hover !important;
   border-color: $borda_color_botoes_tabela  !important;
 }
 .botao-limpar:disabled, .botao-limpar:disabled {
   color: #fff;
-  background-color: $background_color_botoes_tabela !important;
-  border-color: $background_color_botoes_tabela  !important;
+  background-color: $background_color_botoes_tabela_scroll !important;
+  border-color: $background_color_botoes_tabela_scroll  !important;
 }
 .btn-primary:not(:disabled):not(.disabled):active:focus,
 .btn-primary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: $background_color_botoes_tabela_hover;
-  border-color: $background_color_botoes_tabela_hover;
+  background-color: $background_color_botoes_tabela_scroll_hover;
+  border-color: $background_color_botoes_tabela_scroll_hover;
 }
-
 .botao-limpar:focus {
   box-shadow: none !important;
-
 }
-
 .botao-limpar:active {
   background-color: $active_color_botoes_e_borda_tabela !important;
   border-color: $active_color_botoes_e_borda_tabela  !important;
-
 }
 
 
-
-// Sessão corpo da tabela
-
-//  Configurações preliminares
-
-// Cabeçalho da tabela
-.container-table .tabela_pacientes .thead-container .tr-topo-tabela  {
-  display: flex;
-  height: 2.5rem;
-  line-height: 1rem;
-}
-
-
-
-.container-table .tabela_pacientes .thead-container, tbody, tr, th, td {
-  display: block;
-}
-
-.container-table .tabela_pacientes tbody {
-  height: auto !important;
-  // overflow-y: auto;
+.col-12-container-titulos-colunas-tabela {
   width: 100%;
+  padding: 0;
 }
 
-.container-table .tabela_pacientes tbody tr {
-  display: flex;
-  height: 3rem;
-  border-bottom: 1px solid #dee2e6; /* Substituição das bordas do bootstrap */
+.row-filha-container-titulos-colunas-tabela {
+  margin: 0;
+  width: 100%;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
+.coluna-1-prontuario, .coluna-2-nome-completo,
+.coluna-3-data-ultimo-atendimento, .coluna-4-perfil {
+  font-weight: bold;
+}
+
+.prontuario_titulo:hover, .nomeCompleto_titulo:hover,
+.dataUltimoAtend_titulo:hover, .perfil_titulo:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+
+/***** Coluna 2 *****/
+
+.col-12-container-div-tabela {
+  height: 34.8rem !important;
+  max-height: 34.8rem !important;
+  top: -0.6rem;
+  padding: 0;
+  height: auto;
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+  overflow-y: auto;
+}
+
+.tabela-pacientes {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 0 !important /* Sobrescrevendo bootstrap */;
+}
+
+.row-container-tbody {
+  margin: 0;
+}
+
+.col-12-container-tr {
+  padding: 0;
 }
 
 /* Removendo as bordas do bootstrap - classe table */
@@ -304,98 +206,41 @@ $active_color_botoes_e_borda_tabela: #3a70b3;
   border-top: none ;
 }
 
-.container-table .tabela_pacientes .thead-container .tr-topo-tabela th {
-  width: 33%;   /* Largura proporcional calculada via display flex */
+.row-div-container-tr-colunas {
+  margin: 0;
+  height: 2.9rem;
+  border-bottom: 1px solid #dee2e6;
 }
 
-/* Medidas de todas as colunas */
-
-/* Coluna = Prontuário */
-.container-table .tabela_pacientes tbody tr .coluna_1 {
-  width: 24.9%;
-}
-
-/* Coluna = Nome completo */
-.container-table .tabela_pacientes tbody tr .coluna_2 {
-  width: 24.7%;
-}
-
-/* Coluna = Data do último atendimento */
-.container-table .tabela_pacientes tbody tr .coluna_3 {
-  width: 24.9%;
-}
-
-/* Coluna = Perfil */
-.container-table .tabela_pacientes tbody tr .coluna_4 {
-  width: 11%;
-}
-/* Container botão */
-.container-table .tabela_pacientes tbody tr .coluna_5  {
-  // padding: 0 1rem !important;
+.coluna-1-prontuario-th, .coluna-2-nome-completo-td,
+.coluna-3-data-ultimo-atendimento-td, .coluna-4-perfil-td,
+.coluna-5-botao-iniciar-antendimento {
+  height: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 15%;
 }
-/* Coluna = botão */
-.container-table .tabela_pacientes tbody tr .coluna_5 button {
-  margin-left: 1rem;
+
+.coluna-1-prontuario-th span, .coluna-2-nome-completo-td span,
+.coluna-2-nome-completo-td span, .coluna-4-perfil-td span,
+.coluna-3-data-ultimo-atendimento-td span {
+  position: relative;
+  top: 1px;
+  cursor: default;
+}
+.coluna-5-botao-iniciar-antendimento .btn-iniciar-atendimento {
   height: 29px;
   font-size: 0.9rem;
   line-height: 1rem !important;
-}
-
-.container-table .tabela_pacientes thead th {
-  border-bottom: 1px solid $color-border-table !important;
-}
-
-
-
-.sub-titulo-tabela {
-  padding: .75rem .0rem !important; /* Alterado padrão de layout bootstrap */
-  background-color: #FAEBFA;
-  color: #608FCB !important;
-
-}
-
-
-
-/* Texto-título das th's (Posições) */
-.sub-titulo-tabela .prontuario_Titulo {
-  margin-left: .70rem;
-  // background-color: burlywood;
-}
-
-.sub-titulo-tabela .nomeCompleto_Titulo {
-  margin-left: 0.6rem;
-  // background-color: burlywood;
-}
-
-.sub-titulo-tabela .dataUltimoAtend_titulo {
-  margin-left: 0.3666666rem;
-  // background-color: burlywood;
-}
-
-.sub-titulo-tabela .perfil_titulo {
-  margin-left: 0.3rem;
-  // background-color: burlywood;
-}
-
-
-.tabela_pacientes thead tr th span:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.tabela_pacientes tbody tr:hover {
-   cursor: pointer;
-   background-color: #FAEBFA !important;
+  position: relative;
+  top: 0px;
 }
 
 /* Tratamento de erro ou tempo de carregamento */
 
-/* tr ddentro do ng-template */
 .tr-noData {
+  // background-color: aqua;
   display: flex;
   height: 100%;
 }
@@ -410,37 +255,20 @@ $active_color_botoes_e_borda_tabela: #3a70b3;
   margin-right: 0 !important;
   margin-left: 0 !important;
 }
-
-
 .div-col-frase {
   display: flex;
   align-items: end;
   justify-content: center;
 }
-
 .div-col-loading {
   display: flex;
   align-items: start;
   justify-content: center;
 }
-
-
-
 .img-loading {
   height: 47px;
   margin-top: 0.2em;
 }
-
-
-
-
-/* TESTE ESTILIZAÇÃO DA BARRA */
-
-// .container-table .tabela_pacientes tbody::-webkit-scrollbar {
-//   width: 0.6666666rem;
-//   height: 1.9666666rem; /* Engrossar barra */
-// }
-
 
 
 
@@ -471,13 +299,13 @@ $active_color_botoes_e_borda_tabela: #3a70b3;
 
   /* barra */
   ::-webkit-scrollbar-thumb {
-    background: #77A1D6;
+    background: $background_color_botoes_tabela_scroll;
     border-radius: 2px;
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #6190ca;
+    background: $background_color_botoes_tabela_scroll_hover;
   }
 
 

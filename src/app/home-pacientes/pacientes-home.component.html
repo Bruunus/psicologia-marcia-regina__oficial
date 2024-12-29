@@ -17,201 +17,84 @@
 <!-- Teste responsividade -->
 
 
-<div class="container-fluid" style="">
-
+<div class="container-fluid">
   <app-menu-principal></app-menu-principal>
-
-
-    <div class="row-container-inferior row"
-
-    style="
-      /* background-color: tomato; */
-      width: 100%;
-      height: 100vh;
-      overflow: hidden;
-      margin: 0;
-      padding: 2rem 4rem 2rem 4rem;
-
-    "
-    >
-
-    <div
-    class="col-12"
-    style="
-      background-color: aliceblue;
-      height: 7.8666666rem;
-      padding: 0;
-      border: 1px solid #dee2e6;
-    ">
-    <!-- titulo -->
-      <div class="container-titulo-tabela"
-      style="
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.3rem;
-        padding-top: .2rem;
-        padding-bottom: .2rem;
-        border-radius: 5px 5px 0 0;
-        border-bottom: 1px solid #dee2e6;
-        /* Antigo: titulo-tabela */
-      ">
-         Pacientes
-      </div>
-
-
+    <!-- Coluna principal 1 -->
+  <div class="row row-container-inferior">
+    <div class="col-12 col-12-container-div-cabecalho">
+      <!-- titulo -->
+      <div class="container-titulo-tabela-do-cabecalho">Pacientes</div>
       <!-- barra de pesquisa -->
-       <div class="row-container-barra-de-pesquisa row"
-        style="
-
-          width: 100%;
-          display: flex;
-          border-bottom: 1px solid #dee2e6;
-          /* height: 5rem; */
-          margin: 0;
-          padding-top: .3rem;
-          padding-bottom: .3rem;
-        ">
-
+      <div class="row row-container-barra-de-pesquisa-do-cabecalho">
         <!-- col 1 -->
-        <div class="col-6 col-button-limpar"
-        style="
-          display: flex;
-          align-items: center;
-          justify-content: start;
-          padding: 0;
-        ">
-        <button type="button" class="btn btn-secondary btn-system-psico botao-limpar" *ngIf="exibirButtonLimpar" (click)="resetarPesquisa()">
-          Limpar
-        </button>
+        <div class="col-6 col-1-container-barra-de-pesquisa-button-limpar">
+          <button type="button" class="btn btn-secondary btn-system-psico botao-limpar" *ngIf="exibirButtonLimpar" (click)="resetarPesquisa()">Limpar</button>
         </div>
-
         <!-- col 2 -->
-        <div class="col-6 col-form-pesquisa"
-        style="
-          display: flex;
-          align-items: center;
-          justify-content: end;
-          padding: 0;
-        ">
+        <div class="col-6 col-2-container-barra-de-pesquisa-form-pesquisa">
           <form (ngSubmit)="procurarPaciente()" [formGroup]="pesquisaDePaciente" class="d-flex">
-            <input class="form-control form-control input-system-psico input-pesquisar" type="text"
-            placeholder="Paciente" formControlName="pesquisa" (focus)="onCloseMessage()">
+            <input class="form-control form-control input-system-psico input-pesquisar" type="text" placeholder="Paciente" formControlName="pesquisa" (focus)="onCloseMessage()">
             <button type="submit"  class="btn btn-primary btn-system-psico botao-pesquisar" >Pesquisar</button>
           </form>
         </div>
-       </div>
+      </div>
 
-       <!-- container titulo coluna da tabela -->
-       <div class="col-12 container-colunas-titulo-tabela"
-       style="
-        width: 100%;
-        padding: 0;
-       ">
-        <div class="row row-filha-container-colunas-titulo-tabela"
-          style="
-            margin: 0;
-            width: 100%;
-            padding-top: .5rem;
-            padding-bottom: .5rem;
-        ">
-
-
-          <div class="col coluna-1-prontuario" style="font-weight: bold;">
-            <span class="prontuario_Titulo" (click)="ordenacao('pacienteId')">Prontuário</span>
+      <!-- container titulos da tabela-->
+      <div class="col-12 col-12-container-titulos-colunas-tabela">
+        <div class="row row-filha-container-titulos-colunas-tabela">
+          <div class="col coluna-1-prontuario">
+            <span class="prontuario_titulo" (click)="ordenacao('pacienteId')">Prontuário</span>
           </div>
-          <div class="col coluna-2-nome-completo" style="font-weight: bold;">
-            <span class="nomeCompleto_Titulo" (click)="ordenacao('nomeCompleto')">Nome completo</span>
+          <div class="col coluna-2-nome-completo">
+            <span class="nomeCompleto_titulo" (click)="ordenacao('nomeCompleto')">Nome completo</span>
           </div>
-          <div class="col coluna-3-data-ultimo-atendimento" style="font-weight: bold;">
+          <div class="col coluna-3-data-ultimo-atendimento">
             <span class="dataUltimoAtend_titulo" (click)="ordenacao('dataUltimoAtendimento')">Data último atendimento</span>
           </div>
-          <div class="col coluna-4-perfil" style="font-weight: bold;">
+          <div class="col coluna-4-perfil">
             <span class="perfil_titulo" (click)="ordenacao('perfil')">Perfil</span>
           </div>
-          <div class="col">
-            button
-          </div>
-
-
+          <div class="col" style="margin-right: 10px; /* Acerta o layout do titulo com as linhas da tabela verticalmente */"></div>
         </div>
-
-       </div>
-
-
-
+      </div>
     </div>
 
 
-
-    <div
-      class="col-12"
-      style="
-        height: 34.8rem !important;
-        top: -0.6rem;
-        padding: 0;
-        height: auto;
-        border-left: 1px solid #dee2e6;
-        border-right: 1px solid #dee2e6;
-        border-bottom: 1px solid #dee2e6;
-      ">
-
-      <table class="table table-hover tabela_pacientes"
-      style="
-        width: 100%;
-        height: 100%;
-
-      ">
-
+    <!-- Coluna principal 2 -->
+    <div class="col-12 col-12-container-div-tabela">
+      <table class="table table-hover tabela-pacientes">
         <thead style="" class="thead-container"></thead>
-        <tbody *ngIf="listaPacienteHomeFiltrada.length > 0; else noData" class="row row-container-tbody"
-          style="
-            margin: 0;
-            ">
-
+        <tbody *ngIf="listaPacienteHomeFiltrada.length > 0; else noData" class="row row-container-tbody">
           <tr *ngFor="let paciente of listaPacienteHomeFiltrada"
-              (click)="paciente.dataUltimoAtendimento != null ? redirectPaciente(paciente) : null"
-              class="col-12 col-container-tr" style="padding: 0;">
-
-              <div class="row row-container-div-tr-colunas" style="margin: 0;">
-
-                <th scope="row" class="col"style="padding-left: 15px;"><span>{{ paciente.pacienteId }}</span></th>
-                <td class="col" style="padding-left: 15px;"><span>{{ paciente.nomeCompleto }}</span></td>
-                <td class="col" style="padding-left: 15px;">
-                  <span
-                    *ngIf="paciente.dataUltimoAtendimento; else semAtendimento">
-                    {{ paciente.dataUltimoAtendimento | date: 'dd/MM/yyyy' }}
-                  </span>
-                <ng-template #semAtendimento><span>Sem atendimento</span></ng-template>
-                </td>
-                <td class="col" style="padding-left: 15px;">
-                  <span class="perfil-item">
-                    {{ paciente.perfil.charAt(0).toUpperCase() + paciente.perfil.slice(1).toLowerCase() }}
-                  </span>
-                </td>
-
-                <td class="col">
-                  <button
-                    *ngIf="paciente.dataUltimoAtendimento === null"
-                    class="btn btn-warning btn-iniciar-atendimento"
-                    (click)="redirectPaciente(paciente)">Iniciar Atendimento</button>
-                </td>
-
-              </div>
-
-
-
-
-
-
-
-
+                (click)="paciente.dataUltimoAtendimento != null ? redirectPaciente(paciente) : null"
+                class="col-12 col-12-container-tr">
+            <!-- Container das tds principal -->
+            <div class="row row-div-container-tr-colunas">
+              <th scope="row" class="col coluna-1-prontuario-th"><span>{{ paciente.pacienteId }}</span></th>
+              <td class="col coluna-2-nome-completo-td"><span>{{ paciente.nomeCompleto }}</span></td>
+              <td class="col coluna-3-data-ultimo-atendimento-td">
+                <span *ngIf="paciente.dataUltimoAtendimento; else semAtendimento">
+                  {{ paciente.dataUltimoAtendimento | date: 'dd/MM/yyyy' }}
+                </span>
+                <ng-template #semAtendimento><span>Paciente novo</span></ng-template>
+              </td>
+              <td class="col coluna-4-perfil-td">
+                <span class="perfil-item">
+                  {{ paciente.perfil.charAt(0).toUpperCase() + paciente.perfil.slice(1).toLowerCase() }}
+                </span>
+              </td>
+              <td class="col coluna-5-botao-iniciar-antendimento">
+                <button *ngIf="paciente.dataUltimoAtendimento === null" class="btn btn-warning btn-iniciar-atendimento"
+                  (click)="redirectPaciente(paciente)">Iniciar Atendimento
+                </button>
+              </td>
+            </div>
           </tr>
-
         </tbody>
+
         <ng-template #noData>
           <tr class="tr-noData">
-            <td colspan="4" class="td-noData row">
+            <td colspan="4" class="row td-noData ">
             <div class="col-12 div-col-frase">
               <p>Carregando...</p><br>
             </div>
@@ -223,76 +106,7 @@
         </ng-template>
 
       </table>
-
-
-
-
-
-      </div>
-
-
-
-
-
-      <!--
-
-      <div class="col-12 container-table" style="">
-        <table class="table table-hover tabela_pacientes">
-          <thead style="" class="thead-container"></thead>
-          <tbody *ngIf="listaPacienteHomeFiltrada.length > 0; else noData">
-            <tr
-              *ngFor="let paciente of listaPacienteHomeFiltrada"
-              (click)="paciente.dataUltimoAtendimento != null ? redirectPaciente(paciente) : null"
-            >
-
-              <th scope="row" class="coluna_1"><span>{{ paciente.pacienteId }}</span></th>
-
-              <td class="coluna_2"><span>{{ paciente.nomeCompleto }}</span></td>
-
-              <td class="coluna_3">
-                <span
-                  *ngIf="paciente.dataUltimoAtendimento; else semAtendimento">
-                  {{ paciente.dataUltimoAtendimento | date: 'dd/MM/yyyy' }}
-                </span>
-              <ng-template #semAtendimento><span>Sem atendimento</span></ng-template>
-              </td>
-
-              <td class="coluna_4">
-                <span class="perfil-item">
-                  {{ paciente.perfil.charAt(0).toUpperCase() + paciente.perfil.slice(1).toLowerCase() }}
-                </span>
-              </td>
-
-              <td class="coluna_5">
-                <button
-                  *ngIf="paciente.dataUltimoAtendimento === null"
-                  class="btn btn-warning btn-iniciar-atendimento"
-                  (click)="redirectPaciente(paciente)">Iniciar Atendimento</button>
-              </td>
-
-            </tr>
-          </tbody>
-          <ng-template #noData>
-            <tr class="tr-noData">
-              <td colspan="4" class="td-noData row">
-              <div class="col-12 div-col-frase">
-                <p>Carregando...</p><br>
-              </div>
-              <div class="col-12 div-col-loading">
-                <img src="../../assets/img/loading.gif" alt="Carregando..." class="img-loading no-select-img" />
-              </div>
-            </td>
-            </tr>
-          </ng-template>
-        </table>
-      </div> -->
-
-
     </div>
-
-
-
-
-
-
+  </div>
+</div>
 
