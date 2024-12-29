@@ -1,7 +1,7 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeLast, takeUntil } from 'rxjs';
 import { Usuario } from '../model/login/usuario';
 import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticacao.service';
 import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   // Angular services
   formularioDeLogin!: FormGroup;
-  subscription: Subscription = new Subscription();
+  private unsubscribe$ = new Subject<void>();
   // token: string | null = localStorage.getItem('token');
 
   private usuarioAutenticado: boolean = false;
@@ -98,41 +98,35 @@ export class LoginComponent implements OnInit {
       this.ativarLoading = true;
       // console.log(this.usuario)    //{Debug}\\
 
-      this.apiAutenticacaoService.apiAutenticacao(this.usuario);
+      this.apiAutenticacaoService.apiAutenticacao(this.usuario)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (isAuthenticated) => {
 
-      setTimeout(() => {
+          if (!isAuthenticated) {
+            this.ativarLoading = false;
+            this.errorMessage = this.gerenciadoDeAutenticacaoService.getErrorMessage();
+            return;
+          }
 
-        const statusAutenticacao = this.gerenciadoDeAutenticacaoService.getUsuarioAutenticado();
 
-        if(!statusAutenticacao) {
-          this.ativarLoading = false;
-          // this.errorMessageSenha = 'Dados de autenticação inválidos ou servidor fora do ar, acesso negado';
-          this.errorMessage = this.gerenciadoDeAutenticacaoService.getErrorMessage();
-          return;
-        }
-
-        else if(statusAutenticacao) {
-
+          // Limpar os campos de entrada
           this.formularioDeLogin.get('login')!.setValue('');
           this.formularioDeLogin.get('senha')!.setValue('');
 
-          // Timeout para atualizar e redirecionar
-          setTimeout(() => {
-            this.ativarLoading = false;
-            setTimeout(() => {
-              window.location.reload()
-            }, 100);  //   tempo de redirecionamento
-            this.router.navigate(['redirect-home']);
-            // console.log(this.usuario)  //{Debug}\\
+          // Redirecionar após autenticação bem-sucedida
+          this.ativarLoading = false;
+          this.router.navigate(['redirect-home']);
 
-          }, 100);
+          // setTimeout(() => {
+          //   this.ativarLoading = false;
+          //   this.router.navigate(['redirect-home']);
+          // }, 200);
+        }
+      })
 
-         }
-
-      }, 1500)  // tempo de espera da chegada do token
+      }
     }
-
-  }
 
 
 
@@ -231,6 +225,11 @@ export class LoginComponent implements OnInit {
   }
 
 
+  ngOnDestroy() {
+    // Emite um valor para cancelar todas as subscriptions
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
 
 

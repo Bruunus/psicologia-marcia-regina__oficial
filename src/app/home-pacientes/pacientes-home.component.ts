@@ -101,6 +101,7 @@ export class PacientesHomeComponent implements OnInit {
    * @param paciente objeto correspondente ao cpf
    */
   protected redirectPaciente(paciente: TelaHome) {
+
     alert(
       "Paramento para API: "+paciente.cpf+"\nParametro para o componente: "+paciente.perfil)
     // solicita o carregamento de todos os dados de tratamento do paciente para api usando cpf como base

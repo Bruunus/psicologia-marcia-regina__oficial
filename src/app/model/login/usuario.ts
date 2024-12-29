@@ -15,9 +15,5 @@ export class Usuario {
   public setLogin(usuario: string) {
     this.login = usuario
   }
-
-
-
-
 }
 

@@ -23,6 +23,7 @@
 */
 @media(min-width: 1200px) {
   /* em 1344px está aparecendo uma barra de rolagem horizontal na tebela, após os ajustes verifique */
+
 }
 
 
@@ -61,6 +62,22 @@
 
 
 
+@media (width: 1326px) {
+
+
+  .container-table {
+
+    // border-radius: 2px;
+    overflow: hidden; /* Oculta qualquer conteúdo que exceda a altura */
+    scrollbar-width: thin;
+    display: flex;
+  }
+  .container-table:hover {
+    overflow: scroll;
+  }
+
+}
+
 
 
 /*
@@ -69,7 +86,9 @@
 * Obs: Um dos notebooks menores padronizados
 * Testado
 */
-@media (width: 1366px) and (height: 768px) {}
+@media (width: 1366px) and (height: 768px) {
+
+}
 
 
 
@@ -79,7 +98,9 @@
 * Resolução para notebooks de largura e altura de 1440 x 900
 * MacBook Air 13 (2011) 13.3 polegadas
 */
-@media (width: 1440px) and (height: 900px) {}
+@media (width: 1440px) and (height: 900px) {
+
+}
 
 
 

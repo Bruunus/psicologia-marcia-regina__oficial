@@ -22,88 +22,223 @@
   <app-menu-principal></app-menu-principal>
 
 
+    <div class="row-container-inferior row"
 
-<!--
-  <div class="row menu-bar-pacientes">
+    style="
+      /* background-color: tomato; */
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      margin: 0;
+      padding: 2rem 4rem 2rem 4rem;
 
-    <div class="col-1 d-flex align-items-center justify-content-center div-filho-esquerdo">
-      <a [routerLink]="['/pacientes']"><img src="../../assets/img/img-logo-alfa.png" class=" img-menu no-select-img" alt=""></a>
-    </div>
+    "
+    >
 
-    <div class="col-lg-8 col-xl-8 col-sm-7 col-centro d-flex align-items-center pl-5 div-filho-centro">
-      <ul class="nav">
-        <li class="nav-item">
-          <a class="nav-link menu-item-link pb-4 pt-4"  [routerLink]="['/pacientes']">Home</a></li>
-        <li class="nav-item ">
-          <a class="nav-link menu-item-link pb-4 pt-4" [routerLink]="['/cadastro']">Novo paciente</a></li>
-        <li class="nav-item">
-          <a class="nav-link menu-item-link pb-4 pt-4" href="#">Agenda</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link menu-item-link pb-4 pt-4" href="#">Arquivo</a>
-        </li>
-      </ul>
-    </div>
-
-    <div class=" col-lg-3 col-xl-3 col-sm-4 col-dir d-flex align-items-center  justify-content-center div-filho-direito">
-      <div class="no-select d-flex flex-column justify-content-center">
-        <p class="align-middle m-0 nick-name text-center">Olá, {{nomeLogin}}</p>
+    <div
+    class="col-12"
+    style="
+      background-color: aliceblue;
+      height: 7.8666666rem;
+      padding: 0;
+      border: 1px solid #dee2e6;
+    ">
+    <!-- titulo -->
+      <div class="container-titulo-tabela"
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        padding-top: .2rem;
+        padding-bottom: .2rem;
+        border-radius: 5px 5px 0 0;
+        border-bottom: 1px solid #dee2e6;
+        /* Antigo: titulo-tabela */
+      ">
+         Pacientes
       </div>
-      <a href="#" class="ml-5 link-logout" (click)="logout()">Sair</a>
+
+
+      <!-- barra de pesquisa -->
+       <div class="row-container-barra-de-pesquisa row"
+        style="
+
+          width: 100%;
+          display: flex;
+          border-bottom: 1px solid #dee2e6;
+          /* height: 5rem; */
+          margin: 0;
+          padding-top: .3rem;
+          padding-bottom: .3rem;
+        ">
+
+        <!-- col 1 -->
+        <div class="col-6 col-button-limpar"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: start;
+          padding: 0;
+        ">
+        <button type="button" class="btn btn-secondary btn-system-psico botao-limpar" *ngIf="exibirButtonLimpar" (click)="resetarPesquisa()">
+          Limpar
+        </button>
+        </div>
+
+        <!-- col 2 -->
+        <div class="col-6 col-form-pesquisa"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: end;
+          padding: 0;
+        ">
+          <form (ngSubmit)="procurarPaciente()" [formGroup]="pesquisaDePaciente" class="d-flex">
+            <input class="form-control form-control input-system-psico input-pesquisar" type="text"
+            placeholder="Paciente" formControlName="pesquisa" (focus)="onCloseMessage()">
+            <button type="submit"  class="btn btn-primary btn-system-psico botao-pesquisar" >Pesquisar</button>
+          </form>
+        </div>
+       </div>
+
+       <!-- container titulo coluna da tabela -->
+       <div class="col-12 container-colunas-titulo-tabela"
+       style="
+        width: 100%;
+        padding: 0;
+       ">
+        <div class="row row-filha-container-colunas-titulo-tabela"
+          style="
+            margin: 0;
+            width: 100%;
+            padding-top: .5rem;
+            padding-bottom: .5rem;
+        ">
+
+
+          <div class="col coluna-1-prontuario" style="font-weight: bold;">
+            <span class="prontuario_Titulo" (click)="ordenacao('pacienteId')">Prontuário</span>
+          </div>
+          <div class="col coluna-2-nome-completo" style="font-weight: bold;">
+            <span class="nomeCompleto_Titulo" (click)="ordenacao('nomeCompleto')">Nome completo</span>
+          </div>
+          <div class="col coluna-3-data-ultimo-atendimento" style="font-weight: bold;">
+            <span class="dataUltimoAtend_titulo" (click)="ordenacao('dataUltimoAtendimento')">Data último atendimento</span>
+          </div>
+          <div class="col coluna-4-perfil" style="font-weight: bold;">
+            <span class="perfil_titulo" (click)="ordenacao('perfil')">Perfil</span>
+          </div>
+          <div class="col">
+            button
+          </div>
+
+
+        </div>
+
+       </div>
+
+
+
     </div>
 
 
 
+    <div
+      class="col-12"
+      style="
+        height: 34.8rem !important;
+        top: -0.6rem;
+        padding: 0;
+        height: auto;
+        border-left: 1px solid #dee2e6;
+        border-right: 1px solid #dee2e6;
+        border-bottom: 1px solid #dee2e6;
+      ">
 
-    </div> -->
+      <table class="table table-hover tabela_pacientes"
+      style="
+        width: 100%;
+        height: 100%;
+
+      ">
+
+        <thead style="" class="thead-container"></thead>
+        <tbody *ngIf="listaPacienteHomeFiltrada.length > 0; else noData" class="row row-container-tbody"
+          style="
+            margin: 0;
+            ">
+
+          <tr *ngFor="let paciente of listaPacienteHomeFiltrada"
+              (click)="paciente.dataUltimoAtendimento != null ? redirectPaciente(paciente) : null"
+              class="col-12 col-container-tr" style="padding: 0;">
+
+              <div class="row row-container-div-tr-colunas" style="margin: 0;">
+
+                <th scope="row" class="col"style="padding-left: 15px;"><span>{{ paciente.pacienteId }}</span></th>
+                <td class="col" style="padding-left: 15px;"><span>{{ paciente.nomeCompleto }}</span></td>
+                <td class="col" style="padding-left: 15px;">
+                  <span
+                    *ngIf="paciente.dataUltimoAtendimento; else semAtendimento">
+                    {{ paciente.dataUltimoAtendimento | date: 'dd/MM/yyyy' }}
+                  </span>
+                <ng-template #semAtendimento><span>Sem atendimento</span></ng-template>
+                </td>
+                <td class="col" style="padding-left: 15px;">
+                  <span class="perfil-item">
+                    {{ paciente.perfil.charAt(0).toUpperCase() + paciente.perfil.slice(1).toLowerCase() }}
+                  </span>
+                </td>
+
+                <td class="col">
+                  <button
+                    *ngIf="paciente.dataUltimoAtendimento === null"
+                    class="btn btn-warning btn-iniciar-atendimento"
+                    (click)="redirectPaciente(paciente)">Iniciar Atendimento</button>
+                </td>
+
+              </div>
 
 
 
-    <div class="container-inferior">
-      <div class="container-table" style="">
+
+
+
+
+
+          </tr>
+
+        </tbody>
+        <ng-template #noData>
+          <tr class="tr-noData">
+            <td colspan="4" class="td-noData row">
+            <div class="col-12 div-col-frase">
+              <p>Carregando...</p><br>
+            </div>
+            <div class="col-12 div-col-loading">
+              <img src="../../assets/img/loading.gif" alt="Carregando..." class="img-loading no-select-img" />
+            </div>
+          </td>
+          </tr>
+        </ng-template>
+
+      </table>
+
+
+
+
+
+      </div>
+
+
+
+
+
+      <!--
+
+      <div class="col-12 container-table" style="">
         <table class="table table-hover tabela_pacientes">
-
-          <thead style="" class="thead-container">
-            <tr>
-              <th colspan="4" class="titulo-tabela"><h5>Pacientes</h5></th>
-            </tr>
-            <tr colspan="4" class="tr-pesquisa" >
-              <th colspan="4" >
-                <div class="row d-flex div-row-pesquisar align-items-center justify-content-end" >
-                  <div class="col-6 d-flex justify-content-start pl-0">
-                    <button type="button" class="btn btn-secondary btn-system-psico botao-pesquisar" *ngIf="exibirButtonLimpar" (click)="resetarPesquisa()">
-                      Limpar
-                    </button>
-                  </div>
-                  <div class="col-6 pr-0">
-                    <form (ngSubmit)="procurarPaciente()" [formGroup]="pesquisaDePaciente">
-                      <input class="form-control form-control input-system-psico input-pesquisar" type="text"
-                      placeholder="Paciente" formControlName="pesquisa" (focus)="onCloseMessage()">
-                      <button type="submit"  class="btn btn-primary btn-system-psico botao-pesquisar" >Pesquisar</button>
-
-                    </form>
-                  </div>
-
-
-                </div>
-              </th>
-            </tr>
-            <tr class="tr-topo-tabela" style="background-color: #f1f1f1;">
-              <th class="sub-titulo-tabela" scope="col">
-                <span class="prontuario_Titulo" (click)="ordenacao('pacienteId')">Prontuário</span>
-              </th>
-              <th class="sub-titulo-tabela" scope="col">
-                <span class="nomeCompleto_Titulo" (click)="ordenacao('nomeCompleto')">Nome completo</span>
-              </th>
-              <th class="sub-titulo-tabela" scope="col">
-                <span class="dataUltimoAtend_titulo" (click)="ordenacao('dataUltimoAtendimento')">Data último atendimento</span>
-              </th>
-              <th class="sub-titulo-tabela" scope="col">
-                <span class="perfil_titulo" (click)="ordenacao('perfil')">Perfil</span>
-              </th>
-            </tr>
-          </thead>
-
+          <thead style="" class="thead-container"></thead>
           <tbody *ngIf="listaPacienteHomeFiltrada.length > 0; else noData">
             <tr
               *ngFor="let paciente of listaPacienteHomeFiltrada"
@@ -116,163 +251,46 @@
 
               <td class="coluna_3">
                 <span
-                *ngIf="paciente.dataUltimoAtendimento; else semAtendimento">{{ paciente.dataUltimoAtendimento }}</span>
+                  *ngIf="paciente.dataUltimoAtendimento; else semAtendimento">
+                  {{ paciente.dataUltimoAtendimento | date: 'dd/MM/yyyy' }}
+                </span>
               <ng-template #semAtendimento><span>Sem atendimento</span></ng-template>
               </td>
 
               <td class="coluna_4">
-                <span class="perfil-item">{{ paciente.perfil }}</span>
+                <span class="perfil-item">
+                  {{ paciente.perfil.charAt(0).toUpperCase() + paciente.perfil.slice(1).toLowerCase() }}
+                </span>
               </td>
 
               <td class="coluna_5">
                 <button
                   *ngIf="paciente.dataUltimoAtendimento === null"
                   class="btn btn-warning btn-iniciar-atendimento"
-                  style=""
                   (click)="redirectPaciente(paciente)">Iniciar Atendimento</button>
               </td>
 
             </tr>
           </tbody>
           <ng-template #noData>
-            <tr>
-              <td colspan="4"><p>Nenhum dado encontrado.</p></td>
+            <tr class="tr-noData">
+              <td colspan="4" class="td-noData row">
+              <div class="col-12 div-col-frase">
+                <p>Carregando...</p><br>
+              </div>
+              <div class="col-12 div-col-loading">
+                <img src="../../assets/img/loading.gif" alt="Carregando..." class="img-loading no-select-img" />
+              </div>
+            </td>
             </tr>
           </ng-template>
-
-
-            <!-- <tr >
-              <th scope="row"><span style="">0002</span></th>
-              <td><span style="">Silvio Barbosa Filho</span></td>
-              <td><span style="">Sem tratamento</span></td>
-              <td>
-                <span style="margin-right: 4rem;">Psicoterapia</span>
-                <button class="btn btn-warning">Iniciar tratamento</button>
-              </td>
-            </tr> -->
-
-
-
-
         </table>
+      </div> -->
 
-
-
-      </div>
 
     </div>
 
 
-
-
-
-
-   <!--criada -->
-<!-- executando -->
-<!-- finalizada -->
-<!-- rollback
-
-
-<div class="container-sprint">
-
-  <table class="sprint" style="" >
-    <thead>
-      <tr class="left;" style="padding: 7pt;"><th colspan="3">Sprints</th></tr>
-      <tr>
-        <th class="left;">Sprint</th>
-        <th class="left;">Iniciado</th>
-        <th class="left;">Finalizado</th>
-      </tr>
-    </thead>
-
-
-    <tbody>
-      <tr class="rollback">
-        <td>
-          <b>Menu</b><br>
-          A cor da barra principal está horrível em modo noturno, refaça a cor de fundo (Somente em casa)
-        </td>
-        <td>07/out/2024 - 19:00</td>
-      </tr>
-      <tr class="rollback">
-        <td>
-          <b>Menu</b><br>
-          A cor do hover dos itens do menu está horrível, refaça a coloração em conjunto com a cor de fundo do menu
-          (Somente em casa)
-        </td>
-        <td>07/out/2024 - 19:00</td>
-      </tr>
-      <tr class="rollback">
-        <td>
-          <b>Tabela</b><br>
-          O alcance da barra de rolagem com o limite da tabela está curto. Vejo fazendo o teste com devtools em tela grande.
-          Para telas grandes o tamanho da tabela precisa se extender até o final
-        </td>
-        <td>07/out/2024 - 19:00</td>
-      </tr>
-      <tr class="finalizada">
-        <td>
-          <b>Tabela</b><br>
-          Realize todos os ajustes responsivos da tela de pacientes
-        </td>
-        <td>07/out/2024 - 19:00</td>
-        <td>28/out/2024 - 11:21</td>
-      </tr>
-      <tr class="rollback">
-        <td>
-          <b>Tabela</b><br>
-           Ajustar a cor de fundo do topo da tabela está bom porém a th da barra de pesquisa, a cor é a mesma, precisa ser mais clara.
-           (Somente em casa em modo noturno)
-        </td>
-        <td>07/out/2024 - 19:00</td>
-      </tr>
-      <tr class="rollback">
-        <td>
-          <b>Tabela</b><br>
-           Austar a cor de fundo da tr dos titulos, precisa ser mais clara ou igual ao fundo da barra de pesquisa
-           (Somente em casa em modo noturno)
-        </td>
-        <td>07/out/2024 - 19:00</td>
-      </tr>
-      <tr class="rollback">
-        <td>
-          <b>Tabela</b><br>
-          Implante a funcionalidade da tabela dinamica (a mesma que voce implantou na tabela de dentista do DentalClean) para quando clicar
-          na descrição seja ordenado a lista novamente em ordem alfabética, assim por diante de acordo com cada descrição.
-          <br>
-          <b>Resposta:</b> Vamos deixar em análize e aguardo por enquanto, ao que pacere esse efeito só acontece em modo
-          desenvolvimento e quando aumentamos a porcentagem do devtools. (Analizado em: 28/10/2024)
-        </td>
-        <td>07/out/2024 - 19:00</td>
-
-      </tr>
-      <tr class="rollback">
-        <td>
-          <b>Tabela</b><br>
-          Ajustar a cor do hover das trs da tabela, está muito forte igual a própria cor da tabela
-          (Somente em casa)
-        </td>
-        <td>07/out/2024 - 19:00</td>
-      </tr>
-
-      <tr class="criada">
-        <td>
-          <b>Tabela</b><br>
-
-        </td>
-        <td>28/out/2024 - 11:31</td>
-      </tr>
-
-
-
-    </tbody>
-
-
-  </table>
-</div>
-
-
--->
 
 
 

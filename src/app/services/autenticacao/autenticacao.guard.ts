@@ -18,11 +18,16 @@ export class AutenticacaoGuard  {
     Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
       // console.log('status do usuarioAutenticado() dentro do canActivate, ', this.autenticacaoService.getUsuarioAutenticado())
+      // console.log('Verificando autenticação...');
+      // console.log('Usuário:', this.gerenciadorAutenticacaoService.getUsuario());
+      // console.log('Token:', this.gerenciadorAutenticacaoService.getToken());
+      // console.log('Usuário autenticado:', this.gerenciadorAutenticacaoService.getUsuarioAutenticado());
 
       if(this.gerenciadorAutenticacaoService.getUsuario() === '' || this.gerenciadorAutenticacaoService.getUsuario() === null ||
       this.gerenciadorAutenticacaoService.getToken() === null && this.gerenciadorAutenticacaoService.getUsuarioAutenticado()===false) {
         // console.log('Login incorreto - redirecionando')  //{Debug}\\
         // this.router.navigate(['login'])
+
         return false;
 
       } else {
