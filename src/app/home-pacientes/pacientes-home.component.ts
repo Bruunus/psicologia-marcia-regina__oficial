@@ -110,26 +110,48 @@ export class PacientesHomeComponent implements OnInit {
 
 
 
+  /**
+   * Método que realiza uma pesquisa na lista carregada do servidor, este método não busca o paciente
+   * diretamente no banco, mas somente na lista carregada após a renderização. O seu objetivo é carregar
+   * o objeto com base no nome do paciente apenas, qualquer outro valor retornará em erro a busca.
+   * @returns a lista de pacientes com base no parrametro pesquisado
+   */
   protected procurarPaciente(): void {
     const pesquisa = this.pesquisaDePaciente.get('pesquisa')?.value;
+    const erroMessage = this.errorService.ERROR_SEACH_PATIENT;
 
-    if (pesquisa === null || pesquisa.trim() === '') {
-      this.errorService.setMessage(this.errorService.ERROR_SEACH_PATIENT, 'ALERT_INFO');
+    // Verifica se a pesquisa é nula, vazia ou um número
+    if (pesquisa === null || pesquisa.trim() === '' || !isNaN(pesquisa)) {
+      this.errorService.setMessage(erroMessage, 'ALERT_INFO');
+      this.errorService.getMessage();
+      this.exibirButtonLimpar = false;
+      return;
+    }
+
+    const pesquisaLower = pesquisa.toLowerCase();
+
+    // Filtra a lista de pacientes com base na pesquisa
+    const listaFiltrada = this.listaPacienteHome.filter(paciente =>
+      paciente.nomeCompleto.toLowerCase().includes(pesquisaLower) ||
+      paciente.cpf.includes(pesquisa)
+    );
+
+    // Verifica se a lista filtrada está vazia
+    if (listaFiltrada.length === 0) {
+      this.errorService.setMessage(erroMessage, 'ALERT_INFO');
       this.errorService.getMessage();
       this.exibirButtonLimpar = false; // Mantém o botão invisível
-    } else {
-      const pesquisaLower = pesquisa.toLowerCase();
-
-      // Filtra a lista de pacientes com base na pesquisa
-      this.listaPacienteHomeFiltrada = this.listaPacienteHome.filter(paciente =>
-        paciente.nomeCompleto.toLowerCase().includes(pesquisaLower) ||
-        paciente.cpf.includes(pesquisa)
-      );
-
-      // Exibe o botão de limpar se houver resultados
-      this.exibirButtonLimpar = this.listaPacienteHomeFiltrada.length > 0;
+      return;
     }
+
+    // Se houver resultados, atualiza a lista filtrada
+    this.listaPacienteHomeFiltrada = listaFiltrada;
+
+    // Exibe o botão de limpar se houver resultados
+    this.exibirButtonLimpar = this.listaPacienteHomeFiltrada.length > 0;
   }
+
+
 
 
   // Método para restaurar a lista original ao clicar no botão de pesquisa novamente

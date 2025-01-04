@@ -1,3 +1,4 @@
+@import '../../styles.scss';
 
 $cor_de_borda: #d5cad5;
 $cor_de_borda_com_focus: #6b006b7e !important;
@@ -72,6 +73,8 @@ $cancelar_box_shaddon_p_calendar: 0 0 0 0 #fff !important;
 .btn-primary-registrar {
   background-color: #29b3b8;
   border-color: #29b3b8;
+  font-size: $tamanho_fonte_botao;
+  // font-weight: 600;
 }
 .btn-primary-registrar:hover {
   background-color: #23a2a7;

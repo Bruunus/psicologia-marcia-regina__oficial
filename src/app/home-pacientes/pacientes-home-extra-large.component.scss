@@ -19,21 +19,24 @@
 
 /**
 * Estilização global para as Queries media
-* A partir de 1200px
+* Bootstrap - Extra large .col-xl-
 */
 @media(min-width: 1200px) {
   /* em 1344px está aparecendo uma barra de rolagem horizontal na tebela, após os ajustes verifique */
-
 }
 
 
 
 /**
 * Grid Extra Large - A partir de 1200px
-* Bootstrap - Extra large .col-xl-
 * Dispositivo alvo: Desktops com telas grandes e monitores de alta resolução.
 */
-@media(min-width: 1200px) and (min-height: 769px) {}
+@media(width: 1200px) and (min-height: 769px) {
+  .row-container-inferior {
+    height: 70.83vh ;      /* Altura ideal para esta screen */
+    margin: 2.6666666rem auto ;  /* Controle de autura e largura centralizada*/
+  }
+}
 
 
 
@@ -44,7 +47,12 @@
 *
 * Esta query engloba todos as resoluções abaixo
 */
-@media(min-width: 1200px) and (max-height: 800px) {}
+@media(width: 1200px) and (max-height: 800px) {
+  .row-container-inferior {
+    height: 76.83vh ;      /* Altura ideal para esta screen */
+    margin: 3.2rem auto ;  /* Controle de autura e largura centralizada*/
+  }
+}
 
 
 
@@ -58,25 +66,16 @@
 * MacBook Pro 13 (2011) 13.3 polegadas
 * Testado Ok
 */
-@media (width: 1280px) and (height: 800px) {}
-
-
-
-@media (width: 1326px) {
-
-
-  .container-table {
-
-    // border-radius: 2px;
-    overflow: hidden; /* Oculta qualquer conteúdo que exceda a altura */
-    scrollbar-width: thin;
-    display: flex;
+@media (width: 1280px) and (height: 800px) {
+  .row-container-inferior {
+    height: 79.73vh;      /* Altura ideal para esta screen */
+    margin: 2.7rem auto ;  /* Controle de autura e largura centralizada*/
   }
-  .container-table:hover {
-    overflow: scroll;
-  }
-
 }
+
+
+
+@media (width: 1326px) {/*Perfeita*/}
 
 
 
@@ -87,10 +86,23 @@
 * Testado
 */
 @media (width: 1366px) and (height: 768px) {
-
+  .row-container-inferior {
+    height: 76.93vh !important;    /* Altura ideal para esta screen */
+    margin: 3rem auto !important;  /* Controle de autura e largura centralizada*/
+  }
 }
 
 
+/**
+* Estilização global para as Queries media
+* A partir de 1680px
+*/
+@media(min-width: 1600px) {
+  .row-container-inferior {
+    height: 78.26vh !important;      /* Altura ideal para esta screen */
+    margin: 3.8rem auto !important;  /* Controle de autura e largura centralizada*/
+  }
+}
 
 
 
@@ -99,19 +111,11 @@
 * MacBook Air 13 (2011) 13.3 polegadas
 */
 @media (width: 1440px) and (height: 900px) {
-
+  .row-container-inferior {
+    height: 75.9vh !important;             /* Altura ideal para esta screen */
+    margin: 3.63666666rem auto !important; /* Controle de autura e largura centralizada*/
+  }
 }
-
-
-
-
-/**
-* Estilização global para as Queries media
-* A partir de 1600px
-*/
-@media(min-width: 1600px) {}
-
-
 
 
 
@@ -121,16 +125,12 @@
 * Obs: Dispositivo com altura média alta
 * Testado Ok
 */
-@media (width: 1600px) and (height: 900px) {}
-
-
-
-
-/**
-* Estilização global para as Queries media
-* A partir de 1680px
-*/
-@media(min-width: 1680px) {}
+@media (width: 1600px) and (height: 900px) {
+  .row-container-inferior {
+    height: 76vh !important;        /* Altura ideal para esta screen */
+    margin: 4.1rem auto !important; /* Controle de autura e largura centralizada*/
+  }
+}
 
 
 
@@ -142,9 +142,52 @@
 * Obs: Este dispositivo possui a tela muito alta
 * Testado OK
 */
-@media (width: 1680px) and (height: 1050px) {}
+@media (width: 1680px) and (height: 1050px) {/*Perfeito*/}
 
 
+
+
+/*****************************************************************************************/
+/*
+* Media Querye de exceção apenas para ajustar a largura das colunas da tabela.
+* O Ajuste principal é tratado na coluna 'Nome completo'
+*/
+@media(max-width: 1713px) {
+  .coluna-2-nome-completo, .coluna-2-nome-completo-td {
+    /*Medida bootstrap col-3*/
+    // background-color: rgb(69, 223, 177);
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  .btn-iniciar-atendimento  {
+    width: 75%;
+  }
+}
+@media(max-width: 1639px) {
+  .coluna-2-nome-completo-td {
+    /*Medida bootstrap col-3*/
+    // background-color: rgb(69, 223, 177);
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+@media(max-width: 1378px) {
+  .coluna-2-nome-completo, .coluna-2-nome-completo-td {
+    flex: 0 0 29.333333%;
+    max-width: 29.333333%;
+  }
+  .btn-iniciar-atendimento  {
+    width: 100% !important;
+  }
+}
+@media(max-width: 1375px) {
+  .coluna-1-prontuario, .coluna-2-nome-completo,
+  .coluna-3-data-ultimo-atendimento, .coluna-4-perfil {
+    display: flex;
+    align-items: center;
+  }
+}
+/***************************Termino de ajuste de exceção da tabela interna*************************/
 
 
 
@@ -155,7 +198,12 @@
 * Resolução ideal do cliente: Psicologa Marcia Regina
 * Testado ok
 */
-@media (min-width: 1920px) and (min-height: 1080px) {}
+@media (min-width: 1920px) and (min-height: 1080px) {
+  .row-container-inferior {
+    height: 76.2vh !important; /* Altura ideal para esta screen */
+    margin: 4.7rem auto !important; /* Controle de autura e largura centralizada*/
+  }
+}
 
 
 
@@ -168,23 +216,12 @@
 * Obs:
 * Testado
 */
-@media (width: 1920px) and (height: 1200px) {}
-
-
-
-
-
-
-/*
-* Resolução para notebooks de largura e altura de 1920 x 1080
-* Sony Vaio Z 13.1 (2012) - 13.1 polegadas
-* Obs:
-* Testado
-*/
-@media (width: 1920px) and (height: 1080px) {/*NÃO É NECESSÁRIO*/}
-
-
-
+@media (min-width: 1920px) and (height: 1200px) {
+  .row-container-inferior {
+    height: 76.4vh !important; /* Altura ideal para esta screen */
+    margin: 5.7rem auto !important; /* Controle de autura e largura centralizada*/
+  }
+}
 
 
 
@@ -194,4 +231,9 @@
 * Obs:
 * Testado
 */
-@media (width: 2880px) and (height: 1800px) {/*NÃO É NECESSÁRIO*/}
+@media (width: 2880px) and (height: 1800px) {
+  .row-container-inferior {
+    height: 79.5vh !important; /* Altura ideal para esta screen */
+    margin: 7.7rem auto !important; /* Controle de autura e largura centralizada*/
+  }
+}

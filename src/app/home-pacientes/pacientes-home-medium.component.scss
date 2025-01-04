@@ -1,8 +1,8 @@
 @import url('../../styles.scss');
 
 
-/* Estilo para telas médias e maiores (De 768px até 992px) */
-@media (min-width: 768px) and (max-width: 991px) {
+/* Estilo para telas médias e maiores (De 768px até 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
 
   .filho-row {
     width: 17.7rem !important;
@@ -11,6 +11,36 @@
   #img-logo {
     height: 12.566667rem;
   }
+
+
+
+  /* Ajuste da tabela para responsivo */
+  .container-fluid {
+    align-items: center;
+  }
+
+  .row-container-inferior {
+    width: 97%;
+    height: 100vh !important;        /* Altura ideal para esta screen */
+    margin-top: 6.5rem !important; /* Controle de autura e largura centralizada*/
+    margin-bottom: 1.8rem !important;
+  }
+  /*
+  * Layout da tabela aumentando a largura e acrescentando barra de rolagem
+  */
+  .row-filha-container-titulos-colunas-tabela,
+  .row-div-container-tr-colunas {
+    width: 80rem;
+  }
+
+  .coluna-2-nome-completo, .coluna-2-nome-completo-td {
+    flex: 0 0 24.333333%;
+    max-width: 29.333333%;
+  }
+
+
+
+
 
 }
 

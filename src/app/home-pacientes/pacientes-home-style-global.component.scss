@@ -1,14 +1,70 @@
-// @import url('../../styles.scss');
+@import '../../styles.scss';
 
 
-  //vars
-$background_color_menu_completo: #949494;
-$color-item-menu: #ca72ca;  /*#ca72ca - rosa antigo*/
-//#66D2D5 - verde da árvore
-//#555555 - grafite
+//vars
+
 $altura_ideal_container_pacientes: 80vh;
-$color-border-table: #EED4EE;
-$color-border-table: #EED4EE;
+
+
+
+$cor_tema_background_tabela: #f6dfeb;
+// tom de azul escolhido - dfedff
+// tom de azul da arvore - f3fcfc
+// tom de lilaz - f8f3fc
+$cor_das_bordas_oficial: #e4c3d4;
+// 99bbe6
+$cor_texto_thead_toda: #24161d;
+// cor escolhida 01387a
+$cor_backroung_hover_tr: #fff6fb !important;
+
+/*
+
+  Tema 1:  tema de azul
+  $cor_tema_background_tabela: #dfedff;
+  $cor_das_bordas_oficial: #9fc3f0;
+  $cor_texto_thead_toda: #16325b;
+  $background_color_botoes_tabela_scroll_hover: #275997;
+  $borda_color_botoes_tabela: #77A1D6;
+  $active_color_botoes_e_borda_tabela: #3a70b3;
+  $cor_backroung_hover_tr: #f3f9ff !important;
+
+
+  Tema 2: tema lilaz forte
+  $cor_tema_background_tabela: #f6dfeb;
+  $cor_das_bordas_oficial: #e4c3d4;
+  $background_color_botoes_tabela_scroll: #995a8c;
+  $cor_texto_thead_toda: #24161d;
+  $background_color_botoes_tabela_scroll: #995a8c;
+  $background_color_botoes_tabela_scroll_hover: #914c83;
+  $borda_color_botoes_tabela: #995a8c;
+  $active_color_botoes_e_borda_tabela: #7c3b6f;
+
+
+
+  Tema 3: tom de azul da arvore - f3fcfc
+  $cor_tema_background_tabela: #81dfdf;
+  $cor_das_bordas_oficial: #6bcaca;
+
+  Tema 4: Pessego
+  $cor_tema_background_tabela: #f3ad85;
+  $cor_das_bordas_oficial: #e29b71;
+
+  tema 5: Amarelo ouro
+  $cor_tema_background_tabela: #f0d793;
+  $cor_das_bordas_oficial: #ddbf6d;
+
+
+*/
+
+
+
+/* Estilização do botão pesquisar e botão limpar - vars*/
+$background_color_botoes_tabela_scroll: #995a8c;
+$background_color_botoes_tabela_scroll_hover: #914c83;
+$borda_color_botoes_tabela: #995a8c;
+$active_color_botoes_e_borda_tabela: #7c3b6f;
+
+
 
 
 /* Configurações da parte inferior a tabela */
@@ -17,20 +73,27 @@ $color-border-table: #EED4EE;
 
 .row-container-inferior {
   /* background-color: tomato; */
-  width: 100%;
-  height: 100vh;
+  width: 90%;
+  height: 79.2vh; /* Altura ideal em combinação com tamanho de cada tr */
   overflow: hidden;
-  margin: 0;
-  padding: 2rem 4rem 2rem 4rem;
-
+  margin: 3rem auto; /* Controle de autura e largura centralizada*/
+  display: flex;
+  flex-direction: column;
+  // background-color: tomato;
 }
 
 /* Estilos 'cabeçalho' da tabela */
 .col-12-container-div-cabecalho {
-  background-color: aliceblue;
-  height: 7.8666666rem;
+  background-color: $cor_tema_background_tabela;
+  height: auto;
   padding: 0;
-  border: 1px solid #dee2e6;
+  margin: 0 !important;
+  border: 1px solid $cor_das_bordas_oficial;
+}
+
+.row-container-div-cabecalho-interna {
+  height: 100%;
+  margin: 0 !important;
 }
 
 .container-titulo-tabela-do-cabecalho {
@@ -42,13 +105,20 @@ $color-border-table: #EED4EE;
   padding-top: .2rem;
   padding-bottom: .2rem;
   border-radius: 5px 5px 0 0;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid $cor_das_bordas_oficial;
+  font-weight: 600;
+}
+
+.container-barra-de-pesquisa {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
 }
 
 .row-container-barra-de-pesquisa-do-cabecalho {
   width: 100%;
   display: flex;
-  border-bottom: 1px solid #dee2e6;
+  // border-bottom: 1px solid $cor_das_bordas_oficial;
   margin: 0;
   padding-top: .3rem;
   padding-bottom: .3rem;
@@ -70,21 +140,22 @@ $color-border-table: #EED4EE;
 .input-pesquisar {
   width: 200px;
   margin-right: 1rem;
-  border: 1px solid $color-border-table !important; /* Bootstrap */
+  border: 1px solid $cor_das_bordas_oficial!important; /* Bootstrap */
   font-family: 'font-home';
 }
 .input-pesquisar:focus {
   box-shadow: none !important;
-  border: 1px solid #d39ad3 !important;
+  border: 1px solid $background_color_botoes_tabela_scroll !important;
+}
+
+//cor de texto head inteira
+.container-titulo-tabela-do-cabecalho, .row-filha-container-titulos-colunas-tabela div,
+.input-pesquisar, .coluna-1-prontuario-th, .coluna-2-nome-completo-td, .coluna-3-data-ultimo-atendimento-td,
+.coluna-4-perfil-td, .perfil-item {
+  color: $cor_texto_thead_toda;
 }
 
 /* Estilização do botão pesquisar e botão limpar */
-
-// vars
-$background_color_botoes_tabela_scroll: #77A1D6;
-$background_color_botoes_tabela_scroll_hover: #5486c4;
-$borda_color_botoes_tabela: #77A1D6;
-$active_color_botoes_e_borda_tabela: #3a70b3;
 
 /* Botão limpar */
 .botao-pesquisar {
@@ -92,6 +163,7 @@ $active_color_botoes_e_borda_tabela: #3a70b3;
   color: #fff;
   background-color: $background_color_botoes_tabela_scroll !important;
   border-color: $borda_color_botoes_tabela  !important;
+  font-size: $tamanho_fonte_botao !important;
 }
 .botao-pesquisar:hover {
   background-color: $background_color_botoes_tabela_scroll_hover !important;
@@ -154,16 +226,27 @@ $active_color_botoes_e_borda_tabela: #3a70b3;
   padding: 0;
 }
 
+/* Aumentar a larguda da tebela - titulo */
 .row-filha-container-titulos-colunas-tabela {
   margin: 0;
   width: 100%;
   padding-top: .5rem;
   padding-bottom: .5rem;
+  margin-bottom: -1px;
+  background-color: $cor_tema_background_tabela;
+  //#155a97
+  outline: 1px solid $cor_das_bordas_oficial;
 }
 
 .coluna-1-prontuario, .coluna-2-nome-completo,
 .coluna-3-data-ultimo-atendimento, .coluna-4-perfil {
   font-weight: bold;
+}
+
+.prontuario_titulo, .nomeCompleto_titulo,
+.dataUltimoAtend_titulo, .perfil_titulo {
+  position: relative;
+  top: 0.5px;
 }
 
 .prontuario_titulo:hover, .nomeCompleto_titulo:hover,
@@ -176,25 +259,32 @@ $active_color_botoes_e_borda_tabela: #3a70b3;
 /***** Coluna 2 *****/
 
 .col-12-container-div-tabela {
-  height: 34.8rem !important;
-  max-height: 34.8rem !important;
-  top: -0.6rem;
-  padding: 0;
-  height: auto;
-  border-left: 1px solid #dee2e6;
-  border-right: 1px solid #dee2e6;
-  border-bottom: 1px solid #dee2e6;
-  overflow-y: auto;
+  flex-grow: 1; /* Preenchendo o espaço restante do container pai */
+  border-left: 1px solid $cor_das_bordas_oficial;
+  border-right: 1px solid $cor_das_bordas_oficial;
+  border-bottom: 1px solid $cor_das_bordas_oficial;
+  overflow: auto;
 }
 
 .tabela-pacientes {
   width: 100%;
   height: 100%;
+  table-layout: fixed;
   margin-bottom: 0 !important /* Sobrescrevendo bootstrap */;
 }
 
+.thead-container {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0.1px !important;
+  z-index: 1000;
+  border-bottom: 1px solid $cor_das_bordas_oficial;
+
+}
+
 .row-container-tbody {
-  margin: 0;
+  margin: 0 0 1px 0;
+
 }
 
 .col-12-container-tr {
@@ -209,13 +299,17 @@ $active_color_botoes_e_borda_tabela: #3a70b3;
 .row-div-container-tr-colunas {
   margin: 0;
   height: 2.9rem;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid $cor_das_bordas_oficial;
+}
+.row-div-container-tr-colunas:hover {
+  background-color: $cor_backroung_hover_tr;
 }
 
 .coluna-1-prontuario-th, .coluna-2-nome-completo-td,
 .coluna-3-data-ultimo-atendimento-td, .coluna-4-perfil-td,
 .coluna-5-botao-iniciar-antendimento {
   height: 100%;
+  font-size: $tamanho_fonte_botao;
   padding-left: 15px;
   padding-right: 15px;
   display: flex;
@@ -229,13 +323,67 @@ $active_color_botoes_e_borda_tabela: #3a70b3;
   top: 1px;
   cursor: default;
 }
-.coluna-5-botao-iniciar-antendimento .btn-iniciar-atendimento {
+.coluna-5-botao-iniciar-antendimento {
+  display: flex;
+  justify-content: center;
+}
+/* Configuração do botão "Iniciar atendimento" */
+$background_color_botoes_iniciar_atendimento: #fad779;
+$background_color_botoes_iniciar_atendimento_hover: #f3c64a;
+$borda_color_botoes_iniciar_atendimento: #fddb7f;
+$cor_texto_botao_iniciar_atendimento: #3b3b37;
+
+$active_color_botoes_e_borda_tabela: #3a70b3;
+.btn-iniciar-atendimento {
   height: 29px;
   font-size: 0.9rem;
   line-height: 1rem !important;
   position: relative;
   top: 0px;
+  width: 60%;
 }
+.btn-iniciar-atendimento {
+  color: $cor_texto_botao_iniciar_atendimento  !important;
+  background-color: $background_color_botoes_iniciar_atendimento;
+  border-color: $background_color_botoes_iniciar_atendimento;
+}
+
+.btn-iniciar-atendimento:hover {
+  color: #3b3b37;
+  background-color: $background_color_botoes_iniciar_atendimento_hover !important;
+  border-color: $background_color_botoes_iniciar_atendimento_hover;
+}
+
+.btn-iniciar-atendimento:focus, .btn-iniciar-atendimento.focus {
+  box-shadow: none !important;
+}
+
+.btn-iniciar-atendimento.disabled, .btn-iniciar-atendimento:disabled {
+  color: #212529;
+  background-color: $background_color_botoes_iniciar_atendimento;
+  border-color: $background_color_botoes_iniciar_atendimento;
+}
+
+.btn-iniciar-atendimento:not(:disabled):not(.disabled):active, .btn-iniciar-atendimento:not(:disabled):not(.disabled).active,
+.show > .btn-iniciar-atendimento.dropdown-toggle {
+  color: $cor_texto_botao_iniciar_atendimento  !important;
+  background-color: $background_color_botoes_iniciar_atendimento_hover;
+  border-color: $background_color_botoes_iniciar_atendimento_hover;
+}
+
+.btn-iniciar-atendimento:not(:disabled):not(.disabled):active:focus, .btn-iniciar-atendimento:not(:disabled):not(.disabled).active:focus,
+.show > .btn-iniciar-atendimento.dropdown-toggle:focus {
+  box-shadow: none;
+}
+
+
+
+
+
+
+
+
+
 
 /* Tratamento de erro ou tempo de carregamento */
 

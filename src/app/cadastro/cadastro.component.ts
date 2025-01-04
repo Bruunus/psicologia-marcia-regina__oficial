@@ -306,6 +306,7 @@ export class CadastroComponent implements OnInit  {
 
 
 
+
   /**
    * Método principal que processa os valores do formulário e salva no banco de dados.
    * @returns
@@ -323,22 +324,25 @@ export class CadastroComponent implements OnInit  {
     } else {
       // console.log('Formulário válido');
 
+      const nomeCompletoFormatado = this.mascaraService.formatarDeTexto(this.nomeCompleto);
       const celular1Formatado = this.mascaraService.formatarTelefone(this.telefone);
       const celular2Formatado = this.mascaraService.formatarTelefone(this.telefoneContato);
       const dataFormatada = this.mascaraService.transformarTipoDeData(this.dataNascimento);
+      const complementoFormatado = this.mascaraService.formatarDeTexto(this.complemento);
+      const profissaoFormatado = this.mascaraService.formatarDeTexto(this.profissao);
       let qtdFilhos_validado;
 
 
       if (this.qtdFilhos === null || this.qtdFilhos === undefined) {
         qtdFilhos_validado = 0; // Atribui o valor 0 a this.qtdFilhos se for nulo
       } else {
-        qtdFilhos_validado = this.qtdFilhos
+        qtdFilhos_validado = this.qtdFilhos;
       }
 
 
 
       this.pacienteCadastro = {
-        nomeCompleto: this.nomeCompleto,
+        nomeCompleto: nomeCompletoFormatado,
         cpf: this.cpf,
         email: this.email,
         telefone: celular1Formatado,
@@ -349,12 +353,12 @@ export class CadastroComponent implements OnInit  {
         filhos: this.filhos,
         qtdFilhos: qtdFilhos_validado,
         grauEscolaridade: this.grauEscolaridade,
-        profissao: this.profissao,
+        profissao: profissaoFormatado,
         perfil: this.perfil,
         endereco: {
           logradouro: this.logradouro,
           numero: this.numero,
-          complemento: this.complemento,
+          complemento: complementoFormatado,
           bairro: this.bairro,
           cidade: this.cidade,
           uf: this.uf,
@@ -363,7 +367,7 @@ export class CadastroComponent implements OnInit  {
         queixa: {
           queixa: this.queixa
         }
-      }
+      };
 
       // console.log(this.pacienteCadastro)
 
@@ -394,10 +398,10 @@ export class CadastroComponent implements OnInit  {
           this.router.navigate(['redirect-home']);
         }, 3500); //   tempo de redirecionamento
 
-      }
+      };
 
-    }
-  }
+    };
+  };
 
 
   // validações, mascaras e eventos de validação

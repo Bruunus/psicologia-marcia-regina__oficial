@@ -7,7 +7,31 @@
 * Bootstrap - Small .col-sm-
 * Dispositivo alvo: Smartphones em modo paisagem e alguns dispositivos menores, como tablets compactos.
 */
-@media (min-width: 426px) and (max-width: 767px) {}
+@media (min-width: 426px) and (max-width: 767px) {
+  /* Ajuste da tabela para responsivo */
+  .container-fluid {
+    align-items: center;
+  }
+
+  .row-container-inferior {
+    width: 97%;
+    height: 88vh !important;        /* Altura ideal para esta screen */
+    margin-top: 10.4rem !important; /* Controle de autura e largura centralizada*/
+    margin-bottom: 1rem !important;
+  }
+  /*
+  * Layout da tabela aumentando a largura e acrescentando barra de rolagem
+  */
+  .row-filha-container-titulos-colunas-tabela,
+  .row-div-container-tr-colunas {
+    width: 80rem;
+  }
+
+  .coluna-2-nome-completo, .coluna-2-nome-completo-td {
+    flex: 0 0 24.333333%;
+    max-width: 29.333333%;
+  }
+}
 
 
 

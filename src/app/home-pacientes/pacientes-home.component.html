@@ -15,61 +15,61 @@
     <b>{{ this.calculadorDeTelaModoDev.altura }}</b><small>px</small></p>
 </span>
 <!-- Teste responsividade -->
-
-
 <div class="container-fluid">
   <app-menu-principal></app-menu-principal>
     <!-- Coluna principal 1 -->
-  <div class="row row-container-inferior">
-    <div class="col-12 col-12-container-div-cabecalho">
-      <!-- titulo -->
-      <div class="container-titulo-tabela-do-cabecalho">Pacientes</div>
-      <!-- barra de pesquisa -->
-      <div class="row row-container-barra-de-pesquisa-do-cabecalho">
-        <!-- col 1 -->
-        <div class="col-6 col-1-container-barra-de-pesquisa-button-limpar">
-          <button type="button" class="btn btn-secondary btn-system-psico botao-limpar" *ngIf="exibirButtonLimpar" (click)="resetarPesquisa()">Limpar</button>
-        </div>
-        <!-- col 2 -->
-        <div class="col-6 col-2-container-barra-de-pesquisa-form-pesquisa">
-          <form (ngSubmit)="procurarPaciente()" [formGroup]="pesquisaDePaciente" class="d-flex">
-            <input class="form-control form-control input-system-psico input-pesquisar" type="text" placeholder="Paciente" formControlName="pesquisa" (focus)="onCloseMessage()">
-            <button type="submit"  class="btn btn-primary btn-system-psico botao-pesquisar" >Pesquisar</button>
-          </form>
-        </div>
-      </div>
-
-      <!-- container titulos da tabela-->
-      <div class="col-12 col-12-container-titulos-colunas-tabela">
-        <div class="row row-filha-container-titulos-colunas-tabela">
-          <div class="col coluna-1-prontuario">
-            <span class="prontuario_titulo" (click)="ordenacao('pacienteId')">Prontuário</span>
+  <div class="row-container-inferior">
+    <!-- Coluna principal 2 -->
+    <div class="col-12-container-div-cabecalho">
+      <div class="row row-container-div-cabecalho-interna">
+        <div class="col-12 container-titulo-tabela-do-cabecalho">Pacientes</div>
+        <div class="col-12 container-barra-de-pesquisa">
+          <!-- barra de pesquisa -->
+          <div class="row row-container-barra-de-pesquisa-do-cabecalho">
+            <!-- col 1 -->
+            <div class="col-6 col-1-container-barra-de-pesquisa-button-limpar">
+              <button type="button" class="btn btn-secondary btn-system-psico botao-limpar" *ngIf="exibirButtonLimpar" (click)="resetarPesquisa()">Limpar</button>
+            </div>
+            <!-- col 2 -->
+            <div class="col-6 col-2-container-barra-de-pesquisa-form-pesquisa">
+              <form (ngSubmit)="procurarPaciente()" [formGroup]="pesquisaDePaciente" class="d-flex">
+                <input class="form-control form-control input-system-psico input-pesquisar" type="text" placeholder="Paciente" formControlName="pesquisa" (focus)="onCloseMessage()">
+                <button type="submit"  class="btn btn-primary btn-system-psico botao-pesquisar" >Pesquisar</button>
+              </form>
+            </div>
           </div>
-          <div class="col coluna-2-nome-completo">
-            <span class="nomeCompleto_titulo" (click)="ordenacao('nomeCompleto')">Nome completo</span>
-          </div>
-          <div class="col coluna-3-data-ultimo-atendimento">
-            <span class="dataUltimoAtend_titulo" (click)="ordenacao('dataUltimoAtendimento')">Data último atendimento</span>
-          </div>
-          <div class="col coluna-4-perfil">
-            <span class="perfil_titulo" (click)="ordenacao('perfil')">Perfil</span>
-          </div>
-          <div class="col" style="margin-right: 10px; /* Acerta o layout do titulo com as linhas da tabela verticalmente */"></div>
         </div>
       </div>
     </div>
 
-
     <!-- Coluna principal 2 -->
-    <div class="col-12 col-12-container-div-tabela">
+    <div class="col-12-container-div-tabela">
       <table class="table table-hover tabela-pacientes">
-        <thead style="" class="thead-container"></thead>
+        <thead class="thead-container">
+          <div class="col-12 col-12-container-titulos-colunas-tabela">
+            <div class="row row-filha-container-titulos-colunas-tabela">
+              <div class="col coluna-1-prontuario">
+                <span class="prontuario_titulo" (click)="ordenacao('pacienteId')">Prontuário</span>
+              </div>
+              <div class="col coluna-2-nome-completo">
+                <span class="nomeCompleto_titulo" (click)="ordenacao('nomeCompleto')">Nome completo</span>
+              </div>
+              <div class="col coluna-3-data-ultimo-atendimento">
+                <span class="dataUltimoAtend_titulo" (click)="ordenacao('dataUltimoAtendimento')">Data último atendimento</span>
+              </div>
+              <div class="col coluna-4-perfil">
+                <span class="perfil_titulo" (click)="ordenacao('perfil')">Perfil</span>
+              </div>
+              <div class="col"></div>
+            </div>
+          </div>
+        </thead>
         <tbody *ngIf="listaPacienteHomeFiltrada.length > 0; else noData" class="row row-container-tbody">
           <tr *ngFor="let paciente of listaPacienteHomeFiltrada"
                 (click)="paciente.dataUltimoAtendimento != null ? redirectPaciente(paciente) : null"
                 class="col-12 col-12-container-tr">
             <!-- Container das tds principal -->
-            <div class="row row-div-container-tr-colunas">
+              <div class="row row-div-container-tr-colunas">
               <th scope="row" class="col coluna-1-prontuario-th"><span>{{ paciente.pacienteId }}</span></th>
               <td class="col coluna-2-nome-completo-td"><span>{{ paciente.nomeCompleto }}</span></td>
               <td class="col coluna-3-data-ultimo-atendimento-td">
@@ -104,9 +104,9 @@
           </td>
           </tr>
         </ng-template>
-
       </table>
     </div>
   </div>
+
 </div>
 

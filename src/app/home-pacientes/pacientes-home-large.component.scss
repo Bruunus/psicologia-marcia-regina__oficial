@@ -10,6 +10,21 @@
     height: 12.6666666rem;
   }
 
+  /*
+  * Layout da tabela aumentando a largura e acrescentando barra de rolagem
+  */
+  .row-filha-container-titulos-colunas-tabela,
+  .row-div-container-tr-colunas {
+    width: 80rem;
+  }
+
+  .coluna-2-nome-completo, .coluna-2-nome-completo-td {
+    flex: 0 0 24.333333%;
+    max-width: 29.333333%;
+  }
+
+
+
 }
 
 

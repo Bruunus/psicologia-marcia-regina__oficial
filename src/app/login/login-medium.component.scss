@@ -3,6 +3,15 @@
 
 /* Estilo para telas médias e maiores (De 768px até 992px) */
 @media (min-width: 768px) and (max-width: 991px) {
-
+  .filho-row {
+    width: 20rem !important;
+  }
+  #img-logo {
+    height: 13.5666666rem;
+  }
+  #btn-login {
+    height: 2.5em;
+    line-height: 1.9rem !important;
+  }
 }
 

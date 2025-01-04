@@ -2,7 +2,16 @@
 
 /* Estilo para telas grandes e maiores (De 992px até 1200px) */
 @media (min-width: 992px) and (max-width: 1199px) {
-
+  .filho-row {
+    width: 20rem !important;
+  }
+  #img-logo {
+    height: 13.5666666rem;
+  }
+  #btn-login {
+    height: 2.5em;
+    line-height: 1.9rem !important;
+  }
 }
 
 

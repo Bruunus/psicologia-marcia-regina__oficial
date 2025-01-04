@@ -8,6 +8,22 @@ export class MascaraService {
   constructor() { }
 
   /**
+   * Esta mascara formata o texto informado, seu objetivo é deixar o texto apresentável e de
+   * forma legível, como um nome por exemplo: tendo o nome e sobrenome em letra maiúscula e palavras básicas
+   * como 'dos', 'de' 'da' e etc. minusculos deixando-o mais apresentável.
+   * @param texto
+   * @returns
+   */
+  public formatarDeTexto(texto: string): string {
+    return texto.split(' ').map(word => {
+      if (word.length > 3) {
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      }
+      return word.toLowerCase();
+    }).join(' ');
+  }
+
+  /**
    * Máscara que após a inserção do campo telefone, remove todos os espaços em branco
    * e traços do número de telefone e adiciona um espaço após o segundo dígito.
    */

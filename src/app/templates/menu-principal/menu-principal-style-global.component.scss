@@ -1,5 +1,7 @@
+@import '../../../styles.scss';
+
 //vars
-$background_color_menu_completo: #fffadf;
+$background_color_menu_completo: #fffbe4;
 $color-item-menu: #ca72ca;
 //#66D2D5 - verde da árvore
 //#555555 - grafite
@@ -38,6 +40,7 @@ $color-item-menu: #ca72ca;
   height: 100%;
 }
 
+
 .nav-link {
   padding: 0 !important; /* Sobreposição bootstrap - para retirar o paddind dos itens do menu */
 }
@@ -51,6 +54,7 @@ $color-item-menu: #ca72ca;
 
 .menu-item-link {
   display: inline-block;
+  font-size: $tamanho_fonte_botao !important;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
