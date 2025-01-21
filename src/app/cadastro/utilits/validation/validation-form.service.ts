@@ -36,6 +36,18 @@ export class ValidationFormService {
   }
 
 
+  public validacaoRG(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const cpfValue = control.value;
+
+      if(cpfValue && cpfValue.replace(/\D/g,'').length === 9) {
+        return null;
+      }
+      return { rgValido: true}
+    };
+  }
+
+
   /**
    * Método de validação do campo telefone, o número fornecido não pode ser menor
    * ou maior que 11.
@@ -70,7 +82,7 @@ public validacaoDataNascimento(): ValidatorFn {
     }
 
     // Adiciona um log para verificar o valor
-    console.log('Valor da data:', valor);
+    // console.log('Valor da data:', valor);
 
     const partes = valor.split('/');
     if (partes.length !== 3) {
@@ -169,7 +181,7 @@ getEnderecoPorCEP(cep: string) {
         // Lança um erro se o CEP for inválido        (até a documentação)
         throw new Error('CEP inválido'); // Lança um erro     (até a documentação)
       }
-      console.log(response);
+      // console.log(response);
       return response; // Retorna a resposta válida         (até a documentação)
     }),
     catchError((error) => {

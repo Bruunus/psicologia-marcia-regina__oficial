@@ -127,14 +127,14 @@ $active_color_botoes_e_borda_tabela: #7c3b6f;
 .col-1-container-barra-de-pesquisa-button-limpar {
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   padding: 0;
 }
 
 .col-2-container-barra-de-pesquisa-form-pesquisa {
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
   padding: 0;
 }
 .input-pesquisar {
@@ -150,8 +150,8 @@ $active_color_botoes_e_borda_tabela: #7c3b6f;
 
 //cor de texto head inteira
 .container-titulo-tabela-do-cabecalho, .row-filha-container-titulos-colunas-tabela div,
-.input-pesquisar, .coluna-1-prontuario-th, .coluna-2-nome-completo-td, .coluna-3-data-ultimo-atendimento-td,
-.coluna-4-perfil-td, .perfil-item {
+.input-pesquisar, .coluna-1-prontuario-th, .coluna-2-nome-completo-td, .coluna-3-idade-td,
+.coluna-4-data-ultimo-atendimento-td, .coluna-5-perfil-td, .perfil-item {
   color: $cor_texto_thead_toda;
 }
 
@@ -238,18 +238,18 @@ $active_color_botoes_e_borda_tabela: #7c3b6f;
   outline: 1px solid $cor_das_bordas_oficial;
 }
 
-.coluna-1-prontuario, .coluna-2-nome-completo,
-.coluna-3-data-ultimo-atendimento, .coluna-4-perfil {
+.coluna-1-prontuario, .coluna-2-nome-completo, .coluna-3-idade,
+.coluna-4-data-ultimo-atendimento, .coluna-5-perfil {
   font-weight: bold;
 }
 
-.prontuario_titulo, .nomeCompleto_titulo,
+.prontuario_titulo, .nomeCompleto_titulo, .idade_titulo,
 .dataUltimoAtend_titulo, .perfil_titulo {
   position: relative;
   top: 0.5px;
 }
 
-.prontuario_titulo:hover, .nomeCompleto_titulo:hover,
+.prontuario_titulo:hover, .nomeCompleto_titulo:hover, .idade_titulo:hover,
 .dataUltimoAtend_titulo:hover, .perfil_titulo:hover {
   cursor: pointer;
   text-decoration: underline;
@@ -305,9 +305,9 @@ $active_color_botoes_e_borda_tabela: #7c3b6f;
   background-color: $cor_backroung_hover_tr;
 }
 
-.coluna-1-prontuario-th, .coluna-2-nome-completo-td,
-.coluna-3-data-ultimo-atendimento-td, .coluna-4-perfil-td,
-.coluna-5-botao-iniciar-antendimento {
+.coluna-1-prontuario-th, .coluna-2-nome-completo-td, .coluna-3-idade-td,
+.coluna-4-data-ultimo-atendimento-td, .coluna-5-perfil-td,
+.coluna-6-botao-iniciar-antendimento {
   height: 100%;
   font-size: $tamanho_fonte_botao;
   padding-left: 15px;
@@ -316,22 +316,26 @@ $active_color_botoes_e_borda_tabela: #7c3b6f;
   align-items: center;
 }
 
-.coluna-1-prontuario-th span, .coluna-2-nome-completo-td span,
-.coluna-2-nome-completo-td span, .coluna-4-perfil-td span,
-.coluna-3-data-ultimo-atendimento-td span {
+.coluna-1-prontuario-th span, .coluna-2-nome-completo-td span, .coluna-3-idade-td span,
+ .coluna-5-perfil-td span,
+.coluna-4-data-ultimo-atendimento-td span {
   position: relative;
   top: 1px;
   cursor: default;
 }
-.coluna-5-botao-iniciar-antendimento {
+.coluna-6-botao-iniciar-antendimento {
   display: flex;
   justify-content: center;
 }
+
+
+
 /* Configuração do botão "Iniciar atendimento" */
-$background_color_botoes_iniciar_atendimento: #fad779;
-$background_color_botoes_iniciar_atendimento_hover: #f3c64a;
-$borda_color_botoes_iniciar_atendimento: #fddb7f;
-$cor_texto_botao_iniciar_atendimento: #3b3b37;
+$background_color_botoes_iniciar_atendimento: #7be2e6;  // fad779
+$background_color_botoes_iniciar_atendimento_hover: #69cfd3;  // f3c64a
+$background_color_botoes_iniciar_atendimento_active: #56b9bd;
+$borda_color_botoes_iniciar_atendimento: #7be2e6;  // fddb7f
+$cor_texto_botao_iniciar_atendimento: #3b3b37;  //3b3b37
 
 $active_color_botoes_e_borda_tabela: #3a70b3;
 .btn-iniciar-atendimento {
@@ -367,8 +371,8 @@ $active_color_botoes_e_borda_tabela: #3a70b3;
 .btn-iniciar-atendimento:not(:disabled):not(.disabled):active, .btn-iniciar-atendimento:not(:disabled):not(.disabled).active,
 .show > .btn-iniciar-atendimento.dropdown-toggle {
   color: $cor_texto_botao_iniciar_atendimento  !important;
-  background-color: $background_color_botoes_iniciar_atendimento_hover;
-  border-color: $background_color_botoes_iniciar_atendimento_hover;
+  background-color: $background_color_botoes_iniciar_atendimento_active;
+  border-color: $background_color_botoes_iniciar_atendimento_active;
 }
 
 .btn-iniciar-atendimento:not(:disabled):not(.disabled):active:focus, .btn-iniciar-atendimento:not(:disabled):not(.disabled).active:focus,
@@ -405,12 +409,12 @@ $active_color_botoes_e_borda_tabela: #3a70b3;
 }
 .div-col-frase {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   justify-content: center;
 }
 .div-col-loading {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: center;
 }
 .img-loading {

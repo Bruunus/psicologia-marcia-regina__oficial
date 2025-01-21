@@ -3,10 +3,13 @@ import { PerfilEnum } from "./perfil-enum";
 export interface PacienteInterface {
 
   nomeCompleto: string;
+  responsavel: string;
   cpf: string;
+  rg: string;
   email: string;
   telefone: string;
   telefoneContato: string;
+  nomeDoContato: string;
   idade: string;
   dataNascimento: string;
   estadoCivil: string;

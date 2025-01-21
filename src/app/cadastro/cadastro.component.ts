@@ -39,12 +39,15 @@ export class CadastroComponent implements OnInit  {
   PERFIL!: PerfilEnum;
   pacienteCadastro: PacienteInterface = {
     nomeCompleto: '',
+    responsavel: '',
     cpf:  '',
+    rg: '',
     email: '',
     telefone: '',
     dataNascimento: '',
     idade: '',
     telefoneContato: '',
+    nomeDoContato: '',
     estadoCivil:  '',
     filhos:  false,
     qtdFilhos:  0,
@@ -88,10 +91,13 @@ export class CadastroComponent implements OnInit  {
 
     this.formValidation = new FormGroup({
       nomeCompleto: new FormControl('', Validators.required),
+      responsavel: new FormControl({ value: null, disabled: true}, Validators.required),
       cpf: new FormControl('', [Validators.required, this.validationFormService.validacaoCpf()]),
+      rg: new FormControl('', [Validators.required, this.validationFormService.validacaoRG()]),
       email: new FormControl('', [Validators.required, Validators.email]),
       telefone: new FormControl('', [Validators.required, this.validationFormService.validacaoTelefone()]),
       telefoneContato: new FormControl('', [this.validationFormService.validacaoTelefone()]),
+      nomeDoContato: new FormControl('', Validators.required),
       idade: new FormControl({ value: null, disabled: true}),
       dataNascimento: new FormControl('' , [Validators.required, this.validationFormService.validacaoDataNascimento()]),
       estadoCivil: new FormControl('', [Validators.required]),
@@ -151,6 +157,7 @@ export class CadastroComponent implements OnInit  {
       clear: 'Limpar',
     });
 
+    this.onResponsavel();
     this.onSelectFilhos();
     this.observeInputCep();
 
@@ -229,6 +236,25 @@ export class CadastroComponent implements OnInit  {
       }
     })
   }
+
+  /**
+   * Evento responsável por habilitar ou desabilitar o campo responsavel dependendo da idade
+   * do paciente.
+   */
+  private onResponsavel(): void {
+    this.formValidation.get('idade')?.valueChanges.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((valor) => {
+      const campoResponsavel = this.formValidation.get('responsavel');
+      if (valor < 18) {
+        campoResponsavel?.enable();
+      } else {
+        campoResponsavel?.disable();
+      }
+    })
+  }
+
+
 
 
 
@@ -313,6 +339,7 @@ export class CadastroComponent implements OnInit  {
    */
   async cadastrar(): Promise<void> {
 
+
     this.formSubmitted = true;
 
     // console.log('Estado do formulário:', this.formValidation);
@@ -343,10 +370,13 @@ export class CadastroComponent implements OnInit  {
 
       this.pacienteCadastro = {
         nomeCompleto: nomeCompletoFormatado,
+        responsavel: this.responsavel,
         cpf: this.cpf,
+        rg: this.rg,
         email: this.email,
         telefone: celular1Formatado,
         telefoneContato: celular2Formatado,
+        nomeDoContato: this.nomeDoContato,
         idade: this.idade,
         dataNascimento: dataFormatada,
         estadoCivil: this.estadoCivil,
@@ -420,10 +450,13 @@ export class CadastroComponent implements OnInit  {
   private limparCampos(): void {
     this.formReset = true;
     this.formValidation.get('nomeCompleto')!.setValue('');
+    this.formValidation.get('responsavel')!.setValue('');
     this.formValidation.get('cpf')!.setValue('');
+    this.formValidation.get('rg')!.setValue('');
     this.formValidation.get('email')!.setValue('');
     this.formValidation.get('telefone')!.setValue('');
     this.formValidation.get('telefoneContato')!.setValue('');
+    this.formValidation.get('nomeDoContato')!.setValue('');
     this.formValidation.get('idade')!.setValue('');
     this.formValidation.get('dataNascimento')!.setValue('');
     this.formValidation.get('estadoCivil')!.setValue('');
@@ -459,8 +492,17 @@ export class CadastroComponent implements OnInit  {
     return this.formValidation.get('nomeCompleto')?.value;
   }
 
+  get responsavel() {
+    return this.formValidation.get('responsavel')?.value;
+  }
+
+
   get cpf() {
     return this.formValidation.get('cpf')?.value;
+  }
+
+  get rg() {
+    return this.formValidation.get('rg')?.value;
   }
 
   get email() {
@@ -474,6 +516,11 @@ export class CadastroComponent implements OnInit  {
   get telefoneContato() {
     return this.formValidation.get('telefoneContato')?.value;
   }
+
+  get nomeDoContato() {
+    return this.formValidation.get('nomeDoContato')?.value;
+  }
+
 
   get idade() {
     return this.formValidation.get('idade')?.value;

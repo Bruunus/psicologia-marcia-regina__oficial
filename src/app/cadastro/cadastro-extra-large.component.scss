@@ -21,15 +21,20 @@
 * A partir de 1200px
 */
 @media(min-width: 1200px) {
+
+  .form-group {
+    margin-bottom: 0rem !important;
+  }
+
   .form-control-cadastro, .form-control-select {
     line-height: 1.5rem !important;
   }
   .textarea-queixa {
-    height: 110px !important;
+    height: 95px !important;
     resize: none; /* Impedir tamanho */
   }
   .btn-primary-registrar {
-    margin-top: 5rem !important;
+    margin-top: 3.3rem !important;
     margin-left: 0.9rem;
   }
   .btn-primary-registrar {
@@ -153,11 +158,16 @@
 * MacBook Air 13 (2011) 13.3 polegadas
 */
 @media (width: 1440px) and (height: 900px) {
+
   .container-cadastro {
     padding: 2.5rem 3rem 4rem 3rem;
   }
   #titulo-row {
     margin-bottom: 1.5rem;
+  }
+
+  .alt-da-caixa {
+    height: 92.97px !important;
   }
 
   .textarea-queixa {
@@ -169,6 +179,7 @@
   .btn-primary-registrar {
     z-index: 1;
     width: 11rem;
+    margin-top: 5.5rem !important;
   }
 
   .container-loading {
@@ -215,17 +226,26 @@
 @media (width: 1600px) and (height: 900px) {
 
   #titulo-row {
-    margin-bottom: 3rem !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
   }
 
   .container-cadastro {
     padding: 3rem;
   }
 
+  .alt-da-caixa {
+    height: 95.97px !important;
+  }
+
   .textarea-queixa {
     height: 110px !important;
     line-height: 1.2;
     resize: none; /* Impedir tamanho */
+  }
+
+  .btn-primary-registrar {
+    margin-top: 5.1rem !important;
   }
 
   .container-loading {
@@ -240,9 +260,9 @@
 * A partir de 1680px
 */
 @media(min-width: 1680px) {
-  .container-cadastro {
-    padding: 1rem 3rem 1rem 3rem;
-  }
+  // .container-cadastro {
+  //   padding: 1rem 3rem 1rem 3rem;
+  // }
 
 }
 
@@ -256,16 +276,20 @@
 */
 @media (width: 1680px) and (height: 1050px) {
   .container-cadastro {
-    padding: 5rem 3rem 4rem 3rem;
+    padding: 2rem 3rem  !important;
   }
   #titulo-row {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem !important;
   }
   .alt-da-caixa {
-    height: 104.97px !important;
+    height: 109.97px !important;
   }
+  .textarea-queixa {
+    height: 130px !important;
+  }
+
   .btn-primary-registrar {
-    width: 12rem;
+    margin-top: 6rem !important;
   }
   .container-loading {
     bottom: 7.4rem;
@@ -310,20 +334,18 @@
   }
 
   .textarea-queixa {
-    height: 220px !important;
+    height: 160px !important;
     resize: none; /* Impedir tamanho */
     font-size: $tamanho_font;
   }
 
-  .btn-registrar {
-    margin-top: 11rem;
-  }
+
 
   .btn-primary-registrar {
     font-size: 17.666666px !important;
     width: 15rem;
     height: 3rem;
-    margin-top: 11rem !important;
+    margin-top: 7rem !important;
   }
 
   .container-loading {
@@ -333,13 +355,20 @@
 }
 
 
+/**
+* Medida global mínima de 1920px
+*/
 @media(min-width: 1920px) {
-  .textarea-queixa {
-    height: 200px !important;
+
+
+
+  #titulo-row {
+    margin-top: 2rem !important;
+    margin-bottom: 3rem !important;
   }
-  .btn-primary-registrar {
-    margin-top: 11rem !important;
-  }
+
+
+
 }
 
 
@@ -352,8 +381,17 @@
 * Testado
 */
 @media (width: 1920px) and (height: 1200px) {
+
   .container-loading {
     bottom: 11rem;
+  }
+
+  .textarea-queixa {
+    height: 200px !important;
+  }
+
+  .btn-primary-registrar {
+    margin-top: 11rem !important;
   }
 }
 

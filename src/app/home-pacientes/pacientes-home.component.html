@@ -1,6 +1,6 @@
 
 <!-- Teste responsividade -->
-<span style="
+<!-- <span style="
     height: 45px;
     position: fixed;
     bottom: 10px;    /* Autera os lados aqui */
@@ -13,7 +13,7 @@
 ">
   <p>LxA: <b>{{ this.calculadorDeTelaModoDev.largura }}</b><small>px</small> x
     <b>{{ this.calculadorDeTelaModoDev.altura }}</b><small>px</small></p>
-</span>
+</span> -->
 <!-- Teste responsividade -->
 <div class="container-fluid">
   <app-menu-principal></app-menu-principal>
@@ -54,10 +54,13 @@
               <div class="col coluna-2-nome-completo">
                 <span class="nomeCompleto_titulo" (click)="ordenacao('nomeCompleto')">Nome completo</span>
               </div>
-              <div class="col coluna-3-data-ultimo-atendimento">
+              <div class="col coluna-3-idade">
+                <span class="idade_titulo" (click)="ordenacao('idade')">Idade</span>
+              </div>
+              <div class="col coluna-4-data-ultimo-atendimento">
                 <span class="dataUltimoAtend_titulo" (click)="ordenacao('dataUltimoAtendimento')">Data último atendimento</span>
               </div>
-              <div class="col coluna-4-perfil">
+              <div class="col coluna-5-perfil">
                 <span class="perfil_titulo" (click)="ordenacao('perfil')">Perfil</span>
               </div>
               <div class="col"></div>
@@ -72,18 +75,19 @@
               <div class="row row-div-container-tr-colunas">
               <th scope="row" class="col coluna-1-prontuario-th"><span>{{ paciente.pacienteId }}</span></th>
               <td class="col coluna-2-nome-completo-td"><span>{{ paciente.nomeCompleto }}</span></td>
-              <td class="col coluna-3-data-ultimo-atendimento-td">
+              <td class="col coluna-3-idade-td"><span>{{ paciente.idade }} anos</span></td>
+              <td class="col coluna-4-data-ultimo-atendimento-td">
                 <span *ngIf="paciente.dataUltimoAtendimento; else semAtendimento">
                   {{ paciente.dataUltimoAtendimento | date: 'dd/MM/yyyy' }}
                 </span>
                 <ng-template #semAtendimento><span>Paciente novo</span></ng-template>
               </td>
-              <td class="col coluna-4-perfil-td">
+              <td class="col coluna-5-perfil-td">
                 <span class="perfil-item">
                   {{ paciente.perfil.charAt(0).toUpperCase() + paciente.perfil.slice(1).toLowerCase() }}
                 </span>
               </td>
-              <td class="col coluna-5-botao-iniciar-antendimento">
+              <td class="col coluna-6-botao-iniciar-antendimento">
                 <button *ngIf="paciente.dataUltimoAtendimento === null" class="btn btn-warning btn-iniciar-atendimento"
                   (click)="redirectPaciente(paciente)">Iniciar Atendimento
                 </button>

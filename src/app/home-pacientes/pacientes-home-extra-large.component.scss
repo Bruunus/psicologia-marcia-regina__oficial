@@ -148,11 +148,12 @@
 
 
 /*****************************************************************************************/
+
 /*
 * Media Querye de exceção apenas para ajustar a largura das colunas da tabela.
 * O Ajuste principal é tratado na coluna 'Nome completo'
 */
-@media(max-width: 1713px) {
+@media(max-width: 1750px) {
   .coluna-2-nome-completo, .coluna-2-nome-completo-td {
     /*Medida bootstrap col-3*/
     // background-color: rgb(69, 223, 177);
@@ -171,10 +172,15 @@
     max-width: 25%;
   }
 }
+@media(min-width: 1379px) and (max-width: 1647px) {
+  .btn-iniciar-atendimento {
+    width: 150.04px !important;
+  }
+}
 @media(max-width: 1378px) {
   .coluna-2-nome-completo, .coluna-2-nome-completo-td {
-    flex: 0 0 29.333333%;
-    max-width: 29.333333%;
+    flex: 0 0 24.333333%;
+    max-width: 24.333333%;
   }
   .btn-iniciar-atendimento  {
     width: 100% !important;
@@ -190,6 +196,16 @@
 /***************************Termino de ajuste de exceção da tabela interna*************************/
 
 
+@media (min-width: 1751px) {
+  .coluna-2-nome-completo, .coluna-2-nome-completo-td {
+    flex: 0 0 20.333333%;
+    max-width: 20.333333%;
+  }
+  .btn-iniciar-atendimento {
+    width: 77% !important;
+  }
+}
+
 
 /*
 * Resolução para notebooks de largura e altura de 1920 x 1200
@@ -203,6 +219,10 @@
     height: 76.2vh !important; /* Altura ideal para esta screen */
     margin: 4.7rem auto !important; /* Controle de autura e largura centralizada*/
   }
+
+
+
+
 }
 
 

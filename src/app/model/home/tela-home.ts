@@ -4,5 +4,6 @@ export interface TelaHome {
   perfil: string,
   pacienteId: number,
   cpf: string,
+  idade: number,
   [key: string]: any;   // Permite que a interface aceite outras propriedades dinâmicas, útil para ordenação. ordenação da tabela home
 }

@@ -1,0 +1,91 @@
+
+
+.menu-bar {
+  font-family: 'font-home';
+  height: 74.333333px ;
+  border-bottom: 1px solid #e4e4e4c9;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  display: flex;
+}
+
+.side-bar-esquerdo {
+  height: 100%;
+  border-right: 1px solid;
+  padding: 0 !important;
+}
+.col-2-editada-global {
+  flex: 0 0 14.2666666% !important; /* Definição de largura junto à largura do menu suspenso */
+  max-width: 14.2666666% !important;
+}
+
+.container-row-side-bar-esquerdo-filho {
+  height: 100%;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  display: flex;
+  align-items: center;
+
+}
+.col-logo-filho {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  display: flex;
+  // justify-content: center;
+}
+.col-perfil-filho {
+  width: 100vh !important;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+
+}
+
+.img-menu {
+  height: 48px;
+  padding-left: 1.3rem; /* Redimensionamento do logo  */
+}
+
+.side-bar-direito {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  flex-grow: 1;
+  // background-color: aqua;
+}
+
+.side-bar-direito-filho {
+  // background-color: lightcoral;
+  width: 95.6666666%; /* Espaçamento horizontal que ajusta o nickname e 'Sair' - 95.6666666%; mesma medida que o "Sair" do menu principal*/
+  height: 100%;
+  margin-left: 3rem;  /* Espaçamento que ajusta do nome do paciente */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.side-bar-direito-filho-container-esquerdo {
+
+}
+
+.side-bar-direito-filho-container-direito {
+  // background-color: antiquewhite;
+  height: 100%;
+  width: 13%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+
+/* col-10 editada para preencher o menu superior horizontal */
+.col-10-editada {
+  flex: 0 0 85.733333% !important;
+  max-width: 90.333333% !important;
+}
+
+
+
+.nome-paciente-display {
+  font-size: 1.5em;
+}

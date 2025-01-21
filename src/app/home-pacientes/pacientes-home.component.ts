@@ -4,13 +4,13 @@ import { TimeoutService } from '../services/sessao/timeout.service';
 import { Router } from '@angular/router';
 import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticacao.service';
 import { Observable, Subject, Subscription, takeUntil } from 'rxjs';
-import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PacienteSeach } from '../model/home/paciente-seach';
 import { MessageComponent } from '../services/messagers/message/message.component';
 import { MessageService } from '../services/messagers/message/message.service';
 import { HomeService } from '../services/api/read/home/home.service';
 import { TelaHome } from '../model/home/tela-home';
+import { PacienteCompartilhamentoService } from '../services/compartilhamento-de-dados/paciente/paciente.service';
 
 
 @Component({
@@ -34,7 +34,7 @@ export class PacientesHomeComponent implements OnInit {
   protected listaPacienteHome: TelaHome[] = [];
   protected listaPacienteHomeFiltrada: TelaHome[] = [];
   protected loading: boolean = true;
-  protected exibirButtonLimpar: boolean = true; // Estado para verificar se a pesquisa foi realizada
+  protected exibirButtonLimpar: boolean = false; // Estado para verificar se a pesquisa foi realizada
   private unsubscribe$ = new Subject<void>();
 
   constructor(
@@ -43,7 +43,7 @@ export class PacientesHomeComponent implements OnInit {
     private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService,
     private errorService: MessageService,
     private apiHomeService: HomeService,
-    protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev
+    private pacienteCompartilhamentoService: PacienteCompartilhamentoService
 
   ) {
     this.paciente = new PacienteSeach();
@@ -54,7 +54,6 @@ export class PacientesHomeComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.calculadorDeTelaModoDev.atualizarTamanhoTela();
     this.timeoutService.initSessionTimeout();
     this.nomeLogin = this.gerenciadoDeAutenticacaoService.getUsuario();
     this.carregarTabela();
@@ -96,16 +95,19 @@ export class PacientesHomeComponent implements OnInit {
 
 
   /**
-   * Evento de clique que captura o cpf do paciente para redirecionar e
-   * renderizar os dados do mesmo
+   * Evento de clique que captura o cpf do paciente, salva o estado em um objeto de service
+   * e redireciona a página
    * @param paciente objeto correspondente ao cpf
    */
   protected redirectPaciente(paciente: TelaHome) {
 
-    alert(
-      "Paramento para API: "+paciente.cpf+"\nParametro para o componente: "+paciente.perfil)
-    // solicita o carregamento de todos os dados de tratamento do paciente para api usando cpf como base
-
+    if(paciente.cpf === null || paciente.cpf === undefined) {
+      console.error('não foi possível encontrar o paciente')
+      return
+    } else {
+      this.pacienteCompartilhamentoService.setPacienteCpf(paciente.cpf);
+      this.router.navigate(['/paciente']);
+    }
   }
 
 

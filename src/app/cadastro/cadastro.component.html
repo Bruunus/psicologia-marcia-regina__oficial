@@ -1,4 +1,4 @@
-<span style="
+<!-- <span style="
     height: 45px;
     position: fixed;
     top: 150px;    /* Autera os lados aqui */
@@ -11,7 +11,7 @@
 ">
   <p>LxA: <b>{{ this.calculadorDeTelaModoDev.largura }}</b><small>px</small> x
     <b>{{ this.calculadorDeTelaModoDev.altura }}</b><small>px</small></p>
-</span>
+</span> -->
 
 <div class="container-fluid">
   <app-menu-principal></app-menu-principal>
@@ -57,7 +57,22 @@
         </div>
 
 
-        <div class="col-xl-3 col-lg-4 col-md-12 alt-da-caixa">
+        <div class="col-xl-2 col-lg-4 col-md-6 alt-da-caixa">
+          <label for="rg" class="titulo-item">RG</label>
+          <input type="text" class="form-control form-control-cadastro input-ajuste" name="rg" mask="00.000.000-0" formControlName="rg" id="rg"
+          required>
+          <div *ngIf="(formValidation.get('rg')?.invalid && formSubmitted) && !formReset" class="validation-error">
+            <ng-container *ngIf="formValidation.get('rg')?.errors?.['required']; else rgIncorreto">
+              <p class="message-error-formValidation">Informe o RG</p>
+            </ng-container>
+            <ng-template #rgIncorreto>
+              <p class="message-error-formValidation">RG incorreto</p>
+            </ng-template>
+          </div>
+        </div>
+
+
+        <div class="col-xl-3 col-lg-4 col-md-6 alt-da-caixa">
           <label for="email" class="titulo-item">E-mail</label>
           <input type="text" class="form-control form-control-cadastro input-ajuste" name="email" formControlName="email" id="email" required>
           <div *ngIf="(formValidation.get('email')?.invalid && formSubmitted) && !formReset" class="validation-error">
@@ -71,7 +86,7 @@
         </div>
 
 
-        <div class="col-xl-2 col-lg-6 col-md-6 alt-da-caixa">
+        <div class="col-xl-2 col-lg-8 col-md-6 alt-da-caixa">
           <label for="telefone" class="titulo-item">Telefone</label>
           <input type="tel" class="form-control form-control-cadastro input-ajuste" name="telefone" mask="(00) 0 0000-0000" formControlName="telefone" id="telefone"
           required>
@@ -96,7 +111,19 @@
         </div>
 
 
-        <div class="col-xl-2 col-lg-4 col-md-10 alt-da-caixa">
+        <div class="col-xl-2 col-lg-6 col-md-12 alt-da-caixa">
+          <label for="nomeDoContato" class="titulo-item">Nome do contato</label>
+          <input type="text" class="form-control form-control-cadastro" name="nomeDoContato" formControlName="nomeDoContato"
+          id="nomeDoContato" maxlength="45" required>
+        </div>
+        <div *ngIf="(formValidation.get('nomeDoContato')?.invalid && formSubmitted) && !formReset" class="validation-error">
+          <p *ngIf="formValidation.get('nomeDoContato')?.errors?.['required']" class="message-error-formValidation ">
+            Informe o nome do contato
+          </p>
+        </div>
+
+
+        <div class="col-xl-2 col-lg-4 col-md-4 alt-da-caixa">
           <label for="data-de-nascimento" (click)="onClickFocusDataNascimentoLabel()" class="titulo-item">Data nascimento</label><br>
           <p-calendar
             formControlName="dataNascimento"
@@ -126,14 +153,27 @@
         </div>
 
 
-        <div class="col-xl-1 col-lg-8 col-md-2 alt-da-caixa">
+        <div class="col-xl-1 col-lg-8 col-md-4 alt-da-caixa">
           <label for="idade" class="titulo-item">Idade</label>
           <input type="number" class="form-control form-control-cadastro input-ajuste" name="idade" formControlName="idade" id="idade"
           required (focus)="onFocusIdade()">
         </div>
 
 
-        <div class="col-xl-2 col-lg-4 col-md-12 alt-da-caixa">
+        <div class="col-xl-2 col-lg-6 col-md-4 alt-da-caixa">
+          <label for="responsavel" class="titulo-item">Responsável</label>
+          <input type="text" class="form-control form-control-cadastro" name="responsavel" formControlName="responsavel"
+          id="responsavel" maxlength="45" required>
+        </div>
+        <div *ngIf="(formValidation.get('responsavel')?.invalid && formSubmitted) && !formReset" class="validation-error">
+          <p *ngIf="formValidation.get('responsavel')?.errors?.['required']" class="message-error-formValidation ">
+            Informe o nome do responsável do paciente menor de idade
+          </p>
+        </div>
+
+
+
+        <div class="col-xl-3 col-lg-6 col-md-12 alt-da-caixa">
           <label for="estado-civil" class="titulo-item">Estado Civil</label>
           <select name="estado-civil" class="form-control form-control-cadastro form-control-select" id="estado-civil" formControlName="estadoCivil"  required>
             <option value="" style="color: lightgray;">Selecione</option>
@@ -149,7 +189,7 @@
         </div>
 
 
-        <div class="col-xl-2 col-lg-4 col-md-10 alt-da-caixa">
+        <div class="col-xl-2 col-lg-6 col-md-10 alt-da-caixa">
           <label for="filhos" class="titulo-item">Filhos</label>
           <select name="filhos" class="form-control form-control-cadastro form-control-select" formControlName="filhos" id="filhos" required>
             <option value="sim">Sim</option>
@@ -158,7 +198,7 @@
         </div>
 
 
-        <div class="col-xl-2 col-lg-4 col-md-2 alt-da-caixa">
+        <div class="col-xl-2 col-lg-6 col-md-2 alt-da-caixa">
           <label for="qtdFilhos" class="titulo-item">Qtd. de filhos</label>
           <input type="number" class="form-control form-control-cadastro input-ajuste" name="qtdFilhos" formControlName="qtdFilhos" id="qtdFilhos" required min="1">
           <div *ngIf="(formValidation.get('qtdFilhos')?.invalid && formSubmitted) && !formReset && formQtdFilhos" class="validation-error">
@@ -255,7 +295,7 @@
           </div>
         </div>
 
-        <div class="col-xl-2 col-lg-5 col-md-6 alt-da-caixa">
+        <div class="col-xl-5 col-lg-5 col-md-6 alt-da-caixa">
           <label for="complemento" class="titulo-item">Complemento</label>
           <input type="text" class="form-control form-control-cadastro" name="complemento" formControlName="complemento" id="complemento" maxlength="45">
         </div>
@@ -277,7 +317,7 @@
         </div>
 
 
-        <div class="col-xl-4 col-lg-4 col-md-6 alt-da-caixa">
+        <div class="col-xl-6 col-lg-4 col-md-6 alt-da-caixa">
           <label for="uf" class="titulo-item">UF</label>
           <select  name="uf" class="form-control form-control-cadastro form-control-select" formControlName="uf" id="uf" required>
             <option *ngFor="let uf of  optionUf" [value]="uf.sigla">{{ uf.nome }}</option>

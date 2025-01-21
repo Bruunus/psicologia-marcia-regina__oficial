@@ -6,6 +6,10 @@
 */
 @media (min-width: 992px) and (max-width: 1199px) {
 
+  .div-filho-esquerdo {
+    padding-left: 20px !important;
+  }
+
   .div-filho-direito .link-logout {
     margin-right: 1.25rem !important;
   }

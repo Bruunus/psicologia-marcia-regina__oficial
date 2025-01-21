@@ -1,9 +1,9 @@
-import { GerenciadoDeAutenticacaoService } from './../../sessao/gerenciador-de-autenticacao.service';
+import { GerenciadoDeAutenticacaoService } from '../../services/sessao/gerenciador-de-autenticacao.service';
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { PacientesHomeComponent } from 'src/app/home-pacientes/pacientes-home.component';
-import { ApiAutenticacaoService } from '../../autenticacao/api-autenticacao.service';
+import { ApiAutenticacaoService } from '../../services/autenticacao/api-autenticacao.service';
 
 @Component({
   selector: 'app-ending-session',

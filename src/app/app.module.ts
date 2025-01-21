@@ -13,13 +13,13 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RedirectComponent } from './services/redirecting/redirect/redirect.component';
+import { RedirectComponent } from './redirecting/redirect/redirect.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'primeng/calendar';
 
 
-import { RedirectingComponent } from './services/redirecting/redirecting.component';
-import { EndingSessionComponent } from './services/redirecting/ending-session/ending-session.component';
+import { RedirectingComponent } from './redirecting/redirecting.component';
+import { EndingSessionComponent } from './redirecting/ending-session/ending-session.component';
 import { MessageComponent } from './services/messagers/message/message.component';
 import { ErrorsProvider } from './providers/errors-provider';
 import { AngularProvider } from './providers/angular-provider';
@@ -33,6 +33,9 @@ import { ServicesProvider } from './providers/services-provider';
 import { CadastroPacienteInfoMessageComponent } from './services/messagers/info-message/cadastro-paciente/display-cadastro-paciente/cadastro-paciente-info-message.component';
 import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
 import { TesteDeComponentesComponent } from './testes/teste-de-componentes/teste-de-componentes.component';
+import { PacienteComponent } from './paciente/paciente.component';
+import { IdentificacaoComponent } from './paciente/perfil/generico/identificacao/identificacao.component';
+import { MenuPacienteComponent } from './templates/menu-paciente/menu-paciente.component';
 
 registerLocaleData(localePt);
 
@@ -50,7 +53,10 @@ registerLocaleData(localePt);
     DisplayInfoMessageComponent,
     LoadingComponent,
     CadastroPacienteInfoMessageComponent,
-    TesteDeComponentesComponent
+    TesteDeComponentesComponent,
+    PacienteComponent,
+    IdentificacaoComponent,
+    MenuPacienteComponent
   ],
   imports: [
     BrowserModule,

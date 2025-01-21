@@ -1,0 +1,47 @@
+
+<div class="container-fluid">
+  <app-menu-paciente></app-menu-paciente>
+  <div class="row container-inferior">
+    <div class="col-2 col-2-editada-global menu-suspenso-documentos">
+      <ul class="ul-container">
+        <li *ngFor="let item of itensMenu"
+            (click)="selecionarItem(item)">
+            <span [ngClass]="{'active': itemSelecionado === item}">{{ item }}</span>
+        </li>
+      </ul>
+    </div>
+
+
+    <div class="col tela-suspensa-documentos">
+      <!-- Renderização condicional dos templates -->
+      <div *ngIf="itemSelecionado === 'Identificação'"
+      style="width: 80%;
+      height: 70vh;
+      border: 1px solid;">
+        <app-identificacao></app-identificacao>
+      </div>
+      <div *ngIf="itemSelecionado === 'Item1'">
+        <span>Template item 1</span>
+      </div>
+      <div *ngIf="itemSelecionado === 'Item2'">
+        <span>Template item 2</span>
+      </div>
+      <!-- Adicione mais templates conforme necessário -->
+    </div>
+
+    <div class="col tela-suspensa-documentos">
+      <!-- frame templates -->
+      <div style="
+
+
+      ">
+
+
+
+    </div>
+
+    </div>
+  </div>
+</div>
+
+
