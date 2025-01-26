@@ -23,24 +23,56 @@ export class AutenticacaoGuard  {
       // console.log('Token:', this.gerenciadorAutenticacaoService.getToken());
       // console.log('Usuário autenticado:', this.gerenciadorAutenticacaoService.getUsuarioAutenticado());
 
-      if(this.gerenciadorAutenticacaoService.getUsuario() === '' || this.gerenciadorAutenticacaoService.getUsuario() === null ||
-      this.gerenciadorAutenticacaoService.getToken() === null && this.gerenciadorAutenticacaoService.getUsuarioAutenticado()===false) {
-        // console.log('Login incorreto - redirecionando')  //{Debug}\\
-        // this.router.navigate(['login'])
+      //fazendo novo teste (Por enquanto funcionando)
+      this.gerenciadorAutenticacaoService.getUsuarioAutenticado();
 
-        return false;
+        if (
+          !this.gerenciadorAutenticacaoService.getUsuario() ||
+          !this.gerenciadorAutenticacaoService.getToken() ||
+          !this.gerenciadorAutenticacaoService.getToken()
+        ) {
+          // // Redireciona para o login se o usuário não estiver autenticado
 
-      } else {
-        // console.log('status do usuarioAutenticado() dentro do canActivate no else --->>> ', this.gerenciadorAutenticacaoService.getUsuarioAutenticado())
-        // console.log('Mensagem do AutenticacaoGuard: Usuario conseguiu autenticar? ', this.gerenciadorAutenticacaoService.getUsuarioAutenticado())
+          // console.log(this.gerenciadorAutenticacaoService.getUsuario());
+          // console.log(this.gerenciadorAutenticacaoService.getToken());
+          // console.log(this.gerenciadorAutenticacaoService.getToken());
+
+
+          // console.log('Usuário:', this.gerenciadorAutenticacaoService.getUsuario());
+          // console.log('Token:', this.gerenciadorAutenticacaoService.getToken());
+          // console.log('Usuário autenticado:', this.gerenciadorAutenticacaoService.getUsuarioAutenticado());
+          // console.log('USUARIO NÃO ESTÁ LOGADO')
+
+          this.router.navigate(['/login']);
+          return false;
+        }
+        // console.log('Usuário:', this.gerenciadorAutenticacaoService.getUsuario());
+        // console.log('Token:', this.gerenciadorAutenticacaoService.getToken());
+        // console.log('Usuário autenticado:', this.gerenciadorAutenticacaoService.getUsuarioAutenticado());
+        // console.log('LOGIN FEITO COM SUCESSO')
+
         return true;
-      }
+    }
+
+
+
+      // está funcionando (Ultimo)
+      // if(this.gerenciadorAutenticacaoService.getUsuario() === '' || this.gerenciadorAutenticacaoService.getUsuario() === null ||
+      // this.gerenciadorAutenticacaoService.getToken() === null && this.gerenciadorAutenticacaoService.getUsuarioAutenticado()===false) {
+      //   // console.log('Login incorreto - redirecionando')  //{Debug}\\
+      //   // this.router.navigate(['login'])
+
+      //   return false;
+
+      // } else {
+      //   // console.log('status do usuarioAutenticado() dentro do canActivate no else --->>> ', this.gerenciadorAutenticacaoService.getUsuarioAutenticado())
+      //   // console.log('Mensagem do AutenticacaoGuard: Usuario conseguiu autenticar? ', this.gerenciadorAutenticacaoService.getUsuarioAutenticado())
+      //   return true;
+      // }
 
   }
 
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe(); // Fecha o Observable para liberar memória
-  }
 
-}
+
+

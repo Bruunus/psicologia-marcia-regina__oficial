@@ -36,6 +36,13 @@ import { TesteDeComponentesComponent } from './testes/teste-de-componentes/teste
 import { PacienteComponent } from './paciente/paciente.component';
 import { IdentificacaoComponent } from './paciente/perfil/generico/identificacao/identificacao.component';
 import { MenuPacienteComponent } from './templates/menu-paciente/menu-paciente.component';
+import { AcompanhamentoComponent } from './paciente/perfil/generico/acompanhamento/acompanhamento.component';
+import { RelatorioComponent } from './paciente/perfil/generico/relatorio/relatorio.component';
+import { FinanceiroComponent } from './paciente/perfil/generico/financeiro/financeiro.component';
+import { LaudoComponent } from './paciente/perfil/neuropsicologia/laudo/laudo.component';
+import { AgendarConsultaComponent } from './paciente/perfil/generico/agendar-consulta/agendar-consulta.component';
+import { MigrarPacienteComponent } from './paciente/perfil/generico/migrar-paciente/migrar-paciente.component';
+import { FinalizarTratamentoComponent } from './paciente/perfil/generico/finalizar-tratamento/finalizar-tratamento.component';
 
 registerLocaleData(localePt);
 
@@ -56,7 +63,14 @@ registerLocaleData(localePt);
     TesteDeComponentesComponent,
     PacienteComponent,
     IdentificacaoComponent,
-    MenuPacienteComponent
+    MenuPacienteComponent,
+    AcompanhamentoComponent,
+    RelatorioComponent,
+    FinanceiroComponent,
+    LaudoComponent,
+    AgendarConsultaComponent,
+    MigrarPacienteComponent,
+    FinalizarTratamentoComponent,
   ],
   imports: [
     BrowserModule,

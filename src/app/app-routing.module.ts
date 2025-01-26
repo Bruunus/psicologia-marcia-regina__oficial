@@ -11,6 +11,13 @@ import { RedirectComponent } from './redirecting/redirect/redirect.component';
 import { TesteDeComponentesComponent } from './testes/teste-de-componentes/teste-de-componentes.component';
 import { PacienteComponent } from './paciente/paciente.component';
 import { IdentificacaoComponent } from './paciente/perfil/generico/identificacao/identificacao.component';
+import { AcompanhamentoComponent } from './paciente/perfil/generico/acompanhamento/acompanhamento.component';
+import { RelatorioComponent } from './paciente/perfil/generico/relatorio/relatorio.component';
+import { FinanceiroComponent } from './paciente/perfil/generico/financeiro/financeiro.component';
+import { LaudoComponent } from './paciente/perfil/neuropsicologia/laudo/laudo.component';
+import { AgendarConsultaComponent } from './paciente/perfil/generico/agendar-consulta/agendar-consulta.component';
+import { MigrarPacienteComponent } from './paciente/perfil/generico/migrar-paciente/migrar-paciente.component';
+import { FinalizarTratamentoComponent } from './paciente/perfil/generico/finalizar-tratamento/finalizar-tratamento.component';
 
 const routes: Routes = [
   // Rotas do menu principal
@@ -22,24 +29,45 @@ const routes: Routes = [
 
   // Rotas do paciente (Pai)
   {
-    path: 'paciente', component: PacienteComponent, canActivate: [AutenticacaoGuard],
+    path: 'paciente/:perfil/documentos',
+    component: PacienteComponent,
+    canActivate: [AutenticacaoGuard],
     children:[
       // rotas filhas da documentação aqui...
+      { path: 'identificacao', component: IdentificacaoComponent },
+      { path: 'acompanhamento', component: AcompanhamentoComponent },
+      { path: 'relatorio', component: RelatorioComponent },
+      { path: 'financeiro', component: FinanceiroComponent },
+      { path: 'laudo', component: LaudoComponent },
+      { path: 'agendar-consulta', component: AgendarConsultaComponent },
+      { path: 'migrar-paciente', component: MigrarPacienteComponent },
+      { path: 'finalizar-tratamento', component: FinalizarTratamentoComponent }
 
-      // exemplo com identificacao
-      { path: 'identificacao', component: IdentificacaoComponent }
+
     ]
 
   },
 
 
 
+
+
   { path: 'redirect-home', component: RedirectComponent, canActivate: [AutenticacaoGuard] },
   // { path: 'rederect', component: RedirectingComponent, canActivate: [AutenticacaoGuard] },
   { path: 'ending-session', component: EndingSessionComponent, canActivate: [AutenticacaoGuard] },
+
   { path: '**', redirectTo: '/login', pathMatch: 'full'},
-  { path: '', redirectTo: '/login', pathMatch: 'full'}
-  // { path: '**', redirectTo: '/login' , canActivate: [AutenticacaoGuard]}   // em caso de acessar url sem sentido
+  { path: '', redirectTo: '/home/pacientes', pathMatch: 'full'}
+
+
+  /*
+    Para produção deixar nesta configuração
+
+    { path: '**', redirectTo: '/home/pacientes', pathMatch: 'full'},
+    { path: '', redirectTo: '/login', pathMatch: 'full'}
+
+  */
+
 
 ];
 

@@ -34,12 +34,11 @@ export class MenuPrincipalComponent implements OnInit {
 
 
   logout() {
-    this.router.navigate(['ending-session']);
     this.apiAutenticacaoService.apiDeslogar(this.nomeLogin!); /* Necessário para atualizar o banco em tempo de execução */
+    this.router.navigate(['ending-session']);
   }
 
-  getNomeUsuarioLogado(): string {
-    return this.nomeLogin!;
-  }
+
+
 
 }

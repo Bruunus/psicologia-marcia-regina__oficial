@@ -1,19 +1,40 @@
 
 <div class="container-fluid">
+
+
+
+
   <app-menu-paciente></app-menu-paciente>
+
+
+
+
+
   <div class="row container-inferior">
     <div class="col-2 col-2-editada-global menu-suspenso-documentos">
-      <ul class="ul-container">
-        <li *ngFor="let item of itensMenu"
-            (click)="selecionarItem(item)">
-            <span [ngClass]="{'active': itemSelecionado === item}">{{ item }}</span>
+      <!-- Adicionar um ngIf - Dependendo do perfil (Psicologia ou Neuropsicologia) o menu muda -->
+      <ul class="ul-container" *ngIf="perfil === 'psicologia'">
+        <li *ngFor="let item of itensMenuPsicologia" (click)="selecionarItem(item)">
+            <span [ngClass]="{'active': itemSelecionado === item.path}">{{ item.label }}</span>
         </li>
       </ul>
+
+      <ul class="ul-container" *ngIf="perfil === 'neuropsicologia'">
+        <li *ngFor="let item of itensMenuNeuropsicologia" (click)="selecionarItem(item)">
+            <span [ngClass]="{'active': itemSelecionado === item.path}">{{ item.label }}</span>
+        </li>
+      </ul>
+
     </div>
 
-
     <div class="col tela-suspensa-documentos">
-      <!-- Renderização condicional dos templates -->
+      <div class="fundo-template">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+
+    <!-- <div class="col tela-suspensa-documentos">
+      Renderização condicional dos templates
       <div *ngIf="itemSelecionado === 'Identificação'"
       style="width: 80%;
       height: 70vh;
@@ -26,22 +47,21 @@
       <div *ngIf="itemSelecionado === 'Item2'">
         <span>Template item 2</span>
       </div>
-      <!-- Adicione mais templates conforme necessário -->
+
     </div>
 
     <div class="col tela-suspensa-documentos">
-      <!-- frame templates -->
-      <div style="
 
-
-      ">
-
-
-
+      <div style="">
     </div>
 
     </div>
-  </div>
+  </div> -->
+
+
+
+
+  <!-- fechamento container-fuid -->
 </div>
 
 

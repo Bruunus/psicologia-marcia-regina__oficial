@@ -29,11 +29,11 @@ export class GerenciadoDeAutenticacaoService {
     return this.token || localStorage.getItem('token')!;
   }
 
-  getTokenNative(): string {
+  getTokenNative(): string  {
     return localStorage.getItem('token')!;
   }
 
-  getUsuario(): string {
+  getUsuario(): string | null {
     return this.usuario || localStorage.getItem('usuario')!;
   }
 

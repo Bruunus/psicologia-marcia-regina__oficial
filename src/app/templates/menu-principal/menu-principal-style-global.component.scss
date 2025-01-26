@@ -98,3 +98,8 @@ $color-item-menu: #ca72ca;
 .div-filho-direito .link-logout {
   margin-left: 2rem;
 }
+
+.link-logout:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

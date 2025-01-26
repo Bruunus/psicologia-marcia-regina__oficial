@@ -32,16 +32,17 @@
             ],
             "styles": [
               "src/styles.scss",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/bootstrap/dist/css/bootstrap-grid.min.css",
               "./node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "./node_modules/primeng/resources/primeng.min.css",
               "./node_modules/primeicons/primeicons.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "./node_modules/bootstrap/dist/css/bootstrap-grid.min.css",
               "./node_modules/select2/dist/css/select2.min.css"
 
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
               "./node_modules/select2/dist/js/select2.min.js"
             ]
           },

@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import { TelaHome } from 'src/app/model/home/tela-home';
 
 @Injectable({
@@ -15,7 +15,8 @@ export class HomeService {
 
   carregarListaHomePacientes(): Observable<TelaHome[]> {
     return this.http.get<TelaHome[]>(this.URLCarregarPacientes).pipe(
-        takeUntil(this.unsubscribe$))
+        takeUntil(this.unsubscribe$)
+      )
   }
 
 

@@ -215,5 +215,11 @@ public validacaoNumero(): ValidatorFn {
 }
 
 
+formatterPalavraPrimeiraLetraMaiuscula(str: string): string {
+  if (!str) return str; // Verifica se a string não está vazia
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+
 
 }

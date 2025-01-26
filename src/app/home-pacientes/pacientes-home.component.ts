@@ -1,3 +1,4 @@
+import { ValidationFormService } from './../cadastro/utilits/validation/validation-form.service';
 import { Component, OnInit } from '@angular/core';
 import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
 import { TimeoutService } from '../services/sessao/timeout.service';
@@ -6,7 +7,6 @@ import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticaca
 import { Observable, Subject, Subscription, takeUntil } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PacienteSeach } from '../model/home/paciente-seach';
-import { MessageComponent } from '../services/messagers/message/message.component';
 import { MessageService } from '../services/messagers/message/message.service';
 import { HomeService } from '../services/api/read/home/home.service';
 import { TelaHome } from '../model/home/tela-home';
@@ -43,7 +43,8 @@ export class PacientesHomeComponent implements OnInit {
     private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService,
     private errorService: MessageService,
     private apiHomeService: HomeService,
-    private pacienteCompartilhamentoService: PacienteCompartilhamentoService
+    private pacienteCompartilhamentoService: PacienteCompartilhamentoService,
+    private validationFormService: ValidationFormService
 
   ) {
     this.paciente = new PacienteSeach();
@@ -105,8 +106,12 @@ export class PacientesHomeComponent implements OnInit {
       console.error('não foi possível encontrar o paciente')
       return
     } else {
+      localStorage.setItem('nomePaciente',paciente.nomeCompleto);
+      const perfilFormatter = this.validationFormService.formatterPalavraPrimeiraLetraMaiuscula(paciente.perfil);
+      localStorage.setItem('perfil', perfilFormatter);
       this.pacienteCompartilhamentoService.setPacienteCpf(paciente.cpf);
-      this.router.navigate(['/paciente']);
+      const perfilFormatterMinusculoParaURl = perfilFormatter.toLowerCase()
+      this.router.navigate([`/paciente/${perfilFormatterMinusculoParaURl}/documentos`]);
     }
   }
 

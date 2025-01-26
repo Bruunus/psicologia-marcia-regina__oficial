@@ -7,21 +7,66 @@
           <img src="../../../assets/img/img-logo-alfa.png" class=" img-menu no-select-img">
         </div>
         <div class="col col-perfil-filho" style="font-size: 1.3em; padding-right: 2%;">
-          [Neuropsicologia]
+          {{ perfil }}
         </div>
       </div>
     </div>
     <div class="col-10 col-10-editada side-bar-direito">
       <div class="side-bar-direito-filho">
         <div class="side-bar-direito-filho-container-esquerdo">
-          <span class="nome-paciente-display">[Bruno Fernandes dos Santos]</span>
+          <span class="nome-paciente-display">{{ nomeSessao }}</span>
         </div>
         <div class="side-bar-direito-filho-container-direito">
-          <span class="usuario-display">[Olá, usuario]</span>
-          <span class="sair"><a [routerLink]="[]">Sair</a></span>
+          <span class="usuario-display">Olá, {{ usuario }}</span>
+          <span class="link-logout" (click)="openModal()">Sair</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+    class="modal fade"
+    id="exampleModalCenter"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true"
+    data-backdrop="static"
+    data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Encerra sessão</h5>
+          <button
+            type="button"
+            class="close"
+            (click)="closeModal()"
+            aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Deseja sair deste perfil ou encerrar sessão ?
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="redirectMenu()"
+
+            >Sair do perfil</button>
+
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="encerrarSessao()"
+            >Encerrar sessão</button>
         </div>
       </div>
     </div>
+  </div>
+
   </div>
 
 
