@@ -1,0 +1,54 @@
+<div class="container-fluid">
+
+  <h3 class="pb-3">Registro de Bugs e Correções até o Build Final</h3>
+
+  <small>
+    Tabela: bugs-e-manutencao <br>
+    Colunas: &lbrace; id, problema, tela, deletado &rbrace;
+  </small>
+
+  <br><br>
+
+  <div class="row row-input">
+    <div class="col-6">
+      <div class="col-12">
+        <label for=""><b>Tela</b></label>
+        <select [(ngModel)]="selectedTela" class="form-control" id="">
+          <option *ngFor="let item of telas" [value]="item">{{ item }}</option>
+        </select>
+      </div>
+      <br>
+      <div class="col-12">
+        <label for=""><b>Problema ou Bug para Corrigir</b></label>
+        <input type="text" [(ngModel)]="problema" class="form-control" name="" id="">
+      </div>
+      <div class="col-12 div-btn">
+        <button class="btn btn-warning" (click)="registrarBug()">Registrar</button>
+      </div>
+    </div>
+  </div>
+
+  <br><br>
+
+  <ul style="
+  border: 1px dashed lightgray;
+  padding: 1rem 2rem;
+  height: 80vh;
+  width: 100%;
+  overflow: auto;
+">
+    <li *ngFor="let bug of bugs">
+      <b><u>{{ bug.tela }}</u></b>
+      <ul>
+        <li *ngFor="let problema of bug.problemas; let i = index"
+          (click)="deletarProblema(bug.tela, problema)"
+          class="clickable-problema"
+        >
+          {{ problema }}
+
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+</div>

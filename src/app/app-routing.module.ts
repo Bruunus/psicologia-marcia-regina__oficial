@@ -8,7 +8,7 @@ import { PacientesHomeComponent } from './home-pacientes/pacientes-home.componen
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { RedirectingComponent } from './redirecting/redirecting.component';
 import { RedirectComponent } from './redirecting/redirect/redirect.component';
-import { TesteDeComponentesComponent } from './testes/teste-de-componentes/teste-de-componentes.component';
+import { TesteDeComponentesComponent } from './temp/teste-de-componentes/teste-de-componentes.component';
 import { PacienteComponent } from './paciente/paciente.component';
 import { IdentificacaoComponent } from './paciente/perfil/generico/identificacao/identificacao.component';
 import { AcompanhamentoComponent } from './paciente/perfil/generico/acompanhamento/acompanhamento.component';
@@ -18,6 +18,7 @@ import { LaudoComponent } from './paciente/perfil/neuropsicologia/laudo/laudo.co
 import { AgendarConsultaComponent } from './paciente/perfil/generico/agendar-consulta/agendar-consulta.component';
 import { MigrarPacienteComponent } from './paciente/perfil/generico/migrar-paciente/migrar-paciente.component';
 import { FinalizarTratamentoComponent } from './paciente/perfil/generico/finalizar-tratamento/finalizar-tratamento.component';
+import { BugsComponent } from './temp/bugs/bugs.component';
 
 const routes: Routes = [
   // Rotas do menu principal
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'home/pacientes', component: PacientesHomeComponent, canActivate: [AutenticacaoGuard] },
   { path: 'home/novo-paciente' , component: CadastroComponent, canActivate: [AutenticacaoGuard]},
   { path: 'teste', component: TesteDeComponentesComponent, canActivate: [AutenticacaoGuard]},
+  { path: 'bugs', component: BugsComponent, canActivate: [AutenticacaoGuard]},
 
 
   // Rotas do paciente (Pai)

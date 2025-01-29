@@ -28,11 +28,11 @@ import { ApiServicesProvider } from './providers/api-services-provider';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { MenuPrincipalComponent } from './templates/menu-principal/menu-principal.component';
 import { DisplayInfoMessageComponent } from './services/messagers/info-message/display-info-message-generics/display-info-message/display-info-message.component';
-import { LoadingComponent } from './services/waiting/loading/loading.component';
+
 import { ServicesProvider } from './providers/services-provider';
 import { CadastroPacienteInfoMessageComponent } from './services/messagers/info-message/cadastro-paciente/display-cadastro-paciente/cadastro-paciente-info-message.component';
 import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
-import { TesteDeComponentesComponent } from './testes/teste-de-componentes/teste-de-componentes.component';
+import { TesteDeComponentesComponent } from './temp/teste-de-componentes/teste-de-componentes.component';
 import { PacienteComponent } from './paciente/paciente.component';
 import { IdentificacaoComponent } from './paciente/perfil/generico/identificacao/identificacao.component';
 import { MenuPacienteComponent } from './templates/menu-paciente/menu-paciente.component';
@@ -43,6 +43,7 @@ import { LaudoComponent } from './paciente/perfil/neuropsicologia/laudo/laudo.co
 import { AgendarConsultaComponent } from './paciente/perfil/generico/agendar-consulta/agendar-consulta.component';
 import { MigrarPacienteComponent } from './paciente/perfil/generico/migrar-paciente/migrar-paciente.component';
 import { FinalizarTratamentoComponent } from './paciente/perfil/generico/finalizar-tratamento/finalizar-tratamento.component';
+import { BugsComponent } from './temp/bugs/bugs.component';
 
 registerLocaleData(localePt);
 
@@ -58,7 +59,6 @@ registerLocaleData(localePt);
     CadastroComponent,
     MenuPrincipalComponent,
     DisplayInfoMessageComponent,
-    LoadingComponent,
     CadastroPacienteInfoMessageComponent,
     TesteDeComponentesComponent,
     PacienteComponent,
@@ -71,6 +71,7 @@ registerLocaleData(localePt);
     AgendarConsultaComponent,
     MigrarPacienteComponent,
     FinalizarTratamentoComponent,
+    BugsComponent,
   ],
   imports: [
     BrowserModule,

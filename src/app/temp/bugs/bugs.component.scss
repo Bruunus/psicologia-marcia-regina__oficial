@@ -1,0 +1,27 @@
+.container-fluid {
+  background-color: rgb(60, 80, 134);
+  color: yellow;
+  padding: 1rem !important;
+}
+
+.form-control {
+  background-color: #e4e4e4;
+  color: #293df8de
+}
+
+.div-btn {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: end;
+}
+
+
+.clickable-problema {
+  cursor: pointer;
+
+}
+
+.clickable-problema:hover {
+  text-decoration: underline; /* Cor opcional para destacar ao passar o mouse */
+}
+

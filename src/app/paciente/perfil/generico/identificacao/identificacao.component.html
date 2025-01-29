@@ -1,12 +1,14 @@
-<p>identificacao works!</p>
+<div *ngIf="exibicaoDeConteudo">
+  <p>identificacao works!</p>
 
-<ul>
-  <li>Antes de renderizar já é preciso renderizar os dados do banco de dados em tela </li>
-  <li>Não esqueça de adicionar loading enquanto os dados são carregados</li>
+  <ul>
+    <li>Antes de renderizar já é preciso renderizar os dados do banco de dados em tela </li>
+    <li>Não esqueça de adicionar loading enquanto os dados são carregados</li>
 
-  <span><a
-    [routerLink]="[]"
-    style="color: yellow;"
-    >Modal</a></span>
+    <span><a
+      [routerLink]="[]"
+      style="color: yellow;"
+      >Modal</a></span>
 
-</ul>
+  </ul>
+</div>
