@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PacienteInterface } from '../model/cadastro/paciente-interface';
-import { CreateService } from '../services/api/create/create.service';
+import { CreateService } from '../services/api/create/paciente/create.service';
 import { PerfilEnum } from '../model/cadastro/perfil-enum';
 import { selectUf } from '../services/utilits/select-uf';
 import { Router } from '@angular/router';

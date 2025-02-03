@@ -2,19 +2,20 @@ import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/htt
 import { Injectable } from '@angular/core';
 import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import { TelaHome } from 'src/app/model/home/tela-home';
+import { UrlService } from 'src/app/services/url-service/url.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HomeService {
 
-  private URLCarregarPacientes: string = 'http://localhost:8080/carregar-tela-home';
+
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private urlService: UrlService) { }
 
   carregarListaHomePacientes(): Observable<TelaHome[]> {
-    return this.http.get<TelaHome[]>(this.URLCarregarPacientes).pipe(
+    return this.http.get<TelaHome[]>(this.urlService.urlCarregarPacienteTelaHome).pipe(
         takeUntil(this.unsubscribe$)
       )
   }

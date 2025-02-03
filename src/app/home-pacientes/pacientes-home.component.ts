@@ -10,7 +10,6 @@ import { PacienteSeach } from '../model/home/paciente-seach';
 import { MessageService } from '../services/messagers/message/message.service';
 import { HomeService } from '../services/api/read/home/home.service';
 import { TelaHome } from '../model/home/tela-home';
-import { PacienteCompartilhamentoService } from '../services/compartilhamento-de-dados/paciente/paciente.service';
 
 
 @Component({
@@ -43,7 +42,6 @@ export class PacientesHomeComponent implements OnInit {
     private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService,
     private errorService: MessageService,
     private apiHomeService: HomeService,
-    private pacienteCompartilhamentoService: PacienteCompartilhamentoService,
     private validationFormService: ValidationFormService
 
   ) {
@@ -103,14 +101,14 @@ export class PacientesHomeComponent implements OnInit {
   protected redirectPaciente(paciente: TelaHome) {
 
     if(paciente.cpf === null || paciente.cpf === undefined) {
-      console.error('não foi possível encontrar o paciente')
+      console.error('não foi possível encontrar o paciente');
       return
     } else {
       localStorage.setItem('nomePaciente',paciente.nomeCompleto);
       const perfilFormatter = this.validationFormService.formatterPalavraPrimeiraLetraMaiuscula(paciente.perfil);
       localStorage.setItem('perfil', perfilFormatter);
-      this.pacienteCompartilhamentoService.setPacienteCpf(paciente.cpf);
-      const perfilFormatterMinusculoParaURl = perfilFormatter.toLowerCase()
+      localStorage.setItem('cpf', paciente.cpf);
+      const perfilFormatterMinusculoParaURl = perfilFormatter.toLowerCase();
       this.router.navigate([`/paciente/${perfilFormatterMinusculoParaURl}/documentos`]);
     }
   }

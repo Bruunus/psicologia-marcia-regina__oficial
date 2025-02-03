@@ -1,20 +1,21 @@
-import { MessageService } from '../../messagers/message/message.service';
-import { MessageApiGenericsService } from '../../messagers/info-message/display-info-message-generics/message-api-generics.service';
+import { MessageService } from '../../../messagers/message/message.service';
+import { MessageApiGenericsService } from '../../../messagers/info-message/display-info-message-generics/message-api-generics.service';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { PacienteInterface } from 'src/app/model/cadastro/paciente-interface';
-import { GerenciadoDeAutenticacaoService } from '../../sessao/gerenciador-de-autenticacao.service';
+import { GerenciadoDeAutenticacaoService } from '../../../sessao/gerenciador-de-autenticacao.service';
+import { UrlService } from '../../../url-service/url.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CreateService {
 
-  private URLRegistrarPaciente: string = 'http://localhost:8080/cadastro/paciente';
+
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private http: HttpClient, private userMessage: MessageService
+  constructor(private http: HttpClient, private userMessage: MessageService, private urlService: UrlService
   ) { }
 
 
@@ -37,7 +38,7 @@ export class CreateService {
 
     return new Promise<boolean>((resolve) => {
 
-      this.http.post<PacienteInterface>(this.URLRegistrarPaciente, patient, { observe: 'response' })
+      this.http.post<PacienteInterface>(this.urlService.urlRegistrarPaciente, patient, { observe: 'response' })
         .pipe(takeUntil(this.unsubscribe$)).subscribe({
           next: (response: HttpResponse<any>) => { //any só pra poder retornar uma mensagem
             if (response && response.status === 200) {

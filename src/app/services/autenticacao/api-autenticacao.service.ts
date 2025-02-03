@@ -4,15 +4,14 @@ import { Usuario } from 'src/app/model/login/usuario';
 import { catchError, map, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { GerenciadoDeAutenticacaoService } from '../sessao/gerenciador-de-autenticacao.service';
+import { UrlService } from '../url-service/url.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiAutenticacaoService {
 
-  private logon: string = 'http://localhost:8080/login';
-  private logout: string = 'http://localhost:8080/deslogar';
-  private statusUpdate: string = 'http://localhost:8080/status-update';
+
 
 
   private token: string = '';
@@ -24,17 +23,23 @@ export class ApiAutenticacaoService {
 
 
 
-  constructor(private http: HttpClient, private router: Router, private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService) {
+  constructor(
+    private http: HttpClient, private router: Router, private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService,
+    private urlService: UrlService) {
     this.listaDoUsuario = [];
     const token = localStorage.getItem('token');
     if (token) {
       this.setToken(token);
     }
+
+
+
+
   }
 
 
   apiAutenticacao(usuario: Usuario): Observable<boolean> {
-    return this.http.post<any>(this.logon, usuario).pipe(
+    return this.http.post<any>(this.urlService.urlLogin, usuario).pipe(
       takeUntil(this.unsubscribe$),
       map(response => {
         if (response && response.token) {
@@ -139,7 +144,7 @@ updateStatusLogoffUsuario(norepete: boolean): void {
 
     // const userNameStatus: {} = { "login": usuarioStorage };
     alert('metodo updateStatusLogoffUsuario')
-    this.http.get<any>(this.statusUpdate).pipe(
+    this.http.get<any>(this.urlService.urlStatusUpdate).pipe(
         tap((statusLogin: boolean) => {
           console.log('Status final: ', statusLogin)
           if(statusLogin)
@@ -155,8 +160,8 @@ updateStatusLogoffUsuario(norepete: boolean): void {
 
 apiDeslogar(user: string): Promise<boolean> {
   const usuario = { login: user };
-  return new Promise<boolean>((resolve, reject) => {
-    this.http.post<any>(this.logout, usuario).subscribe(
+  return new Promise<boolean>((resolve) => {
+    this.http.post<any>(this.urlService.urlLogout, usuario).subscribe(
       (response) => {
         if(response.status === 200) {
           console.log('Usuario deslogado: ', usuario.login)

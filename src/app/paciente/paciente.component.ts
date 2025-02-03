@@ -1,6 +1,5 @@
 
 import { Component, OnInit } from '@angular/core';
-import { PacienteCompartilhamentoService } from '../services/compartilhamento-de-dados/paciente/paciente.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingDocumentosService } from '../services/loading/documentos/loading-documentos.service';
 import { BehaviorSubject } from 'rxjs';
@@ -13,12 +12,11 @@ import { BehaviorSubject } from 'rxjs';
 })
 
 export class PacienteComponent implements OnInit {
-  paciente: string | undefined;
   perfil: string | undefined;
   itemSelecionado: string | null = null;
   rotaAtual: string = '';
 
-  booleanValue: boolean = false;
+  public loadingDocumentosService: LoadingDocumentosService;
 
   /**
    * Definindo os itens do menu de acordo com cada perfi. Para serem carregados dentro de um *ngFor.
@@ -48,27 +46,21 @@ export class PacienteComponent implements OnInit {
 
 
   constructor(
-    private pacienteCompartilhamentoService: PacienteCompartilhamentoService, private route: ActivatedRoute,
-    private router: Router, private loadingDocumentosService: LoadingDocumentosService ) {
+    private route: ActivatedRoute, private router: Router, private loadingDocumentosServiceInject: LoadingDocumentosService ) {
       /**
        * Captura a url em tempo real, divide ela com separador '/' retorna o último valor da separação.
        * Usei esse trecho para poder identificar a rota 'ativa' no momento em que o componente é carregado.
        */
       this.rotaAtual = this.router.url.split('/').pop() || '';
+      this.loadingDocumentosService = loadingDocumentosServiceInject;
     }
 
   ngOnInit() {
-    this.paciente = this.pacienteCompartilhamentoService.getPacienteCpf();
     const localStoragePerfil = localStorage.getItem('perfil');
     console.log('Storage de perfil: ', localStoragePerfil);
     this.perfil = localStoragePerfil ? localStoragePerfil.toLowerCase() : '';
 
 
-    this.loadingDocumentosService.boolean$.subscribe(value => {
-      if (!value) {
-         this.booleanValue = false;
-      }
-    });
 
   }
 
@@ -84,7 +76,7 @@ export class PacienteComponent implements OnInit {
 
     // this.booleanValue = !this.booleanValue; // Alterna o valor
     this.loadingDocumentosService.setBoolean(true); // Atualiza o serviço
-    this.booleanValue = true;
+    // this.booleanValue = true;
 
     if (item.path) {
       this.router.navigate([`/paciente/${this.perfil}/documentos/${item.path}`]);
@@ -97,10 +89,9 @@ export class PacienteComponent implements OnInit {
 
   onNotify() {
     console.log('O filho notificou que a variável é true!');
-    this.booleanValue = false;
+    // this.booleanValue = false;
     // Aqui você pode adicionar a lógica que deseja executar quando o filho notifica
     // console.log('Teste de renderizar tela')
-
   }
 
 
