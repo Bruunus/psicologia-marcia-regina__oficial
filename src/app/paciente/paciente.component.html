@@ -23,7 +23,13 @@
       <ul class="ul-container" *ngIf="perfil === 'neuropsicologia'">
         <li *ngFor="let item of itensMenuNeuropsicologia" (click)="selecionarItem(item)">
             <span [ngClass]="{'active': itemSelecionado === item.path}">{{ item.label }}</span>
-            <img *ngIf="(loadingDocumentosService.boolean$ | async) && itemSelecionado === item.path" src="../../assets/img/loadingo-menu.gif" alt="Loading" style="height: 20px; margin-left: 5px;">
+            <img
+              *ngIf="
+                (loadingDocumentosService.boolean$ | async) &&
+                itemSelecionado === item.path &&
+                 (loadingDocumentosService.getRenderizado)"
+                src="../../assets/img/loadingo-menu.gif"
+                alt="Loading" style="height: 20px; margin-left: 5px;">
         </li>
       </ul>
 

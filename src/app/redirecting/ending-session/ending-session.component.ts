@@ -2,6 +2,7 @@ import { GerenciadoDeAutenticacaoService } from '../../services/sessao/gerenciad
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiAutenticacaoService } from '../../services/autenticacao/api-autenticacao.service';
+import { PacienteCacheService } from 'src/app/services/cache/paciente/paciente-cache.service';
 
 @Component({
   selector: 'app-ending-session',
@@ -15,7 +16,9 @@ export class EndingSessionComponent implements OnInit {
   constructor(
     private router: Router,
     private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService,
-    private apiAutenticacaoService: ApiAutenticacaoService)
+    private apiAutenticacaoService: ApiAutenticacaoService,
+    private pacienteCacheService: PacienteCacheService
+  )
     { }
 
   ngOnInit(): void {
@@ -40,6 +43,9 @@ export class EndingSessionComponent implements OnInit {
       localStorage.removeItem('nomePaciente');
       localStorage.removeItem('perfil');
       localStorage.removeItem('usuario');
+      // localStorage.removeItem('paciente');
+      this.pacienteCacheService.clearCachePaciente()
+      console.log(localStorage.getItem('paciente'));
 
       window.location.reload();
 

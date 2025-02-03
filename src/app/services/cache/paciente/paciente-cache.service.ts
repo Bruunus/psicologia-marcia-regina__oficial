@@ -28,8 +28,10 @@ export class PacienteCacheService {
   }
 
   // 🔹 4️⃣ Limpa o paciente do cache e do localStorage
-  clearPaciente(): void {
+  clearCachePaciente(): void {
     localStorage.removeItem('paciente');
-    this.pacienteSubject.next(null);
+    // this.pacienteSubject.next(null);
+    this.pacienteSubject.complete();
+    this.pacienteSubject = new BehaviorSubject<IdentificacaoPacienteInterface | null>(null);
   }
 }

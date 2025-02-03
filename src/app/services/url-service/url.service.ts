@@ -11,7 +11,7 @@ export class UrlService {
 
   // Authentication
   private login: string = `http://${this.server}:${this.port}/auth/login`;
-  private logout: string = `http://${this.server}:${this.port}/deslogar`;
+  private logout: string = `http://${this.server}:${this.port}/auth/deslogar`;
   private statusUpdate: string = `http://${this.server}:${this.port}/status-update`;
 
   // Home
@@ -19,7 +19,7 @@ export class UrlService {
 
 
   // Patient
-  private registerPatient: string = `http://${this.server}:${this.port}/cadastro/paciente`;
+  private registerPatient: string = `http://${this.server}:${this.port}/paciente/cadastro`;
   private getPatientData: string = `http://${this.server}:${this.port}/paciente/carregar-dados`;
 
   constructor() { }

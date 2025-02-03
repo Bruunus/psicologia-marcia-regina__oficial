@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core';
+import { IdentificacaoPacienteInterface } from 'src/app/model/documentos/identificacao/identificacao-paciente-interface';
 import { IdentificacaoService } from 'src/app/services/api/read/paciente/identificacao/identificacao.service';
 import { PacienteCacheService } from 'src/app/services/cache/paciente/paciente-cache.service';
 import { LoadingDocumentosService } from 'src/app/services/loading/documentos/loading-documentos.service';
@@ -11,11 +12,12 @@ import { LoadingDocumentosService } from 'src/app/services/loading/documentos/lo
 export class IdentificacaoComponent implements OnInit {
 
   exibicaoDeConteudo: boolean = false;
+  identificacao: any = []
 
 
   constructor(
     private loadingDocumentosService: LoadingDocumentosService, private identificacaoService: IdentificacaoService,
-    private cacheService: PacienteCacheService
+    private cacheService: PacienteCacheService, private zone: NgZone
   ) {}
 
 
@@ -47,16 +49,51 @@ export class IdentificacaoComponent implements OnInit {
 
                 console.log('CPF pesquisado: ', storageCPF)
 
-                this.identificacaoService.carregarPaciente(storageCPF!).subscribe((paciente) => {
-                  if (paciente) {
-                    console.log('Paciente recebido:', paciente);
-                    this.loadingDocumentosService.setBoolean(false);
-                    this.exibicaoDeConteudo = true;
+
+                // Primeiro verifica em cache, se nao houver então realiza a api
+
+                this.cacheService.getPacienteCache().subscribe((dataCache) => {
+                  if(dataCache) {
+                    this.identificacao = this.cacheService.getPacienteCache().subscribe((data) => {
+                      this.identificacao = data;
+                      console.log('Existe dados em cache', this.identificacao)
+                      if(this.identificacao.lenght != 0) {
+                        setTimeout(() => {
+                          this.loadingDocumentosService.setBoolean(false);
+                          this.loadingDocumentosService.setRenderizado(true);
+                          this.exibicaoDeConteudo = true;
+                        });
+                      } else {
+                        console.error('Os dados não foram carregados corretamente');
+                      }
+                    });
                   } else {
-                    console.warn('Não foi possível carregar o paciente.');
-                    this.loadingDocumentosService.setBoolean(false);
+                    this.identificacaoService.carregarPaciente(storageCPF!).subscribe((paciente) => {
+                      if (paciente) {
+                        console.log('Chamada nova de paciente realizada:', paciente);
+
+                        setTimeout(() => {
+                          this.loadingDocumentosService.setBoolean(false);
+                          this.loadingDocumentosService.setRenderizado(true);
+                        });
+                        console.log('Mudança de estado detectado: ', this.loadingDocumentosService.getRenderizado())
+                        this.exibicaoDeConteudo = true;
+                        // this.loadingDocumentosService.setRenderizado(true)
+                      } else {
+                        console.warn('Não foi possível carregar o paciente.');
+                        this.loadingDocumentosService.setBoolean(false);
+                      }
+                    });
                   }
-                });
+                })
+
+
+
+
+
+
+
+
 
 
 
@@ -99,6 +136,12 @@ export class IdentificacaoComponent implements OnInit {
 
       // }
     // });
+  }
+
+  ngOnDestroy(): void {
+    this.loadingDocumentosService.setRenderizado(false)
+    console.log('Finalizado Identificação - valor final: ', this.loadingDocumentosService.getRenderizado())
+    localStorage.removeItem('paciente')
   }
 
 

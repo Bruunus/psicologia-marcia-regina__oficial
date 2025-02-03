@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingDocumentosService } from '../services/loading/documentos/loading-documentos.service';
-import { BehaviorSubject } from 'rxjs';
+
 
 
 @Component({

@@ -37,6 +37,7 @@ export class MenuPacienteComponent implements OnInit{
   }
 
   closeModal(): void {
+    document.getElementById('safeElement')?.focus();
     $('#exampleModalCenter').modal('hide'); // Fecha o modal
   }
 
@@ -52,6 +53,7 @@ export class MenuPacienteComponent implements OnInit{
   /* Evento do Modal */
   encerrarSessao() {
     this.closeModal()
+
     setTimeout(() => {
       this.router.navigate(['ending-session']);
       this.apiAutenticacaoService.apiDeslogar(this.usuario!); /* Necessário para atualizar o banco em tempo de execução */
