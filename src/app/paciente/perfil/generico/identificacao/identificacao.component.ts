@@ -1,4 +1,5 @@
 import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { IdentificacaoPacienteInterface } from 'src/app/model/documentos/identificacao/identificacao-paciente-interface';
 import { IdentificacaoService } from 'src/app/services/api/read/paciente/identificacao/identificacao.service';
 import { PacienteCacheService } from 'src/app/services/cache/paciente/paciente-cache.service';
@@ -12,7 +13,40 @@ import { LoadingDocumentosService } from 'src/app/services/loading/documentos/lo
 export class IdentificacaoComponent implements OnInit {
 
   exibicaoDeConteudo: boolean = false;
-  identificacao: any = []
+  private subscription: Subscription | null = null;
+  identificacao: IdentificacaoPacienteInterface | null = {
+    id: 0,
+    nomeCompleto: '',
+    responsavel: null, // ou '' se preferir
+    cpf: '',
+    rg: '',
+    email: '',
+    telefone: '',
+    telefoneContato: '',
+    nomeDoContato: '',
+    idade: 0,
+    dataNascimento: new Date(), // ou uma data específica
+    estadoCivil: '',
+    filhos: null, // ou false se preferir
+    qtdFilhos: null, // ou 0 se preferir
+    grauEscolaridade: '',
+    profissao: '',
+    statusPaciente: '',
+    perfil: '',
+    endereco: {
+      id: 0,
+      logradouro: '',
+      numero: '',
+      complemento: null,
+      bairro: '',
+      cidade: '',
+      uf: '',
+      cep: ''
+    },
+    queixa: {
+      queixa: ''
+    }
+  } ;
 
 
   constructor(
@@ -54,30 +88,36 @@ export class IdentificacaoComponent implements OnInit {
 
                 this.cacheService.getPacienteCache().subscribe((dataCache) => {
                   if(dataCache) {
-                    this.identificacao = this.cacheService.getPacienteCache().subscribe((data) => {
-                      this.identificacao = data;
-                      console.log('Existe dados em cache', this.identificacao)
-                      if(this.identificacao.lenght != 0) {
-                        setTimeout(() => {
-                          this.loadingDocumentosService.setBoolean(false);
-                          this.loadingDocumentosService.setRenderizado(true);
-                          this.exibicaoDeConteudo = true;
-                        });
-                      } else {
-                        console.error('Os dados não foram carregados corretamente');
-                      }
+
+                    this.identificacao = dataCache;
+
+                    if(this.identificacao != null) {
+                      setTimeout(() => {
+                        this.loadingDocumentosService.setBoolean(false);
+                        this.loadingDocumentosService.setRenderizado(true);
+                        this.exibicaoDeConteudo = true;
                     });
+                    } else {
+                        console.error('Os dados não foram carregados corretamente');
+                    }
+
+
                   } else {
                     this.identificacaoService.carregarPaciente(storageCPF!).subscribe((paciente) => {
                       if (paciente) {
                         console.log('Chamada nova de paciente realizada:', paciente);
 
+                        this.identificacao = paciente;
+
+
                         setTimeout(() => {
                           this.loadingDocumentosService.setBoolean(false);
                           this.loadingDocumentosService.setRenderizado(true);
+                          this.exibicaoDeConteudo = true;
                         });
+
                         console.log('Mudança de estado detectado: ', this.loadingDocumentosService.getRenderizado())
-                        this.exibicaoDeConteudo = true;
+
                         // this.loadingDocumentosService.setRenderizado(true)
                       } else {
                         console.warn('Não foi possível carregar o paciente.');
@@ -142,7 +182,11 @@ export class IdentificacaoComponent implements OnInit {
     this.loadingDocumentosService.setRenderizado(false)
     console.log('Finalizado Identificação - valor final: ', this.loadingDocumentosService.getRenderizado())
     localStorage.removeItem('paciente')
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
+
 
 
 
