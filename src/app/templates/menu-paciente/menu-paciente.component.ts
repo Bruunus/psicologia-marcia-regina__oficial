@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiAutenticacaoService } from 'src/app/services/autenticacao/api-autenticacao.service';
+import { PacienteCacheService } from 'src/app/services/cache/paciente/paciente-cache.service';
 import { GerenciadoDeAutenticacaoService } from 'src/app/services/sessao/gerenciador-de-autenticacao.service';
 declare var $: any;
 
@@ -12,14 +13,14 @@ declare var $: any;
 })
 export class MenuPacienteComponent implements OnInit{
 
-  perfil: string | null = '';
-  nomeSessao: string | null = '';
+  perfil: string | undefined | null = '';
+  nomeSessao: string | undefined | null = '';
   usuario: string | null = '';
 
   private modal: any;
 
   constructor(private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService, private router: Router,
-    private apiAutenticacaoService: ApiAutenticacaoService) {
+    private apiAutenticacaoService: ApiAutenticacaoService, private pacienteCacheService: PacienteCacheService) {
 
   }
 
@@ -27,6 +28,14 @@ export class MenuPacienteComponent implements OnInit{
 
     this.perfil = localStorage.getItem('perfil')
     this.nomeSessao = localStorage.getItem('nomePaciente')
+
+    // this.pacienteCacheService.getPacienteCache().subscribe(
+    //   (data) => {
+    //     this.perfil = data?.perfil;
+    //     this.nomeSessao = data?.nomeCompleto;
+    //   }
+    // )
+
     this.usuario = this.gerenciadoDeAutenticacaoService.getUsuario()
 
   }
@@ -44,6 +53,11 @@ export class MenuPacienteComponent implements OnInit{
   protected redirectMenu(): void {
     this.closeModal()
     setTimeout(() => {
+      localStorage.removeItem('cpf');
+      localStorage.removeItem('nomePaciente');
+      localStorage.removeItem('perfil');
+      this.pacienteCacheService.clearCachePaciente();
+
       this.router.navigate(['/home/pacientes']);
     }, 450);
 

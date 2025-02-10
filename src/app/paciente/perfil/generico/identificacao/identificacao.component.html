@@ -3,7 +3,6 @@
     border: 1px solid blue;
     width: 100%;
     height: 80vh;
-    padding: 1rem;
 
   "
 >
@@ -17,7 +16,7 @@
    <br> -->
 
 
-  <div class="row mostruario-de-identificacao"
+  <!-- <div class="row mostruario-de-identificacao"
   style="
     border: 1px solid tomato;
     width: 100% !important;
@@ -44,18 +43,41 @@
             [Foto logo]
           </div>
 
-      </div>
+      </div> -->
+    <!-- </div> -->
+
+    <div class="col-12" id="section-1" style="background-color: rgb(255, 219, 172);">
+      <p><b>Prontuário:</b> {{this.identificacao?.id}}</p>
+      <p><b>Nome:</b> {{ this.identificacao?.nomeCompleto }}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.responsavel}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.cpf}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.rg}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.email}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.telefone}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.telefoneContato}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.idade}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.dataNascimento}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.estadoCivil}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.filhos}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.qtdFilhos}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.grauEscolaridade}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.profissao}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.statusPaciente}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.perfil}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.endereco?.logradouro}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.endereco?.numero}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.endereco?.complemento}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.endereco?.bairro}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.endereco?.cidade}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.endereco?.uf}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.endereco?.cep}}</p>
+      <p><b>Responsável:</b> {{this.identificacao?.queixa?.queixa}}</p>
+
     </div>
 
-    <!-- <div class="col-12" id="section-1" style="background-color: lightsalmon;">
-      <p>Prontuário: {{this.identificacao?.id}}</p>
-      <p>Nome: {{ this.identificacao?.nomeCompleto }}</p>
-      <p>Responsável: {{this.identificacao?.responsavel}}</p>
-    </div> -->
 
 
-
-  </div>
+  <!-- </div> -->
 
 
 

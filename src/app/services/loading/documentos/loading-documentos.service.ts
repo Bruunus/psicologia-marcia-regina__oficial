@@ -15,6 +15,10 @@ export class LoadingDocumentosService {
     this.booleanSource.next(value); // Define o valor booleano
   }
 
+  getBoolean(): boolean {
+    return this.booleanSource.getValue();
+  }
+
   setRenderizado(value: boolean) {
     this.renderizacaoSource.next(value); // Define o valor booleano
   }
@@ -22,6 +26,14 @@ export class LoadingDocumentosService {
   getRenderizado(): boolean {
     return this.renderizacaoSource.getValue();
   }
+
+  clearLoading(): void {
+      localStorage.removeItem('paciente');
+      // this.pacienteSubject.next(null);
+      this.booleanSource.complete();
+      this.booleanSource = new BehaviorSubject<boolean>(false);
+    }
+
 
 }
 

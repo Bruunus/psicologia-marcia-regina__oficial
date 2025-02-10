@@ -87,22 +87,11 @@ export class IdentificacaoComponent implements OnInit {
                 // Primeiro verifica em cache, se nao houver então realiza a api
 
                 this.cacheService.getPacienteCache().subscribe((dataCache) => {
-                  if(dataCache) {
 
-                    this.identificacao = dataCache;
+                  // console.log('Datacache => ', dataCache.)
 
-                    if(this.identificacao != null) {
-                      setTimeout(() => {
-                        this.loadingDocumentosService.setBoolean(false);
-                        this.loadingDocumentosService.setRenderizado(true);
-                        this.exibicaoDeConteudo = true;
-                    });
-                    } else {
-                        console.error('Os dados não foram carregados corretamente');
-                    }
+                  if(dataCache?.cpf != storageCPF) {
 
-
-                  } else {
                     this.identificacaoService.carregarPaciente(storageCPF!).subscribe((paciente) => {
                       if (paciente) {
                         console.log('Chamada nova de paciente realizada:', paciente);
@@ -124,6 +113,28 @@ export class IdentificacaoComponent implements OnInit {
                         this.loadingDocumentosService.setBoolean(false);
                       }
                     });
+
+
+                  } else {
+
+
+                    console.log('Comparando os CPFs => ', dataCache?.cpf,'<=>', storageCPF)
+
+                    this.identificacao = dataCache;
+
+                    if(this.identificacao != null) {
+                      setTimeout(() => {
+                        this.loadingDocumentosService.setBoolean(false);
+                        this.loadingDocumentosService.setRenderizado(true);
+                        this.exibicaoDeConteudo = true;
+                    });
+                    } else {
+                        console.error('Os dados não foram carregados corretamente');
+                    }
+
+
+
+
                   }
                 })
 

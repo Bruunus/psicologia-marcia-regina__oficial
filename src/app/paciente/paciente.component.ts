@@ -74,13 +74,27 @@ export class PacienteComponent implements OnInit {
   selecionarItem(item: { label: string; path: string }): void {
     this.itemSelecionado = item.path;
 
-    // this.booleanValue = !this.booleanValue; // Alterna o valor
-    this.loadingDocumentosService.setBoolean(true); // Atualiza o serviço
-    // this.booleanValue = true;
 
-    if (item.path) {
-      this.router.navigate([`/paciente/${this.perfil}/documentos/${item.path}`]);
-    }
+    /**
+     * Ainda enfrentando o erro do aparecimento do loading, mesmo após renderizar a pagina, se clicar
+     * com ele na página já renderizada ele volta a aparecer o loading. O que está incorreto pois o loading
+     * só deve aparecer quando a api necessitar de chamar getPaciente (API). Do contrário não !
+     */
+
+      this.loadingDocumentosService.setBoolean(false);
+
+      // this.booleanValue = !this.booleanValue; // Alterna o valor
+      this.loadingDocumentosService.setBoolean(true); // Atualiza o serviço
+
+
+      if (item.path) {
+        this.router.navigate([`/paciente/${this.perfil}/documentos/${item.path}`]);
+      }
+
+
+
+
+
   }
 
 
