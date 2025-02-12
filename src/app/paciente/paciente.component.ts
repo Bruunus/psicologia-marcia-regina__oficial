@@ -81,7 +81,7 @@ export class PacienteComponent implements OnInit {
      * só deve aparecer quando a api necessitar de chamar getPaciente (API). Do contrário não !
      */
 
-      this.loadingDocumentosService.setBoolean(false);
+      // this.loadingDocumentosService.setBoolean(false);
 
       // this.booleanValue = !this.booleanValue; // Alterna o valor
       this.loadingDocumentosService.setBoolean(true); // Atualiza o serviço

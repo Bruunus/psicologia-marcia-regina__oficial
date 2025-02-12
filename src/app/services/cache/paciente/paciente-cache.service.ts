@@ -7,6 +7,8 @@ import { IdentificacaoPacienteInterface } from 'src/app/model/documentos/identif
 })
 export class PacienteCacheService {
   private pacienteSubject = new BehaviorSubject<IdentificacaoPacienteInterface | null>(this.getPacienteFromStorage());
+  private statusCaching = new BehaviorSubject<boolean>(false);
+  public statusCachingObservable$ = this.statusCaching.asObservable();  // ouvidor do setStatusCaching()
 
   constructor() {}
 
@@ -34,4 +36,20 @@ export class PacienteCacheService {
     this.pacienteSubject.complete();
     this.pacienteSubject = new BehaviorSubject<IdentificacaoPacienteInterface | null>(null);
   }
+
+
+  // altera o comportamento da variável para poder poder transitar entre aa api e a chamada getPacienteCache
+  setStatusCaching(status: boolean) {
+    this.statusCaching.next(status);
+  }
+  getStatusCaching() {
+    return this.statusCaching.asObservable();
+  }
+
+  clearStatusCaching() {
+    this.statusCaching.complete();
+    this.statusCaching = new BehaviorSubject<boolean>(false);
+
+  }
+
 }

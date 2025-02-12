@@ -102,7 +102,7 @@ export class PacientesHomeComponent implements OnInit {
 
     if(paciente.cpf === null || paciente.cpf === undefined) {
       console.error('não foi possível encontrar o paciente');
-      return
+      return;
     } else {
       // localStorage.removeItem('cpf')
       localStorage.setItem('nomePaciente', paciente.nomeCompleto);

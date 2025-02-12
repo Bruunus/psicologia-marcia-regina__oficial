@@ -32,43 +32,67 @@ export class IdentificacaoService {
    * @returns Lista do paciente solicitado via CPF
    */
   carregarPaciente(cpf: string): Observable<IdentificacaoPacienteInterface | null> {
-
     if (!cpf) {
-      console.warn('CPF não detectado');
-      /* 1° return */
-      return of(null);
+        console.warn('CPF não detectado');
+        return of(null);
     }
 
-    /* 2° return */
-    return this.cacheService.getPacienteCache().pipe(
-      take(1), // 👈 Pega apenas o valor atual e finaliza
-      switchMap((pacienteCache) => {
-        if (pacienteCache) {
-          console.log('Retornando dados do cache:' /*, pacienteCache*/);
-          // alert('Retornando dados do cache');
-          return of(pacienteCache);
-        }
-
-        /* 3° return */
-        return this.http.post<IdentificacaoPacienteInterface>(
-          this.urlService.urlDadosDoPaciente, cpf, { observe: 'response' }
-        ).pipe(
-          tap((response) => {
+    // Chamada à API para carregar o paciente
+    return this.http.post<IdentificacaoPacienteInterface>(
+        this.urlService.urlDadosDoPaciente, cpf, { observe: 'response' }
+    ).pipe(
+        tap((response) => {
             if (response.status === 200 && response.body) {
-              console.log('Paciente carregado e armazenado em cache:', response.body);
-              this.cacheService.setPacienteCache(response.body);
+                // console.log('Paciente carregado e armazenado em cache:', response.body);
+                this.cacheService.setPacienteCache(response.body);
+                this.cacheService.setStatusCaching(true); // avisando que tem dados no cache
             }
-          }),
-          map((response) => response.status === 200 ? response.body : null), // Transforma resposta
-          catchError((error) => {
+        }),
+        map((response) => response.status === 200 ? response.body : null), // Transforma resposta
+        catchError((error) => {
             console.error('Erro ao carregar paciente', error);
             return of(null);
-          })
-        );
-      })
+        })
     );
-
   }
+  // carregarPaciente(cpf: string): Observable<IdentificacaoPacienteInterface | null> {
+
+  //   if (!cpf) {
+  //     console.warn('CPF não detectado');
+  //     /* 1° return */
+  //     return of(null);
+  //   }
+
+  //   /* 2° return */
+  //   return this.cacheService.getPacienteCache().pipe(
+  //     take(1), // 👈 Pega apenas o valor atual e finaliza
+  //     switchMap((pacienteCache) => {
+  //       if (pacienteCache) {
+  //         console.log('Retornando dados do cache:' /*, pacienteCache*/);
+  //         // alert('Retornando dados do cache');
+  //         return of(pacienteCache);
+  //       }
+
+  //       /* 3° return */
+  //       return this.http.post<IdentificacaoPacienteInterface>(
+  //         this.urlService.urlDadosDoPaciente, cpf, { observe: 'response' }
+  //       ).pipe(
+  //         tap((response) => {
+  //           if (response.status === 200 && response.body) {
+  //             console.log('Paciente carregado e armazenado em cache:', response.body);
+  //             this.cacheService.setPacienteCache(response.body);
+  //           }
+  //         }),
+  //         map((response) => response.status === 200 ? response.body : null), // Transforma resposta
+  //         catchError((error) => {
+  //           console.error('Erro ao carregar paciente', error);
+  //           return of(null);
+  //         })
+  //       );
+  //     })
+  //   );
+
+  // }
 
 
 
