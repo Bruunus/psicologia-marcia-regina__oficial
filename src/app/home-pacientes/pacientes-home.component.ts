@@ -104,14 +104,14 @@ export class PacientesHomeComponent implements OnInit {
       console.error('não foi possível encontrar o paciente');
       return;
     } else {
-      // localStorage.removeItem('cpf')
-      localStorage.setItem('nomePaciente', paciente.nomeCompleto);
-      const perfilFormatter = this.validationFormService.formatterPalavraPrimeiraLetraMaiuscula(paciente.perfil);
-      localStorage.setItem('perfil', perfilFormatter);
 
+      // Ativa o loading ao lado do botão
+      // Realiza a chamada da api para armazenar em cache
+      // Depois realiza um subcribe para poder redirecionar o paciente caso no
+      // recebimento dos dados.
 
       localStorage.setItem('cpf', paciente.cpf);
-
+      const perfilFormatter = this.validationFormService.formatterPalavraPrimeiraLetraMaiuscula(paciente.perfil);
       const perfilFormatterMinusculoParaURl = perfilFormatter.toLowerCase();
       this.router.navigate([`/paciente/${perfilFormatterMinusculoParaURl}/documentos`]);
     }

@@ -96,7 +96,9 @@ export class IdentificacaoComponent implements OnInit {
 
   protected carregarPacienteViaAPI(): void {
     const storageCPF: string | null = localStorage.getItem('cpf');
-    this.identificacaoService.carregarPaciente(storageCPF!).subscribe();
+    this.identificacaoService.carregarPaciente(storageCPF!)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe();
   }
 
 
