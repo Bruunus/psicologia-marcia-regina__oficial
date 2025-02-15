@@ -11,12 +11,11 @@ export class LoadingDocumentosService {
   public boolean$ = this.booleanSource.asObservable();
   public renderizacao$ = this.renderizacaoSource.asObservable();
 
+
+  VAMOS COMEÇAR TUDDO DE NOVO
+
   setBoolean(value: boolean) {
     this.booleanSource.next(value); // Define o valor booleano
-  }
-
-  getBoolean(): boolean {
-    return this.booleanSource.getValue();
   }
 
   setRenderizado(value: boolean) {
@@ -26,14 +25,6 @@ export class LoadingDocumentosService {
   getRenderizado(): boolean {
     return this.renderizacaoSource.getValue();
   }
-
-  clearLoading(): void {
-      localStorage.removeItem('paciente');
-      // this.pacienteSubject.next(null);
-      this.booleanSource.complete();
-      this.booleanSource = new BehaviorSubject<boolean>(false);
-    }
-
 
 }
 
