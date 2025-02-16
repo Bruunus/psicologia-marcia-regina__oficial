@@ -44,6 +44,7 @@ import { AgendarConsultaComponent } from './paciente/perfil/generico/agendar-con
 import { MigrarPacienteComponent } from './paciente/perfil/generico/migrar-paciente/migrar-paciente.component';
 import { FinalizarTratamentoComponent } from './paciente/perfil/generico/finalizar-tratamento/finalizar-tratamento.component';
 import { BugsComponent } from './temp/bugs/bugs.component';
+import { IdentificacaoUpdateComponent } from './paciente/perfil/generico/editar-atualizar/identificacao/identificacao-update/identificacao-update.component';
 
 registerLocaleData(localePt);
 
@@ -72,6 +73,7 @@ registerLocaleData(localePt);
     MigrarPacienteComponent,
     FinalizarTratamentoComponent,
     BugsComponent,
+    IdentificacaoUpdateComponent,
   ],
   imports: [
     BrowserModule,

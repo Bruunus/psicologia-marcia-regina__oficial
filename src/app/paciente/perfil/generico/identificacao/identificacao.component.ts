@@ -1,4 +1,5 @@
 import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject, Subscription, take, takeUntil } from 'rxjs';
 import { IdentificacaoPacienteInterface } from 'src/app/model/documentos/identificacao/identificacao-paciente-interface';
 import { IdentificacaoService } from 'src/app/services/api/read/paciente/identificacao/identificacao.service';
@@ -53,7 +54,7 @@ export class IdentificacaoComponent implements OnInit {
 
   constructor(
     private loadingDocumentosService: LoadingDocumentosService, private identificacaoService: IdentificacaoService,
-    private cacheService: PacienteCacheService, private zone: NgZone
+    private cacheService: PacienteCacheService, private router: Router
   ) {}
 
 
@@ -74,24 +75,24 @@ export class IdentificacaoComponent implements OnInit {
 
 
     this.cacheService.getStatusCaching().pipe(takeUntil(this.unsubscribe$))
-        .subscribe((status) => {
-          if (status) {
-            this.cacheService.getPacienteCache().pipe(takeUntil(this.unsubscribe$)).subscribe(
-              (dataCache => {
-                this.identificacao = dataCache;
-                setTimeout(() => {
-                  this.loadingDocumentosService.setBoolean(false);
-                  this.loadingDocumentosService.setRenderizado(true);
-                  this.exibicaoDeConteudo = true;
-                });
-                console.log('Imprimindo a lista direto no Cache: ', this.identificacao);
+      .subscribe((status) => {
+        if (status) {
+          this.cacheService.getPacienteCache().pipe(takeUntil(this.unsubscribe$)).subscribe(
+            (dataCache => {
+              this.identificacao = dataCache;
+              setTimeout(() => {
+                this.loadingDocumentosService.setBoolean(false);
+                this.loadingDocumentosService.setRenderizado(true);
+                this.exibicaoDeConteudo = true;
+              });
+              console.log('Imprimindo a lista direto no Cache: ', this.identificacao);
 
-              })
-            )
-          } else {
-            this.carregarPacienteViaAPI();
-          }
-        })
+            })
+          )
+        } else {
+          this.carregarPacienteViaAPI();
+        }
+      })
   }
 
   protected carregarPacienteViaAPI(): void {
@@ -105,7 +106,8 @@ export class IdentificacaoComponent implements OnInit {
 
   protected atualizarDados(): void {
     // pode apenas redirecionar para o componente de editar e o componente trás os dados do cache (Melhor performance)
-    alert('Em construção...')
+    this.router.navigate([`/paciente/${this.identificacao?.perfil}/documentos/atualizar`]);
+
   }
 
 
