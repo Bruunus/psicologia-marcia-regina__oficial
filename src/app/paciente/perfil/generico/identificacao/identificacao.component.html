@@ -46,6 +46,9 @@
       </div> -->
     <!-- </div> -->
 
+    <div class="d-flex" style="justify-content: right;">
+      <button class="btn btn-info" (click)="atualizarDados()">Editar</button>
+    </div>
     <div class="col-12" id="section-1" style="background-color: rgb(255, 219, 172);">
       <p><b>Prontuário:</b> {{this.identificacao?.id}}</p>
       <p><b>Nome:</b> {{ this.identificacao?.nomeCompleto }}</p>

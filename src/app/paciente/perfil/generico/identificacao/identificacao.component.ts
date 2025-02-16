@@ -103,6 +103,13 @@ export class IdentificacaoComponent implements OnInit {
 
 
 
+  protected atualizarDados(): void {
+    // pode apenas redirecionar para o componente de editar e o componente trás os dados do cache (Melhor performance)
+    alert('Em construção...')
+  }
+
+
+
   ngOnDestroy(): void {
     // this.dadosEmCache = false;
     this.loadingDocumentosService.setRenderizado(false);

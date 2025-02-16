@@ -10,6 +10,7 @@ import { PacienteSeach } from '../model/home/paciente-seach';
 import { MessageService } from '../services/messagers/message/message.service';
 import { HomeService } from '../services/api/read/home/home.service';
 import { TelaHome } from '../model/home/tela-home';
+import { PacienteCacheService } from '../services/cache/paciente/paciente-cache.service';
 
 
 @Component({
@@ -42,7 +43,8 @@ export class PacientesHomeComponent implements OnInit {
     private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService,
     private errorService: MessageService,
     private apiHomeService: HomeService,
-    private validationFormService: ValidationFormService
+    private validationFormService: ValidationFormService,
+    private cacheService: PacienteCacheService
 
   ) {
     this.paciente = new PacienteSeach();
@@ -56,6 +58,7 @@ export class PacientesHomeComponent implements OnInit {
     this.timeoutService.initSessionTimeout();
     this.nomeLogin = this.gerenciadoDeAutenticacaoService.getUsuario();
     this.carregarTabela();
+
   }
 
 
@@ -111,6 +114,8 @@ export class PacientesHomeComponent implements OnInit {
       // recebimento dos dados.
 
       localStorage.setItem('cpf', paciente.cpf);
+      localStorage.setItem('perfil', paciente.perfil);
+      localStorage.setItem('nomePaciente',paciente.nomeCompleto);
       const perfilFormatter = this.validationFormService.formatterPalavraPrimeiraLetraMaiuscula(paciente.perfil);
       const perfilFormatterMinusculoParaURl = perfilFormatter.toLowerCase();
       this.router.navigate([`/paciente/${perfilFormatterMinusculoParaURl}/documentos`]);

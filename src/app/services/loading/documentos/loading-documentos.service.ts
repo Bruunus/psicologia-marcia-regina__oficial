@@ -12,7 +12,7 @@ export class LoadingDocumentosService {
   public renderizacao$ = this.renderizacaoSource.asObservable();
 
 
-  VAMOS COMEÇAR TUDDO DE NOVO
+  // VAMOS COMEÇAR TUDDO DE NOVO
 
   setBoolean(value: boolean) {
     this.booleanSource.next(value); // Define o valor booleano
