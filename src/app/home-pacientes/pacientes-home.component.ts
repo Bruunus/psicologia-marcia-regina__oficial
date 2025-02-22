@@ -1,4 +1,4 @@
-import { ValidationFormService } from './../cadastro/utilits/validation/validation-form.service';
+import { ValidationFormService } from '../services/utilits/forms/validation/validation-form.service';
 import { Component, OnInit } from '@angular/core';
 import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
 import { TimeoutService } from '../services/sessao/timeout.service';

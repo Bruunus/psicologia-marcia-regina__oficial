@@ -2,6 +2,7 @@ import { IdentificacaoPacienteInterface } from './../../../../../model/documento
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, Subject, switchMap, take, takeUntil, tap } from 'rxjs';
+import { IdentificacaoUpdatePacienteInterface } from 'src/app/model/documentos/identificacao/indentificacao-update-paciente-interface';
 import { PacienteCacheService } from 'src/app/services/cache/paciente/paciente-cache.service';
 import { UrlService } from 'src/app/services/url-service/url.service';
 
@@ -31,14 +32,14 @@ export class IdentificacaoService {
    *
    * @returns Lista do paciente solicitado via CPF
    */
-  carregarPaciente(cpf: string): Observable<IdentificacaoPacienteInterface | null> {
+  carregarPaciente(cpf: string): Observable<IdentificacaoUpdatePacienteInterface | null> {
     if (!cpf) {
         console.warn('CPF não detectado');
         return of(null);
     }
 
     // Chamada à API para carregar o paciente
-    return this.http.post<IdentificacaoPacienteInterface>(
+    return this.http.post<IdentificacaoUpdatePacienteInterface>(
         this.urlService.urlDadosDoPaciente, cpf, { observe: 'response' }
     ).pipe(
         tap((response) => {

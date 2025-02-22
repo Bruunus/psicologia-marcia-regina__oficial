@@ -1,19 +1,20 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { IdentificacaoPacienteInterface } from 'src/app/model/documentos/identificacao/identificacao-paciente-interface';
+import { IdentificacaoUpdatePacienteInterface } from 'src/app/model/documentos/identificacao/indentificacao-update-paciente-interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PacienteCacheService {
-  private pacienteSubject = new BehaviorSubject<IdentificacaoPacienteInterface | null>(this.getPacienteFromStorage());
+  private pacienteSubject = new BehaviorSubject<IdentificacaoUpdatePacienteInterface | null>(this.getPacienteFromStorage());
   private statusCaching = new BehaviorSubject<boolean>(false);
   public statusCachingObservable$ = this.statusCaching.asObservable();  // ouvidor do setStatusCaching()
 
   constructor() {}
 
   // 🔹 1️⃣ Define um paciente no cache e salva no localStorage
-  setPacienteCache(paciente: IdentificacaoPacienteInterface): void {
+  setPacienteCache(paciente: IdentificacaoUpdatePacienteInterface): void {
     localStorage.setItem('paciente', JSON.stringify(paciente)); // Persiste os dados
     this.pacienteSubject.next(paciente);
   }
@@ -24,7 +25,7 @@ export class PacienteCacheService {
   }
 
   // 🔹 3️⃣ Obtém o paciente diretamente do localStorage
-  private getPacienteFromStorage(): IdentificacaoPacienteInterface | null {
+  private getPacienteFromStorage(): IdentificacaoUpdatePacienteInterface | null {
     const storedPaciente = localStorage.getItem('paciente');
     return storedPaciente ? JSON.parse(storedPaciente) : null;
   }
@@ -34,7 +35,7 @@ export class PacienteCacheService {
     localStorage.removeItem('paciente');
     // this.pacienteSubject.next(null);
     this.pacienteSubject.complete();
-    this.pacienteSubject = new BehaviorSubject<IdentificacaoPacienteInterface | null>(null);
+    this.pacienteSubject = new BehaviorSubject<IdentificacaoUpdatePacienteInterface | null>(null);
   }
 
 

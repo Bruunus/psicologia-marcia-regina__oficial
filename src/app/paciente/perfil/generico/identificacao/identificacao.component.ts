@@ -2,6 +2,7 @@ import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, Subscription, take, takeUntil } from 'rxjs';
 import { IdentificacaoPacienteInterface } from 'src/app/model/documentos/identificacao/identificacao-paciente-interface';
+import { IdentificacaoUpdatePacienteInterface } from 'src/app/model/documentos/identificacao/indentificacao-update-paciente-interface';
 import { IdentificacaoService } from 'src/app/services/api/read/paciente/identificacao/identificacao.service';
 import { PacienteCacheService } from 'src/app/services/cache/paciente/paciente-cache.service';
 import { LoadingDocumentosService } from 'src/app/services/loading/documentos/loading-documentos.service';
@@ -17,7 +18,7 @@ export class IdentificacaoComponent implements OnInit {
   private subscription: Subscription | null = null;
   private dadosEmCache: boolean | null = null;
   private unsubscribe$ = new Subject<void>();
-  identificacao: IdentificacaoPacienteInterface | null = {
+  identificacao: IdentificacaoUpdatePacienteInterface | null = {
     id: 0,
     nomeCompleto: '',
     responsavel: null, // ou '' se preferir
@@ -28,14 +29,12 @@ export class IdentificacaoComponent implements OnInit {
     telefoneContato: '',
     nomeDoContato: '',
     idade: 0,
-    dataNascimento: new Date(), // ou uma data específica
+    dataNascimento: '', // ou uma data específica
     estadoCivil: '',
     filhos: null, // ou false se preferir
     qtdFilhos: null, // ou 0 se preferir
     grauEscolaridade: '',
     profissao: '',
-    statusPaciente: '',
-    perfil: '',
     endereco: {
       id: 0,
       logradouro: '',
@@ -47,6 +46,7 @@ export class IdentificacaoComponent implements OnInit {
       cep: ''
     },
     queixa: {
+      id: 0,
       queixa: ''
     }
   } ;
@@ -106,7 +106,7 @@ export class IdentificacaoComponent implements OnInit {
 
   protected atualizarDados(): void {
     // pode apenas redirecionar para o componente de editar e o componente trás os dados do cache (Melhor performance)
-    this.router.navigate([`/paciente/${this.identificacao?.perfil}/documentos/atualizar`]);
+    this.router.navigate([`/paciente/prontuario=${this.identificacao?.id}/documentos/atualizar`]);
 
   }
 

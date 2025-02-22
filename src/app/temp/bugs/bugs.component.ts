@@ -17,7 +17,7 @@ export class BugsComponent implements OnInit {
 
   telas: string[] = [
     'Cadastro','Home','Login','Tela paciente','Acompanhamento','Agenda consulta','Financeiro','Identificação',
-    'Migrar paciente','Relatório','Laudo','Menu principal','Menu paciente'
+    'Migrar paciente','Relatório','Laudo','Menu principal','Menu paciente','Mecanismo do sistema'
   ];
 
 

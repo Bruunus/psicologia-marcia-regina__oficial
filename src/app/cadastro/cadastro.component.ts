@@ -6,12 +6,12 @@ import { PerfilEnum } from '../model/cadastro/perfil-enum';
 import { selectUf } from '../services/utilits/select-uf';
 import { Router } from '@angular/router';
 import { MessageService } from '../services/messagers/message/message.service';
-import { ValidationFormService } from './utilits/validation/validation-form.service';
+import { ValidationFormService } from '../services/utilits/forms/validation/validation-form.service';
 import { PrimeNGConfig } from 'primeng/api';
 import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { Subject, Subscription, takeUntil } from 'rxjs';
-import { MascaraService } from './utilits/mascaras/mascara.service';
+import { MascaraService } from '../services/utilits/forms/mascaras/mascara.service';
 
 import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
 
@@ -352,8 +352,8 @@ export class CadastroComponent implements OnInit  {
       // console.log('Formulário válido');
 
       const nomeCompletoFormatado = this.mascaraService.formatarDeTexto(this.nomeCompleto);
-      const celular1Formatado = this.mascaraService.formatarTelefone(this.telefone);
-      const celular2Formatado = this.mascaraService.formatarTelefone(this.telefoneContato);
+      // const celular1Formatado = this.mascaraService.formatarTelefone(this.telefone);
+      // const celular2Formatado = this.mascaraService.formatarTelefone(this.telefoneContato);
       const dataFormatada = this.mascaraService.transformarTipoDeData(this.dataNascimento);
       const complementoFormatado = this.mascaraService.formatarDeTexto(this.complemento);
       const profissaoFormatado = this.mascaraService.formatarDeTexto(this.profissao);
@@ -374,8 +374,8 @@ export class CadastroComponent implements OnInit  {
         cpf: this.cpf,
         rg: this.rg,
         email: this.email,
-        telefone: celular1Formatado,
-        telefoneContato: celular2Formatado,
+        telefone: this.telefone,
+        telefoneContato: this.telefoneContato,
         nomeDoContato: this.nomeDoContato,
         idade: this.idade,
         dataNascimento: dataFormatada,
