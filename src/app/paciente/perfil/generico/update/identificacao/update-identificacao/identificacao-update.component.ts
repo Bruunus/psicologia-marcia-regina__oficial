@@ -1,12 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { distinctUntilChanged, Subject, takeUntil } from 'rxjs';
+import { distinctUntilChanged, Subject, Subscription, takeUntil } from 'rxjs';
 import { IdentificacaoPacienteInterface } from 'src/app/model/documentos/identificacao/identificacao-paciente-interface';
 import { IdentificacaoUpdatePacienteInterface } from 'src/app/model/documentos/identificacao/indentificacao-update-paciente-interface';
 import { IdentificacaoService } from 'src/app/services/api/read/paciente/identificacao/identificacao.service';
 import { PacienteCacheService } from 'src/app/services/cache/paciente/paciente-cache.service';
 import { UnsubscribeService } from 'src/app/services/system-support/unsubscribes/unsubscribe.service';
+import { MascaraService } from 'src/app/services/utilits/forms/mascaras/mascara.service';
 import { ValidationFormService } from 'src/app/services/utilits/forms/validation/validation-form.service';
+import localePt from '@angular/common/locales/pt';
+import { PrimeNGConfig } from 'primeng/api';
+import { selectUf } from 'src/app/services/utilits/select-uf';
 
 @Component({
   selector: 'app-identificacao-update',
@@ -20,6 +25,14 @@ export class IdentificacaoUpdateComponent implements OnInit {
   protected formValidation: FormGroup;
   protected formSubmitted: boolean = false;
   protected formReset: boolean = false;
+  protected selectUfInstance = new selectUf();
+  protected formQtdFilhos: boolean = false;
+  protected optionUf: { sigla: string, nome: string } [] = [] as { sigla: string, nome: string }[];
+  @ViewChild('calendarInput', { static: false }) calendarInput!: ElementRef;
+  private destroy$: Subject<boolean> = new Subject();
+  private idadeSubscription: Subscription = new Subscription();
+
+
 
   identificacaoUpdateCache: IdentificacaoUpdatePacienteInterface | null = {
       id: 0,
@@ -56,7 +69,8 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
 
   constructor(private cacheService: PacienteCacheService, private unsubscribe: UnsubscribeService,
-    private identificacaoService: IdentificacaoService, private validationFormService: ValidationFormService
+    private identificacaoService: IdentificacaoService, private validationFormService: ValidationFormService,
+    private mascaraService: MascaraService, private primengConfig: PrimeNGConfig
   ) {
 
     this.formValidation = new FormGroup({
@@ -84,7 +98,25 @@ export class IdentificacaoUpdateComponent implements OnInit {
       cidade: new FormControl('', [Validators.required]),
       uf: new FormControl('', [Validators.required]),
       queixa: new FormControl('', [Validators.required])
+    });
+
+    registerLocaleData(localePt);
+
+    this.formValidation.get('dataNascimento')?.valueChanges.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((valor) => {
+      // console.log('Novo valor da data:', valor);
     })
+
+
+    const idadeControl = this.formValidation.get('idade');
+    if (idadeControl) {
+      this.idadeSubscription = idadeControl.valueChanges.subscribe((novoValor) => {
+        // console.log('Novo valor da idade:', novoValor);
+        // Faça o que for necessário com o novo valor da idade aqui
+      });
+    }
+    this.formValidation.get('filhos')?.setValue('nao');
 
   }
 
@@ -140,6 +172,23 @@ export class IdentificacaoUpdateComponent implements OnInit {
     })
 
 
+    this.loadListUf();
+    this.primengConfig.setTranslation({
+      dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+      dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+      dayNamesShort: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+      monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto',
+        'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+      monthNamesShort: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto',
+        'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+      today: 'Hoje',
+      clear: 'Limpar',
+    });
+
+    this.onResponsavel();
+    this.onSelectFilhos();
+    this.observeInputCep();
+
 
 
 
@@ -162,13 +211,185 @@ export class IdentificacaoUpdateComponent implements OnInit {
       );
   }
 
+  protected onClickFocusDataNascimentoLabel() {
+    const inputElement = document.querySelector('#data-de-nascimento .p-inputtext') as HTMLInputElement;
+    if (inputElement) {
+      inputElement.focus();
+    } else {
+      console.error('Elemento de entrada não encontrado');
+    }
+  }
+
+  /**
+   * Evento de perda de foco do campo dataNascimento, a cada momento de perda de foco
+   * o método atualizarIdade analiza o campo se existe valor, se sim o campo
+   */
+  protected onBlurDataNascimento() {
+    this.atualizarIdade();
+  }
+
+
+  protected onInputDataNascimento() {
+    this.atualizarIdade();
+  }
+
+  /**
+   * Método que formata o campo data de nascimento para o formato de padrão americano
+   * aceitado pelo servidor.
+   */
+  private atualizarIdade() {
+    const dataNascimento = this.formValidation.get('dataNascimento')?.value;
+
+    // Verifica se a dataNascimento é válida antes de processar
+    if (dataNascimento) {
+        const dataFormatada = this.mascaraService.transformarTipoDeData(dataNascimento);
+        const idade = this.mascaraService.idadeAutomatica(dataFormatada);
+        this.formValidation.get('idade')?.setValue(idade);
+    } else {
+        // Se a dataNascimento for inválida, você pode definir a idade como vazia ou zero
+        this.formValidation.get('idade')?.setValue(null); // ou 0, dependendo da sua lógica
+    }
+  }
+
+
+  private loadListUf(): Object[] {
+    return this.optionUf = this.selectUfInstance.getUf();
+  }
+
+  /**
+   * Evento responsável por habilitar ou desabilitar o campo responsavel dependendo da idade
+   * do paciente.
+   */
+  private onResponsavel(): void {
+    this.formValidation.get('idade')?.valueChanges.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((valor) => {
+      const campoResponsavel = this.formValidation.get('responsavel');
+      if (valor < 18) {
+        campoResponsavel?.enable();
+      } else {
+        campoResponsavel?.disable();
+      }
+    })
+  }
+
+  private onSelectFilhos(): void {
+    this.formValidation.get('filhos')?.valueChanges.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((valor) => {
+      // console.log(valor)
+      if(valor === 'sim') {
+        this.formQtdFilhos = true;
+        this.formValidation.get('qtdFilhos')?.enable();
+        // console.log(this.formQtdFilhos)
+      } else {
+        this.formQtdFilhos = false;
+        let qtdFilho = this.formValidation.get('qtdFilhos')
+        qtdFilho?.disable();
+        qtdFilho?.reset('')
+
+        // console.log(this.formQtdFilhos)
+      }
+    })
+  }
+
+  /**
+  * Evento que lança o valor da idade com base na data de nascimento fornecida
+  */
+  protected onFocusIdade() {
+    const dataNascimento = this.formValidation.get('dataNascimento')?.value;
+    // console.log('Data digitada: ', dataNascimento)
+    const idade = this.mascaraService.idadeAutomatica(dataNascimento);
+    this.formValidation.get('idade')?.setValue(idade);
+  }
+
+  /**
+   * Método que observa as inserções do campo cep, para cada inserção o subscribe formada os dados
+   * removendo os caracteres especiais para forma o padrão cep, oito caracteres. Realiza a chamada
+   * para API para obter o endereço fornecido pelo cep. Após isso realiza a configuração de focus.
+   */
+  private observeInputCep() {
+
+    this.formValidation.get('cep')?.valueChanges.pipe(
+      takeUntil(this.destroy$)
+    )
+    .subscribe((valor: string) => {
+      const cepFormatado = this.mascaraService.formatarCEP(valor);
+      // console.log('saida do cep após formatação: ',cepFormatado)
+      if(cepFormatado.length == 8) {
+
+        this.validationFormService.getEnderecoPorCEP(this.cep).pipe(
+          takeUntil(this.destroy$)
+        ).subscribe({
+          next: (response) => {
+            this.formValidation.patchValue({
+              logradouro: response?.logradouro,
+              bairro: response?.bairro,
+              cidade: response?.localidade,
+              uf: response?.uf
+
+            })
+            this.remanejadorDeFucosCep();
+
+          }
+        })
+
+      }
+    })
+  }
+
+
+  /**
+   * Este método verifica se o campo cep está no formado correto do cep sem caracter, se sim ele
+   * remaneja o focus do formulário para o campo número.
+   */
+  remanejadorDeFucosCep() {
+    const cepControl = this.formValidation.get('cep');
+    if (cepControl && cepControl.value.length === 8) {
+      // Mover o foco para o próximo input
+      const numeroInput = document.querySelector('input[formControlName="numero"]') as HTMLInputElement;
+
+      const validacaoCEP = this.validationFormService.validacaoCep();
+
+      if (validacaoCEP === null) {
+        numeroInput.focus();
+      } else {
+        return;
+      }
+    }
+  }
+
+  focusCalendar() {
+    // Foca o campo de entrada do p-calendar
+    this.calendarInput.nativeElement.focus();
+  }
+
+
+
   protected atualizarPaciente(): void {
+
+    this.formSubmitted = true;
+
+    if(this.formValidation.invalid) {
+      // console.log(this.formValidation.invalid)
+      // console.log('Formulário inválido'); // Para depuração
+      return;
+    } else {
+
+      this.listaUpdatePaciente = {
+
+      }
+
+    }
 
   }
 
 
   ngOnDestroy(): void {
     this.cacheService.clearStatusCaching();
+    this.destroy$.next(true);
+    this.destroy$.complete();
+    this.idadeSubscription.unsubscribe();
   }
 
 

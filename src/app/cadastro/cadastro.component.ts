@@ -179,16 +179,16 @@ export class CadastroComponent implements OnInit  {
    * Evento de perda de foco do campo dataNascimento, a cada momento de perda de foco
    * o método atualizarIdade analiza o campo se existe valor, se sim o campo
    */
-  onBlurDataNascimento() {
+  protected onBlurDataNascimento() {
       this.atualizarIdade();
   }
 
 
-  onInputDataNascimento() {
+  protected onInputDataNascimento() {
     this.atualizarIdade();
   }
 
-  onClickFocusDataNascimentoLabel() {
+  protected onClickFocusDataNascimentoLabel() {
     const inputElement = document.querySelector('#data-de-nascimento .p-inputtext') as HTMLInputElement;
     if (inputElement) {
       inputElement.focus();
