@@ -1,10 +1,35 @@
 <div >
 
-<form (ngSubmit)="atualizarPaciente()" [formGroup]="formValidation" style="display: flex;">
+<form (ngSubmit)="atualizarPaciente()" [formGroup]="formValidation" >
+
+  <div style="display: flex;">
+
+    <div style="padding: 1rem;">
+      <label for="prontuario">Prontuário</label>
+      <input type="text" formControlName="id" style="margin-left: 0.5rem;">
+    </div>
+
+    <label for="nomeCompleto" class="">Nome Completo</label>
+    <input type="text" class="" name="nomeCompleto"  formControlName="nomeCompleto" id="nomeCompleto" maxlength="35"
+    style="margin-left: 0.5rem; height: 30px;" required>
+    <div *ngIf="(formValidation.get('nomeCompleto')?.invalid && formSubmitted) && !formReset" class="validation-error">
+      <p *ngIf="formValidation.get('nomeCompleto')?.errors?.['required']" class="message-error-formValidation ">
+        Informe o nome completo
+      </p>
+    </div>
+
+
+
+
+
+
+
+  </div>
+
 
   <div style="padding: 1rem;">
-    <label for="prontuario">Prontuário</label>
-    <input type="text" formControlName="id" style="margin-left: 0.5rem;">
+    <button>Editar</button>
+    <button type="submit">Atualizar</button>
   </div>
 
 

@@ -33,11 +33,11 @@ declare var $: any;
 })
 export class CadastroComponent implements OnInit  {
 
-  formValidation: FormGroup;
-  formSubmitted: boolean = false;
-  formQtdFilhos: boolean = false;
-  PERFIL!: PerfilEnum;
-  pacienteCadastro: PacienteInterface = {
+  protected formValidation: FormGroup;
+  protected formSubmitted: boolean = false;
+  protected formQtdFilhos: boolean = false;
+  protected PERFIL!: PerfilEnum;
+  protected pacienteCadastro: PacienteInterface = {
     nomeCompleto: '',
     responsavel: '',
     cpf:  '',
@@ -109,11 +109,11 @@ export class CadastroComponent implements OnInit  {
       cep: new FormControl('', [Validators.required, this.validationFormService.validacaoCep()]),
       logradouro: new FormControl('', [Validators.required]),
       numero: new FormControl('', [Validators.required, this.validationFormService.validacaoNumero()]),
-      complemento: new FormControl(''), // s/ validação
+      complemento: new FormControl(''),
       bairro: new FormControl('', [Validators.required]),
-      cidade: new FormControl('', [Validators.required]),    // São Paulo
-      uf: new FormControl('', [Validators.required]),  // SP
-      queixa: new FormControl('', [Validators.required]) // Loren ..
+      cidade: new FormControl('', [Validators.required]),
+      uf: new FormControl('', [Validators.required]),
+      queixa: new FormControl('', [Validators.required])
     });
 
 
