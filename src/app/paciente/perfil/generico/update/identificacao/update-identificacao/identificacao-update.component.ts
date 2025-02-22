@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { distinctUntilChanged, Subject, takeUntil } from 'rxjs';
 import { IdentificacaoPacienteInterface } from 'src/app/model/documentos/identificacao/identificacao-paciente-interface';
+import { IdentificacaoUpdatePacienteInterface } from 'src/app/model/documentos/identificacao/indentificacao-update-paciente-interface';
 import { IdentificacaoService } from 'src/app/services/api/read/paciente/identificacao/identificacao.service';
 import { PacienteCacheService } from 'src/app/services/cache/paciente/paciente-cache.service';
 import { UnsubscribeService } from 'src/app/services/system-support/unsubscribes/unsubscribe.service';
@@ -17,10 +18,10 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
   protected formValidation: FormGroup;
 
-  identificacaoUpdateCache: IdentificacaoPacienteInterface | null = {
+  identificacaoUpdateCache: IdentificacaoUpdatePacienteInterface | null = {
       id: 0,
       nomeCompleto: '',
-      responsavel: null, // ou '' se preferir
+      responsavel: null,
       cpf: '',
       rg: '',
       email: '',
@@ -28,14 +29,12 @@ export class IdentificacaoUpdateComponent implements OnInit {
       telefoneContato: '',
       nomeDoContato: '',
       idade: 0,
-      dataNascimento: new Date(), // ou uma data específica
+      dataNascimento: '',
       estadoCivil: '',
-      filhos: null, // ou false se preferir
-      qtdFilhos: null, // ou 0 se preferir
+      filhos: null,
+      qtdFilhos: null,
       grauEscolaridade: '',
       profissao: '',
-      statusPaciente: '',
-      perfil: '',
       endereco: {
         id: 0,
         logradouro: '',
@@ -47,6 +46,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
         cep: ''
       },
       queixa: {
+        id: 0,
         queixa: ''
       }
     } ;
