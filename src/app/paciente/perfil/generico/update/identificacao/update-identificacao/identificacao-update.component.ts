@@ -34,7 +34,8 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
 
 
-  identificacaoUpdateCache: IdentificacaoUpdatePacienteInterface | null = {
+
+  protected identificacaoUpdateCache: IdentificacaoUpdatePacienteInterface | null = {
       id: 0,
       nomeCompleto: '',
       responsavel: null,
@@ -66,6 +67,39 @@ export class IdentificacaoUpdateComponent implements OnInit {
         queixa: ''
       }
     } ;
+
+    protected listaUpdatePaciente: IdentificacaoUpdatePacienteInterface = {
+      id: 0,
+      nomeCompleto: '',
+      responsavel: null,
+      cpf: '',
+      rg: '',
+      email: '',
+      telefone: '',
+      telefoneContato: '',
+      nomeDoContato: '',
+      idade: 0,
+      dataNascimento: '',
+      estadoCivil: '',
+      filhos: null,
+      qtdFilhos: null,
+      grauEscolaridade: '',
+      profissao: '',
+      endereco: {
+        id: 0,
+        logradouro: '',
+        numero: '',
+        complemento: null,
+        bairro: '',
+        cidade: '',
+        uf: '',
+        cep: ''
+      },
+      queixa: {
+        id: 0,
+        queixa: ''
+      }
+    }
 
 
   constructor(private cacheService: PacienteCacheService, private unsubscribe: UnsubscribeService,
@@ -377,7 +411,36 @@ export class IdentificacaoUpdateComponent implements OnInit {
     } else {
 
       this.listaUpdatePaciente = {
-
+        id: this.prontuario,
+        nomeCompleto: this.nomeCompleto,
+        responsavel: this.responsavel,
+        cpf: this.cpf,
+        rg: this.rg,
+        email: this.email,
+        telefone: this.telefone,
+        telefoneContato: this.telefoneContato,
+        nomeDoContato: this.nomeDoContato,
+        idade: this.idade,
+        dataNascimento: this.dataNascimento,
+        estadoCivil: this.estadoCivil,
+        filhos: this.filhos,
+        qtdFilhos: this.qtdFilhos,
+        grauEscolaridade: this.grauEscolaridade,
+        profissao: this.profissao,
+        endereco: {
+          id: this.prontuario,
+          logradouro: this.logradouro,
+          numero: this.numero,
+          complemento: this.complemento,
+          bairro: this.bairro,
+          cidade: this.cidade,
+          uf: this.uf,
+          cep: this.cpf
+        },
+        queixa: {
+          id: this.prontuario,
+          queixa: this.queixa
+        }
       }
 
     }
@@ -392,6 +455,9 @@ export class IdentificacaoUpdateComponent implements OnInit {
     this.idadeSubscription.unsubscribe();
   }
 
+  get prontuario() {
+    return this.formValidation.get('id')?.value;
+  }
 
   get nomeCompleto() {
     return this.formValidation.get('nomeCompleto')?.value;
