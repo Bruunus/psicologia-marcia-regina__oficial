@@ -12,6 +12,7 @@ import { ValidationFormService } from 'src/app/services/utilits/forms/validation
 import localePt from '@angular/common/locales/pt';
 import { PrimeNGConfig } from 'primeng/api';
 import { selectUf } from 'src/app/services/utilits/select-uf';
+import { MessageService } from 'src/app/services/messagers/message/message.service';
 
 @Component({
   selector: 'app-identificacao-update',
@@ -48,7 +49,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
       idade: 0,
       dataNascimento: '',
       estadoCivil: '',
-      filhos: null,
+      filhos: false,
       qtdFilhos: null,
       grauEscolaridade: '',
       profissao: '',
@@ -81,7 +82,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
       idade: 0,
       dataNascimento: '',
       estadoCivil: '',
-      filhos: null,
+      filhos: false,
       qtdFilhos: null,
       grauEscolaridade: '',
       profissao: '',
@@ -104,7 +105,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
   constructor(private cacheService: PacienteCacheService, private unsubscribe: UnsubscribeService,
     private identificacaoService: IdentificacaoService, private validationFormService: ValidationFormService,
-    private mascaraService: MascaraService, private primengConfig: PrimeNGConfig
+    private mascaraService: MascaraService, private primengConfig: PrimeNGConfig, private messageService: MessageService
   ) {
 
     this.formValidation = new FormGroup({
@@ -120,7 +121,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
       idade: new FormControl({ value: null, disabled: true}),
       dataNascimento: new FormControl('' , [Validators.required, this.validationFormService.validacaoDataNascimento()]),
       estadoCivil: new FormControl('', [Validators.required]),
-      filhos: new FormControl(''),
+      filhos: new FormControl(false),
       qtdFilhos: new FormControl({value: null, disabled: true}, this.validationFormService.validacaoQtdFilhos()),
       grauEscolaridade: new FormControl('', [Validators.required]),
       profissao: new FormControl('', [Validators.required, this.validationFormService.validacaoProfissao()]),
@@ -137,20 +138,15 @@ export class IdentificacaoUpdateComponent implements OnInit {
     registerLocaleData(localePt);
 
     this.formValidation.get('dataNascimento')?.valueChanges.pipe(
-      takeUntil(this.destroy$)
-    ).subscribe((valor) => {
-      // console.log('Novo valor da data:', valor);
-    })
+      takeUntil(this.destroy$)).subscribe();
 
 
     const idadeControl = this.formValidation.get('idade');
     if (idadeControl) {
-      this.idadeSubscription = idadeControl.valueChanges.subscribe((novoValor) => {
-        // console.log('Novo valor da idade:', novoValor);
-        // Faça o que for necessário com o novo valor da idade aqui
-      });
+      this.idadeSubscription = idadeControl.valueChanges
+      .pipe(takeUntil(this.destroy$)).subscribe();
     }
-    this.formValidation.get('filhos')?.setValue('nao');
+
 
   }
 
@@ -182,7 +178,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
               idade: this.identificacaoUpdateCache?.idade,
               dataNascimento: new Date(this.identificacaoUpdateCache!.dataNascimento),
               estadoCivil: this.identificacaoUpdateCache?.estadoCivil,
-              filhos: this.identificacaoUpdateCache?.filhos,
+              filhos: this.identificacaoUpdateCache?.filhos ?? false,
               qtdFilhos: this.identificacaoUpdateCache?.qtdFilhos,
               grauEscolaridade: this.identificacaoUpdateCache?.grauEscolaridade,
               profissao: this.identificacaoUpdateCache?.profissao,
@@ -194,12 +190,18 @@ export class IdentificacaoUpdateComponent implements OnInit {
               cidade: this.identificacaoUpdateCache?.endereco.cidade,
               uf: this.identificacaoUpdateCache?.endereco.uf,
               queixa: this.identificacaoUpdateCache?.queixa.queixa
-
-
-
             })
 
-            console.log("Filhos: "+this.filhos)
+            this.desabilitarCampos();
+
+
+            // if(this.filhos) {
+            //   this.formValidation.get('qtdFilhos')?.enable();
+            // } else {
+            //   this.formValidation.get('qtdFilhos')?.disable();
+            // }
+
+
           })
         )
       } else {
@@ -270,6 +272,38 @@ export class IdentificacaoUpdateComponent implements OnInit {
   }
 
   /**
+  * Evento que lança o valor da idade com base na data de nascimento fornecida
+  */
+  protected onFocusIdade() {
+    const dataNascimento = this.formValidation.get('dataNascimento')?.value;
+    // console.log('Data digitada: ', dataNascimento)
+    const idade = this.mascaraService.idadeAutomatica(dataNascimento);
+    this.formValidation.get('idade')?.setValue(idade);
+  }
+
+  /**
+   * Este método verifica se o campo cep está no formado correto do cep sem caracter, se sim ele
+   * remaneja o focus do formulário para o campo número.
+   */
+  protected remanejadorDeFucosCep() {
+    const cepControl = this.formValidation.get('cep');
+    if (cepControl && cepControl.value.length === 8) {
+      // Mover o foco para o próximo input
+      const numeroInput = document.querySelector('input[formControlName="numero"]') as HTMLInputElement;
+
+      const validacaoCEP = this.validationFormService.validacaoCep();
+
+      if (validacaoCEP === null) {
+        numeroInput.focus();
+      } else {
+        return;
+      }
+    }
+  }
+
+
+
+  /**
    * Método que formata o campo data de nascimento para o formato de padrão americano
    * aceitado pelo servidor.
    */
@@ -313,31 +347,122 @@ export class IdentificacaoUpdateComponent implements OnInit {
     this.formValidation.get('filhos')?.valueChanges.pipe(
       takeUntil(this.destroy$)
     ).subscribe((valor) => {
-      // console.log(valor)
-      if(valor === 'sim') {
+      // console.log('Valor do onSelectFilhos: ',valor)
+
+      if(!valor && this.formValidation.get('qtdFilhos')?.value <= 0) {
+        this.formValidation.get('qtdFilhos')?.reset();
+      }
+
+
+      if(valor === 'true') {
         this.formQtdFilhos = true;
         this.formValidation.get('qtdFilhos')?.enable();
+
         // console.log(this.formQtdFilhos)
-      } else {
+      } else /*if(valor === 'false' &&)*/ {
+
+
+        RESOLVENDO O PROBLEMA DA LÓGICA DE HABILITAR E DESABILITAR
+
+
         this.formQtdFilhos = false;
-        let qtdFilho = this.formValidation.get('qtdFilhos')
-        qtdFilho?.disable();
-        qtdFilho?.reset('')
+        this.formValidation.get('qtdFilhos')?.disable();
+        // if(this.formValidation.get('qtdFilhos')?.value <= 0) {
+
+        // só posso aplicar o reset se o valor for false e  o valor de qtd for menor que 1
+
+        // if(!valor && this.formValidation.get('qtdFilhos')?.value <= 0) {
+          this.formValidation.get('qtdFilhos')?.reset();
+        // }
+
+
+        // }
+
+
+
+
+          // qtdFilho?.reset('')
+
+        //
 
         // console.log(this.formQtdFilhos)
       }
     })
   }
 
-  /**
-  * Evento que lança o valor da idade com base na data de nascimento fornecida
-  */
-  protected onFocusIdade() {
-    const dataNascimento = this.formValidation.get('dataNascimento')?.value;
-    // console.log('Data digitada: ', dataNascimento)
-    const idade = this.mascaraService.idadeAutomatica(dataNascimento);
-    this.formValidation.get('idade')?.setValue(idade);
+  private desabilitarCampos(): void {
+    this.formValidation.get('nomeCompleto')?.disable();
+    this.formValidation.get('responsavel')?.disable();
+    this.formValidation.get('cpf')?.disable();
+    this.formValidation.get('rg')?.disable();
+    this.formValidation.get('email')?.disable();
+    this.formValidation.get('telefone')?.disable();
+    this.formValidation.get('telefoneContato')?.disable();
+    this.formValidation.get('nomeDoContato')?.disable();
+    this.formValidation.get('dataNascimento')?.disable();
+    this.formValidation.get('estadoCivil')?.disable();
+
+    this.formValidation.get('filhos')?.disable();
+    this.formValidation.get('qtdFilhos')?.disable();
+
+
+
   }
+
+
+  protected editarCampos(): void {
+    this.formValidation.get('nomeCompleto')?.enable();
+
+
+
+    this.formValidation.get('cpf')?.enable();
+    this.formValidation.get('rg')?.enable();
+    this.formValidation.get('email')?.enable();
+    this.formValidation.get('telefone')?.enable();
+    this.formValidation.get('telefoneContato')?.enable();
+    this.formValidation.get('nomeDoContato')?.enable();
+    this.formValidation.get('dataNascimento')?.enable();
+
+    // lógica para desabilitar o campo responsável
+    const verificarIdade =  this.formValidation.get('idade')?.value;
+    if(verificarIdade < 18 ){
+      this.formValidation.get('responsavel')?.enable()
+    }
+
+    this.formValidation.get('estadoCivil')?.enable();
+
+
+
+
+      this.formValidation.get('filhos')?.enable()
+
+
+      RESOLVENDO O PROBLEMA DA LÓGICA DE HABILITAR E DESABILITAR
+
+
+    if(!this.formValidation.get('filhos')?.value) {
+      this.formValidation.get('qtdFilhos')?.disable()
+    } else {
+      this.formValidation.get('qtdFilhos')?.enable()
+    }
+
+
+
+      // this.formValidation.get('qtdFilhos')?.enable()
+
+
+
+
+
+
+
+
+
+
+
+  }
+
+
 
   /**
    * Método que observa as inserções do campo cep, para cada inserção o subscribe formada os dados
@@ -375,25 +500,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
   }
 
 
-  /**
-   * Este método verifica se o campo cep está no formado correto do cep sem caracter, se sim ele
-   * remaneja o focus do formulário para o campo número.
-   */
-  remanejadorDeFucosCep() {
-    const cepControl = this.formValidation.get('cep');
-    if (cepControl && cepControl.value.length === 8) {
-      // Mover o foco para o próximo input
-      const numeroInput = document.querySelector('input[formControlName="numero"]') as HTMLInputElement;
 
-      const validacaoCEP = this.validationFormService.validacaoCep();
-
-      if (validacaoCEP === null) {
-        numeroInput.focus();
-      } else {
-        return;
-      }
-    }
-  }
 
   focusCalendar() {
     // Foca o campo de entrada do p-calendar
@@ -413,7 +520,6 @@ export class IdentificacaoUpdateComponent implements OnInit {
     } else {
 
       let qtdFilhos_validado;
-
 
       if (this.qtdFilhos === null || this.qtdFilhos === undefined) {
         qtdFilhos_validado = 0; // Atribui o valor 0 a this.qtdFilhos se for nulo
@@ -455,6 +561,9 @@ export class IdentificacaoUpdateComponent implements OnInit {
       }
 
       console.log(this.listaUpdatePaciente)
+      this.messageService.setMessage('Dados atualizado com sucesso','ALERT_SUCCESS');
+
+
     }
 
   }
@@ -522,12 +631,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
   }
 
   get filhos() {
-    const value = this.formValidation.get('filhos')?.value;
-    if(value) {
-      return value === 'Sim'; // Retorna true se o valor for "sim", caso contrário, retorna false
-    } else {
-      return value === 'Não';
-    }
+    return this.formValidation.get('filhos')?.value;
 
   }
 

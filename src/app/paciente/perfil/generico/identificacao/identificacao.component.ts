@@ -31,7 +31,7 @@ export class IdentificacaoComponent implements OnInit {
     idade: 0,
     dataNascimento: '', // ou uma data específica
     estadoCivil: '',
-    filhos: null, // ou false se preferir
+    filhos: false, // ou false se preferir
     qtdFilhos: null, // ou 0 se preferir
     grauEscolaridade: '',
     profissao: '',

@@ -47,6 +47,7 @@ export class IdentificacaoService {
                 // console.log('Paciente carregado e armazenado em cache:', response.body);
                 this.cacheService.setPacienteCache(response.body);
                 this.cacheService.setStatusCaching(true); // avisando que tem dados no cache
+                // console.log('Filhos - vindo da API: ', response.body.filhos)
             }
         }),
         map((response) => response.status === 200 ? response.body : null), // Transforma resposta

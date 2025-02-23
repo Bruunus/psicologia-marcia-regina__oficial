@@ -25,6 +25,7 @@ export class MessageService {
 
   closeMessage() {
     this.closeSubject.next(); // Notifica que o erro deve ser fechado
+    this.closeSubject.complete();
   }
 
 

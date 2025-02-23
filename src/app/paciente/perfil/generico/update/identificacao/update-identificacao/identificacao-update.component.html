@@ -173,16 +173,18 @@
 
     <div style="margin-left: 0.5rem;">
       <label for="filhos" class="titulo-item">Filhos</label>
-      <select name="filhos" class="form-control form-control-cadastro form-control-select" formControlName="filhos" id="filhos" required>
-        <option value="sim">Sim</option>
-        <option value="nao">Não</option>
+      <select name="filhos" class="" formControlName="filhos" id="filhos" required>
+        <!-- <option [value]="true">Sim</option>
+        <option [value]="false">Não</option> -->
+        <option value="true">Sim</option>
+        <option value="false">Não</option>
       </select>
     </div>
 
 
     <div style="margin-left: 0.5rem;">
       <label for="qtdFilhos" class="titulo-item">Qtd. de filhos</label>
-      <input type="number" class="form-control form-control-cadastro input-ajuste" name="qtdFilhos" formControlName="qtdFilhos" id="qtdFilhos" required min="1">
+      <input type="number" class="" name="qtdFilhos" formControlName="qtdFilhos" id="qtdFilhos" required min="1">
       <div *ngIf="(formValidation.get('qtdFilhos')?.invalid && formSubmitted) && !formReset && formQtdFilhos" class="validation-error">
         <p class="message-error-formValidation">Informe a quantidade</p>
       </div>
@@ -190,7 +192,7 @@
 
     <div style="margin-left: 0.5rem;">
       <label for="grau-escolaridade" class="titulo-item">Grau de escolaridade</label>
-      <select type="text" name="grau-escolaridade" class="form-control form-control-cadastro form-control-select" formControlName="grauEscolaridade" id="grau-escolaridade" required>
+      <select type="text" name="grau-escolaridade" class="" formControlName="grauEscolaridade" id="grau-escolaridade" required>
         <option value="" style="color: lightgray;">Selecione</option>
         <option value="Doutorado">Doutorado</option>
         <option value="Ensino Fundamental Completo">Ensino Fundamental Completo</option>
@@ -214,7 +216,7 @@
 
     <div style="margin-left: 0.5rem;" >
       <label for="profissao" class="titulo-item">Profissão</label>
-      <input type="text" name="profissao" class="form-control form-control-cadastro" formControlName="profissao" id="profissao" maxlength="50"
+      <input type="text" name="profissao" class="" formControlName="profissao" id="profissao" maxlength="50"
       required>
       <div *ngIf="(formValidation.get('profissao')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <ng-container *ngIf="formValidation.get('profissao')?.errors?.['required']; else profissaoIncorreta">
@@ -228,7 +230,7 @@
 
     <div style="margin-left: 0.5rem;">
       <label for="cep" class="titulo-item">CEP</label>
-      <input type="text" name="cep" class="form-control form-control-cadastro" formControlName="cep" id="cep" mask="00000-000" maxlength="9" required>
+      <input type="text" name="cep" class="" formControlName="cep" id="cep" mask="00000-000" maxlength="9" required>
       <div *ngIf="(formValidation.get('cep')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <ng-container *ngIf="formValidation.get('cep')?.errors?.['required']; else profissaoIncorreta">
           <p class="message-error-formValidation">Informe o CEP</p>
@@ -242,7 +244,7 @@
 
     <div style="margin-left: 0.5rem;">
       <label for="logradouro" class="titulo-item">Rua</label>
-      <input type="text" class="form-control form-control-cadastro" name="logradouro" formControlName="logradouro" id="logradouro" required>
+      <input type="text" class="" name="logradouro" formControlName="logradouro" id="logradouro" required>
       <div *ngIf="(formValidation.get('logradouro')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <p class="message-error-formValidation">Informe a rua</p>
       </div>
@@ -250,7 +252,7 @@
 
     <div style="margin-left: 0.5rem;">
       <label for="numero" class="titulo-item">Número</label>
-      <input type="number" class="form-control form-control-cadastro" name="numero" formControlName="numero" id="numero" min="1" maxlength="60" required>
+      <input type="number" class="" name="numero" formControlName="numero" id="numero" min="1" maxlength="60" required>
       <div *ngIf="(formValidation.get('numero')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <ng-container *ngIf="formValidation.get('numero')?.errors?.['required']; else profissaoIncorreta">
           <p class="message-error-formValidation">Informe o número</p>
@@ -263,12 +265,12 @@
 
     <div style="margin-left: 0.5rem;">
       <label for="complemento" class="titulo-item">Complemento</label>
-      <input type="text" class="form-control form-control-cadastro" name="complemento" formControlName="complemento" id="complemento" maxlength="45">
+      <input type="text" class="" name="complemento" formControlName="complemento" id="complemento" maxlength="45">
     </div>
 
     <div style="margin-left: 0.5rem;">
       <label for="bairro" class="titulo-item">Bairro</label>
-      <input type="text" class="form-control form-control-cadastro" name="bairro" formControlName="bairro" id="bairro" maxlength="40" required>
+      <input type="text" class="" name="bairro" formControlName="bairro" id="bairro" maxlength="40" required>
       <div *ngIf="(formValidation.get('bairro')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <p class="message-error-formValidation">Informe o bairro</p>
       </div>
@@ -280,7 +282,7 @@
 
     <div style="margin-left: 0.5rem;">
       <label for="cidade" class="titulo-item">Cidade</label>
-      <input type="text" class="form-control form-control-cadastro" name="cidade" formControlName="cidade" id="cidade" required>
+      <input type="text" class="" name="cidade" formControlName="cidade" id="cidade" required>
       <div *ngIf="(formValidation.get('cidade')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <p class="message-error-formValidation">Informe a cidade</p>
       </div>
@@ -289,7 +291,7 @@
 
     <div style="margin-left: 0.5rem;">
       <label for="uf" class="titulo-item">UF</label>
-      <select  name="uf" class="form-control form-control-cadastro form-control-select" formControlName="uf" id="uf" required>
+      <select  name="uf" class="" formControlName="uf" id="uf" required>
         <option *ngFor="let uf of  optionUf" [value]="uf.sigla">{{ uf.nome }}</option>
       </select>
       <div *ngIf="(formValidation.get('uf')?.invalid && formSubmitted) && !formReset" class="validation-error">
@@ -305,7 +307,7 @@
 
     <div style="margin-left: 0.5rem;">
       <label for="queixa" class="titulo-item">Queixa</label>
-      <textarea name="queixa" class="form-control form-control-cadastro textarea-queixa" formControlName="queixa" id="queixa" rows="4" required></textarea>
+      <textarea name="queixa" class="" formControlName="queixa" id="queixa" rows="4" required></textarea>
 
       <div *ngIf="(formValidation.get('queixa')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <p class="message-error-formValidation">Descreva a queixa do paciente</p>
@@ -317,7 +319,8 @@
 
 
   <div style="padding: 1rem;">
-    <button>Editar</button>
+    <button type="button" (click)="editarCampos()">Editar</button>
+    <button type="button">Redefinir</button>
     <button type="submit">Atualizar</button>
   </div>
 

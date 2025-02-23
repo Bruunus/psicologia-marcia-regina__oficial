@@ -11,7 +11,7 @@ export interface IdentificacaoUpdatePacienteInterface {
   idade: number;
   dataNascimento: string;
   estadoCivil: string;
-  filhos: boolean | null | string;
+  filhos: boolean ;
   qtdFilhos: number | null;
   grauEscolaridade: string;
   profissao: string;
