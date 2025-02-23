@@ -121,7 +121,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
       dataNascimento: new FormControl('' , [Validators.required, this.validationFormService.validacaoDataNascimento()]),
       estadoCivil: new FormControl('', [Validators.required]),
       filhos: new FormControl(''),
-      qtdFilhos: new FormControl({ value: null, disabled: true}, this.validationFormService.validacaoQtdFilhos()),
+      qtdFilhos: new FormControl({value: null, disabled: true}, this.validationFormService.validacaoQtdFilhos()),
       grauEscolaridade: new FormControl('', [Validators.required]),
       profissao: new FormControl('', [Validators.required, this.validationFormService.validacaoProfissao()]),
       cep: new FormControl('', [Validators.required, this.validationFormService.validacaoCep()]),
@@ -198,6 +198,8 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
 
             })
+
+            console.log("Filhos: "+this.filhos)
           })
         )
       } else {
@@ -410,6 +412,15 @@ export class IdentificacaoUpdateComponent implements OnInit {
       return;
     } else {
 
+      let qtdFilhos_validado;
+
+
+      if (this.qtdFilhos === null || this.qtdFilhos === undefined) {
+        qtdFilhos_validado = 0; // Atribui o valor 0 a this.qtdFilhos se for nulo
+      } else {
+        qtdFilhos_validado = this.qtdFilhos;
+      }
+
       this.listaUpdatePaciente = {
         id: this.prontuario,
         nomeCompleto: this.nomeCompleto,
@@ -443,6 +454,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
         }
       }
 
+      console.log(this.listaUpdatePaciente)
     }
 
   }
@@ -511,7 +523,12 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
   get filhos() {
     const value = this.formValidation.get('filhos')?.value;
-    return value === 'sim'; // Retorna true se o valor for "sim", caso contrário, retorna false
+    if(value) {
+      return value === 'Sim'; // Retorna true se o valor for "sim", caso contrário, retorna false
+    } else {
+      return value === 'Não';
+    }
+
   }
 
   get qtdFilhos() {
@@ -558,5 +575,8 @@ export class IdentificacaoUpdateComponent implements OnInit {
     return this.formValidation.get('queixa')?.value;
   }
 
+  set qtdFilhos(qtd: number) {
+    this.qtdFilhos = qtd;
+  }
 
 }
