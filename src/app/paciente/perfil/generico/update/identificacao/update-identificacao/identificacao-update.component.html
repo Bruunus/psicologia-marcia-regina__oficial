@@ -6,7 +6,9 @@
 
     <div style="padding: 1rem;">
       <label for="prontuario">Prontuário</label>
-      <input type="text" formControlName="id" style="margin-left: 0.5rem;">
+      <span type="text" formControlName="id" style="margin-left: 0.5rem;">
+        {{ this.formValidation.get('id')?.value }}
+      </span>
     </div>
 
     <div style="padding: 1rem;">
@@ -319,7 +321,7 @@
 
 
   <div style="padding: 1rem;">
-    <button type="button" (click)="editarCampos()">Editar</button>
+
     <button type="button">Redefinir</button>
     <button type="submit">Atualizar</button>
   </div>

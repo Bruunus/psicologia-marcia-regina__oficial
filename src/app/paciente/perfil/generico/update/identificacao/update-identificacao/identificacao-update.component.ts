@@ -192,7 +192,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
               queixa: this.identificacaoUpdateCache?.queixa.queixa
             })
 
-            this.desabilitarCampos();
+
 
 
             // if(this.filhos) {
@@ -362,7 +362,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
       } else /*if(valor === 'false' &&)*/ {
 
 
-        RESOLVENDO O PROBLEMA DA LÓGICA DE HABILITAR E DESABILITAR
+        // RESOLVENDO O PROBLEMA DA LÓGICA DE HABILITAR E DESABILITAR
 
 
         this.formQtdFilhos = false;
@@ -371,15 +371,12 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
         // só posso aplicar o reset se o valor for false e  o valor de qtd for menor que 1
 
-        // if(!valor && this.formValidation.get('qtdFilhos')?.value <= 0) {
+        if(!valor && this.formValidation.get('qtdFilhos')?.value <= 0) {
           this.formValidation.get('qtdFilhos')?.reset();
-        // }
+        }
 
 
         // }
-
-
-
 
           // qtdFilho?.reset('')
 
@@ -390,77 +387,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
     })
   }
 
-  private desabilitarCampos(): void {
-    this.formValidation.get('nomeCompleto')?.disable();
-    this.formValidation.get('responsavel')?.disable();
-    this.formValidation.get('cpf')?.disable();
-    this.formValidation.get('rg')?.disable();
-    this.formValidation.get('email')?.disable();
-    this.formValidation.get('telefone')?.disable();
-    this.formValidation.get('telefoneContato')?.disable();
-    this.formValidation.get('nomeDoContato')?.disable();
-    this.formValidation.get('dataNascimento')?.disable();
-    this.formValidation.get('estadoCivil')?.disable();
 
-    this.formValidation.get('filhos')?.disable();
-    this.formValidation.get('qtdFilhos')?.disable();
-
-
-
-  }
-
-
-  protected editarCampos(): void {
-    this.formValidation.get('nomeCompleto')?.enable();
-
-
-
-    this.formValidation.get('cpf')?.enable();
-    this.formValidation.get('rg')?.enable();
-    this.formValidation.get('email')?.enable();
-    this.formValidation.get('telefone')?.enable();
-    this.formValidation.get('telefoneContato')?.enable();
-    this.formValidation.get('nomeDoContato')?.enable();
-    this.formValidation.get('dataNascimento')?.enable();
-
-    // lógica para desabilitar o campo responsável
-    const verificarIdade =  this.formValidation.get('idade')?.value;
-    if(verificarIdade < 18 ){
-      this.formValidation.get('responsavel')?.enable()
-    }
-
-    this.formValidation.get('estadoCivil')?.enable();
-
-
-
-
-      this.formValidation.get('filhos')?.enable()
-
-
-      RESOLVENDO O PROBLEMA DA LÓGICA DE HABILITAR E DESABILITAR
-
-
-    if(!this.formValidation.get('filhos')?.value) {
-      this.formValidation.get('qtdFilhos')?.disable()
-    } else {
-      this.formValidation.get('qtdFilhos')?.enable()
-    }
-
-
-
-      // this.formValidation.get('qtdFilhos')?.enable()
-
-
-
-
-
-
-
-
-
-
-
-  }
 
 
 
