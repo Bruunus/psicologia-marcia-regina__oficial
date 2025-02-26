@@ -13,6 +13,8 @@ import localePt from '@angular/common/locales/pt';
 import { PrimeNGConfig } from 'primeng/api';
 import { selectUf } from 'src/app/services/utilits/select-uf';
 import { MessageService } from 'src/app/services/messagers/message/message.service';
+import { UpdateService } from 'src/app/services/api/update/paciente/update.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-identificacao-update',
@@ -105,7 +107,8 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
   constructor(private cacheService: PacienteCacheService, private unsubscribe: UnsubscribeService,
     private identificacaoService: IdentificacaoService, private validationFormService: ValidationFormService,
-    private mascaraService: MascaraService, private primengConfig: PrimeNGConfig, private messageService: MessageService
+    private mascaraService: MascaraService, private primengConfig: PrimeNGConfig, private updatePacienteService:
+    UpdateService, private message: MessageService, private router: Router
   ) {
 
     this.formValidation = new FormGroup({
@@ -195,11 +198,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
 
 
-            // if(this.filhos) {
-            //   this.formValidation.get('qtdFilhos')?.enable();
-            // } else {
-            //   this.formValidation.get('qtdFilhos')?.disable();
-            // }
+            console.log('CEP renderizado: ', this.cep)
 
 
           })
@@ -402,9 +401,14 @@ export class IdentificacaoUpdateComponent implements OnInit {
       takeUntil(this.destroy$)
     )
     .subscribe((valor: string) => {
-      const cepFormatado = this.mascaraService.formatarCEP(valor);
-      // console.log('saida do cep após formatação: ',cepFormatado)
-      if(cepFormatado.length == 8) {
+      var cepFormatado = valor;
+
+      console.log('Entrada do cep antes da formatação: ',cepFormatado);
+      cepFormatado = this.mascaraService.formatarCEP(valor);
+      console.log('saida do cep após formatação: ',cepFormatado)
+
+
+      if(cepFormatado.length === 8) {
 
         this.validationFormService.getEnderecoPorCEP(this.cep).pipe(
           takeUntil(this.destroy$)
@@ -440,9 +444,11 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
     this.formSubmitted = true;
 
+
+
     if(this.formValidation.invalid) {
       // console.log(this.formValidation.invalid)
-      // console.log('Formulário inválido'); // Para depuração
+      // console.log('Formulário inválido - valor do CEP: ', this.cep); // Para depuração
       return;
     } else {
 
@@ -479,7 +485,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
           bairro: this.bairro,
           cidade: this.cidade,
           uf: this.uf,
-          cep: this.cpf
+          cep: this.cep
         },
         queixa: {
           id: this.prontuario,
@@ -488,7 +494,40 @@ export class IdentificacaoUpdateComponent implements OnInit {
       }
 
       console.log(this.listaUpdatePaciente)
-      this.messageService.setMessage('Dados atualizado com sucesso','ALERT_SUCCESS');
+
+      this.updatePacienteService.updatePatient(this.listaUpdatePaciente)
+        .pipe(takeUntil(this.unsubscribe.unsubscribe)).subscribe(
+          (data) => {
+            if(data != null && Object.keys(data).length === 0) {
+              this.message.setMessage('Ocorreu um erro ao atualizar', 'ALERT_ERROR')
+            } else {
+              // Redirect aqui
+
+              setTimeout(() => {
+
+
+                setTimeout(() => {
+
+                  const perfilFormatterMinusculoParaURl = localStorage.getItem('perfil')?.toLocaleLowerCase()
+                  this.router.navigate([`/paciente/${perfilFormatterMinusculoParaURl}/documentos/identificacao`]);
+
+                }, 50);
+
+
+
+
+                  window.location.reload();
+
+
+
+
+
+              }, 500); //   tempo de redirecionamento
+
+            }
+          }
+        );
+
 
 
     }

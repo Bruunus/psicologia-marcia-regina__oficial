@@ -6,8 +6,8 @@
 
     <div style="padding: 1rem;">
       <label for="prontuario">Prontuário</label>
-      <span type="text" formControlName="id" style="margin-left: 0.5rem;">
-        {{ this.formValidation.get('id')?.value }}
+      <span type="text" style="margin-left: 0.5rem;">
+        {{ prontuario }}
       </span>
     </div>
 
@@ -234,10 +234,10 @@
       <label for="cep" class="titulo-item">CEP</label>
       <input type="text" name="cep" class="" formControlName="cep" id="cep" mask="00000-000" maxlength="9" required>
       <div *ngIf="(formValidation.get('cep')?.invalid && formSubmitted) && !formReset" class="validation-error">
-        <ng-container *ngIf="formValidation.get('cep')?.errors?.['required']; else profissaoIncorreta">
+        <ng-container *ngIf="formValidation.get('cep')?.errors?.['required']; else cepIncorreto">
           <p class="message-error-formValidation">Informe o CEP</p>
         </ng-container>
-        <ng-template #profissaoIncorreta>
+        <ng-template #cepIncorreto>
           <p class="message-error-formValidation">CEP inválido</p>
         </ng-template>
       </div>

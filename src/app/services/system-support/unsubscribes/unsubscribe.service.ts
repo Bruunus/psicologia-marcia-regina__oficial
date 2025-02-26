@@ -16,7 +16,7 @@ export class UnsubscribeService implements OnDestroy {
     // console.log(' Serviço de Unsubscribe chamado!');
     this.unsubscribe$.next();  // Notifica os Observers para cancelarem assinaturas
     this.unsubscribe$.complete(); // Finaliza o Subject
-    this.unsubscribe$ = new Subject<void>() ;
+
   }
 
 }

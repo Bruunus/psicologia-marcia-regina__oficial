@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, Subject, switchMap, take, takeUntil, tap } from 'rxjs';
 import { IdentificacaoUpdatePacienteInterface } from 'src/app/model/documentos/identificacao/indentificacao-update-paciente-interface';
 import { PacienteCacheService } from 'src/app/services/cache/paciente/paciente-cache.service';
+import { UnsubscribeService } from 'src/app/services/system-support/unsubscribes/unsubscribe.service';
 import { UrlService } from 'src/app/services/url-service/url.service';
 
 @Injectable({
@@ -11,10 +12,10 @@ import { UrlService } from 'src/app/services/url-service/url.service';
 })
 export class IdentificacaoService {
 
-  private unsubcribe$ = new Subject<void>();
 
 
-  constructor(private http: HttpClient, private urlService: UrlService, private cacheService: PacienteCacheService) { }
+  constructor(private http: HttpClient, private urlService: UrlService,
+    private cacheService: PacienteCacheService, private unsubscribe: UnsubscribeService) { }
 
 
   /**
@@ -42,6 +43,7 @@ export class IdentificacaoService {
     return this.http.post<IdentificacaoUpdatePacienteInterface>(
         this.urlService.urlDadosDoPaciente, cpf, { observe: 'response' }
     ).pipe(
+        takeUntil(this.unsubscribe.unsubscribe),
         tap((response) => {
             if (response.status === 200 && response.body) {
                 // console.log('Paciente carregado e armazenado em cache:', response.body);
@@ -100,9 +102,7 @@ export class IdentificacaoService {
 
 
   ngOnDestroy() {
-    // Emite um valor para cancelar todas as assinaturas
-    this.unsubcribe$.next();
-    this.unsubcribe$.complete();
+
   }
 
 

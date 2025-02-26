@@ -21,6 +21,7 @@ export class UrlService {
   // Patient
   private registerPatient: string = `http://${this.server}:${this.port}/paciente/cadastro`;
   private getPatientData: string = `http://${this.server}:${this.port}/paciente/carregar-dados`;
+  private updatePatiente: string = `http://${this.server}:${this.port}/paciente/atualizar`;
 
   constructor() { }
 
@@ -36,6 +37,7 @@ export class UrlService {
   // Patient
   get urlRegistrarPaciente(): string { return this.registerPatient; };
   get urlDadosDoPaciente(): string { return this.getPatientData; };
+  get urlUpdatePaciente(): string { return this.updatePatiente; }
 
 
 
