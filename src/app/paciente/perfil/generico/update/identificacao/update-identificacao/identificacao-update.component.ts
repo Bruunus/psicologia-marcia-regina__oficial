@@ -1,22 +1,23 @@
 import { registerLocaleData } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { distinctUntilChanged, Subject, Subscription, takeUntil } from 'rxjs';
-import { IdentificacaoPacienteInterface } from 'src/app/model/documentos/identificacao/identificacao-paciente-interface';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { IdentificacaoUpdatePacienteInterface } from 'src/app/model/documentos/identificacao/indentificacao-update-paciente-interface';
 import { IdentificacaoService } from 'src/app/services/api/read/paciente/identificacao/identificacao.service';
 import { PacienteCacheService } from 'src/app/services/cache/paciente/paciente-cache.service';
 import { UnsubscribeService } from 'src/app/services/system-support/unsubscribes/unsubscribe.service';
 import { MascaraService } from 'src/app/services/utilits/forms/mascaras/mascara.service';
 import { ValidationFormService } from 'src/app/services/utilits/forms/validation/validation-form.service';
-import localePt from '@angular/common/locales/pt';
-import moment from 'moment';
 import { PrimeNGConfig } from 'primeng/api';
 import { selectUf } from 'src/app/services/utilits/select-uf';
 import { MessageService } from 'src/app/services/messagers/message/message.service';
 import { UpdateService } from 'src/app/services/api/update/paciente/update.service';
 import { Router } from '@angular/router';
 import { RedirectService } from 'src/app/redirecting/service-redirect/redirect.service';
+
+import localePt from '@angular/common/locales/pt';
+import moment from 'moment';
+declare var $: any;
 
 
 @Component({
@@ -161,7 +162,6 @@ export class IdentificacaoUpdateComponent implements OnInit {
   ngOnInit(): void {
 
     this.carregarCachePaciente();
-    // this.onCpf();
     this.onResponsavel();
     this.onSelectFilhos();
     this.observeInputCep();
@@ -254,6 +254,10 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
 
 
+  /**
+   * Metodo principal da classe e responsável por carregar em cache os dados do paciente
+   * selecionado via patchValue. Se caso o
+   */
   private carregarCachePaciente(): void {
 
     this.cacheService.getStatusCaching().pipe(
@@ -265,10 +269,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
         ).subscribe(
           (dataUpdate => {
             this.identificacaoUpdateCache = dataUpdate;
-
-            console.log(this.identificacaoUpdateCache)
-
-
+            // console.log(this.identificacaoUpdateCache)
             this.formValidation.patchValue({
               id: this.identificacaoUpdateCache!.id,
               nomeCompleto: this.identificacaoUpdateCache?.nomeCompleto,
@@ -280,11 +281,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
               telefoneContato: this.identificacaoUpdateCache?.telefoneContato,
               nomeDoContato: this.identificacaoUpdateCache?.nomeDoContato,
               idade: this.identificacaoUpdateCache?.idade,
-
-
               dataNascimento: moment(this.identificacaoUpdateCache!.dataNascimento, 'YYYY-MM-DD').format('DD/MM/YYYY'),
-
-
               estadoCivil: this.identificacaoUpdateCache?.estadoCivil,
               filhos: this.identificacaoUpdateCache?.filhos ? "true" : "false",
               qtdFilhos: this.identificacaoUpdateCache?.qtdFilhos,
@@ -298,16 +295,10 @@ export class IdentificacaoUpdateComponent implements OnInit {
               cidade: this.identificacaoUpdateCache?.endereco.cidade,
               uf: this.identificacaoUpdateCache?.endereco.uf,
               queixa: this.identificacaoUpdateCache?.queixa.queixa
-            })
-
+            });
 
             this.cpfAlterado = this.cpf;
-
-
-
             // console.log('Formato da data vindo do patch: ', this.dataNascimento)
-
-
           })
         )
       } else {
@@ -321,6 +312,18 @@ export class IdentificacaoUpdateComponent implements OnInit {
   protected redefinirDados(): void {
     this.carregarCachePaciente();
   }
+
+
+  /* Controles do Modal */
+  protected openModal(): void {
+    $('#modalCpf').modal('show'); // Abre o modal
+  }
+
+  protected closeModal(): void {
+    document.getElementById('safeElement')?.focus();
+    $('#modalCpf').modal('hide'); // Fecha o modal
+  }
+
 
 
   /**
@@ -460,9 +463,7 @@ Mensagem para o modal caso usuário altere o cpf
 
 É preciso fazer a lógica
 
-Ao atualizar o CPF do paciente é necessário reiniciar o acesso ao perfil. Você será redirecionado a tela principal de pacientes.
 
-Deseja prosseguir ?
 
 
 
@@ -482,12 +483,15 @@ Deseja prosseguir ?
       }
 
       const dataFormatada = this.mascaraService.mascaraDataDeNascimento(this.dataNascimento);
+      const nomeCompletoFormatado = this.mascaraService.mascaraFormatoDeTexto(this.nomeCompleto);
+      const complementoFormatado = this.mascaraService.mascaraFormatoDeTexto(this.complemento);
+      const profissaoFormatado = this.mascaraService.mascaraFormatoDeTexto(this.profissao);
 
       console.log(this.dataNascimento)
 
       this.listaUpdatePaciente = {
         id: this.prontuario,
-        nomeCompleto: this.nomeCompleto,
+        nomeCompleto: nomeCompletoFormatado,
         responsavel: this.responsavel,
         cpf: this.cpf,
         rg: this.rg,
@@ -501,12 +505,12 @@ Deseja prosseguir ?
         filhos: this.filhos,
         qtdFilhos: this.qtdFilhos,
         grauEscolaridade: this.grauEscolaridade,
-        profissao: this.profissao,
+        profissao: profissaoFormatado,
         endereco: {
           id: this.prontuario,
           logradouro: this.logradouro,
           numero: this.numero,
-          complemento: this.complemento,
+          complemento: complementoFormatado,
           bairro: this.bairro,
           cidade: this.cidade,
           uf: this.uf,
@@ -523,26 +527,24 @@ Deseja prosseguir ?
       // Rotas de direcionamento alterantivas
       var rota = '';
       if (this.cpfAlterado != this.cpf) {
-        alert('O CPF foi alterado - Abrindo modal')
-
-        //
+        this.openModal();
 
         rota = '/home/pacientes';
       } else {
         rota = '/paciente/psicologia/documentos/identificacao';
       }
 
-      this.updatePacienteService.updatePatient(this.listaUpdatePaciente)
-        .pipe(takeUntil(this.unsubscribe.unsubscribe)).subscribe(
-          (data) => {
-            if(data != null && Object.keys(data).length === 0) {
-              this.message.setMessage('Ocorreu um erro ao atualizar', 'ALERT_ERROR')
-            } else {
-              // Redirect aqui
-              this.redirectService.redirect(`${rota}`, 700)
-            }
-          }
-        );
+      // this.updatePacienteService.updatePatient(this.listaUpdatePaciente)
+      //   .pipe(takeUntil(this.unsubscribe.unsubscribe)).subscribe(
+      //     (data) => {
+      //       if(data != null && Object.keys(data).length === 0) {
+      //         this.message.setMessage('Ocorreu um erro ao atualizar', 'ALERT_ERROR')
+      //       } else {
+      //         // Redirect aqui
+      //         // this.redirectService.redirect(`${rota}`, 700)
+      //       }
+      //     }
+      //   );
 
 
 
