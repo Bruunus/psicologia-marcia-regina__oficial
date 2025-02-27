@@ -14,7 +14,7 @@ export class MascaraService {
    * @param texto
    * @returns
    */
-  public formatarDeTexto(texto: string): string {
+  public mascaraFormatoDeTexto(texto: string): string {
     return texto.split(' ').map(word => {
       if (word.length > 3) {
         return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
@@ -79,7 +79,7 @@ export class MascaraService {
    * @param data retorna data formatada no padrão original
    * @returns
    */
-  transformarTipoDeData(data: string): string {
+  mascaraDataDeNascimento(data: string): string {
 
     if (typeof data !== 'string') {
       console.error('O valor passado para transformarTipoDeData não é uma string:', data);

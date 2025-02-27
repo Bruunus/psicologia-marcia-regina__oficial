@@ -10,11 +10,14 @@ import { UnsubscribeService } from 'src/app/services/system-support/unsubscribes
 import { MascaraService } from 'src/app/services/utilits/forms/mascaras/mascara.service';
 import { ValidationFormService } from 'src/app/services/utilits/forms/validation/validation-form.service';
 import localePt from '@angular/common/locales/pt';
+import moment from 'moment';
 import { PrimeNGConfig } from 'primeng/api';
 import { selectUf } from 'src/app/services/utilits/select-uf';
 import { MessageService } from 'src/app/services/messagers/message/message.service';
 import { UpdateService } from 'src/app/services/api/update/paciente/update.service';
 import { Router } from '@angular/router';
+import { RedirectService } from 'src/app/redirecting/service-redirect/redirect.service';
+
 
 @Component({
   selector: 'app-identificacao-update',
@@ -32,8 +35,10 @@ export class IdentificacaoUpdateComponent implements OnInit {
   protected formQtdFilhos: boolean = false;
   protected optionUf: { sigla: string, nome: string } [] = [] as { sigla: string, nome: string }[];
   @ViewChild('calendarInput', { static: false }) calendarInput!: ElementRef;
+
   private destroy$: Subject<boolean> = new Subject();
   private idadeSubscription: Subscription = new Subscription();
+  private cpfAlterado: string = '';
 
 
 
@@ -108,7 +113,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
   constructor(private cacheService: PacienteCacheService, private unsubscribe: UnsubscribeService,
     private identificacaoService: IdentificacaoService, private validationFormService: ValidationFormService,
     private mascaraService: MascaraService, private primengConfig: PrimeNGConfig, private updatePacienteService:
-    UpdateService, private message: MessageService, private router: Router
+    UpdateService, private message: MessageService, private router: Router, private redirectService: RedirectService
   ) {
 
     this.formValidation = new FormGroup({
@@ -129,12 +134,12 @@ export class IdentificacaoUpdateComponent implements OnInit {
       grauEscolaridade: new FormControl('', [Validators.required]),
       profissao: new FormControl('', [Validators.required, this.validationFormService.validacaoProfissao()]),
       cep: new FormControl('', [Validators.required, this.validationFormService.validacaoCep()]),
-      logradouro: new FormControl('', [Validators.required]),
+      logradouro: new FormControl({ value: null, disabled: true}, [Validators.required]),
       numero: new FormControl('', [Validators.required, this.validationFormService.validacaoNumero()]),
       complemento: new FormControl(''),
-      bairro: new FormControl('', [Validators.required]),
-      cidade: new FormControl('', [Validators.required]),
-      uf: new FormControl('', [Validators.required]),
+      bairro: new FormControl({ value: null, disabled: true}),
+      cidade: new FormControl({ value: null, disabled: true}),
+      uf: new FormControl({ value: null, disabled: true}),
       queixa: new FormControl('', [Validators.required])
     });
 
@@ -155,61 +160,13 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.cacheService.getStatusCaching().pipe(
-      takeUntil(this.unsubscribe.unsubscribe)
-    ).subscribe((status) => {
-      if (status) {
-        this.cacheService.getPacienteCache().pipe(
-          takeUntil(this.unsubscribe.unsubscribe)
-        ).subscribe(
-          (dataUpdate => {
-            this.identificacaoUpdateCache = dataUpdate;
-
-            console.log(this.identificacaoUpdateCache)
-
-
-            this.formValidation.patchValue({
-              id: this.identificacaoUpdateCache!.id,
-              nomeCompleto: this.identificacaoUpdateCache?.nomeCompleto,
-              responsavel: this.identificacaoUpdateCache?.responsavel,
-              cpf: this.identificacaoUpdateCache?.cpf,
-              rg: this.identificacaoUpdateCache?.rg,
-              email: this.identificacaoUpdateCache?.email,
-              telefone: this.identificacaoUpdateCache?.telefone,
-              telefoneContato: this.identificacaoUpdateCache?.telefoneContato,
-              nomeDoContato: this.identificacaoUpdateCache?.nomeDoContato,
-              idade: this.identificacaoUpdateCache?.idade,
-              dataNascimento: new Date(this.identificacaoUpdateCache!.dataNascimento),
-              estadoCivil: this.identificacaoUpdateCache?.estadoCivil,
-              filhos: this.identificacaoUpdateCache?.filhos ?? false,
-              qtdFilhos: this.identificacaoUpdateCache?.qtdFilhos,
-              grauEscolaridade: this.identificacaoUpdateCache?.grauEscolaridade,
-              profissao: this.identificacaoUpdateCache?.profissao,
-              cep: this.identificacaoUpdateCache?.endereco.cep,
-              logradouro: this.identificacaoUpdateCache?.endereco.logradouro,
-              numero: this.identificacaoUpdateCache?.endereco.numero,
-              complemento: this.identificacaoUpdateCache?.endereco.complemento,
-              bairro: this.identificacaoUpdateCache?.endereco.bairro,
-              cidade: this.identificacaoUpdateCache?.endereco.cidade,
-              uf: this.identificacaoUpdateCache?.endereco.uf,
-              queixa: this.identificacaoUpdateCache?.queixa.queixa
-            })
-
-
-
-
-            console.log('CEP renderizado: ', this.cep)
-
-
-          })
-        )
-      } else {
-        this.carregarPacienteViaAPI();
-      }
-    })
-
-
+    this.carregarCachePaciente();
+    // this.onCpf();
+    this.onResponsavel();
+    this.onSelectFilhos();
+    this.observeInputCep();
     this.loadListUf();
+
     this.primengConfig.setTranslation({
       dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
       dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
@@ -222,14 +179,9 @@ export class IdentificacaoUpdateComponent implements OnInit {
       clear: 'Limpar',
     });
 
-    this.onResponsavel();
-    this.onSelectFilhos();
-    this.observeInputCep();
-
-
-
-
   }
+
+
 
 
   protected carregarPacienteViaAPI(): void {
@@ -302,6 +254,75 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
 
 
+  private carregarCachePaciente(): void {
+
+    this.cacheService.getStatusCaching().pipe(
+      takeUntil(this.unsubscribe.unsubscribe)
+    ).subscribe((status) => {
+      if (status) {
+        this.cacheService.getPacienteCache().pipe(
+          takeUntil(this.unsubscribe.unsubscribe)
+        ).subscribe(
+          (dataUpdate => {
+            this.identificacaoUpdateCache = dataUpdate;
+
+            console.log(this.identificacaoUpdateCache)
+
+
+            this.formValidation.patchValue({
+              id: this.identificacaoUpdateCache!.id,
+              nomeCompleto: this.identificacaoUpdateCache?.nomeCompleto,
+              responsavel: this.identificacaoUpdateCache?.responsavel,
+              cpf: this.identificacaoUpdateCache?.cpf,
+              rg: this.identificacaoUpdateCache?.rg,
+              email: this.identificacaoUpdateCache?.email,
+              telefone: this.identificacaoUpdateCache?.telefone,
+              telefoneContato: this.identificacaoUpdateCache?.telefoneContato,
+              nomeDoContato: this.identificacaoUpdateCache?.nomeDoContato,
+              idade: this.identificacaoUpdateCache?.idade,
+
+
+              dataNascimento: moment(this.identificacaoUpdateCache!.dataNascimento, 'YYYY-MM-DD').format('DD/MM/YYYY'),
+
+
+              estadoCivil: this.identificacaoUpdateCache?.estadoCivil,
+              filhos: this.identificacaoUpdateCache?.filhos ? "true" : "false",
+              qtdFilhos: this.identificacaoUpdateCache?.qtdFilhos,
+              grauEscolaridade: this.identificacaoUpdateCache?.grauEscolaridade,
+              profissao: this.identificacaoUpdateCache?.profissao,
+              cep: this.identificacaoUpdateCache?.endereco.cep,
+              logradouro: this.identificacaoUpdateCache?.endereco.logradouro,
+              numero: this.identificacaoUpdateCache?.endereco.numero,
+              complemento: this.identificacaoUpdateCache?.endereco.complemento,
+              bairro: this.identificacaoUpdateCache?.endereco.bairro,
+              cidade: this.identificacaoUpdateCache?.endereco.cidade,
+              uf: this.identificacaoUpdateCache?.endereco.uf,
+              queixa: this.identificacaoUpdateCache?.queixa.queixa
+            })
+
+
+            this.cpfAlterado = this.cpf;
+
+
+
+            // console.log('Formato da data vindo do patch: ', this.dataNascimento)
+
+
+          })
+        )
+      } else {
+        this.carregarPacienteViaAPI();
+      }
+    })
+
+  }
+
+
+  protected redefinirDados(): void {
+    this.carregarCachePaciente();
+  }
+
+
   /**
    * Método que formata o campo data de nascimento para o formato de padrão americano
    * aceitado pelo servidor.
@@ -311,7 +332,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
     // Verifica se a dataNascimento é válida antes de processar
     if (dataNascimento) {
-        const dataFormatada = this.mascaraService.transformarTipoDeData(dataNascimento);
+        const dataFormatada = this.mascaraService.mascaraDataDeNascimento(dataNascimento);
         const idade = this.mascaraService.idadeAutomatica(dataFormatada);
         this.formValidation.get('idade')?.setValue(idade);
     } else {
@@ -347,44 +368,25 @@ export class IdentificacaoUpdateComponent implements OnInit {
       takeUntil(this.destroy$)
     ).subscribe((valor) => {
       // console.log('Valor do onSelectFilhos: ',valor)
-
-      if(!valor && this.formValidation.get('qtdFilhos')?.value <= 0) {
-        this.formValidation.get('qtdFilhos')?.reset();
-      }
-
-
       if(valor === 'true') {
         this.formQtdFilhos = true;
         this.formValidation.get('qtdFilhos')?.enable();
-
         // console.log(this.formQtdFilhos)
-      } else /*if(valor === 'false' &&)*/ {
-
-
-        // RESOLVENDO O PROBLEMA DA LÓGICA DE HABILITAR E DESABILITAR
-
-
+      } else  {
         this.formQtdFilhos = false;
         this.formValidation.get('qtdFilhos')?.disable();
-        // if(this.formValidation.get('qtdFilhos')?.value <= 0) {
-
-        // só posso aplicar o reset se o valor for false e  o valor de qtd for menor que 1
-
-        if(!valor && this.formValidation.get('qtdFilhos')?.value <= 0) {
-          this.formValidation.get('qtdFilhos')?.reset();
-        }
-
-
-        // }
-
-          // qtdFilho?.reset('')
-
-        //
-
-        // console.log(this.formQtdFilhos)
+        this.formValidation.get('qtdFilhos')?.reset();
       }
     })
   }
+
+  // private onCpf(): void {
+  //   this.formValidation.get('cpf')?.valueChanges.pipe(
+  //     takeUntil(this.destroy$)
+  //   ).subscribe((valor) => {
+  //     console.log(valor)
+  //   })
+  // }
 
 
 
@@ -448,9 +450,28 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
     if(this.formValidation.invalid) {
       // console.log(this.formValidation.invalid)
-      // console.log('Formulário inválido - valor do CEP: ', this.cep); // Para depuração
+      // console.log('Formulário inválidocep'); // Para depuração
       return;
     } else {
+
+/*
+
+Mensagem para o modal caso usuário altere o cpf
+
+É preciso fazer a lógica
+
+Ao atualizar o CPF do paciente é necessário reiniciar o acesso ao perfil. Você será redirecionado a tela principal de pacientes.
+
+Deseja prosseguir ?
+
+
+
+
+*/
+
+
+
+
 
       let qtdFilhos_validado;
 
@@ -459,6 +480,10 @@ export class IdentificacaoUpdateComponent implements OnInit {
       } else {
         qtdFilhos_validado = this.qtdFilhos;
       }
+
+      const dataFormatada = this.mascaraService.mascaraDataDeNascimento(this.dataNascimento);
+
+      console.log(this.dataNascimento)
 
       this.listaUpdatePaciente = {
         id: this.prontuario,
@@ -471,7 +496,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
         telefoneContato: this.telefoneContato,
         nomeDoContato: this.nomeDoContato,
         idade: this.idade,
-        dataNascimento: this.dataNascimento,
+        dataNascimento: dataFormatada,
         estadoCivil: this.estadoCivil,
         filhos: this.filhos,
         qtdFilhos: this.qtdFilhos,
@@ -495,6 +520,18 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
       console.log(this.listaUpdatePaciente)
 
+      // Rotas de direcionamento alterantivas
+      var rota = '';
+      if (this.cpfAlterado != this.cpf) {
+        alert('O CPF foi alterado - Abrindo modal')
+
+        //
+
+        rota = '/home/pacientes';
+      } else {
+        rota = '/paciente/psicologia/documentos/identificacao';
+      }
+
       this.updatePacienteService.updatePatient(this.listaUpdatePaciente)
         .pipe(takeUntil(this.unsubscribe.unsubscribe)).subscribe(
           (data) => {
@@ -502,28 +539,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
               this.message.setMessage('Ocorreu um erro ao atualizar', 'ALERT_ERROR')
             } else {
               // Redirect aqui
-
-              setTimeout(() => {
-
-
-                setTimeout(() => {
-
-                  const perfilFormatterMinusculoParaURl = localStorage.getItem('perfil')?.toLocaleLowerCase()
-                  this.router.navigate([`/paciente/${perfilFormatterMinusculoParaURl}/documentos/identificacao`]);
-
-                }, 50);
-
-
-
-
-                  window.location.reload();
-
-
-
-
-
-              }, 500); //   tempo de redirecionamento
-
+              this.redirectService.redirect(`${rota}`, 700)
             }
           }
         );
@@ -579,18 +595,25 @@ export class IdentificacaoUpdateComponent implements OnInit {
     return this.formValidation.get('nomeDoContato')?.value;
   }
 
-
   get idade() {
     return this.formValidation.get('idade')?.value;
   }
 
+
   get dataNascimento() {
-    return this.formValidation.get('dataNascimento')?.value;
+    const value = this.formValidation.get('dataNascimento')?.value;
+    return moment(value, 'DD/MM/YYYY', true).isValid()
+      ? moment(value, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      : '';
   }
 
   set dataNascimento(value: string) {
-    this.formValidation.get('dataNascimento')?.setValue(value);
+    if (moment(value, 'DD/MM/YYYY', true).isValid()) {
+      this.formValidation.get('dataNascimento')?.setValue(moment(value, 'DD/MM/YYYY').toDate());
+    }
   }
+
+
 
   get estadoCivil() {
     return this.formValidation.get('estadoCivil')?.value;

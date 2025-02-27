@@ -207,7 +207,7 @@ export class CadastroComponent implements OnInit  {
 
     // Verifica se a dataNascimento é válida antes de processar
     if (dataNascimento) {
-        const dataFormatada = this.mascaraService.transformarTipoDeData(dataNascimento);
+        const dataFormatada = this.mascaraService.mascaraDataDeNascimento(dataNascimento);
         const idade = this.mascaraService.idadeAutomatica(dataFormatada);
         this.formValidation.get('idade')?.setValue(idade);
     } else {
@@ -351,12 +351,10 @@ export class CadastroComponent implements OnInit  {
     } else {
       // console.log('Formulário válido');
 
-      const nomeCompletoFormatado = this.mascaraService.formatarDeTexto(this.nomeCompleto);
-      // const celular1Formatado = this.mascaraService.formatarTelefone(this.telefone);
-      // const celular2Formatado = this.mascaraService.formatarTelefone(this.telefoneContato);
-      const dataFormatada = this.mascaraService.transformarTipoDeData(this.dataNascimento);
-      const complementoFormatado = this.mascaraService.formatarDeTexto(this.complemento);
-      const profissaoFormatado = this.mascaraService.formatarDeTexto(this.profissao);
+      const nomeCompletoFormatado = this.mascaraService.mascaraFormatoDeTexto(this.nomeCompleto);
+      const dataFormatada = this.mascaraService.mascaraDataDeNascimento(this.dataNascimento);
+      const complementoFormatado = this.mascaraService.mascaraFormatoDeTexto(this.complemento);
+      const profissaoFormatado = this.mascaraService.mascaraFormatoDeTexto(this.profissao);
       let qtdFilhos_validado;
 
 

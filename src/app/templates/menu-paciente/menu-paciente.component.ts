@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiAutenticacaoService } from 'src/app/services/autenticacao/api-autenticacao.service';
 import { PacienteCacheService } from 'src/app/services/cache/paciente/paciente-cache.service';
@@ -17,7 +17,7 @@ export class MenuPacienteComponent implements OnInit{
   nomeSessao: string | undefined | null = '';
   usuario: string | null = '';
 
-  private modal: any;
+  // private modal: any;
 
   constructor(private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService, private router: Router,
     private apiAutenticacaoService: ApiAutenticacaoService, private pacienteCacheService: PacienteCacheService) {
