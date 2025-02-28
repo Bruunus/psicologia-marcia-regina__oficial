@@ -13,6 +13,8 @@ export class EndingSessionComponent implements OnInit {
 
   nomeLogin: string | null = ''  ;
 
+
+
   constructor(
     private router: Router,
     private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService,
@@ -34,18 +36,34 @@ export class EndingSessionComponent implements OnInit {
     this.apiAutenticacaoService.apiDeslogar(this.nomeLogin!);
 
 
+    console.log('Lista de storages do sistema:')
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i) ?? ''; // Garante que key não seja null
+      const value = localStorage.getItem(key) ?? ''; // Garante que value não seja null
+      console.log(`${key}: ${value}`);
+    }
+
+
     // 1. Remove os itens do localStorage
     // 2. Atualiza a página
     // 3. Após o reload, o Angular redirecionará para '/login' automaticamente
     setTimeout(() => {
 
-      localStorage.removeItem('token');
-      localStorage.removeItem('nomePaciente');
-      localStorage.removeItem('perfil');
-      localStorage.removeItem('usuario');
+      // localStorage.removeItem('token');
+      // localStorage.removeItem('nomePaciente');
+      // localStorage.removeItem('perfil');
+      // localStorage.removeItem('usuario');
+      // destino - destinoAposReload - 46862168199 - paciente -
       // localStorage.removeItem('paciente');
+
+      // Deletando todos os itens do localStorage
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i) ?? ''; // Garante que key não seja null
+        localStorage.removeItem(key); // Remove o item com a chave obtida
+      }
+
       this.pacienteCacheService.clearCachePaciente()
-      console.log(localStorage.getItem('paciente'));
+
 
       window.location.reload();
 

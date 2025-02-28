@@ -173,7 +173,7 @@ public validacaoCep(): ValidatorFn {
  * @param cep Retorna o CEP buscado pela webservices ViaCep
  * @returns
  */
-getEnderecoPorCEP(cep: string) {
+public getEnderecoPorCEP(cep: string) {
   return this.http.get<CepFormatter>(`https://viacep.com.br/ws/${cep}/json/`).pipe(
     map((response) => {
       // Verifica se a resposta contém um erro      (até a documentação)
@@ -216,7 +216,7 @@ public validacaoNumero(): ValidatorFn {
 }
 
 
-formatterPalavraPrimeiraLetraMaiuscula(str: string): string {
+public formatterPalavraPrimeiraLetraMaiuscula(str: string): string {
   if (!str) return str; // Verifica se a string não está vazia
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }

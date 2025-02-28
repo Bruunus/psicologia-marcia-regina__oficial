@@ -59,7 +59,7 @@
 
         <div class="col-xl-2 col-lg-4 col-md-6 alt-da-caixa">
           <label for="rg" class="titulo-item">RG</label>
-          <input type="text" class="form-control form-control-cadastro input-ajuste" name="rg" mask="00.000.000-0" formControlName="rg" id="rg"
+          <input type="text" class="form-control form-control-cadastro input-ajuste" name="rg" mask="00.000.000-A" formControlName="rg" id="rg"
           required>
           <div *ngIf="(formValidation.get('rg')?.invalid && formSubmitted) && !formReset" class="validation-error">
             <ng-container *ngIf="formValidation.get('rg')?.errors?.['required']; else rgIncorreto">

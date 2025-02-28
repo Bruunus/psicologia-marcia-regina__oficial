@@ -12,7 +12,7 @@ import { PrimeNGConfig } from 'primeng/api';
 import { selectUf } from 'src/app/services/utilits/select-uf';
 import { MessageService } from 'src/app/services/messagers/message/message.service';
 import { UpdateService } from 'src/app/services/api/update/paciente/update.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { RedirectService } from 'src/app/redirecting/service-redirect/redirect.service';
 
 import localePt from '@angular/common/locales/pt';
@@ -40,6 +40,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
   private destroy$: Subject<boolean> = new Subject();
   private idadeSubscription: Subscription = new Subscription();
   private cpfAlterado: string = '';
+  private prosseguirCpfNovo: boolean = false;
 
 
 
@@ -184,21 +185,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
 
 
-  protected carregarPacienteViaAPI(): void {
-    const storageCPF: string | null = localStorage.getItem('cpf');
-    this.identificacaoService.carregarPaciente(storageCPF!)
-      .pipe(takeUntil(this.unsubscribe.unsubscribe))
-      .subscribe(
-        (dataUpdate => {
-          this.identificacaoUpdateCache = dataUpdate;
-          // console.log('Dados para serem atualizados: ', this.identificacaoUpdateCache?.id);
 
-          this.formValidation.patchValue({
-            id: this.identificacaoUpdateCache!.id
-          })
-        })
-      );
-  }
 
   protected onClickFocusDataNascimentoLabel() {
     const inputElement = document.querySelector('#data-de-nascimento .p-inputtext') as HTMLInputElement;
@@ -255,8 +242,51 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
 
   /**
+   * Método criado para facilitar o fluxo e a manutenção dos dados que vem
+   * do servidor. A variável 'dateUpdate' realiza a representação de cada
+   * valor de dados que o patchValue trás do subscribe.
+   * @param dataUpdate valor passado via patchValue
+   */
+  private carregamentoDePacienteViaPatchValue(dataUpdate: any): void {
+    this.identificacaoUpdateCache = dataUpdate;
+    // console.log(this.identificacaoUpdateCache)
+    this.formValidation.patchValue({
+      id: this.identificacaoUpdateCache!.id,
+      nomeCompleto: this.identificacaoUpdateCache?.nomeCompleto,
+      responsavel: this.identificacaoUpdateCache?.responsavel,
+      cpf: this.identificacaoUpdateCache?.cpf,
+      rg: this.identificacaoUpdateCache?.rg,
+      email: this.identificacaoUpdateCache?.email,
+      telefone: this.identificacaoUpdateCache?.telefone,
+      telefoneContato: this.identificacaoUpdateCache?.telefoneContato,
+      nomeDoContato: this.identificacaoUpdateCache?.nomeDoContato,
+      idade: this.identificacaoUpdateCache?.idade,
+      dataNascimento: moment(this.identificacaoUpdateCache!.dataNascimento, 'YYYY-MM-DD').format('DD/MM/YYYY'),
+      estadoCivil: this.identificacaoUpdateCache?.estadoCivil,
+      filhos: this.identificacaoUpdateCache?.filhos ? "true" : "false",
+      qtdFilhos: this.identificacaoUpdateCache?.qtdFilhos,
+      grauEscolaridade: this.identificacaoUpdateCache?.grauEscolaridade,
+      profissao: this.identificacaoUpdateCache?.profissao,
+      cep: this.identificacaoUpdateCache?.endereco.cep,
+      logradouro: this.identificacaoUpdateCache?.endereco.logradouro,
+      numero: this.identificacaoUpdateCache?.endereco.numero,
+      complemento: this.identificacaoUpdateCache?.endereco.complemento,
+      bairro: this.identificacaoUpdateCache?.endereco.bairro,
+      cidade: this.identificacaoUpdateCache?.endereco.cidade,
+      uf: this.identificacaoUpdateCache?.endereco.uf,
+      queixa: this.identificacaoUpdateCache?.queixa.queixa
+    });
+    this.cpfAlterado = this.cpf;
+    // console.log('Formato da data vindo do patch: ', this.dataNascimento)
+
+  }
+
+
+
+
+  /**
    * Metodo principal da classe e responsável por carregar em cache os dados do paciente
-   * selecionado via patchValue. Se caso o
+   * selecionado via patchValue.
    */
   private carregarCachePaciente(): void {
 
@@ -268,37 +298,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
           takeUntil(this.unsubscribe.unsubscribe)
         ).subscribe(
           (dataUpdate => {
-            this.identificacaoUpdateCache = dataUpdate;
-            // console.log(this.identificacaoUpdateCache)
-            this.formValidation.patchValue({
-              id: this.identificacaoUpdateCache!.id,
-              nomeCompleto: this.identificacaoUpdateCache?.nomeCompleto,
-              responsavel: this.identificacaoUpdateCache?.responsavel,
-              cpf: this.identificacaoUpdateCache?.cpf,
-              rg: this.identificacaoUpdateCache?.rg,
-              email: this.identificacaoUpdateCache?.email,
-              telefone: this.identificacaoUpdateCache?.telefone,
-              telefoneContato: this.identificacaoUpdateCache?.telefoneContato,
-              nomeDoContato: this.identificacaoUpdateCache?.nomeDoContato,
-              idade: this.identificacaoUpdateCache?.idade,
-              dataNascimento: moment(this.identificacaoUpdateCache!.dataNascimento, 'YYYY-MM-DD').format('DD/MM/YYYY'),
-              estadoCivil: this.identificacaoUpdateCache?.estadoCivil,
-              filhos: this.identificacaoUpdateCache?.filhos ? "true" : "false",
-              qtdFilhos: this.identificacaoUpdateCache?.qtdFilhos,
-              grauEscolaridade: this.identificacaoUpdateCache?.grauEscolaridade,
-              profissao: this.identificacaoUpdateCache?.profissao,
-              cep: this.identificacaoUpdateCache?.endereco.cep,
-              logradouro: this.identificacaoUpdateCache?.endereco.logradouro,
-              numero: this.identificacaoUpdateCache?.endereco.numero,
-              complemento: this.identificacaoUpdateCache?.endereco.complemento,
-              bairro: this.identificacaoUpdateCache?.endereco.bairro,
-              cidade: this.identificacaoUpdateCache?.endereco.cidade,
-              uf: this.identificacaoUpdateCache?.endereco.uf,
-              queixa: this.identificacaoUpdateCache?.queixa.queixa
-            });
-
-            this.cpfAlterado = this.cpf;
-            // console.log('Formato da data vindo do patch: ', this.dataNascimento)
+            this.carregamentoDePacienteViaPatchValue(dataUpdate)
           })
         )
       } else {
@@ -307,6 +307,23 @@ export class IdentificacaoUpdateComponent implements OnInit {
     })
 
   }
+
+
+  /**
+   * Este método realiza a chamada direta para a API e retorna os dados do
+   * banco de dados caso a função em cache obtenha falha.
+   */
+  private carregarPacienteViaAPI(): void {
+    const storageCPF: string | null = localStorage.getItem('cpf');
+    this.identificacaoService.carregarPaciente(storageCPF!)
+      .pipe(takeUntil(this.unsubscribe.unsubscribe))
+      .subscribe(
+        (dataUpdate => {
+          this.carregamentoDePacienteViaPatchValue(dataUpdate);
+        })
+      );
+  }
+
 
 
   protected redefinirDados(): void {
@@ -324,6 +341,34 @@ export class IdentificacaoUpdateComponent implements OnInit {
     $('#modalCpf').modal('hide'); // Fecha o modal
   }
 
+
+  protected focusCalendar() {
+    // Foca o campo de entrada do p-calendar
+    this.calendarInput.nativeElement.focus();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  protected atualizarEProsseguir(): void {
+    this.closeModal();
+    setTimeout(() => {
+      this.updatePacienteAPI(true);
+    },50);
+
+  }
 
 
   /**
@@ -436,12 +481,46 @@ export class IdentificacaoUpdateComponent implements OnInit {
   }
 
 
+  private updatePacienteAPI(statusAlteracaoCpf: boolean): void {
+    this.updatePacienteService.updatePatient(this.listaUpdatePaciente)
+      .pipe(takeUntil(this.unsubscribe.unsubscribe)).subscribe(
+        (data) => {
+          if(data != null && Object.keys(data).length === 0) {
+            this.message.setMessage('Ocorreu um erro ao atualizar', 'ALERT_ERROR')
+          } else {
+            var roteDePerfil = localStorage.getItem('perfil')?.toLocaleLowerCase();
+            if (statusAlteracaoCpf) {
 
 
-  focusCalendar() {
-    // Foca o campo de entrada do p-calendar
-    this.calendarInput.nativeElement.focus();
-  }
+
+                  // this.router.navigate(['/home/pacientes']).then(() => {
+                  //   window.location.reload();
+                  // });
+
+                this.router.navigate(['/home/pacientes'], { replaceUrl: true }).then(() => {
+
+                });
+
+
+
+
+
+              // setTimeout(() => {
+              //   this.router.navigate([`/home/pacientes`]);
+              // }, 100); //   tempo de redirecionamento
+
+              // window.location.reload();
+
+            } else {
+              this.router.navigate([`/paciente/${roteDePerfil}/documentos/identificacao`]);
+            }
+          }
+        }
+      );
+    }
+
+
+
 
 
 
@@ -457,24 +536,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
       return;
     } else {
 
-/*
-
-Mensagem para o modal caso usuário altere o cpf
-
-É preciso fazer a lógica
-
-
-
-
-
-
-*/
-
-
-
-
-
-      let qtdFilhos_validado;
+      var qtdFilhos_validado;
 
       if (this.qtdFilhos === null || this.qtdFilhos === undefined) {
         qtdFilhos_validado = 0; // Atribui o valor 0 a this.qtdFilhos se for nulo
@@ -524,27 +586,13 @@ Mensagem para o modal caso usuário altere o cpf
 
       console.log(this.listaUpdatePaciente)
 
-      // Rotas de direcionamento alterantivas
-      var rota = '';
       if (this.cpfAlterado != this.cpf) {
         this.openModal();
-
-        rota = '/home/pacientes';
       } else {
-        rota = '/paciente/psicologia/documentos/identificacao';
+        this.updatePacienteAPI(false);
       }
 
-      // this.updatePacienteService.updatePatient(this.listaUpdatePaciente)
-      //   .pipe(takeUntil(this.unsubscribe.unsubscribe)).subscribe(
-      //     (data) => {
-      //       if(data != null && Object.keys(data).length === 0) {
-      //         this.message.setMessage('Ocorreu um erro ao atualizar', 'ALERT_ERROR')
-      //       } else {
-      //         // Redirect aqui
-      //         // this.redirectService.redirect(`${rota}`, 700)
-      //       }
-      //     }
-      //   );
+
 
 
 
@@ -602,6 +650,12 @@ Mensagem para o modal caso usuário altere o cpf
   }
 
 
+  /**
+   * Getter utilizando moment para gerenciar e formatar o valor corretamente
+   * vindo do p-calendar ao padrão correto do primeNG. Este padrão é o padrão
+   * em que a máscara para formatar a data aguarda para mascará-la para o padrão
+   * aceito pelo servidor.
+   */
   get dataNascimento() {
     const value = this.formValidation.get('dataNascimento')?.value;
     return moment(value, 'DD/MM/YYYY', true).isValid()
@@ -609,6 +663,10 @@ Mensagem para o modal caso usuário altere o cpf
       : '';
   }
 
+  /**
+   * Setter que ao receber qualquer valor referente a data, lança o valor no input do
+   * primeNg em uma formatação esperada pelo p-calendar.
+   */
   set dataNascimento(value: string) {
     if (moment(value, 'DD/MM/YYYY', true).isValid()) {
       this.formValidation.get('dataNascimento')?.setValue(moment(value, 'DD/MM/YYYY').toDate());

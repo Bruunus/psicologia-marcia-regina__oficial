@@ -38,7 +38,7 @@
 
     <div style="padding: 1rem;">
       <label for="rg" class="titulo-item">RG</label>
-      <input type="text" class="" name="rg" mask="00.000.000-0" formControlName="rg" id="rg" style="margin-left: 0.5rem; "
+      <input type="text" class="" name="rg" mask="00.000.000-A" formControlName="rg" id="rg" style="margin-left: 0.5rem; "
       required>
       <div *ngIf="(formValidation.get('rg')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <ng-container *ngIf="formValidation.get('rg')?.errors?.['required']; else rgIncorreto">
@@ -350,7 +350,7 @@
         <p>Deseja prosseguir ?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" >Atualizar e Prosseguir</button>
+        <button type="button" class="btn btn-primary" (click)="atualizarEProsseguir()">Atualizar e Prosseguir</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
       </div>
     </div>

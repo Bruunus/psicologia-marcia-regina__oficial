@@ -16,6 +16,7 @@ export class MenuPacienteComponent implements OnInit{
   perfil: string | undefined | null = '';
   nomeSessao: string | undefined | null = '';
   usuario: string | null = '';
+  perfilVar: string | undefined = localStorage.getItem('perfil')?.toLocaleLowerCase()
 
   // private modal: any;
 

@@ -45,6 +45,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
 
+    // Verificação dos itens do localSto
+    // console.log('Lista de storages do sistema:')
+    // let i = localStorage.length - 1; // Comece pelo último item
+    // while (i >= 0) {
+    //   const key = localStorage.key(i) ?? ''; // Garante que key não seja null
+    //   localStorage.removeItem(key); // Remove o item com a chave obtida
+    //   i--; // Decrementa o índice
+    // }
+
     this.gerenciadoDeAutenticacaoService.clearUserData();
     if(!this.gerenciadoDeAutenticacaoService.getToken()) {
       const token = this.gerenciadoDeAutenticacaoService.setToken(null);

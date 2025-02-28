@@ -4,7 +4,10 @@
     <div class="col-2 col-2-editada-global side-bar-esquerdo">
       <div class="row container-row-side-bar-esquerdo-filho">
         <div class="col-2 col-logo-filho">
-          <img src="../../../assets/img/img-logo-alfa.png" class=" img-menu no-select-img">
+          <a [routerLink]="['/paciente',perfilVar,'documentos']">
+            <img src="../../../assets/img/img-logo-alfa.png" class=" img-menu no-select-img">
+          </a>
+
         </div>
         <div class="col col-perfil-filho" style="font-size: 1.3em; padding-right: 2%;">
           {{ perfil }}
