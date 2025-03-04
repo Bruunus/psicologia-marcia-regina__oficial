@@ -7,6 +7,18 @@ export class MascaraService {
 
   constructor() { }
 
+
+  /**
+   * Remove todos os caracteres especiais, na qual são:
+   * (.) (-) ( ) (/) (:) (,) (;) (()) ([]) ({}) (') (") ($) (*) (@) (!)  (&)
+   * ($) (%) (+) (-) (>) (<) (?) (~)
+   * @param texto qualquer string
+   * @returns
+   */
+  public removerCaracteresEspeciais(texto: string): string {
+    return texto.replace(/[^0-9A-Za-z]/g, ''); // Remove todos os caracteres não numéricos ou letras
+  }
+
   /**
    * Esta mascara formata o texto informado, seu objetivo é deixar o texto apresentável e de
    * forma legível, como um nome por exemplo: tendo o nome e sobrenome em letra maiúscula e palavras básicas

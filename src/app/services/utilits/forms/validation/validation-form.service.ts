@@ -36,15 +36,35 @@ export class ValidationFormService {
   }
 
 
-  public validacaoRG(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const cpfValue = control.value;
+  // public validacaoRG(): ValidatorFn {
+  //   return (control: AbstractControl): ValidationErrors | null => {
+  //     const cpfValue = control.value;
 
-      if(cpfValue && cpfValue.replace(/\D/g,'').length === 9) {
-        return null;
-      }
-      return { rgValido: true}
-    };
+  //     if(cpfValue && cpfValue.replace(/\D/g,'').length === 9) {
+  //       return null;
+  //     }
+  //     return { rgValido: true}
+  //   };
+  // }
+
+
+  // Validador para o formato do RG
+  validacaoRgFormatado(control: AbstractControl): ValidationErrors | null {
+    const rg = control.value ? control.value.replace(/\D/g, '') : ''; // Remove caracteres não numéricos
+    if (rg.length === 7 || rg.length === 8 || rg.length === 9) {
+      return null;  // RG válido
+    }
+    return { rgInvalido: true };  // RG inválido se não tiver 7, 8 ou 9 caracteres
+  }
+
+
+  // Validador para RG com menos de 7 caracteres
+  public validacaoRgInvalido(control: AbstractControl): ValidationErrors | null {
+    const rg = control.value.replace(/\D/g, ''); // Remove caracteres especiais
+    if (rg.length < 7) {
+      return { rgInvalido: true }; // RG inválido se tiver menos de 7 caracteres
+    }
+    return null;
   }
 
 

@@ -64,6 +64,7 @@ export class IdentificacaoComponent implements OnInit {
       // console.log('Valor booleano recebido no filho:', value);
       // if (value) {
 
+      console.log('Observador do ativador do loading: (AppComponent): ', this.loadingDocumentosService.getRenderizado())
       this.loadingDocumentosService.setBoolean(true);
       this.init();
   }
@@ -119,7 +120,7 @@ export class IdentificacaoComponent implements OnInit {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
     console.log('Finalizado Identificação - valor final: ', this.loadingDocumentosService.getRenderizado())
-    localStorage.removeItem('paciente')
+    // localStorage.removeItem('paciente')
     if (this.subscription) {
       this.subscription.unsubscribe();
     }

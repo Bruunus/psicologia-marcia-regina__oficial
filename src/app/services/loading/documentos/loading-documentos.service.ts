@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,7 @@ export class LoadingDocumentosService {
   private renderizacaoSource = new BehaviorSubject<boolean>(false);
   public boolean$ = this.booleanSource.asObservable();
   public renderizacao$ = this.renderizacaoSource.asObservable();
+  private unsubscribe$ = new Subject<void>();
 
 
   // VAMOS COMEÇAR TUDDO DE NOVO
@@ -18,12 +19,22 @@ export class LoadingDocumentosService {
     this.booleanSource.next(value); // Define o valor booleano
   }
 
+  getBoolean() {
+    return this.booleanSource.getValue();
+  }
+
   setRenderizado(value: boolean) {
     this.renderizacaoSource.next(value); // Define o valor booleano
   }
 
   getRenderizado(): boolean {
     return this.renderizacaoSource.getValue();
+  }
+
+  ngOnDestroy(): void {
+    // Limpa todas as subscrições quando o serviço ou componente for destruído
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

@@ -59,16 +59,17 @@
 
         <div class="col-xl-2 col-lg-4 col-md-6 alt-da-caixa">
           <label for="rg" class="titulo-item">RG</label>
-          <input type="text" class="form-control form-control-cadastro input-ajuste" name="rg" mask="00.000.000-A" formControlName="rg" id="rg"
-          required>
+          <input type="text" class="form-control form-control-cadastro input-ajuste" name="rg" [mask]="rgMask" [dropSpecialCharacters]="false"
+          formControlName="rg" id="rg" maxlength="13" required>
           <div *ngIf="(formValidation.get('rg')?.invalid && formSubmitted) && !formReset" class="validation-error">
-            <ng-container *ngIf="formValidation.get('rg')?.errors?.['required']; else rgIncorreto">
-              <p class="message-error-formValidation">Informe o RG</p>
+            <ng-container *ngIf="formValidation.get('rg')?.errors?.['rgInvalido']; else rgIncorreto">
+              <p class="message-error-formValidation">RG inválido</p>
             </ng-container>
             <ng-template #rgIncorreto>
-              <p class="message-error-formValidation">RG incorreto</p>
+              <p class="message-error-formValidation" *ngIf="formValidation.get('rg')?.errors?.['required']">Informe o RG</p>
             </ng-template>
           </div>
+
         </div>
 
 

@@ -16,12 +16,29 @@
       <ul class="ul-container" *ngIf="perfil === 'psicologia'">
         <li *ngFor="let item of itensMenuPsicologia" (click)="selecionarItem(item)">
             <span [ngClass]="{'active': itemSelecionado === item.path}">{{ item.label }}</span>
-            <img
+            <!-- <img
             *ngIf="(loadingDocumentosService.boolean$ | async) &&
-                    itemSelecionado === item.path &&
-                    !loadingDocumentosService.getRenderizado()"
-         src="../../assets/img/loadingo-menu.gif" alt="Loading" style="height: 20px; margin-left: 5px;">
+                    itemSelecionado === item.path "
+         src="../../assets/img/loadingo-menu.gif" alt="Loading" style="height: 20px; margin-left: 5px;"> -->
         </li>
+
+
+        <div style="padding: 1rem 0 0 1rem;">
+          <small>
+            Atenção: <span style="color: red;">
+              Para cada componente que representa o item, sempre quando voce for finalizar este componente,
+              voce precisa obrigatóriamente encerrar o siclo do loading do container pai para atulizar o
+              siclo no angular, para não tomar NG100 ERROR. <u>
+                Sempre quando chamar o router criando um
+                mecanismo para sair da tela atual é preciso atualizar o loading para 'false'
+              </u><br><br>
+
+              A service responsável é a LoadingDocumentosService
+
+            </span>
+          </small>
+        </div>
+
       </ul>
 
       <ul class="ul-container" *ngIf="perfil === 'neuropsicologia'">
@@ -35,7 +52,15 @@
                 src="../../assets/img/loadingo-menu.gif"
                 alt="Loading" style="height: 20px; margin-left: 5px;">
         </li>
+
+
+
+
+
       </ul>
+
+
+
 
     </div>
 
@@ -46,6 +71,8 @@
         <router-outlet (notifyParent)="onNotify()"></router-outlet>
       </div>
     </div>
+
+
 
 
 

@@ -17,6 +17,8 @@ import { RedirectService } from 'src/app/redirecting/service-redirect/redirect.s
 
 import localePt from '@angular/common/locales/pt';
 import moment from 'moment';
+import { UpdateAlteracaoCpfService } from 'src/app/services/system-support/behavior-subject/paciente/update-alteracao-cpf.service';
+import { LoadingDocumentosService } from 'src/app/services/loading/documentos/loading-documentos.service';
 declare var $: any;
 
 
@@ -35,12 +37,27 @@ export class IdentificacaoUpdateComponent implements OnInit {
   protected selectUfInstance = new selectUf();
   protected formQtdFilhos: boolean = false;
   protected optionUf: { sigla: string, nome: string } [] = [] as { sigla: string, nome: string }[];
+  protected loadingModalCpf: boolean = false;
+  protected isEditing: boolean = false;
+  protected rgMask = '00.000.000-A'; // Começa com a máscara de 7 dígitos
+
+
   @ViewChild('calendarInput', { static: false }) calendarInput!: ElementRef;
+
+  public updateAlteracaoCpfService: UpdateAlteracaoCpfService;
+  public loadingDocumentosService: LoadingDocumentosService;
+
 
   private destroy$: Subject<boolean> = new Subject();
   private idadeSubscription: Subscription = new Subscription();
-  private cpfAlterado: string = '';
-  private prosseguirCpfNovo: boolean = false;
+  private valorCpfRestaurado: string = '';
+  private valorQtdFilhosRestaurado: number = 0;
+  private listaFormOriginal: any[] = [];
+  private listaAposBotaoClicado: any[] = [];
+  private alteracaoFormulario: boolean = false;
+  private roteDePerfil = localStorage.getItem('perfil')?.toLocaleLowerCase();
+  private opcaoEditar: boolean = false;
+
 
 
 
@@ -112,37 +129,41 @@ export class IdentificacaoUpdateComponent implements OnInit {
     }
 
 
-  constructor(private cacheService: PacienteCacheService, private unsubscribe: UnsubscribeService,
+  constructor(
+    private cacheService: PacienteCacheService, private unsubscribe: UnsubscribeService,
     private identificacaoService: IdentificacaoService, private validationFormService: ValidationFormService,
-    private mascaraService: MascaraService, private primengConfig: PrimeNGConfig, private updatePacienteService:
-    UpdateService, private message: MessageService, private router: Router, private redirectService: RedirectService
+    private mascaraService: MascaraService, private primengConfig: PrimeNGConfig,
+    private updatePacienteService: UpdateService, private message: MessageService, private router: Router,
+    private updateAlteracaoCpfServiceClass:UpdateAlteracaoCpfService,
+    private loadingDocumentosServiceInject: LoadingDocumentosService
+
   ) {
 
     this.formValidation = new FormGroup({
-      id: new FormControl({value: null, disabled: true}),
-      nomeCompleto: new FormControl('', Validators.required),
-      responsavel: new FormControl({ value: null, disabled: true}, Validators.required),
-      cpf: new FormControl('', [Validators.required, this.validationFormService.validacaoCpf()]),
-      rg: new FormControl('', [Validators.required, this.validationFormService.validacaoRG()]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      telefone: new FormControl('', [Validators.required, this.validationFormService.validacaoTelefone()]),
-      telefoneContato: new FormControl('', [this.validationFormService.validacaoTelefone()]),
-      nomeDoContato: new FormControl('', Validators.required),
-      idade: new FormControl({ value: null, disabled: true}),
-      dataNascimento: new FormControl('' , [Validators.required, this.validationFormService.validacaoDataNascimento()]),
-      estadoCivil: new FormControl('', [Validators.required]),
-      filhos: new FormControl(false),
-      qtdFilhos: new FormControl({value: null, disabled: true}, this.validationFormService.validacaoQtdFilhos()),
-      grauEscolaridade: new FormControl('', [Validators.required]),
-      profissao: new FormControl('', [Validators.required, this.validationFormService.validacaoProfissao()]),
-      cep: new FormControl('', [Validators.required, this.validationFormService.validacaoCep()]),
-      logradouro: new FormControl({ value: null, disabled: true}, [Validators.required]),
-      numero: new FormControl('', [Validators.required, this.validationFormService.validacaoNumero()]),
-      complemento: new FormControl(''),
-      bairro: new FormControl({ value: null, disabled: true}),
-      cidade: new FormControl({ value: null, disabled: true}),
-      uf: new FormControl({ value: null, disabled: true}),
-      queixa: new FormControl('', [Validators.required])
+      id:               new FormControl({value: null, disabled: true}),
+      nomeCompleto:     new FormControl({value: null, disabled: true}, [Validators.required]),
+      responsavel:      new FormControl({value: null, disabled: true}, [Validators.required]),
+      cpf:              new FormControl({value: null, disabled: true}, [Validators.required, this.validationFormService.validacaoCpf()]),
+      rg:               new FormControl({value: null, disabled: true}, [Validators.required, this.validationFormService.validacaoRgFormatado]),
+      email:            new FormControl({value: null, disabled: true}, [Validators.required, Validators.email]),
+      telefone:         new FormControl({value: null, disabled: true}, [Validators.required, this.validationFormService.validacaoTelefone()]),
+      telefoneContato:  new FormControl({value: null, disabled: true}, [this.validationFormService.validacaoTelefone()]),
+      nomeDoContato:    new FormControl({value: null, disabled: true}, [Validators.required]),
+      idade:            new FormControl({value: null, disabled: true}),
+      dataNascimento:   new FormControl({value: null, disabled: true}, [Validators.required, this.validationFormService.validacaoDataNascimento()]),
+      estadoCivil:      new FormControl({value: null, disabled: true}, [Validators.required]),
+      filhos:           new FormControl({value: false, disabled: true}),
+      qtdFilhos:        new FormControl({value: null, disabled: true}, [this.validationFormService.validacaoQtdFilhos()]),
+      grauEscolaridade: new FormControl({value: null, disabled: true}, [Validators.required]),
+      profissao:        new FormControl({value: null, disabled: true}, [Validators.required, this.validationFormService.validacaoProfissao()]),
+      cep:              new FormControl({value: null, disabled: true}, [Validators.required, this.validationFormService.validacaoCep()]),
+      logradouro:       new FormControl({value: null, disabled: true}, [Validators.required]),
+      numero:           new FormControl({value: null, disabled: true}, [Validators.required, this.validationFormService.validacaoNumero()]),
+      complemento:      new FormControl({value: null, disabled: true}),
+      bairro:           new FormControl({value: null, disabled: true}),
+      cidade:           new FormControl({value: null, disabled: true}),
+      uf:               new FormControl({value: null, disabled: true}),
+      queixa:           new FormControl({value: null, disabled: true}, [Validators.required])
     });
 
     registerLocaleData(localePt);
@@ -157,12 +178,15 @@ export class IdentificacaoUpdateComponent implements OnInit {
       .pipe(takeUntil(this.destroy$)).subscribe();
     }
 
+    this.updateAlteracaoCpfService = this.updateAlteracaoCpfServiceClass;
+    this.loadingDocumentosService = this.loadingDocumentosServiceInject;
 
   }
 
   ngOnInit(): void {
 
     this.carregarCachePaciente();
+    this.onRgChange();
     this.onResponsavel();
     this.onSelectFilhos();
     this.observeInputCep();
@@ -180,6 +204,61 @@ export class IdentificacaoUpdateComponent implements OnInit {
       clear: 'Limpar',
     });
 
+
+
+  }
+
+
+
+  /**
+   * O método onRgChange() é responsável por ajustar dinamicamente a máscara e as validações do campo RG com base na
+   * quantidade de caracteres inseridos pelo usuário.
+   *  Máscara Dinâmica:
+   *   Para 7 caracteres: '00.000.00A'.
+   *   Para 8 caracteres: '00.000.000-A'.
+   *   Para 9 caracteres: '00.000.000-0A'.
+   *  Remoção de Caracteres Especiais: O método remove caracteres não numéricos (como . e -), exceto a última letra (se presente).
+   * Validação Condicional
+   *  Obrigatório: O campo é obrigatório se o RG tiver 7 ou mais caracteres.
+   *  Formato Correto: Valida o formato do RG com base no número de caracteres (7, 8 ou 9).
+   * Atualização da Validação: Sempre que a máscara ou os validadores são alterados, o método força a revalidação do campo
+   * com updateValueAndValidity().
+   *
+   */
+  protected onRgChange(): void {
+    this.formValidation.get('rg')?.valueChanges.subscribe(value => {
+      let numericValue = value.replace(/\D/g, '');  // Remove caracteres não numéricos
+
+      // Se o último caractere for uma letra, mantenha ela
+      if (numericValue.length > 7 && /[A-Za-z]$/.test(value)) {
+        numericValue = value.replace(/\D/g, '').slice(0, -1) + value.slice(-1).toUpperCase();  // Mantém a última letra
+      }
+
+      // Atualiza a máscara dependendo do comprimento do RG
+      if (numericValue.length <= 7) {
+        this.rgMask = '00.000.00A';  // Formato para 7 caracteres: 12.345.67-X
+      } else if (numericValue.length === 8) {
+        this.rgMask = '00.000.000-A';  // Formato para 8 caracteres: 12.345.678-X
+      } else if (numericValue.length === 9) {
+        this.rgMask = '00.000.000-0A';  // Formato para 9 caracteres: 12.345.678-9X
+      }
+
+      // **Reforçar a validação obrigatória e formato**
+      if (numericValue.length >= 7) {
+        this.formValidation.get('rg')?.setValidators([
+          Validators.required,
+          this.validationFormService.validacaoRgFormatado
+        ]);
+      } else {
+        // Apenas a validação de formato
+        this.formValidation.get('rg')?.setValidators([
+          this.validationFormService.validacaoRgFormatado
+        ]);
+      }
+
+      // Atualiza a validade do campo
+      this.formValidation.get('rg')?.updateValueAndValidity();
+    });
   }
 
 
@@ -241,93 +320,90 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
 
 
-  /**
-   * Método criado para facilitar o fluxo e a manutenção dos dados que vem
-   * do servidor. A variável 'dateUpdate' realiza a representação de cada
-   * valor de dados que o patchValue trás do subscribe.
-   * @param dataUpdate valor passado via patchValue
-   */
-  private carregamentoDePacienteViaPatchValue(dataUpdate: any): void {
-    this.identificacaoUpdateCache = dataUpdate;
-    // console.log(this.identificacaoUpdateCache)
-    this.formValidation.patchValue({
-      id: this.identificacaoUpdateCache!.id,
-      nomeCompleto: this.identificacaoUpdateCache?.nomeCompleto,
-      responsavel: this.identificacaoUpdateCache?.responsavel,
-      cpf: this.identificacaoUpdateCache?.cpf,
-      rg: this.identificacaoUpdateCache?.rg,
-      email: this.identificacaoUpdateCache?.email,
-      telefone: this.identificacaoUpdateCache?.telefone,
-      telefoneContato: this.identificacaoUpdateCache?.telefoneContato,
-      nomeDoContato: this.identificacaoUpdateCache?.nomeDoContato,
-      idade: this.identificacaoUpdateCache?.idade,
-      dataNascimento: moment(this.identificacaoUpdateCache!.dataNascimento, 'YYYY-MM-DD').format('DD/MM/YYYY'),
-      estadoCivil: this.identificacaoUpdateCache?.estadoCivil,
-      filhos: this.identificacaoUpdateCache?.filhos ? "true" : "false",
-      qtdFilhos: this.identificacaoUpdateCache?.qtdFilhos,
-      grauEscolaridade: this.identificacaoUpdateCache?.grauEscolaridade,
-      profissao: this.identificacaoUpdateCache?.profissao,
-      cep: this.identificacaoUpdateCache?.endereco.cep,
-      logradouro: this.identificacaoUpdateCache?.endereco.logradouro,
-      numero: this.identificacaoUpdateCache?.endereco.numero,
-      complemento: this.identificacaoUpdateCache?.endereco.complemento,
-      bairro: this.identificacaoUpdateCache?.endereco.bairro,
-      cidade: this.identificacaoUpdateCache?.endereco.cidade,
-      uf: this.identificacaoUpdateCache?.endereco.uf,
-      queixa: this.identificacaoUpdateCache?.queixa.queixa
-    });
-    this.cpfAlterado = this.cpf;
-    // console.log('Formato da data vindo do patch: ', this.dataNascimento)
+  /*
 
-  }
-
-
-
-
-  /**
-   * Metodo principal da classe e responsável por carregar em cache os dados do paciente
-   * selecionado via patchValue.
-   */
-  private carregarCachePaciente(): void {
-
-    this.cacheService.getStatusCaching().pipe(
-      takeUntil(this.unsubscribe.unsubscribe)
-    ).subscribe((status) => {
-      if (status) {
-        this.cacheService.getPacienteCache().pipe(
-          takeUntil(this.unsubscribe.unsubscribe)
-        ).subscribe(
-          (dataUpdate => {
-            this.carregamentoDePacienteViaPatchValue(dataUpdate)
-          })
-        )
+   private onResponsavel(): void {
+    this.formValidation.get('idade')?.valueChanges.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((valor) => {
+      const campoResponsavel = this.formValidation.get('responsavel');
+      if (valor < 18) {
+        campoResponsavel?.enable();
       } else {
-        this.carregarPacienteViaAPI();
+        campoResponsavel?.disable();
       }
     })
-
   }
 
 
-  /**
-   * Este método realiza a chamada direta para a API e retorna os dados do
-   * banco de dados caso a função em cache obtenha falha.
-   */
-  private carregarPacienteViaAPI(): void {
-    const storageCPF: string | null = localStorage.getItem('cpf');
-    this.identificacaoService.carregarPaciente(storageCPF!)
-      .pipe(takeUntil(this.unsubscribe.unsubscribe))
-      .subscribe(
-        (dataUpdate => {
-          this.carregamentoDePacienteViaPatchValue(dataUpdate);
-        })
-      );
-  }
-
+  */
 
 
   protected redefinirDados(): void {
     this.carregarCachePaciente();
+  }
+
+  protected editar(): void {
+
+    this.isEditing = true;
+    this.opcaoEditar = true;
+
+    this.formValidation.get('nomeCompleto')?.enable();
+
+    this.formValidation.get('responsavel')?.enable;
+
+    this.formValidation.get('cpf')?.enable();
+    this.formValidation.get('rg')?.enable();
+    this.formValidation.get('email')?.enable();
+    this.formValidation.get('telefone')?.enable();
+    this.formValidation.get('telefoneContato')?.enable();
+    this.formValidation.get('nomeDoContato')?.enable();
+    this.formValidation.get('dataNascimento')?.enable();
+    this.formValidation.get('estadoCivil')?.enable();
+    this.formValidation.get('filhos')?.enable();
+    this.formValidation.get('qtdFilhos')?.enable();
+    this.formValidation.get('grauEscolaridade')?.enable();
+    this.formValidation.get('profissao')?.enable();
+    this.formValidation.get('cep')?.enable();
+    this.formValidation.get('numero')?.enable();
+    this.formValidation.get('complemento')?.enable();
+    this.formValidation.get('queixa')?.enable();
+
+    const idade = this.formValidation.get('idade')?.value;
+    if (idade < 18) {
+      this.formValidation.get('responsavel')?.enable();
+    }
+
+
+
+
+
+
+
+    this.listaFormOriginal.push(
+      this.nomeCompleto,
+      this.responsavel,
+      this.cpf,
+      this.rg,
+      this.email,
+      this.telefone,
+      this.telefoneContato,
+      this.nomeDoContato,
+      this.idade,
+      this.dataNascimento,
+      this.estadoCivil,
+      this.filhos,
+      this.qtdFilhos,
+      this.grauEscolaridade,
+      this.profissao,
+      this.cep,
+      this.numero,
+      this.complemento,
+      this.queixa
+    )
+
+
+
   }
 
 
@@ -337,6 +413,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
   }
 
   protected closeModal(): void {
+    this.formValidation.get('cpf')?.setValue(this.valorCpfRestaurado);
     document.getElementById('safeElement')?.focus();
     $('#modalCpf').modal('hide'); // Fecha o modal
   }
@@ -351,24 +428,137 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
   protected atualizarEProsseguir(): void {
-    this.closeModal();
+
+    this.loadingModalCpf = true;
+
     setTimeout(() => {
-      this.updatePacienteAPI(true);
-    },50);
+
+      this.loadingModalCpf = false;
+      this.closeModal();
+      this.updateAlteracaoCpfService.setBoolean(true);
+      this.updatePacienteAPI();
+
+    }, 1500);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /**
+   * Método criado para facilitar o fluxo e a manutenção dos dados que vem
+   * do servidor. A variável 'dateUpdate' realiza a representação de cada
+   * valor de dados que o patchValue trás do subscribe.
+   * @param dataUpdate valor passado via patchValue
+   */
+  private carregamentoDePacienteViaPatchValue(dataUpdate: any): void {
+    this.identificacaoUpdateCache = dataUpdate;
+    // console.log(this.identificacaoUpdateCache)
+    this.formValidation.patchValue({
+      id:               this.identificacaoUpdateCache!.id,
+      nomeCompleto:     this.identificacaoUpdateCache?.nomeCompleto,
+      responsavel:      this.identificacaoUpdateCache?.responsavel,
+      cpf:              this.identificacaoUpdateCache?.cpf,
+      rg:               this.identificacaoUpdateCache?.rg,
+      email:            this.identificacaoUpdateCache?.email,
+      telefone:         this.identificacaoUpdateCache?.telefone,
+      telefoneContato:  this.identificacaoUpdateCache?.telefoneContato,
+      nomeDoContato:    this.identificacaoUpdateCache?.nomeDoContato,
+      idade:            this.identificacaoUpdateCache?.idade,
+      dataNascimento:   moment(this.identificacaoUpdateCache!.dataNascimento, 'YYYY-MM-DD').format('DD/MM/YYYY'),
+      estadoCivil:      this.identificacaoUpdateCache?.estadoCivil,
+      filhos:           this.identificacaoUpdateCache?.filhos ? "true" : "false",
+      qtdFilhos:        this.identificacaoUpdateCache?.qtdFilhos,
+      grauEscolaridade: this.identificacaoUpdateCache?.grauEscolaridade,
+      profissao:        this.identificacaoUpdateCache?.profissao,
+      cep:              this.identificacaoUpdateCache?.endereco.cep,
+      logradouro:       this.identificacaoUpdateCache?.endereco.logradouro,
+      numero:           this.identificacaoUpdateCache?.endereco.numero,
+      complemento:      this.identificacaoUpdateCache?.endereco.complemento,
+      bairro:           this.identificacaoUpdateCache?.endereco.bairro,
+      cidade:           this.identificacaoUpdateCache?.endereco.cidade,
+      uf:               this.identificacaoUpdateCache?.endereco.uf,
+      queixa:           this.identificacaoUpdateCache?.queixa.queixa
+    });
+
+    this.valorCpfRestaurado = this.cpf;
+    this.valorQtdFilhosRestaurado = this.qtdFilhos;
+
+
+
 
   }
+
+
+
+
+  /**
+   * Metodo principal da classe e responsável por carregar em cache os dados do paciente
+   * selecionado via patchValue.
+   */
+  private carregarCachePaciente(): void {
+
+    this.cacheService.getStatusCaching()
+    .pipe(takeUntil(this.unsubscribe.unsubscribe))
+    .subscribe((status) => {
+      if (status) {
+        this.cacheService.getPacienteCache()
+          .pipe(takeUntil(this.unsubscribe.unsubscribe))
+          .subscribe(
+            (dataUpdate => {
+              this.carregamentoDePacienteViaPatchValue(dataUpdate)
+            }))
+      } else {
+        this.carregarPacienteViaAPI();
+      }
+    })
+
+  }
+
+
+  /**
+   * Este método realiza a chamada direta para a API e retorna os dados do
+   * banco de dados caso a função em cache obtenha falha.
+   */
+  private carregarPacienteViaAPI(): void {
+    const storageCPF: string | null = localStorage.getItem('cpf');
+
+    this.identificacaoService.carregarPaciente(storageCPF!)
+      .pipe(takeUntil(this.unsubscribe.unsubscribe))
+      .subscribe(
+        (dataUpdate => {
+          this.carregamentoDePacienteViaPatchValue(dataUpdate);
+        })
+      );
+  }
+
+
+
+
+
+
 
 
   /**
@@ -403,10 +593,13 @@ export class IdentificacaoUpdateComponent implements OnInit {
       takeUntil(this.destroy$)
     ).subscribe((valor) => {
       const campoResponsavel = this.formValidation.get('responsavel');
-      if (valor < 18) {
-        campoResponsavel?.enable();
-      } else {
-        campoResponsavel?.disable();
+      if (this.opcaoEditar) { // Só entra na lógica se estiver no modo edição
+        if (valor < 18) {
+          campoResponsavel?.enable();
+        } else {
+          campoResponsavel?.disable();
+          campoResponsavel?.reset()
+        }
       }
     })
   }
@@ -416,27 +609,16 @@ export class IdentificacaoUpdateComponent implements OnInit {
       takeUntil(this.destroy$)
     ).subscribe((valor) => {
       // console.log('Valor do onSelectFilhos: ',valor)
+
       if(valor === 'true') {
         this.formQtdFilhos = true;
-        this.formValidation.get('qtdFilhos')?.enable();
-        // console.log(this.formQtdFilhos)
+        this.formValidation.get('qtdFilhos')?.setValue(this.valorQtdFilhosRestaurado);
       } else  {
         this.formQtdFilhos = false;
-        this.formValidation.get('qtdFilhos')?.disable();
         this.formValidation.get('qtdFilhos')?.reset();
       }
     })
   }
-
-  // private onCpf(): void {
-  //   this.formValidation.get('cpf')?.valueChanges.pipe(
-  //     takeUntil(this.destroy$)
-  //   ).subscribe((valor) => {
-  //     console.log(valor)
-  //   })
-  // }
-
-
 
 
 
@@ -481,39 +663,28 @@ export class IdentificacaoUpdateComponent implements OnInit {
   }
 
 
-  private updatePacienteAPI(statusAlteracaoCpf: boolean): void {
+  /**
+   *
+   * @param statusAlteracaoCpf
+   */
+  private updatePacienteAPI(): void {
     this.updatePacienteService.updatePatient(this.listaUpdatePaciente)
       .pipe(takeUntil(this.unsubscribe.unsubscribe)).subscribe(
         (data) => {
-          if(data != null && Object.keys(data).length === 0) {
+          if  (data != null && Object.keys(data).length === 0) {
             this.message.setMessage('Ocorreu um erro ao atualizar', 'ALERT_ERROR')
           } else {
-            var roteDePerfil = localStorage.getItem('perfil')?.toLocaleLowerCase();
-            if (statusAlteracaoCpf) {
 
 
-
-                  // this.router.navigate(['/home/pacientes']).then(() => {
-                  //   window.location.reload();
-                  // });
-
-                this.router.navigate(['/home/pacientes'], { replaceUrl: true }).then(() => {
-
-                });
-
-
-
-
-
-              // setTimeout(() => {
-              //   this.router.navigate([`/home/pacientes`]);
-              // }, 100); //   tempo de redirecionamento
-
-              // window.location.reload();
-
-            } else {
-              this.router.navigate([`/paciente/${roteDePerfil}/documentos/identificacao`]);
+            if(this.updateAlteracaoCpfService.getBoolean()) {{
+              this.loadingDocumentosService.setBoolean(false);  // finaliza o siclo do loading
+              this.router.navigate(['/home/pacientes']);
+            }} else {
+              this.loadingDocumentosService.setBoolean(false);  // finaliza o siclo do loading
+              this.router.navigate([`/paciente/${this.roteDePerfil}/documentos/identificacao`]);
             }
+
+
           }
         }
       );
@@ -524,88 +695,115 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
 
 
-  protected atualizarPaciente(): void {
 
-    this.formSubmitted = true;
-
+    protected atualizarPaciente(): void {
 
 
-    if(this.formValidation.invalid) {
-      // console.log(this.formValidation.invalid)
-      // console.log('Formulário inválidocep'); // Para depuração
-      return;
-    } else {
+      this.formSubmitted = true;
 
-      var qtdFilhos_validado;
 
-      if (this.qtdFilhos === null || this.qtdFilhos === undefined) {
-        qtdFilhos_validado = 0; // Atribui o valor 0 a this.qtdFilhos se for nulo
-      } else {
-        qtdFilhos_validado = this.qtdFilhos;
-      }
+      this.listaAposBotaoClicado.push(
+        this.nomeCompleto,
+        this.responsavel,
+        this.cpf,
+        this.rg,
+        this.email,
+        this.telefone,
+        this.telefoneContato,
+        this.nomeDoContato,
+        this.idade,
+        this.dataNascimento,
+        this.estadoCivil,
+        this.filhos,
+        this.qtdFilhos,
+        this.grauEscolaridade,
+        this.profissao,
+        this.cep,
+        this.numero,
+        this.complemento,
+        this.queixa
+      )
 
-      const dataFormatada = this.mascaraService.mascaraDataDeNascimento(this.dataNascimento);
-      const nomeCompletoFormatado = this.mascaraService.mascaraFormatoDeTexto(this.nomeCompleto);
-      const complementoFormatado = this.mascaraService.mascaraFormatoDeTexto(this.complemento);
-      const profissaoFormatado = this.mascaraService.mascaraFormatoDeTexto(this.profissao);
 
-      console.log(this.dataNascimento)
+      this.alteracaoFormulario = this.listaFormOriginal.length !== this.listaAposBotaoClicado.length ||
+          this.listaFormOriginal.some((valor, index) => valor !== this.listaAposBotaoClicado[index])
 
-      this.listaUpdatePaciente = {
-        id: this.prontuario,
-        nomeCompleto: nomeCompletoFormatado,
-        responsavel: this.responsavel,
-        cpf: this.cpf,
-        rg: this.rg,
-        email: this.email,
-        telefone: this.telefone,
-        telefoneContato: this.telefoneContato,
-        nomeDoContato: this.nomeDoContato,
-        idade: this.idade,
-        dataNascimento: dataFormatada,
-        estadoCivil: this.estadoCivil,
-        filhos: this.filhos,
-        qtdFilhos: this.qtdFilhos,
-        grauEscolaridade: this.grauEscolaridade,
-        profissao: profissaoFormatado,
-        endereco: {
+
+
+      if (this.formValidation.invalid) {
+        return;
+      } else if (this.alteracaoFormulario) {
+
+        // alert('Valores alterados')
+
+        let qtdFilhos_validado = this.qtdFilhos ?? 0;
+
+        const rgFormatado = this.mascaraService.removerCaracteresEspeciais(this.rg);
+        const dataFormatada = this.mascaraService.mascaraDataDeNascimento(this.dataNascimento);
+        const nomeCompletoFormatado = this.mascaraService.mascaraFormatoDeTexto(this.nomeCompleto);
+        const complementoFormatado = this.mascaraService.mascaraFormatoDeTexto(this.complemento);
+        const profissaoFormatado = this.mascaraService.mascaraFormatoDeTexto(this.profissao);
+
+        this.listaUpdatePaciente = {
           id: this.prontuario,
-          logradouro: this.logradouro,
-          numero: this.numero,
-          complemento: complementoFormatado,
-          bairro: this.bairro,
-          cidade: this.cidade,
-          uf: this.uf,
-          cep: this.cep
-        },
-        queixa: {
-          id: this.prontuario,
-          queixa: this.queixa
+          nomeCompleto: nomeCompletoFormatado,
+          responsavel: this.responsavel,
+          cpf: this.cpf,
+          rg: rgFormatado,
+          email: this.email,
+          telefone: this.telefone,
+          telefoneContato: this.telefoneContato,
+          nomeDoContato: this.nomeDoContato,
+          idade: this.idade,
+          dataNascimento: dataFormatada,
+          estadoCivil: this.estadoCivil,
+          filhos: this.filhos,
+          qtdFilhos: qtdFilhos_validado,
+          grauEscolaridade: this.grauEscolaridade,
+          profissao: profissaoFormatado,
+          endereco: {
+            id: this.prontuario,
+            logradouro: this.logradouro,
+            numero: this.numero,
+            complemento: complementoFormatado,
+            bairro: this.bairro,
+            cidade: this.cidade,
+            uf: this.uf,
+            cep: this.cep
+          },
+          queixa: {
+            id: this.prontuario,
+            queixa: this.queixa
+          }
+        };
+
+        console.log("Dados a serem enviados:", this.listaUpdatePaciente);
+
+        if (this.valorCpfRestaurado !== this.cpf) {
+          this.openModal();
+        } else {
+          this.updatePacienteAPI();
         }
-      }
-
-      console.log(this.listaUpdatePaciente)
-
-      if (this.cpfAlterado != this.cpf) {
-        this.openModal();
       } else {
-        this.updatePacienteAPI(false);
+        // alert('Nenhum valor alterado');
+        this.loadingDocumentosService.setBoolean(false);  // finaliza o siclo do loading
+        this.router.navigate([`/paciente/${this.roteDePerfil}/documentos/identificacao`]);
+        this.message.setMessage("Não houve alteração nos dados cadastrais", "ALERT_INFO");
+        this.listaFormOriginal = [];
+        this.listaAposBotaoClicado = [];
       }
-
-
-
-
-
     }
 
-  }
 
 
   ngOnDestroy(): void {
+    this.loadingDocumentosService.setRenderizado(false);
     this.cacheService.clearStatusCaching();
     this.destroy$.next(true);
     this.destroy$.complete();
     this.idadeSubscription.unsubscribe();
+    this.opcaoEditar = false;
+    this.updateAlteracaoCpfService.setBoolean(false);
   }
 
   get prontuario() {

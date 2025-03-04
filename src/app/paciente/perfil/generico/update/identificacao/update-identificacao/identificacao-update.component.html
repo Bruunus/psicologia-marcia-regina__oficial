@@ -38,17 +38,20 @@
 
     <div style="padding: 1rem;">
       <label for="rg" class="titulo-item">RG</label>
-      <input type="text" class="" name="rg" mask="00.000.000-A" formControlName="rg" id="rg" style="margin-left: 0.5rem; "
-      required>
-      <div *ngIf="(formValidation.get('rg')?.invalid && formSubmitted) && !formReset" class="validation-error">
-        <ng-container *ngIf="formValidation.get('rg')?.errors?.['required']; else rgIncorreto">
-          <p class="message-error-formValidation">Informe o RG</p>
-        </ng-container>
-        <ng-template #rgIncorreto>
-          <p class="message-error-formValidation">RG incorreto</p>
-        </ng-template>
-      </div>
+      <input type="text" formControlName="rg" name="rg" [mask]="rgMask" [dropSpecialCharacters]="false" id="rg"
+        style="margin-left: 0.5rem;" maxlength="13" required>
+
+        <div *ngIf="(formValidation.get('rg')?.invalid && formSubmitted) && !formReset" class="validation-error">
+          <ng-container *ngIf="formValidation.get('rg')?.errors?.['rgInvalido']; else rgIncorreto">
+            <p class="message-error-formValidation">RG inválido</p>
+          </ng-container>
+          <ng-template #rgIncorreto>
+            <p class="message-error-formValidation">Informe o RG</p>
+          </ng-template>
+        </div>
+
     </div>
+
 
     <div style="padding: 1rem;">
       <label for="email" class="titulo-item">E-mail</label>
@@ -184,7 +187,7 @@
 
     <div style="margin-left: 0.5rem;">
       <label for="qtdFilhos" class="titulo-item">Qtd. de filhos</label>
-      <input type="number" class="" name="qtdFilhos" formControlName="qtdFilhos" id="qtdFilhos" required min="1">
+      <input type="number" class="" name="qtdFilhos" formControlName="qtdFilhos" id="qtdFilhos" required >
       <div *ngIf="(formValidation.get('qtdFilhos')?.invalid && formSubmitted) && !formReset && formQtdFilhos" class="validation-error">
         <p class="message-error-formValidation">Informe a quantidade</p>
       </div>
@@ -322,13 +325,21 @@
 
 
   <div style="padding: 1rem;">
-
-    <button type="button" (click)="redefinirDados()">Redefinir</button>
-    <button type="submit" >Salvar e Atualizar</button>
+    <button type="button" (click)="editar()">Editar</button>
+    <button type="button" (click)="redefinirDados()" [disabled]="!isEditing">Redefinir</button>
+    <button type="submit" [disabled]="!isEditing">Salvar e Atualizar</button>
   </div>
 
 
 </form>
+
+
+<br><br>
+<span style="color: tomato;"><b>Observações e pendencias pausadas:</b></span>
+<ul style="color: tomato;">
+  <li>
+  </li>
+</ul>
 
 
 <!-- Modal -->
@@ -350,54 +361,14 @@
         <p>Deseja prosseguir ?</p>
       </div>
       <div class="modal-footer">
+        <img *ngIf="loadingModalCpf" src="../../../../../../../assets/img/loadingo-menu.gif"
+        alt="Loading" style="height: 35px; margin-right: 5px;">
         <button type="button" class="btn btn-primary" (click)="atualizarEProsseguir()">Atualizar e Prosseguir</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-secondary" (click)="closeModal()" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>
 </div>
-
-
-<!-- Modal -->
-<!-- <div
-class="modal fade"
-id="exampleModalCenter"
-tabindex="-1"
-role="dialog"
-aria-labelledby="exampleModalCenterTitle"
-data-backdrop="static"
-data-keyboard="false">
-<div class="modal-dialog modal-dialog-centered" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalCenterTitle">Alteração de CPF</h5>
-      <button
-        type="button"
-        class="close"
-        (click)="closeModal()"
-        aria-label="Fechar">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      Teste teste
-    </div>
-    <div class="modal-footer">
-      <button
-        type="button"
-        class="btn btn-primary"
-
-        >Teste</button>
-
-      <button
-        type="button"
-        class="btn btn-danger"
-        >Teste</button>
-    </div>
-  </div>
-</div>
-</div> -->
-
 
 
 

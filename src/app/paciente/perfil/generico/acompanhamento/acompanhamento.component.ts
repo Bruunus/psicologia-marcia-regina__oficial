@@ -34,7 +34,7 @@ export class AcompanhamentoComponent implements OnInit {
               setTimeout(() => {
 
                 console.log('Dados carregados com sucesso!');
-                this.loadingDocumentosService.setBoolean(false);
+                this.loadingDocumentosService.setBoolean(false); // interrompo o loading
                 this.exibicaoDeConteudo = true;
               }, 500); // Emite o evento após 8 segundos
 

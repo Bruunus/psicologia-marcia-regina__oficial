@@ -52,13 +52,15 @@ export class PacienteComponent implements OnInit {
        * Usei esse trecho para poder identificar a rota 'ativa' no momento em que o componente é carregado.
        */
       this.rotaAtual = this.router.url.split('/').pop() || '';
-      this.loadingDocumentosService = loadingDocumentosServiceInject;
+      this.loadingDocumentosService = this.loadingDocumentosServiceInject;
     }
 
   ngOnInit() {
     const localStoragePerfil = localStorage.getItem('perfil');
     console.log('Storage de perfil: ', localStoragePerfil);
     this.perfil = localStoragePerfil ? localStoragePerfil.toLowerCase() : '';
+
+
 
 
 
