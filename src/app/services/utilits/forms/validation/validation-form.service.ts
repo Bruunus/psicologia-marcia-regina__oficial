@@ -50,16 +50,19 @@ export class ValidationFormService {
 
   // Validador para o formato do RG
   validacaoRgFormatado(control: AbstractControl): ValidationErrors | null {
-    const rg = control.value ? control.value.replace(/\D/g, '') : ''; // Remove caracteres não numéricos
-    if (rg.length === 7 || rg.length === 8 || rg.length === 9) {
-      return null;  // RG válido
+    const rg = control.value ? control.value : ''; // Mantém o valor original
+    const rgLimpo = rg.replace(/[.-]/g, ''); // Remove apenas os caracteres '.' e '-'
+
+    // Verifica o comprimento total, incluindo letras e números
+    if (rgLimpo.length === 7 || rgLimpo.length === 8 || rgLimpo.length === 9) {
+        return null;  // RG válido
     }
     return { rgInvalido: true };  // RG inválido se não tiver 7, 8 ou 9 caracteres
   }
 
 
   // Validador para RG com menos de 7 caracteres
-  public validacaoRgInvalido(control: AbstractControl): ValidationErrors | null {
+  validacaoRgInvalido(control: AbstractControl): ValidationErrors | null {
     const rg = control.value.replace(/\D/g, ''); // Remove caracteres especiais
     if (rg.length < 7) {
       return { rgInvalido: true }; // RG inválido se tiver menos de 7 caracteres

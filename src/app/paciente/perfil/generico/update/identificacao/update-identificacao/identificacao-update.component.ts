@@ -1,7 +1,7 @@
 import { registerLocaleData } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { distinctUntilChanged, Subject, Subscription, take, takeUntil } from 'rxjs';
 import { IdentificacaoUpdatePacienteInterface } from 'src/app/model/documentos/identificacao/indentificacao-update-paciente-interface';
 import { IdentificacaoService } from 'src/app/services/api/read/paciente/identificacao/identificacao.service';
 import { PacienteCacheService } from 'src/app/services/cache/paciente/paciente-cache.service';
@@ -19,6 +19,7 @@ import localePt from '@angular/common/locales/pt';
 import moment from 'moment';
 import { UpdateAlteracaoCpfService } from 'src/app/services/system-support/behavior-subject/paciente/update-alteracao-cpf.service';
 import { LoadingDocumentosService } from 'src/app/services/loading/documentos/loading-documentos.service';
+import { OrgaoEmissorService } from 'src/app/services/utilits/forms/orgao-emissor/orgao-emissor.service';
 declare var $: any;
 
 
@@ -37,9 +38,12 @@ export class IdentificacaoUpdateComponent implements OnInit {
   protected selectUfInstance = new selectUf();
   protected formQtdFilhos: boolean = false;
   protected optionUf: { sigla: string, nome: string } [] = [] as { sigla: string, nome: string }[];
+  protected optionOrgaoEmissor: { estado: string } [] = [] as { estado: string} [];
   protected loadingModalCpf: boolean = false;
   protected isEditing: boolean = false;
-  protected rgMask = '00.000.000-A'; // Começa com a máscara de 7 dígitos
+  protected orgaoEmissorSelecionado: string = '';
+  protected rgMask = ''; // Começa com a máscara de 7 dígitos
+
 
 
   @ViewChild('calendarInput', { static: false }) calendarInput!: ElementRef;
@@ -135,7 +139,8 @@ export class IdentificacaoUpdateComponent implements OnInit {
     private mascaraService: MascaraService, private primengConfig: PrimeNGConfig,
     private updatePacienteService: UpdateService, private message: MessageService, private router: Router,
     private updateAlteracaoCpfServiceClass:UpdateAlteracaoCpfService,
-    private loadingDocumentosServiceInject: LoadingDocumentosService
+    private loadingDocumentosServiceInject: LoadingDocumentosService,
+    private orgaoEmissorService: OrgaoEmissorService
 
   ) {
 
@@ -144,7 +149,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
       nomeCompleto:     new FormControl({value: null, disabled: true}, [Validators.required]),
       responsavel:      new FormControl({value: null, disabled: true}, [Validators.required]),
       cpf:              new FormControl({value: null, disabled: true}, [Validators.required, this.validationFormService.validacaoCpf()]),
-      rg:               new FormControl({value: null, disabled: true}, [Validators.required, this.validationFormService.validacaoRgFormatado]),
+      rg:               new FormControl({value: null, disabled: true}, [Validators.required]),
       email:            new FormControl({value: null, disabled: true}, [Validators.required, Validators.email]),
       telefone:         new FormControl({value: null, disabled: true}, [Validators.required, this.validationFormService.validacaoTelefone()]),
       telefoneContato:  new FormControl({value: null, disabled: true}, [this.validationFormService.validacaoTelefone()]),
@@ -185,12 +190,22 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
   ngOnInit(): void {
 
+    // Lógica para implantar no o campo RG
+    // const nome = prompt("Qual formato do RG? 1 - SP  2 - RJ  3 - MG");
+    // if (nome === '1') {
+    //     this.rgMask = '00.000.00A';
+    // } else if(nome === '2') {
+    //   this.rgMask = '00.000.000-A';
+    // }else {
+    //   this.rgMask = '00.000.000-0A';
+    // }
+
     this.carregarCachePaciente();
-    this.onRgChange();
     this.onResponsavel();
     this.onSelectFilhos();
     this.observeInputCep();
     this.loadListUf();
+    this.loadListOrgaoEmissor();
 
     this.primengConfig.setTranslation({
       dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
@@ -225,41 +240,59 @@ export class IdentificacaoUpdateComponent implements OnInit {
    * com updateValueAndValidity().
    *
    */
-  protected onRgChange(): void {
-    this.formValidation.get('rg')?.valueChanges.subscribe(value => {
-      let numericValue = value.replace(/\D/g, '');  // Remove caracteres não numéricos
+  onRgInput(event: any): void {
+    let value = event.target.value.replace(/\D/g, ''); // Remove tudo que não for número
 
-      // Se o último caractere for uma letra, mantenha ela
-      if (numericValue.length > 7 && /[A-Za-z]$/.test(value)) {
-        numericValue = value.replace(/\D/g, '').slice(0, -1) + value.slice(-1).toUpperCase();  // Mantém a última letra
-      }
-
-      // Atualiza a máscara dependendo do comprimento do RG
-      if (numericValue.length <= 7) {
-        this.rgMask = '00.000.00A';  // Formato para 7 caracteres: 12.345.67-X
-      } else if (numericValue.length === 8) {
-        this.rgMask = '00.000.000-A';  // Formato para 8 caracteres: 12.345.678-X
-      } else if (numericValue.length === 9) {
-        this.rgMask = '00.000.000-0A';  // Formato para 9 caracteres: 12.345.678-9X
-      }
-
-      // **Reforçar a validação obrigatória e formato**
-      if (numericValue.length >= 7) {
-        this.formValidation.get('rg')?.setValidators([
-          Validators.required,
-          this.validationFormService.validacaoRgFormatado
-        ]);
-      } else {
-        // Apenas a validação de formato
-        this.formValidation.get('rg')?.setValidators([
-          this.validationFormService.validacaoRgFormatado
-        ]);
-      }
-
-      // Atualiza a validade do campo
-      this.formValidation.get('rg')?.updateValueAndValidity();
-    });
+    if (value.length <= 7) {
+      this.rgMask = '00.000.00A'; // Exemplo: 12.345.67X
+    } else if (value.length === 8) {
+      this.rgMask = '00.000.000-A'; // Exemplo: 12.345.678-X
+    } else if (value.length === 9) {
+      this.rgMask = '00.000.000-0A'; // Exemplo: 12.345.678-9X
+    }
   }
+  // protected onRgChange(): void {
+  //   this.formValidation.get('rg')?.valueChanges.pipe(
+  //     distinctUntilChanged(),
+  //     takeUntil(this.unsubscribe.unsubscribe),
+  //     take(1)
+  //   ).subscribe(value => {
+  //     if (!value) return;
+
+  //     let numericValue = value.replace(/\D/g, ''); // Remove tudo que não for número
+  //     let lastChar = value.slice(-1); // Captura o último caractere original
+
+  //     // Se o último caractere for uma letra, adiciona ele novamente
+  //     if (/[A-Za-z]$/.test(lastChar) && numericValue.length >= 7) {
+  //       numericValue += lastChar.toUpperCase();
+  //     }
+
+  //     // Define a máscara conforme o tamanho do RG
+  //     if (numericValue.length <= 7) {
+  //       this.rgMask = '00.000.00A';
+  //     } else if (numericValue.length === 8) {
+  //       this.rgMask = '00.000.000-A';
+  //     } else if (numericValue.length === 9) {
+  //       this.rgMask = '00.000.000-0A';
+  //     }
+
+  //     // **Evitar redefinição desnecessária dos validadores**
+  //     const rgControl = this.formValidation.get('rg');
+  //     if (!rgControl) return;
+
+  //     const validadoresEsperados = numericValue.length >= 7
+  //       ? [Validators.required, this.validationFormService.validacaoRgFormatado]
+  //       : [this.validationFormService.validacaoRgFormatado];
+
+  //     // Só altera os validadores se necessário
+  //     if (JSON.stringify(rgControl.validator) !== JSON.stringify(validadoresEsperados)) {
+  //       rgControl.setValidators(validadoresEsperados);
+  //       rgControl.updateValueAndValidity({ emitEvent: false });
+  //     }
+  //   });
+  // }
+
+
 
 
 
@@ -584,6 +617,10 @@ export class IdentificacaoUpdateComponent implements OnInit {
     return this.optionUf = this.selectUfInstance.getUf();
   }
 
+  private loadListOrgaoEmissor(): Object[] {
+    return this.optionOrgaoEmissor = this.orgaoEmissorService.getOrgaoEmissor();
+  }
+
   /**
    * Evento responsável por habilitar ou desabilitar o campo responsavel dependendo da idade
    * do paciente.
@@ -618,6 +655,15 @@ export class IdentificacaoUpdateComponent implements OnInit {
         this.formValidation.get('qtdFilhos')?.reset();
       }
     })
+  }
+
+  /**
+   * Este método adiciona a mascara respectiva ao órgão emissor do estado
+   * @param orgaoEmissor enviado direto do select do formulário html
+   */
+  protected onOrgaoEmissor(orgaoEmissor: string): void {
+    this.orgaoEmissorSelecionado = orgaoEmissor;
+    this.rgMask = this.mascaraService.mascaraRg(orgaoEmissor);
   }
 
 
@@ -743,6 +789,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
         const nomeCompletoFormatado = this.mascaraService.mascaraFormatoDeTexto(this.nomeCompleto);
         const complementoFormatado = this.mascaraService.mascaraFormatoDeTexto(this.complemento);
         const profissaoFormatado = this.mascaraService.mascaraFormatoDeTexto(this.profissao);
+
 
         this.listaUpdatePaciente = {
           id: this.prontuario,

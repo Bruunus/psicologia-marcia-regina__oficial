@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "^16.2.12",
     "@angular/router": "^16.2.12",
     "@types/bootstrap": "4.1",
+    "angular2-text-mask": "^9.0.0",
     "bootstrap": "^4.1.1",
     "hover.css": "^2.3.2",
     "jquery": "^3.7.1",

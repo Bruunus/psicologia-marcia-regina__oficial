@@ -2,7 +2,7 @@
 
 <form (ngSubmit)="atualizarPaciente()" [formGroup]="formValidation" >
 
-  <div style="display: flex;">
+  <div style="display: flex; margin-top: 3rem;">
 
     <div style="padding: 1rem;">
       <label for="prontuario">Prontuário</label>
@@ -36,21 +36,49 @@
       </div>
     </div>
 
+
+    <!--
+
+    <select #equipamentoValid  name="equipamento" formControlName="equipamentoSelect"
+      (change)="onDescricaoValorChange(equipamentoValid.options[equipamentoValid.selectedIndex].text)">
+        <option value=""></option>
+        <option *ngFor="let item of optionsListaEquipamento" [value]="item.descricao" >
+          {{ item.descricao }}
+        </option>
+    </select>
+
+    -->
+
+    <div style="margin-left: 0.5rem;">
+      <label for="orgao-emissor" class="titulo-item">SSP/</label>
+      <select #orgaoSelecionado name="orgao-emissor"
+        class="form-control form-control-cadastro form-control-select" id="orgao-emissor"
+        (change)="onOrgaoEmissor(orgaoSelecionado.options[orgaoSelecionado.selectedIndex].text)"
+        required>
+        <option value="" style="color: lightgray;"></option>
+        <option *ngFor="let estado of optionOrgaoEmissor" [value]="estado.estado">
+          {{ estado.estado }}
+        </option>
+      </select>
+      <div *ngIf="(formValidation.get('estadoCivil')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <p class="message-error-formValidation">Campo obrigatório de RG</p>
+      </div>
+    </div>
+
     <div style="padding: 1rem;">
       <label for="rg" class="titulo-item">RG</label>
       <input type="text" formControlName="rg" name="rg" [mask]="rgMask" [dropSpecialCharacters]="false" id="rg"
         style="margin-left: 0.5rem;" maxlength="13" required>
 
-        <div *ngIf="(formValidation.get('rg')?.invalid && formSubmitted) && !formReset" class="validation-error">
-          <ng-container *ngIf="formValidation.get('rg')?.errors?.['rgInvalido']; else rgIncorreto">
-            <p class="message-error-formValidation">RG inválido</p>
-          </ng-container>
-          <ng-template #rgIncorreto>
-            <p class="message-error-formValidation">Informe o RG</p>
-          </ng-template>
-        </div>
+      <div *ngIf="(formValidation.get('rg')?.invalid && formSubmitted) && !formReset" class="validation-error">
+        <ng-container *ngIf="formValidation.get('rg')?.hasError('required'); else rgIncorreto">
+          <p class="message-error-formValidation">Informe o RG</p>
+        </ng-container>
+        <ng-template #rgIncorreto></ng-template> <!-- Este bloco agora não contém nenhum conteúdo, pois você não quer exibir erros personalizados -->
+      </div>
 
     </div>
+
 
 
     <div style="padding: 1rem;">
@@ -164,11 +192,11 @@
       <label for="estado-civil" class="titulo-item">Estado Civil</label>
       <select name="estado-civil" class="form-control form-control-cadastro form-control-select" id="estado-civil" formControlName="estadoCivil"  required>
         <option value="" style="color: lightgray;">Selecione</option>
-        <option value="solteiro">Solteiro(a)</option>
-        <option value="casado">Casado(a)</option>
-        <option value="divorcioado">Divorciado(a)</option>
-        <option value="viuvo">Viuvo(a)</option>
-        <option value="outro">Outro</option>
+        <option value="Solteiro">Solteiro(a)</option>
+        <option value="Casado">Casado(a)</option>
+        <option value="Divorciado">Divorciado(a)</option>
+        <option value="Viuvo">Viuvo(a)</option>
+        <option value="Outro">Outro</option>
       </select>
       <div *ngIf="(formValidation.get('estadoCivil')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <p class="message-error-formValidation">Informe o estado civil</p>

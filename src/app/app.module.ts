@@ -45,6 +45,7 @@ import { MigrarPacienteComponent } from './paciente/perfil/generico/migrar-pacie
 import { FinalizarTratamentoComponent } from './paciente/perfil/generico/finalizar-tratamento/finalizar-tratamento.component';
 import { BugsComponent } from './temp/bugs/bugs.component';
 import { IdentificacaoUpdateComponent } from './paciente/perfil/generico/update/identificacao/update-identificacao/identificacao-update.component';
+import { TextMaskModule } from 'angular2-text-mask';
 
 
 registerLocaleData(localePt);

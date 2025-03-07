@@ -35,6 +35,50 @@ export class MascaraService {
     }).join(' ');
   }
 
+
+    public mascaraRg(estado: string): string {
+      switch (estado) {
+
+        case 'AC':
+        case 'AL':
+        case 'AP':
+        case 'AM':
+        case 'BA':
+        case 'CE':
+        case 'DF':
+        case 'ES':
+        case 'GO':
+        case 'MA':
+        case 'MT':
+        case 'MS':
+        case 'PA':
+        case 'PB':
+        case 'PR':
+        case 'PE':
+        case 'PI':
+        case 'RJ':
+        case 'RN':
+        case 'RS':
+        case 'RO':
+        case 'RR':
+        case 'SC':
+        case 'SE':
+        case 'SP':
+        case 'TO':
+        case 'MG':
+          return '00.000.000-A'; // Padrão comum para maior
+
+        default:
+          return 'null'; // Caso nenhum estado seja reconhecido
+      }
+    }
+
+
+
+
+
+
+
   /**
    * Máscara que após a inserção do campo telefone, remove todos os espaços em branco
    * e traços do número de telefone e adiciona um espaço após o segundo dígito.
