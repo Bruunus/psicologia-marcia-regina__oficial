@@ -26,14 +26,19 @@ export class MascaraService {
    * @param texto
    * @returns
    */
-  public mascaraFormatoDeTexto(texto: string): string {
+  public mascaraFormatoDeTexto(texto: string | undefined): string {
+
+    if (!texto) {
+      return '';
+    }
     return texto.split(' ').map(word => {
-      if (word.length > 3) {
+      if (word.length > 2) {
         return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
       }
       return word.toLowerCase();
     }).join(' ');
   }
+
 
 
     public mascaraRg(estado: string): string {

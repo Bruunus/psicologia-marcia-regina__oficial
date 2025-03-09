@@ -53,14 +53,15 @@
       <label for="orgao-emissor" class="titulo-item">SSP/</label>
       <select #orgaoSelecionado name="orgao-emissor"
         class="form-control form-control-cadastro form-control-select" id="orgao-emissor"
+        formControlName="orgaoSsp"
         (change)="onOrgaoEmissor(orgaoSelecionado.options[orgaoSelecionado.selectedIndex].text)"
         required>
-        <option value="" style="color: lightgray;"></option>
+        <option style="color: lightgray;"></option>
         <option *ngFor="let estado of optionOrgaoEmissor" [value]="estado.estado">
           {{ estado.estado }}
         </option>
       </select>
-      <div *ngIf="(formValidation.get('estadoCivil')?.invalid && formSubmitted) && !formReset" class="validation-error">
+      <div *ngIf="(formValidation.get('orgaoSsp')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <p class="message-error-formValidation">Campo obrigatório de RG</p>
       </div>
     </div>
@@ -71,10 +72,10 @@
         style="margin-left: 0.5rem;" maxlength="13" required>
 
       <div *ngIf="(formValidation.get('rg')?.invalid && formSubmitted) && !formReset" class="validation-error">
-        <ng-container *ngIf="formValidation.get('rg')?.hasError('required'); else rgIncorreto">
+        <ng-container *ngIf="formValidation.get('rg')?.hasError('required')">
           <p class="message-error-formValidation">Informe o RG</p>
         </ng-container>
-        <ng-template #rgIncorreto></ng-template> <!-- Este bloco agora não contém nenhum conteúdo, pois você não quer exibir erros personalizados -->
+         <!-- Este bloco agora não contém nenhum conteúdo, pois você não quer exibir erros personalizados -->
       </div>
 
     </div>
@@ -190,7 +191,8 @@
 
     <div style="margin-left: 0.5rem;">
       <label for="estado-civil" class="titulo-item">Estado Civil</label>
-      <select name="estado-civil" class="form-control form-control-cadastro form-control-select" id="estado-civil" formControlName="estadoCivil"  required>
+      <select name="estado-civil" class="form-control form-control-cadastro form-control-select" id="estado-civil"
+      formControlName="estadoCivil"  required>
         <option value="" style="color: lightgray;">Selecione</option>
         <option value="Solteiro">Solteiro(a)</option>
         <option value="Casado">Casado(a)</option>
@@ -215,7 +217,7 @@
 
     <div style="margin-left: 0.5rem;">
       <label for="qtdFilhos" class="titulo-item">Qtd. de filhos</label>
-      <input type="number" class="" name="qtdFilhos" formControlName="qtdFilhos" id="qtdFilhos" required >
+      <input value="0" type="number" class="" name="qtdFilhos" formControlName="qtdFilhos" id="qtdFilhos" required >
       <div *ngIf="(formValidation.get('qtdFilhos')?.invalid && formSubmitted) && !formReset && formQtdFilhos" class="validation-error">
         <p class="message-error-formValidation">Informe a quantidade</p>
       </div>

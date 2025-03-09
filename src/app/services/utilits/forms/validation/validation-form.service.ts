@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { CepFormatter } from 'src/app/model/cadastro/validation/cep-formatter';
@@ -12,6 +12,27 @@ import { MessageService } from 'src/app/services/messagers/message/message.servi
 export class ValidationFormService {
 
   constructor(private http: HttpClient, private message: MessageService) { }
+
+
+
+  /**
+   * Este validador é chamado em um componente via injeção de dependência.
+   * Recebe um parâmetro do tidpo FormGroup (this.formeValidation) e
+   * caso a validação dos campos algum estiver inválido ele é acionado
+   * e exibe em console o campo que estiver inválido.
+   * @param form (this.formValidation)
+   * @returns Array com os campos incorretos
+   */
+  public getInvalidFields(form: FormGroup): string[] {
+    const invalidFields: string[] = [];
+    Object.keys(form.controls).forEach(field => {
+      const control = form.get(field);
+      if (control && control.invalid) {
+        invalidFields.push(field);
+      }
+    });
+    return invalidFields;
+  }
 
 
 

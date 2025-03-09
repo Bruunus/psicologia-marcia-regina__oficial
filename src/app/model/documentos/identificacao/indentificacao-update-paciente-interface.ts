@@ -4,6 +4,7 @@ export interface IdentificacaoUpdatePacienteInterface {
   responsavel: string | null;
   cpf: string;
   rg: string;
+  orgaoSsp: string;
   email: string;
   telefone: string;
   telefoneContato: string;

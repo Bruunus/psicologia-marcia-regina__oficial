@@ -12,11 +12,10 @@ import { PrimeNGConfig } from 'primeng/api';
 import { selectUf } from 'src/app/services/utilits/select-uf';
 import { MessageService } from 'src/app/services/messagers/message/message.service';
 import { UpdateService } from 'src/app/services/api/update/paciente/update.service';
-import { Router, RouterLink } from '@angular/router';
-import { RedirectService } from 'src/app/redirecting/service-redirect/redirect.service';
+import { Router } from '@angular/router';
 
 import localePt from '@angular/common/locales/pt';
-import moment from 'moment';
+import { DateTime } from 'luxon';
 import { UpdateAlteracaoCpfService } from 'src/app/services/system-support/behavior-subject/paciente/update-alteracao-cpf.service';
 import { LoadingDocumentosService } from 'src/app/services/loading/documentos/loading-documentos.service';
 import { OrgaoEmissorService } from 'src/app/services/utilits/forms/orgao-emissor/orgao-emissor.service';
@@ -42,7 +41,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
   protected loadingModalCpf: boolean = false;
   protected isEditing: boolean = false;
   protected orgaoEmissorSelecionado: string = '';
-  protected rgMask = ''; // Começa com a máscara de 7 dígitos
+  protected rgMask = '00.000.000-A'; // Começa com a máscara de 7 dígitos
 
 
 
@@ -56,11 +55,12 @@ export class IdentificacaoUpdateComponent implements OnInit {
   private idadeSubscription: Subscription = new Subscription();
   private valorCpfRestaurado: string = '';
   private valorQtdFilhosRestaurado: number = 0;
-  private listaFormOriginal: any[] = [];
+  private listaDoCache: any[] = [];
   private listaAposBotaoClicado: any[] = [];
   private alteracaoFormulario: boolean = false;
   private roteDePerfil = localStorage.getItem('perfil')?.toLocaleLowerCase();
   private opcaoEditar: boolean = false;
+  private _rg: string = ''; // é uma variável privada usada para evitar loop infinito.
 
 
 
@@ -72,6 +72,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
       responsavel: null,
       cpf: '',
       rg: '',
+      orgaoSsp: '',
       email: '',
       telefone: '',
       telefoneContato: '',
@@ -80,7 +81,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
       dataNascimento: '',
       estadoCivil: '',
       filhos: false,
-      qtdFilhos: null,
+      qtdFilhos: 0,
       grauEscolaridade: '',
       profissao: '',
       endereco: {
@@ -105,6 +106,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
       responsavel: null,
       cpf: '',
       rg: '',
+      orgaoSsp: '',
       email: '',
       telefone: '',
       telefoneContato: '',
@@ -113,7 +115,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
       dataNascimento: '',
       estadoCivil: '',
       filhos: false,
-      qtdFilhos: null,
+      qtdFilhos: 0,
       grauEscolaridade: '',
       profissao: '',
       endereco: {
@@ -150,6 +152,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
       responsavel:      new FormControl({value: null, disabled: true}, [Validators.required]),
       cpf:              new FormControl({value: null, disabled: true}, [Validators.required, this.validationFormService.validacaoCpf()]),
       rg:               new FormControl({value: null, disabled: true}, [Validators.required]),
+      orgaoSsp:         new FormControl({value: null, disabled: true}, [Validators.required]),
       email:            new FormControl({value: null, disabled: true}, [Validators.required, Validators.email]),
       telefone:         new FormControl({value: null, disabled: true}, [Validators.required, this.validationFormService.validacaoTelefone()]),
       telefoneContato:  new FormControl({value: null, disabled: true}, [this.validationFormService.validacaoTelefone()]),
@@ -158,7 +161,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
       dataNascimento:   new FormControl({value: null, disabled: true}, [Validators.required, this.validationFormService.validacaoDataNascimento()]),
       estadoCivil:      new FormControl({value: null, disabled: true}, [Validators.required]),
       filhos:           new FormControl({value: false, disabled: true}),
-      qtdFilhos:        new FormControl({value: null, disabled: true}, [this.validationFormService.validacaoQtdFilhos()]),
+      qtdFilhos:        new FormControl({value: 0, disabled: true}, [this.validationFormService.validacaoQtdFilhos()]),
       grauEscolaridade: new FormControl({value: null, disabled: true}, [Validators.required]),
       profissao:        new FormControl({value: null, disabled: true}, [Validators.required, this.validationFormService.validacaoProfissao()]),
       cep:              new FormControl({value: null, disabled: true}, [Validators.required, this.validationFormService.validacaoCep()]),
@@ -190,17 +193,11 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // Lógica para implantar no o campo RG
-    // const nome = prompt("Qual formato do RG? 1 - SP  2 - RJ  3 - MG");
-    // if (nome === '1') {
-    //     this.rgMask = '00.000.00A';
-    // } else if(nome === '2') {
-    //   this.rgMask = '00.000.000-A';
-    // }else {
-    //   this.rgMask = '00.000.000-0A';
-    // }
-
     this.carregarCachePaciente();
+
+
+
+
     this.onResponsavel();
     this.onSelectFilhos();
     this.observeInputCep();
@@ -222,80 +219,6 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
 
   }
-
-
-
-  /**
-   * O método onRgChange() é responsável por ajustar dinamicamente a máscara e as validações do campo RG com base na
-   * quantidade de caracteres inseridos pelo usuário.
-   *  Máscara Dinâmica:
-   *   Para 7 caracteres: '00.000.00A'.
-   *   Para 8 caracteres: '00.000.000-A'.
-   *   Para 9 caracteres: '00.000.000-0A'.
-   *  Remoção de Caracteres Especiais: O método remove caracteres não numéricos (como . e -), exceto a última letra (se presente).
-   * Validação Condicional
-   *  Obrigatório: O campo é obrigatório se o RG tiver 7 ou mais caracteres.
-   *  Formato Correto: Valida o formato do RG com base no número de caracteres (7, 8 ou 9).
-   * Atualização da Validação: Sempre que a máscara ou os validadores são alterados, o método força a revalidação do campo
-   * com updateValueAndValidity().
-   *
-   */
-  onRgInput(event: any): void {
-    let value = event.target.value.replace(/\D/g, ''); // Remove tudo que não for número
-
-    if (value.length <= 7) {
-      this.rgMask = '00.000.00A'; // Exemplo: 12.345.67X
-    } else if (value.length === 8) {
-      this.rgMask = '00.000.000-A'; // Exemplo: 12.345.678-X
-    } else if (value.length === 9) {
-      this.rgMask = '00.000.000-0A'; // Exemplo: 12.345.678-9X
-    }
-  }
-  // protected onRgChange(): void {
-  //   this.formValidation.get('rg')?.valueChanges.pipe(
-  //     distinctUntilChanged(),
-  //     takeUntil(this.unsubscribe.unsubscribe),
-  //     take(1)
-  //   ).subscribe(value => {
-  //     if (!value) return;
-
-  //     let numericValue = value.replace(/\D/g, ''); // Remove tudo que não for número
-  //     let lastChar = value.slice(-1); // Captura o último caractere original
-
-  //     // Se o último caractere for uma letra, adiciona ele novamente
-  //     if (/[A-Za-z]$/.test(lastChar) && numericValue.length >= 7) {
-  //       numericValue += lastChar.toUpperCase();
-  //     }
-
-  //     // Define a máscara conforme o tamanho do RG
-  //     if (numericValue.length <= 7) {
-  //       this.rgMask = '00.000.00A';
-  //     } else if (numericValue.length === 8) {
-  //       this.rgMask = '00.000.000-A';
-  //     } else if (numericValue.length === 9) {
-  //       this.rgMask = '00.000.000-0A';
-  //     }
-
-  //     // **Evitar redefinição desnecessária dos validadores**
-  //     const rgControl = this.formValidation.get('rg');
-  //     if (!rgControl) return;
-
-  //     const validadoresEsperados = numericValue.length >= 7
-  //       ? [Validators.required, this.validationFormService.validacaoRgFormatado]
-  //       : [this.validationFormService.validacaoRgFormatado];
-
-  //     // Só altera os validadores se necessário
-  //     if (JSON.stringify(rgControl.validator) !== JSON.stringify(validadoresEsperados)) {
-  //       rgControl.setValidators(validadoresEsperados);
-  //       rgControl.updateValueAndValidity({ emitEvent: false });
-  //     }
-  //   });
-  // }
-
-
-
-
-
 
 
 
@@ -371,6 +294,47 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
   */
 
+  // private formatadorRGNgxMask(rg: string | undefined): string {
+  //   if (!rg) return ''; // Evita processar valores indefinidos
+
+  //   const orgaoEmissor = this.orgaoEmissorService.getOrgaoEmissor();
+  //   const sspEncontrado = orgaoEmissor.find(ssp => ssp.estado === this.orgaoSsp);
+
+  //   if (sspEncontrado) {
+  //     this.rgMask = this.mascaraService.mascaraRg(this.orgaoSsp);
+  //   }
+
+  //   return this.rgMask ; // Retorna a máscara aplicada ou o próprio valor
+  // }
+
+  private formatadorRGNgxMask(rg: string | undefined, estado: string): string {
+    if (!rg) return '';
+
+    const rgMask = this.mascaraService.mascaraRg(estado);
+    return this.aplicarMascara(rg, rgMask);
+  }
+
+  private aplicarMascara(valor: string, mascara: string): string {
+    let resultado = '';
+    let posicaoValor = 0;
+
+    for (let i = 0; i < mascara.length; i++) {
+      if (mascara[i] === '0' || mascara[i] === 'A') {
+        if (posicaoValor < valor.length) {
+          resultado += valor[posicaoValor];
+          posicaoValor++;
+        } else {
+          break;
+        }
+      } else {
+        resultado += mascara[i];
+      }
+    }
+
+    return resultado;
+  }
+
+
 
   protected redefinirDados(): void {
     this.carregarCachePaciente();
@@ -387,6 +351,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
     this.formValidation.get('cpf')?.enable();
     this.formValidation.get('rg')?.enable();
+    this.formValidation.get('orgaoSsp')?.enable();
     this.formValidation.get('email')?.enable();
     this.formValidation.get('telefone')?.enable();
     this.formValidation.get('telefoneContato')?.enable();
@@ -407,17 +372,12 @@ export class IdentificacaoUpdateComponent implements OnInit {
       this.formValidation.get('responsavel')?.enable();
     }
 
-
-
-
-
-
-
-    this.listaFormOriginal.push(
+    this.listaDoCache.push(
       this.nomeCompleto,
       this.responsavel,
       this.cpf,
       this.rg,
+      this.orgaoSsp,
       this.email,
       this.telefone,
       this.telefoneContato,
@@ -476,30 +436,6 @@ export class IdentificacaoUpdateComponent implements OnInit {
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /**
    * Método criado para facilitar o fluxo e a manutenção dos dados que vem
    * do servidor. A variável 'dateUpdate' realiza a representação de cada
@@ -508,6 +444,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
    */
   private carregamentoDePacienteViaPatchValue(dataUpdate: any): void {
     this.identificacaoUpdateCache = dataUpdate;
+
     // console.log(this.identificacaoUpdateCache)
     this.formValidation.patchValue({
       id:               this.identificacaoUpdateCache!.id,
@@ -515,13 +452,14 @@ export class IdentificacaoUpdateComponent implements OnInit {
       responsavel:      this.identificacaoUpdateCache?.responsavel,
       cpf:              this.identificacaoUpdateCache?.cpf,
       rg:               this.identificacaoUpdateCache?.rg,
+      orgaoSsp:         this.identificacaoUpdateCache?.orgaoSsp,
       email:            this.identificacaoUpdateCache?.email,
       telefone:         this.identificacaoUpdateCache?.telefone,
       telefoneContato:  this.identificacaoUpdateCache?.telefoneContato,
       nomeDoContato:    this.identificacaoUpdateCache?.nomeDoContato,
       idade:            this.identificacaoUpdateCache?.idade,
-      dataNascimento:   moment(this.identificacaoUpdateCache!.dataNascimento, 'YYYY-MM-DD').format('DD/MM/YYYY'),
-      estadoCivil:      this.identificacaoUpdateCache?.estadoCivil,
+      dataNascimento: DateTime.fromFormat(this.identificacaoUpdateCache!.dataNascimento, 'yyyy-MM-dd').toFormat('dd/MM/yyyy'),
+      estadoCivil:      this.mascaraService.mascaraFormatoDeTexto(this.identificacaoUpdateCache?.estadoCivil),
       filhos:           this.identificacaoUpdateCache?.filhos ? "true" : "false",
       qtdFilhos:        this.identificacaoUpdateCache?.qtdFilhos,
       grauEscolaridade: this.identificacaoUpdateCache?.grauEscolaridade,
@@ -538,6 +476,11 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
     this.valorCpfRestaurado = this.cpf;
     this.valorQtdFilhosRestaurado = this.qtdFilhos;
+
+    this.rg = this.formatadorRGNgxMask(this.rg, this.orgaoSsp);
+
+
+
 
 
 
@@ -586,11 +529,6 @@ export class IdentificacaoUpdateComponent implements OnInit {
         })
       );
   }
-
-
-
-
-
 
 
 
@@ -652,7 +590,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
         this.formValidation.get('qtdFilhos')?.setValue(this.valorQtdFilhosRestaurado);
       } else  {
         this.formQtdFilhos = false;
-        this.formValidation.get('qtdFilhos')?.reset();
+        this.formValidation.get('qtdFilhos')?.setValue(0);
       }
     })
   }
@@ -681,9 +619,9 @@ export class IdentificacaoUpdateComponent implements OnInit {
     .subscribe((valor: string) => {
       var cepFormatado = valor;
 
-      console.log('Entrada do cep antes da formatação: ',cepFormatado);
+      // console.log('Entrada do cep antes da formatação: ',cepFormatado);
       cepFormatado = this.mascaraService.formatarCEP(valor);
-      console.log('saida do cep após formatação: ',cepFormatado)
+      // console.log('saida do cep após formatação: ',cepFormatado)
 
 
       if(cepFormatado.length === 8) {
@@ -742,6 +680,11 @@ export class IdentificacaoUpdateComponent implements OnInit {
 
 
 
+
+
+
+
+
     protected atualizarPaciente(): void {
 
 
@@ -753,6 +696,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
         this.responsavel,
         this.cpf,
         this.rg,
+        this.orgaoSsp,
         this.email,
         this.telefone,
         this.telefoneContato,
@@ -771,14 +715,36 @@ export class IdentificacaoUpdateComponent implements OnInit {
       )
 
 
-      this.alteracaoFormulario = this.listaFormOriginal.length !== this.listaAposBotaoClicado.length ||
-          this.listaFormOriginal.some((valor, index) => valor !== this.listaAposBotaoClicado[index])
+      // faz uma comparação com a lista do cache com a lista editada, para detectar alteração
+      this.alteracaoFormulario =
+        this.listaDoCache.length !== this.listaAposBotaoClicado.length ||
+        this.listaDoCache.some((valor, index) =>
+            valor !== this.listaAposBotaoClicado[index])
 
+
+        console.log('Lista do cache', this.listaDoCache)
+        console.log('Lista após clicar no button: ', this.listaAposBotaoClicado)
 
 
       if (this.formValidation.invalid) {
+
+        console.error('Envio inválido', this.formValidation.errors)
+        console.log('Campos inválidos:', this.validationFormService.getInvalidFields(this.formValidation));
+
+
+
         return;
       } else if (this.alteracaoFormulario) {
+
+
+
+
+
+
+
+    console.log('Status de alteração: ', this.alteracaoFormulario)
+
+
 
         // alert('Valores alterados')
 
@@ -797,6 +763,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
           responsavel: this.responsavel,
           cpf: this.cpf,
           rg: rgFormatado,
+          orgaoSsp: this.orgaoSsp,
           email: this.email,
           telefone: this.telefone,
           telefoneContato: this.telefoneContato,
@@ -832,11 +799,15 @@ export class IdentificacaoUpdateComponent implements OnInit {
           this.updatePacienteAPI();
         }
       } else {
+
+
+        console.log('Status de alteração: ', this.alteracaoFormulario)
+
         // alert('Nenhum valor alterado');
         this.loadingDocumentosService.setBoolean(false);  // finaliza o siclo do loading
         this.router.navigate([`/paciente/${this.roteDePerfil}/documentos/identificacao`]);
         this.message.setMessage("Não houve alteração nos dados cadastrais", "ALERT_INFO");
-        this.listaFormOriginal = [];
+        this.listaDoCache = [];
         this.listaAposBotaoClicado = [];
       }
     }
@@ -870,8 +841,18 @@ export class IdentificacaoUpdateComponent implements OnInit {
     return this.formValidation.get('cpf')?.value;
   }
 
-  get rg() {
-    return this.formValidation.get('rg')?.value;
+  get rg(): string {
+    return this.formValidation.get('rg')?.value || this._rg;
+  }
+
+  set rg(value: string) {
+    this._rg = value; // Armazena o valor internamente para evitar loop
+    this.formValidation.get('rg')?.setValue(value, { emitEvent: false }); // Atualiza o FormControl sem disparar eventos
+  }
+
+
+  get orgaoSsp() {
+    return this.formValidation.get('orgaoSsp')?.value;
   }
 
   get email() {
@@ -903,8 +884,8 @@ export class IdentificacaoUpdateComponent implements OnInit {
    */
   get dataNascimento() {
     const value = this.formValidation.get('dataNascimento')?.value;
-    return moment(value, 'DD/MM/YYYY', true).isValid()
-      ? moment(value, 'DD/MM/YYYY').format('DD/MM/YYYY')
+    return DateTime.fromFormat(value, 'dd/MM/yyyy').isValid
+      ? DateTime.fromFormat(value, 'dd/MM/yyyy').toFormat('dd/MM/yyyy')
       : '';
   }
 
@@ -913,8 +894,8 @@ export class IdentificacaoUpdateComponent implements OnInit {
    * primeNg em uma formatação esperada pelo p-calendar.
    */
   set dataNascimento(value: string) {
-    if (moment(value, 'DD/MM/YYYY', true).isValid()) {
-      this.formValidation.get('dataNascimento')?.setValue(moment(value, 'DD/MM/YYYY').toDate());
+    if (DateTime.fromFormat(value, 'dd/MM/yyyy').isValid) {
+      this.formValidation.get('dataNascimento')?.setValue(DateTime.fromFormat(value, 'dd/MM/yyyy').toJSDate());
     }
   }
 

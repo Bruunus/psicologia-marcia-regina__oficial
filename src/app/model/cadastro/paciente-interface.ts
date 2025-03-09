@@ -6,6 +6,7 @@ export interface PacienteInterface {
   responsavel: string;
   cpf: string;
   rg: string;
+  orgaoSsp: String;
   email: string;
   telefone: string;
   telefoneContato: string;

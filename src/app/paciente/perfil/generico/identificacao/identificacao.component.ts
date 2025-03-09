@@ -24,6 +24,7 @@ export class IdentificacaoComponent implements OnInit {
     responsavel: null, // ou '' se preferir
     cpf: '',
     rg: '',
+    orgaoSsp: '',
     email: '',
     telefone: '',
     telefoneContato: '',

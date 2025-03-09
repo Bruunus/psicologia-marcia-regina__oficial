@@ -42,6 +42,7 @@ export class CadastroComponent implements OnInit  {
     responsavel: '',
     cpf:  '',
     rg: '',
+    orgaoSsp: '',
     email: '',
     telefone: '',
     dataNascimento: '',
@@ -72,6 +73,7 @@ export class CadastroComponent implements OnInit  {
   protected optionUf: { sigla: string, nome: string } [] = [] as { sigla: string, nome: string }[];
   protected ativarLoading: boolean = false;
   protected formReset: boolean = false;  // evita de aparecer msn de erro após o envio
+  protected orgaoEmissorSelecionado: string = '';
   protected rgMask = '00.000.000-A'; // Começa com a máscara de 7 dígitos
 
   private destroy$: Subject<boolean> = new Subject();
@@ -95,6 +97,7 @@ export class CadastroComponent implements OnInit  {
       responsavel: new FormControl({ value: null, disabled: true}, Validators.required),
       cpf: new FormControl('', [Validators.required, this.validationFormService.validacaoCpf()]),
       rg: new FormControl('', [Validators.required, this.validationFormService.validacaoRgFormatado]),
+      orgaoSsp: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       telefone: new FormControl('', [Validators.required, this.validationFormService.validacaoTelefone()]),
       telefoneContato: new FormControl('', [this.validationFormService.validacaoTelefone()]),
@@ -178,55 +181,12 @@ export class CadastroComponent implements OnInit  {
 
 
   /**
-   * O método onRgChange() é responsável por ajustar dinamicamente a máscara e as validações do campo RG com base na
-   * quantidade de caracteres inseridos pelo usuário.
-   *  Máscara Dinâmica:
-   *   Para 7 caracteres: '00.000.00A'.
-   *   Para 8 caracteres: '00.000.000-A'.
-   *   Para 9 caracteres: '00.000.000-0A'.
-   *  Remoção de Caracteres Especiais: O método remove caracteres não numéricos (como . e -), exceto a última letra (se presente).
-   * Validação Condicional
-   *  Obrigatório: O campo é obrigatório se o RG tiver 7 ou mais caracteres.
-   *  Formato Correto: Valida o formato do RG com base no número de caracteres (7, 8 ou 9).
-   * Atualização da Validação: Sempre que a máscara ou os validadores são alterados, o método força a revalidação do campo
-   * com updateValueAndValidity().
+   * Este método adiciona a mascara respectiva ao órgão emissor do estado
+   * @param orgaoEmissor enviado direto do select do formulário html
    */
-  protected onRgChange(): void {
-    this.formValidation.get('rg')?.valueChanges.subscribe(value => {
-      let numericValue = value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
-
-      // Se o último caractere for uma letra, mantenha ela
-      if (numericValue.length > 7 && /[A-Za-z]$/.test(value)) {
-        numericValue = value.replace(/\D/g, '').slice(0, -1) + value.slice(-1).toUpperCase();  // Mantém a última letra
-      }
-
-      // Atualiza a máscara dependendo do comprimento do RG
-      if (numericValue.length <= 7) {
-        this.rgMask = '00.000.000';  // Formato para 7 caracteres: 12.345.67-X
-      } else if (numericValue.length === 8) {
-        this.rgMask = '00.000.000-A';  // Formato para 8 caracteres: 12.345.678-X
-      } else {
-        this.rgMask = '00.000.000-0A';  // Formato para 9 caracteres: 12.345.678-9X
-      }
-
-      // **Reforçar a validação obrigatória e formato**
-      if (numericValue.length >= 7) {
-        // Adiciona o validador 'required' e os validadores de formato e invalidez
-        this.formValidation.get('rg')?.setValidators([
-          Validators.required,
-          this.validationFormService.validacaoRgFormatado,
-          this.validationFormService.validacaoRgFormatado
-        ]);
-      } else {
-        // Adiciona apenas o validador de invalidez
-        this.formValidation.get('rg')?.setValidators([
-          this.validationFormService.validacaoRgFormatado
-        ]);
-      }
-
-      // Atualiza a validade do campo
-      this.formValidation.get('rg')?.updateValueAndValidity();
-    });
+  protected onOrgaoEmissor(orgaoEmissor: string): void {
+    this.orgaoEmissorSelecionado = orgaoEmissor;
+    this.rgMask = this.mascaraService.mascaraRg(orgaoEmissor);
   }
 
 
@@ -428,6 +388,7 @@ export class CadastroComponent implements OnInit  {
         responsavel: this.responsavel,
         cpf: this.cpf,
         rg: rgFormatado,
+        orgaoSsp: 'Aguardando...',
         email: this.email,
         telefone: this.telefone,
         telefoneContato: this.telefoneContato,
@@ -508,6 +469,7 @@ export class CadastroComponent implements OnInit  {
     this.formValidation.get('responsavel')!.setValue('');
     this.formValidation.get('cpf')!.setValue('');
     this.formValidation.get('rg')!.setValue('');
+    this.formValidation.get('orgaoSsp')!.setValue('');
     this.formValidation.get('email')!.setValue('');
     this.formValidation.get('telefone')!.setValue('');
     this.formValidation.get('telefoneContato')!.setValue('');
@@ -558,6 +520,10 @@ export class CadastroComponent implements OnInit  {
 
   get rg() {
     return this.formValidation.get('rg')?.value;
+  }
+
+  get orgaoSsp() {
+    return this.formValidation.get('orgaoSsp')?.value;
   }
 
   get email() {

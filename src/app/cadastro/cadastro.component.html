@@ -72,6 +72,17 @@
 
         </div>
 
+        <div class="col-xl-3 col-lg-6 col-md-12 alt-da-caixa">
+          <label for="orgaoSsp" class="titulo-item">Órg. SSP</label>
+          <select name="orgaoSsp" class="form-control form-control-cadastro form-control-select" id="orgaoSsp" formControlName="orgaoSsp"  required>
+
+
+          </select>
+          <div *ngIf="(formValidation.get('orgaoSsp')?.invalid && formSubmitted) && !formReset" class="validation-error">
+            <p class="message-error-formValidation">Informe o órgão</p>
+          </div>
+        </div>
+
 
         <div class="col-xl-3 col-lg-4 col-md-6 alt-da-caixa">
           <label for="email" class="titulo-item">E-mail</label>
