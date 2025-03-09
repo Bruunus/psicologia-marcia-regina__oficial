@@ -368,6 +368,9 @@
 <span style="color: tomato;"><b>Observações e pendencias pausadas:</b></span>
 <ul style="color: tomato;">
   <li>
+    Parei no compo qtdFilhos, agora vai aparecer "0" quando não tiver. Com esta modificação precisamos implementar um validador que
+    se o campo "filhos" estiver como "Sim"  e qtdFilhos com "0" nao pode passar, o erro deve ser emitido e só pode aceitar a partir
+    de "1". Esse validador precisa ser via valueChanges usando Subscribe para observar o comportamento do valores
   </li>
 </ul>
 
