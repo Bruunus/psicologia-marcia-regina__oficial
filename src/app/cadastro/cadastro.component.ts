@@ -106,7 +106,7 @@ export class CadastroComponent implements OnInit  {
       dataNascimento: new FormControl('' , [Validators.required, this.validationFormService.validacaoDataNascimento()]),
       estadoCivil: new FormControl('', [Validators.required]),
       filhos: new FormControl(''),
-      qtdFilhos: new FormControl({ value: null, disabled: true}, this.validationFormService.validacaoQtdFilhos()),
+      qtdFilhos: new FormControl({ value: null, disabled: true}),
       grauEscolaridade: new FormControl('', [Validators.required]),
       profissao: new FormControl('', [Validators.required, this.validationFormService.validacaoProfissao()]),
       perfil: new FormControl('', [Validators.required]),
@@ -234,19 +234,22 @@ export class CadastroComponent implements OnInit  {
 
 
   private onSelectFilhos(): void {
+    const qtdFilhos = this.formValidation.get('qtdFilhos');
     this.formValidation.get('filhos')?.valueChanges.pipe(
       takeUntil(this.destroy$)
     ).subscribe((valor) => {
       // console.log(valor)
       if(valor === 'sim') {
         this.formQtdFilhos = true;
-        this.formValidation.get('qtdFilhos')?.enable();
+
+        qtdFilhos?.enable();
+        qtdFilhos?.setValue(1);
+
         // console.log(this.formQtdFilhos)
       } else {
         this.formQtdFilhos = false;
-        let qtdFilho = this.formValidation.get('qtdFilhos')
-        qtdFilho?.disable();
-        qtdFilho?.reset('')
+        qtdFilhos?.disable();
+        qtdFilhos?.reset('');
 
         // console.log(this.formQtdFilhos)
       }

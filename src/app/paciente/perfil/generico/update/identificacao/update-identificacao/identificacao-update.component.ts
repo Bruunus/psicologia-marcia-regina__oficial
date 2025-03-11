@@ -1,7 +1,7 @@
 import { registerLocaleData } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { distinctUntilChanged, Subject, Subscription, take, takeUntil } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { IdentificacaoUpdatePacienteInterface } from 'src/app/model/documentos/identificacao/indentificacao-update-paciente-interface';
 import { IdentificacaoService } from 'src/app/services/api/read/paciente/identificacao/identificacao.service';
 import { PacienteCacheService } from 'src/app/services/cache/paciente/paciente-cache.service';
@@ -60,8 +60,8 @@ export class IdentificacaoUpdateComponent implements OnInit {
   private alteracaoFormulario: boolean = false;
   private roteDePerfil = localStorage.getItem('perfil')?.toLocaleLowerCase();
   private opcaoEditar: boolean = false;
+  private modoEdicao: boolean = false;
   private _rg: string = ''; // é uma variável privada usada para evitar loop infinito.
-
 
 
 
@@ -161,7 +161,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
       dataNascimento:   new FormControl({value: null, disabled: true}, [Validators.required, this.validationFormService.validacaoDataNascimento()]),
       estadoCivil:      new FormControl({value: null, disabled: true}, [Validators.required]),
       filhos:           new FormControl({value: false, disabled: true}),
-      qtdFilhos:        new FormControl({value: 0, disabled: true}, [this.validationFormService.validacaoQtdFilhos()]),
+      qtdFilhos:        new FormControl({value: 0, disabled: true}, [this.validationFormService.validacaoQtdFilhosEditarUpdate()]),
       grauEscolaridade: new FormControl({value: null, disabled: true}, [Validators.required]),
       profissao:        new FormControl({value: null, disabled: true}, [Validators.required, this.validationFormService.validacaoProfissao()]),
       cep:              new FormControl({value: null, disabled: true}, [Validators.required, this.validationFormService.validacaoCep()]),
@@ -216,6 +216,11 @@ export class IdentificacaoUpdateComponent implements OnInit {
       clear: 'Limpar',
     });
 
+    // this.formValidation.get('filhos')?.disable();
+
+    // if(!filhos) {
+          // this.formValidation.get('qtdFilhos')?.enable();
+    // }
 
 
   }
@@ -340,10 +345,28 @@ export class IdentificacaoUpdateComponent implements OnInit {
     this.carregarCachePaciente();
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
   protected editar(): void {
+
+    this.modoEdicao = true;
 
     this.isEditing = true;
     this.opcaoEditar = true;
+
+    const idade = this.formValidation.get('idade')?.value;
+    const filhos = this.formValidation.get('filhos')?.value;
+    const qtdFilhos = this.formValidation.get('qtdFilhos');
 
     this.formValidation.get('nomeCompleto')?.enable();
 
@@ -359,7 +382,23 @@ export class IdentificacaoUpdateComponent implements OnInit {
     this.formValidation.get('dataNascimento')?.enable();
     this.formValidation.get('estadoCivil')?.enable();
     this.formValidation.get('filhos')?.enable();
-    this.formValidation.get('qtdFilhos')?.enable();
+
+
+
+
+    // Em modo de edição se o valor de filhos for true o campo é habilitado
+    // Do contrário fica desabilitado (ver onSelectfilhos)
+    if (filhos === 'true') {
+      qtdFilhos?.enable();
+    } else {
+      qtdFilhos?.disable();
+    }
+
+
+
+
+
+
     this.formValidation.get('grauEscolaridade')?.enable();
     this.formValidation.get('profissao')?.enable();
     this.formValidation.get('cep')?.enable();
@@ -367,7 +406,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
     this.formValidation.get('complemento')?.enable();
     this.formValidation.get('queixa')?.enable();
 
-    const idade = this.formValidation.get('idade')?.value;
+
     if (idade < 18) {
       this.formValidation.get('responsavel')?.enable();
     }
@@ -579,21 +618,69 @@ export class IdentificacaoUpdateComponent implements OnInit {
     })
   }
 
-  private onSelectFilhos(): void {
-    this.formValidation.get('filhos')?.valueChanges.pipe(
-      takeUntil(this.destroy$)
-    ).subscribe((valor) => {
-      // console.log('Valor do onSelectFilhos: ',valor)
 
-      if(valor === 'true') {
-        this.formQtdFilhos = true;
-        this.formValidation.get('qtdFilhos')?.setValue(this.valorQtdFilhosRestaurado);
-      } else  {
-        this.formQtdFilhos = false;
-        this.formValidation.get('qtdFilhos')?.setValue(0);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /**
+   * O evento para o campo select Filhos realiza modificações no campo de qtdFilhos
+   * dependendo do seu valor de estato atual. Se a variável 'modoEdicao' iniciada em 'false'
+   * continuar 'false' na renderização significa que o modo de edição não foi acionado então
+   * este evento é rejeitado, esse é um método para lidar com o valro inicial na renderização
+   * da tela ao carregar o formulário pois, o valueChanges é executado na renderização.
+   *
+   * Em caso de edição o fluxo cai no segundo if habilitando o campo normalmente, e se caso o valor
+   * seja 0 é alterado para 1 obrigatóriamente
+   */
+  private onSelectFilhos(): void {
+    const filhos = this.formValidation.get('filhos');
+    const qtdFilhos = this.formValidation.get('qtdFilhos');
+
+    filhos?.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((valor) => {
+
+      if (!this.modoEdicao) {
+        return; // Se não estiver no modo de edição, não faz nada
       }
-    })
+
+      if (valor === 'true') {
+        this.formQtdFilhos = true;
+
+        qtdFilhos?.enable();
+
+        // Se for nulo ou 0, seta para 1
+        if (!qtdFilhos?.value || qtdFilhos.value === 0) {
+          qtdFilhos?.setValue(1, { emitEvent: false });
+        }
+      } else {
+        this.formQtdFilhos = false;
+        qtdFilhos?.setValue(0, { emitEvent: false });
+        qtdFilhos?.disable();
+      }
+    });
   }
+
+
+
 
   /**
    * Este método adiciona a mascara respectiva ao órgão emissor do estado

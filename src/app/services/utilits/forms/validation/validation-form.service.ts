@@ -157,21 +157,26 @@ public validacaoDataNascimento(): ValidatorFn {
  * @returns Retorna a validação do campo de qtdFilhos baseado na presença do preenchimento do campo.
  *
  */
-public validacaoQtdFilhos(): ValidatorFn {
+public validacaoQtdFilhosEditarUpdate(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const valor = control.value;
 
-    if(valor === 0 || valor !== null || valor !== undefined) {
-      return null;
-    } else if(valor < 0){
-      return { invalidData: true };
+    if (control.disabled) {
+      return null; // Se o campo estiver desabilitado, não valida
     }
 
-    return null;
+    if (valor === null || valor === undefined || isNaN(valor)) {
+      return { invalidData: true }; // Garante que o valor não seja nulo ou inválido
+    }
 
+    if (valor < 1) {
+      return { qtdInvalida: true }; // Se o campo estiver habilitado, não pode ser menor que 1
+    }
 
-  }
+    return null; // Se passar todas as verificações, está válido
+  };
 }
+
 
 /**
  * Esta validação verifica se o campo de profissão possui a quantidade de caracter necessária para
