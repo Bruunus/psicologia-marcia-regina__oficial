@@ -1,5 +1,7 @@
-
 <div class="container-fluid">
+
+
+
 
 
 
@@ -11,15 +13,19 @@
 
 
   <div class="row container-inferior">
-    <div class="col-2 col-2-editada-global menu-suspenso-documentos">
+    <div class="col-2 col-2-personalizada menu-suspenso-documentos">
       <!-- Adicionar um ngIf - Dependendo do perfil (Psicologia ou Neuropsicologia) o menu muda -->
+
+      <!-- PERFIL PSICOLOGIA -->
+
       <ul class="ul-container" *ngIf="perfil === 'psicologia'">
         <li *ngFor="let item of itensMenuPsicologia" (click)="selecionarItem(item)">
             <span [ngClass]="{'active': itemSelecionado === item.path}">{{ item.label }}</span>
-            <!-- <img
+            <img
             *ngIf="(loadingDocumentosService.boolean$ | async) &&
-                    itemSelecionado === item.path "
-         src="../../assets/img/loadingo-menu.gif" alt="Loading" style="height: 20px; margin-left: 5px;"> -->
+            itemSelecionado === item.path &&
+             (!loadingDocumentosService.getRenderizado())"
+         src="../../assets/img/loadingo-menu.gif" alt="Loading" style="height: 20px; margin-left: 5px;">
         </li>
 
 
@@ -40,6 +46,9 @@
         </div>
 
       </ul>
+
+
+      <!-- PERFIL NEUROPSICOLOGIA -->
 
       <ul class="ul-container" *ngIf="perfil === 'neuropsicologia'">
         <li *ngFor="let item of itensMenuNeuropsicologia" (click)="selecionarItem(item)">
@@ -81,3 +90,17 @@
 </div>
 
 
+<span style="
+height: 45px;
+position: fixed;
+top: 200px;    /* Autera os lados aqui */
+right: -8px;   /* Autera os lados aqui */
+background-color: #f9f9f9;
+border: 1px solid #ccc;
+border-radius: 5px;
+padding: 10px;
+box-shadow: 0 0 0 rgba(6, 12, 2, 0.5);
+">   <!-- Teste responsividade -->
+<p>LxA: <b style="color: blue;">{{ this.calculadorDeTelaModoDev.largura }}</b><small>px</small> x
+<b style="color: blue;">{{ this.calculadorDeTelaModoDev.altura }}</b><small>px</small></p>
+</span>

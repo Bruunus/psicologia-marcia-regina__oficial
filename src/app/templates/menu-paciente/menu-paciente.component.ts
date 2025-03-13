@@ -3,13 +3,22 @@ import { Router } from '@angular/router';
 import { ApiAutenticacaoService } from 'src/app/services/autenticacao/api-autenticacao.service';
 import { PacienteCacheService } from 'src/app/services/cache/paciente/paciente-cache.service';
 import { GerenciadoDeAutenticacaoService } from 'src/app/services/sessao/gerenciador-de-autenticacao.service';
+import { MascaraService } from 'src/app/services/utilits/forms/mascaras/mascara.service';
+
 declare var $: any;
 
 
 @Component({
   selector: 'app-menu-paciente',
   templateUrl: './menu-paciente.component.html',
-  styleUrls: ['./menu-paciente-style-global.component.scss']
+  styleUrls: [
+    './menu-paciente-style-global.component.scss',
+    './menu-paciente-extra-large.component.scss',
+    './menu-paciente-large.component.scss',
+    './menu-paciente-medium.component.scss',
+    './menu-paciente-small.component.scss',
+    './menu-paciente-smartphone.component.scss'
+  ]
 })
 export class MenuPacienteComponent implements OnInit{
 
@@ -21,23 +30,23 @@ export class MenuPacienteComponent implements OnInit{
   // private modal: any;
 
   constructor(private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService, private router: Router,
-    private apiAutenticacaoService: ApiAutenticacaoService, private pacienteCacheService: PacienteCacheService) {
+    private apiAutenticacaoService: ApiAutenticacaoService, private pacienteCacheService: PacienteCacheService,
+    private mascaraService: MascaraService
+
+
+  ) {
 
   }
 
   ngOnInit(): void {
 
-    this.perfil = localStorage.getItem('perfil')
-    this.nomeSessao = localStorage.getItem('nomePaciente')
 
-    // this.pacienteCacheService.getPacienteCache().subscribe(
-    //   (data) => {
-    //     this.perfil = data?.perfil;
-    //     this.nomeSessao = data?.nomeCompleto;
-    //   }
-    // )
 
-    this.usuario = this.gerenciadoDeAutenticacaoService.getUsuario()
+    const perfilStorage = localStorage.getItem('perfil');
+    this.perfil = this.mascaraService.formatarTextoMaiusculo(perfilStorage);
+    this.nomeSessao = localStorage.getItem('nomePaciente');
+
+    this.usuario = this.gerenciadoDeAutenticacaoService.getUsuario();
 
   }
 
@@ -67,7 +76,7 @@ export class MenuPacienteComponent implements OnInit{
 
   /* Evento do Modal */
   encerrarSessao() {
-    this.closeModal()
+    this.closeModal();
 
     setTimeout(() => {
       this.router.navigate(['ending-session']);

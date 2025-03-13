@@ -1,8 +1,14 @@
 @import '../../styles.scss';
 
+// Variáveis para exportar
+
 $cor_de_borda: #d5cad5;
 $cor_de_borda_com_focus: #6b006b7e !important;
 $cancelar_box_shaddon_p_calendar: 0 0 0 0 #fff !important;
+
+
+
+
 
 .container-fluid {
   font-family: 'font-home';

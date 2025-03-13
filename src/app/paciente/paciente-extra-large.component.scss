@@ -1,0 +1,187 @@
+@import '../templates/menu-paciente/menu-paciente-extra-large.component.scss';
+
+/*
+
+  LISTA DE TODAS AS RESOLUÇÕES PARA TELAS GRANDES
+
+  1280x800
+  1366x768
+  1440x900
+  1600x900
+  1680x150
+  1920x1080
+  1920x1200
+  1920x1080
+  2880x1800
+
+*/
+
+
+/**
+* Estilização global para as Queries media
+* A partir de 1200px
+*/
+@media(min-width: 1200px) {
+
+}
+
+
+/**
+* Grid Extra Large - A partir de 1200px
+* Bootstrap - Extra large .col-xl-
+* Dispositivo alvo: Desktops com telas grandes e monitores de alta resolução.
+*/
+@media(min-width: 1200px) and (min-height: 769px) {
+
+}
+
+
+/*
+* Query para definição de altura para telas menores com altura de até 768px
+* Para notebooks menores antigos: 1366 x 800
+*
+* Esta query engloba todos as resoluções abaixo
+*/
+@media(min-width: 1200px) and (max-height: 800px) {
+
+}
+
+
+  /**************** DISPOSITIVOS PERSONALIZADOS COM ALTURA E LARGURA PRÓPRIA ******************/
+                    /**************** NÃO OBRIGATÓRIOS ******************/
+
+/*
+* Resolução para notebooks de largura e altura de 1280 x 800
+* MacBook Pro 13 (2011) 13.3 polegadas
+* Testado Ok
+*/
+@media (width: 1280px) and (height: 800px) {
+
+}
+
+
+
+/*
+* Resolução para notebooks de largura e altura de 1366 x 768
+* MacBook Air 11 - 11.6 polegadas
+* Obs: Um dos notebooks menores padronizados
+* Testado
+*/
+@media (width: 1366px) and (height: 768px) {
+
+}
+
+
+/*
+* Resolução para notebooks de largura e altura de 1440 x 900
+* MacBook Air 13 (2011) 13.3 polegadas
+*/
+@media (width: 1440px) and (height: 900px) {
+
+}
+
+
+/**
+* Estilização global para as Queries media
+* A partir de 1600px
+*/
+@media(min-width: 1600px) {
+
+  .col-2-personalizada {
+    width: $largura_col_2_lado_esquerdo; /* Definição de largura junto à largura do menu suspenso */
+
+  }
+
+}
+
+
+
+/*
+* Resolução para notebooks de largura e altura de 1600 x 900
+* HP Envy Spectre 14 - 14 polegadas
+* Obs: Dispositivo com altura média alta
+* Testado Ok
+*/
+@media (width: 1600px) and (height: 900px) {
+
+}
+
+
+/**
+* Estilização global para as Queries media
+* A partir de 1680px
+*/
+@media(min-width: 1680px) {
+
+}
+
+
+
+/*
+* Resolução para notebooks de largura e altura de 1680 x 1050
+* MacBook Air 13 (2011) 13.3 polegadas
+* Obs: Este dispositivo possui a tela muito alta
+* Testado OK
+*/
+@media (width: 1680px) and (height: 1050px) {
+
+}
+
+
+
+/*
+* Resolução para notebooks de largura e altura de 1920 x 1200
+* MacBook Pro 17 (2011) - 17 polegadas
+* Obs: Essa configuração é a ultima como referência para as demais @queries abaixo
+* Resolução ideal do cliente: Psicologa Marcia Regina
+* Testado ok
+*/
+@media (min-width: 1920px) and (min-height: 1080px) {
+
+}
+
+
+/**
+* Medida global mínima de 1920px
+*/
+@media(min-width: 1920px) {
+
+}
+
+
+
+
+/*
+* Resolução para notebooks de largura e altura de 1920 x 1200
+* Lenovo T61p - 14.1 polegadas
+* Obs:
+* Testado
+*/
+@media (width: 1920px) and (height: 1200px) {
+
+}
+
+
+/*
+* Resolução para notebooks de largura e altura de 1920 x 1080
+* Sony Vaio Z 13.1 (2012) - 13.1 polegadas
+* Obs:
+* Testado
+*/
+@media (width: 1920px) and (height: 1080px) {/*NÃO É NECESSÁRIO*/}
+
+
+
+/*
+* Resolução para notebooks de largura e altura de 2880 x 1800
+* MacBook Pro 15 (Retina) - 15.4 polegadas
+* Obs:
+* Testado
+*/
+@media (width: 2880px) and (height: 1800px) {/*NÃO É NECESSÁRIO*/}
+
+
+
+
+
+

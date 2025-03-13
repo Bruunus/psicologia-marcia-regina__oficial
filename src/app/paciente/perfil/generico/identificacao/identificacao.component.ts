@@ -120,7 +120,7 @@ export class IdentificacaoComponent implements OnInit {
     this.cacheService.clearStatusCaching();
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
-    console.log('Finalizado Identificação - valor final: ', this.loadingDocumentosService.getRenderizado())
+    // console.log('Finalizado Identificação - valor final: ', this.loadingDocumentosService.getRenderizado())
     // localStorage.removeItem('paciente')
     if (this.subscription) {
       this.subscription.unsubscribe();

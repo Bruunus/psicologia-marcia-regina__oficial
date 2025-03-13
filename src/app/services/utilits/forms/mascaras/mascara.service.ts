@@ -183,4 +183,17 @@ export class MascaraService {
   }
 
 
+  /**
+   * Esta máscara formata o texto principalmente quando ele vem com todas as letras
+   * maiúsculas, nesta máscuala ele deixa minuscula apenas a primeira letra e as demais
+   * minúsculas.
+   * @param texto retorna o texto com a primeira letra maiúscula e as demais minúsculas
+   * @returns
+   */
+  formatarTextoMaiusculo(texto: string | null): string {
+    if (!texto) return ''; // Retorna uma string vazia se perfil for nulo ou indefinido
+    return texto.charAt(0).toUpperCase() + texto.slice(1).toLowerCase();
+  }
+
+
 }

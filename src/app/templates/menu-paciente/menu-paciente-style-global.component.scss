@@ -9,15 +9,12 @@
   display: flex;
 }
 
-.side-bar-esquerdo {
+.side-bar-esquerdo-interno {
   height: 100%;
   border-right: 1px solid;
   padding: 0 !important;
 }
-.col-2-editada-global {
-  flex: 0 0 14.2666666% !important; /* Definição de largura junto à largura do menu suspenso */
-  max-width: 14.2666666% !important;
-}
+
 
 .container-row-side-bar-esquerdo-filho {
   height: 100%;
@@ -46,7 +43,7 @@
   padding-left: 1.3rem; /* Redimensionamento do logo  */
 }
 
-.side-bar-direito {
+.side-bar-direito-interno {
   height: 100%;
   width: 100%;
   padding: 0;
@@ -79,10 +76,7 @@
 
 
 /* col-10 editada para preencher o menu superior horizontal */
-.col-10-editada {
-  flex: 0 0 85.733333% !important;
-  max-width: 90.333333% !important;
-}
+
 
 
 

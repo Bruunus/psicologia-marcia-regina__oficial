@@ -2,13 +2,20 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingDocumentosService } from '../services/loading/documentos/loading-documentos.service';
-
+import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
 
 
 @Component({
   selector: 'app-paciente',
   templateUrl: './paciente.component.html',
-  styleUrls: ['./paciente-style-global.component.scss']
+  styleUrls: [
+    './paciente-style-global.component.scss',
+    './paciente-extra-large.component.scss',
+    './paciente-large.component.scss',
+    './paciente-medium.component.scss',
+    './paciente-small.component.scss',
+    './paciente-smartphone.component.scss'
+  ]
 })
 
 export class PacienteComponent implements OnInit {
@@ -46,7 +53,11 @@ export class PacienteComponent implements OnInit {
 
 
   constructor(
-    private route: ActivatedRoute, private router: Router, private loadingDocumentosServiceInject: LoadingDocumentosService ) {
+    private route: ActivatedRoute, private router: Router, private loadingDocumentosServiceInject: LoadingDocumentosService
+
+    , protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev
+
+  ) {
       /**
        * Captura a url em tempo real, divide ela com separador '/' retorna o último valor da separação.
        * Usei esse trecho para poder identificar a rota 'ativa' no momento em que o componente é carregado.
@@ -56,6 +67,7 @@ export class PacienteComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.calculadorDeTelaModoDev.atualizarTamanhoTela();
     const localStoragePerfil = localStorage.getItem('perfil');
     console.log('Storage de perfil: ', localStoragePerfil);
     this.perfil = localStoragePerfil ? localStoragePerfil.toLowerCase() : '';
@@ -84,6 +96,7 @@ export class PacienteComponent implements OnInit {
      */
 
       // this.loadingDocumentosService.setBoolean(false);
+
 
       // this.booleanValue = !this.booleanValue; // Alterna o valor
       this.loadingDocumentosService.setBoolean(true); // Atualiza o serviço

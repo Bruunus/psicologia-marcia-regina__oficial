@@ -809,14 +809,14 @@ export class IdentificacaoUpdateComponent implements OnInit {
             valor !== this.listaAposBotaoClicado[index])
 
 
-        console.log('Lista do cache', this.listaDoCache)
-        console.log('Lista após clicar no button: ', this.listaAposBotaoClicado)
+        // console.log('Lista do cache', this.listaDoCache)
+        // console.log('Lista após clicar no button: ', this.listaAposBotaoClicado)
 
 
       if (this.formValidation.invalid) {
 
-        console.error('Envio inválido', this.formValidation.errors)
-        console.log('Campos inválidos:', this.validationFormService.getInvalidFields(this.formValidation));
+        // console.error('Envio inválido', this.formValidation.errors)
+        // console.log('Campos inválidos:', this.validationFormService.getInvalidFields(this.formValidation));
 
 
 
@@ -888,7 +888,7 @@ export class IdentificacaoUpdateComponent implements OnInit {
       } else {
 
 
-        console.log('Status de alteração: ', this.alteracaoFormulario)
+        // console.log('Status de alteração: ', this.alteracaoFormulario)
 
         // alert('Nenhum valor alterado');
         this.loadingDocumentosService.setBoolean(false);  // finaliza o siclo do loading

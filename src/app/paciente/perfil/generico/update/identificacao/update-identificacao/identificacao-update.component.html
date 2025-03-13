@@ -277,10 +277,11 @@
 
     <div style="margin-left: 0.5rem;">
       <label for="logradouro" class="titulo-item">Rua</label>
-      <input type="text" class="" name="logradouro" formControlName="logradouro" id="logradouro" required>
+      <span>{{ this.formValidation.get('logradouro')?.value }}</span>
+      <!-- <input type="text" class="" name="logradouro" formControlName="logradouro" id="logradouro" required>
       <div *ngIf="(formValidation.get('logradouro')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <p class="message-error-formValidation">Informe a rua</p>
-      </div>
+      </div> -->
     </div>
 
     <div style="margin-left: 0.5rem;">
@@ -303,10 +304,11 @@
 
     <div style="margin-left: 0.5rem;">
       <label for="bairro" class="titulo-item">Bairro</label>
-      <input type="text" class="" name="bairro" formControlName="bairro" id="bairro" maxlength="40" required>
+      <span>{{ this.formValidation.get('bairro')?.value }}</span>
+      <!-- <input type="text" class="" name="bairro" formControlName="bairro" id="bairro" maxlength="40" required>
       <div *ngIf="(formValidation.get('bairro')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <p class="message-error-formValidation">Informe o bairro</p>
-      </div>
+      </div> -->
     </div>
 
   </div>
@@ -315,21 +317,23 @@
 
     <div style="margin-left: 0.5rem;">
       <label for="cidade" class="titulo-item">Cidade</label>
-      <input type="text" class="" name="cidade" formControlName="cidade" id="cidade" required>
+      <span>{{ this.formValidation.get('cidade')?.value }}</span>
+      <!-- <input type="text" class="" name="cidade" formControlName="cidade" id="cidade" required>
       <div *ngIf="(formValidation.get('cidade')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <p class="message-error-formValidation">Informe a cidade</p>
-      </div>
+      </div> -->
     </div>
 
 
     <div style="margin-left: 0.5rem;">
       <label for="uf" class="titulo-item">UF</label>
-      <select  name="uf" class="" formControlName="uf" id="uf" required>
+      <span>{{ this.formValidation.get('uf')?.value }}</span>
+      <!-- <select  name="uf" class="" formControlName="uf" id="uf" required>
         <option *ngFor="let uf of  optionUf" [value]="uf.sigla">{{ uf.nome }}</option>
       </select>
       <div *ngIf="(formValidation.get('uf')?.invalid && formSubmitted) && !formReset" class="validation-error">
         <p class="message-error-formValidation">Informe um estado</p>
-      </div>
+      </div> -->
     </div>
 
 

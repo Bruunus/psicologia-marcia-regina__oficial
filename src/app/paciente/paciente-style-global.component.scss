@@ -1,11 +1,13 @@
 
+
+
 /**************** Estilo Global de largura da barra vertical dos dois documentos *****************/
 /*
   paciente-style-global.component.scss (Componente paciente)
   menu-paciente-style-global.component.scss (Recebe o compartilhamento da largura)
 */
 
-$largura_do_menu_suspenso_e_menu_paciente_global_flex: 0 0 14.2666666% !important;
+
 $largura_do_menu_suspenso_e_menu_paciente_global_max_width: 14.2666666% !important;
 
 /*
@@ -42,10 +44,7 @@ col-2-editada-global
   padding-right: 0 !important;
   padding-left: 0 !important;
 }
-.col-2-editada-global {
-  flex: $largura_do_menu_suspenso_e_menu_paciente_global_flex; /* Definição de largura junto à largura do menu suspenso */
-  max-width: $largura_do_menu_suspenso_e_menu_paciente_global_max_width;
-}
+
 
 
 .tela-suspensa-documentos {
