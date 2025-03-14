@@ -1,3 +1,5 @@
+@import '../../styles-variaveis-globais.scss';
+
 /**
 * Grid - A partir de 992px à 1199px
 * Bootstrap - Large .col-lg-
@@ -5,13 +7,20 @@
 */
 @media (min-width: 992px) and (max-width: 1199px) {
 
+
+
 }
+
+
+
 
 /**** EXCESSÕES ****/
 
 /*
 * Query para definição de altura para telas menores com altura de até 531px
 */
-@media(min-width: 992px) and (max-width: 1199px)  and (max-height: 768px) {
-  
+@media(min-width: 970px)  {
+  .col-2-personalizada {
+    width: $tela_paciente__largura_col_2_lado_esquerdo; /* Definição de largura junto à largura do menu suspenso */
+  }
 }

@@ -1,4 +1,4 @@
-@import '../templates/menu-paciente/menu-paciente-extra-large.component.scss';
+@import '../../styles-variaveis-globais.scss';
 
 /*
 
@@ -22,6 +22,12 @@
 * A partir de 1200px
 */
 @media(min-width: 1200px) {
+
+  .col-2-personalizada {
+    width: $tela_paciente__largura_col_2_lado_esquerdo; /* Definição de largura junto à largura do menu suspenso */
+
+  }
+
 
 }
 
@@ -88,7 +94,7 @@
 @media(min-width: 1600px) {
 
   .col-2-personalizada {
-    width: $largura_col_2_lado_esquerdo; /* Definição de largura junto à largura do menu suspenso */
+    width: $tela_paciente__largura_col_2_lado_esquerdo; /* Definição de largura junto à largura do menu suspenso */
 
   }
 
