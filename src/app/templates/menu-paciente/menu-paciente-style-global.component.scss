@@ -1,3 +1,4 @@
+@import '../../../styles-variaveis-globais.scss';
 
 
 .menu-bar {
@@ -8,6 +9,115 @@
   margin-right: 0 !important;
   display: flex;
 }
+
+
+.col-12-personalizada {
+  /* background-color: azure; */
+  width: 100%;
+  height: 100%;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.row-de-col-12-personalizada {
+  /* background-color: lightgreen; */
+  width: 100%;
+  height: 100%;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex;
+}
+
+
+
+
+/* col-2 (lado esquerdo) */
+
+.col-2-personalizada-lado-esquerdo {
+  flex: 0 0 $tela_paciente__largura_col_2_lado_esquerdo; /* Ajuste sincronzado com menu inferior (ver na tela) */
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: lightsteelblue;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+  /* Filhas de col-2-personalizada-lado-esquerdo */
+  .row-filha-de-col-2-personalizada-lado-esquerdo {
+    background-color: lightpink;
+    width: 100%;
+    height: 100%;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+    /* row-filha-de-col-2-personalizada-lado-esquerdo */
+    .ajuste-global {
+      width: 100%;
+      height: 100%;
+      background-color: tomato;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .col-filha-de-row-foto {
+      // diminua a largura da div da imagem para destacar o perfil
+    }
+
+    .img-menu {
+      height: 48px;
+      // padding-left: 1.3rem; /* Redimensionamento do logo  */
+    }
+
+    .col-filha-de-row-perfil {
+
+    }
+
+
+/* col-10 (lado direito) */
+.col-10-personalizada-lado-direito {
+  /* background-color: lightgoldenrodyellow; */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.col-10-personalizada-lado-direito-filha {
+  height: 100%;
+  width: 100%;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+  /* Filhas de col-10-personalizada-lado-direito-filha */
+  .col-6-personalizada-filha-row-de-col-10-lado-esquerdo {
+    background-color: lightcyan;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .col-6-personalizada-filha-row-de-col-10-lado-direito {
+    background-color: #eee0ff;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+  }
+
+
+
+
+
+
 
 .side-bar-esquerdo-interno {
   height: 100%;
@@ -38,28 +148,37 @@
 
 }
 
-.img-menu {
-  height: 48px;
-  padding-left: 1.3rem; /* Redimensionamento do logo  */
+
+
+// .side-bar-direito-interno {
+//   height: 100%;
+//   width: 100%;
+//   padding: 0;
+//   flex-grow: 1;
+//   // background-color: aqua;
+// }
+
+.col-10-persinalizada {
+
 }
 
-.side-bar-direito-interno {
-  height: 100%;
-  width: 100%;
-  padding: 0;
-  flex-grow: 1;
-  // background-color: aqua;
-}
 
-.side-bar-direito-filho {
-  // background-color: lightcoral;
-  width: 95.6666666%; /* Espaçamento horizontal que ajusta o nickname e 'Sair' - 95.6666666%; mesma medida que o "Sair" do menu principal*/
-  height: 100%;
-  margin-left: 3rem;  /* Espaçamento que ajusta do nome do paciente */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+
+
+
+
+
+
+
+// .side-bar-direito-filho {
+//   // background-color: lightcoral;
+//   width: 95.6666666%; /* Espaçamento horizontal que ajusta o nickname e 'Sair' - 95.6666666%; mesma medida que o "Sair" do menu principal*/
+//   height: 100%;
+//   // margin-left: 3rem;  /* Espaçamento que ajusta do nome do paciente */
+//   display: flex;
+//   align-items: center;
+//   // justify-content: space-between;
+// }
 
 .side-bar-direito-filho-container-esquerdo {
 

@@ -2,21 +2,66 @@
 
 <div class="row menu-bar">
 
-    <div class="col-2-personalizada side-bar-esquerdo-interno">
+  <div class="col-12 col-12-personalizada">
+    <div class="row row-de-col-12-personalizada">
+      <!-- col-2 (lado esquerdo) -->
+      <div class="col-2 col-2-personalizada-lado-esquerdo">
+        <div class="row row-filha-de-col-2-personalizada-lado-esquerdo">
+          <div class="col ajuste-global col-filha-de-row-foto">
+            <a [routerLink]="['/paciente',perfilVar,'documentos']">
+              <img src="../../../assets/img/img-logo-alfa.png" class=" img-menu no-select-img">
+            </a>
+          </div>
+          <div class="col ajuste-global col-filha-de-row-perfil">PAUSA AQUI</div>
+        </div>
+      </div>
+
+      <!-- col-10 (lado direito) -->
+      <div class="col col-10-personalizada-lado-direito">
+        <div class="row col-10-personalizada-lado-direito-filha">
+          <!-- col - Nome do paciente -->
+          <div class="col-6 col-6-personalizada-filha-row-de-col-10-lado-esquerdo">
+          NOME
+          </div>
+          <!-- col - Opções -->
+          <div class="col-6 col-6-personalizada-filha-row-de-col-10-lado-direito">
+          OPÇÕES
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- <div class="col-2-personalizada side-bar-esquerdo-interno">
       <div class="row container-row-side-bar-esquerdo-filho">
         <div class="col-2 col-logo-filho">
-          <a [routerLink]="['/paciente',perfilVar,'documentos']">
-            <img src="../../../assets/img/img-logo-alfa.png" class=" img-menu no-select-img">
-          </a>
+
+
 
         </div>
         <div class="col col-perfil-filho" style="font-size: 1.3em; padding-right: 2%;">
           {{ perfil }}
         </div>
       </div>
-    </div>
-    <div class="col-10-persinalizada side-bar-direito-interno">
-      <div class="side-bar-direito-filho">
+    </div> -->
+
+
+    <!-- <div class="   col-10-persinalizada side-bar-direito-interno"
+      style="
+
+
+        /* para adicionar na col-10-persinalizada */
+
+
+
+
+      "
+    > -->
+
+
+
+
+      <!-- <div class="side-bar-direito-filho">
         <div class="side-bar-direito-filho-container-esquerdo">
           <span class="nome-paciente-display">{{ nomeSessao }}</span>
         </div>
@@ -25,8 +70,10 @@
           <span class="link-logout" (click)="openModal()">Sair</span>
         </div>
 
-      </div>
-    </div>
+      </div> -->
+
+
+    <!-- </div> -->
 
     <!-- Modal -->
     <div

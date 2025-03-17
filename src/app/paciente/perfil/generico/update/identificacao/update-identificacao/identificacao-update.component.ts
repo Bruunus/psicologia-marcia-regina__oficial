@@ -467,9 +467,14 @@ export class IdentificacaoUpdateComponent implements OnInit {
     setTimeout(() => {
 
       this.loadingModalCpf = false;
-      this.closeModal();
+      setTimeout(() => {
+        this.closeModal();
+      });
       this.updateAlteracaoCpfService.setBoolean(true);
-      this.updatePacienteAPI();
+      setTimeout(() => {
+        this.updatePacienteAPI();
+      },1);
+
 
     }, 1500);
   }
@@ -653,30 +658,26 @@ export class IdentificacaoUpdateComponent implements OnInit {
    * seja 0 é alterado para 1 obrigatóriamente
    */
   private onSelectFilhos(): void {
-    const filhos = this.formValidation.get('filhos');
     const qtdFilhos = this.formValidation.get('qtdFilhos');
 
-    filhos?.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((valor) => {
+    this.formValidation.get('filhos')?.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((valor) => {
+        setTimeout(() => {
+          if (valor === 'true') {
+            this.formQtdFilhos = true;
+            qtdFilhos?.enable();
 
-      if (!this.modoEdicao) {
-        return; // Se não estiver no modo de edição, não faz nada
-      }
-
-      if (valor === 'true') {
-        this.formQtdFilhos = true;
-
-        qtdFilhos?.enable();
-
-        // Se for nulo ou 0, seta para 1
-        if (!qtdFilhos?.value || qtdFilhos.value === 0) {
-          qtdFilhos?.setValue(1, { emitEvent: false });
-        }
-      } else {
-        this.formQtdFilhos = false;
-        qtdFilhos?.setValue(0, { emitEvent: false });
-        qtdFilhos?.disable();
-      }
-    });
+            if (!qtdFilhos?.value || qtdFilhos.value === 0) {
+              qtdFilhos?.setValue(1, { emitEvent: false });
+            }
+          } else {
+            this.formQtdFilhos = false;
+            qtdFilhos?.setValue(0, { emitEvent: false });
+            qtdFilhos?.disable();
+          }
+        });
+      });
   }
 
 
@@ -746,13 +747,17 @@ export class IdentificacaoUpdateComponent implements OnInit {
             this.message.setMessage('Ocorreu um erro ao atualizar', 'ALERT_ERROR')
           } else {
 
-
             if(this.updateAlteracaoCpfService.getBoolean()) {{
-              this.loadingDocumentosService.setBoolean(false);  // finaliza o siclo do loading
-              this.router.navigate(['/home/pacientes']);
+
+                this.loadingDocumentosService.setBoolean(false);  // finaliza o siclo do loading
+                this.router.navigate(['/home/pacientes']);
+
             }} else {
-              this.loadingDocumentosService.setBoolean(false);  // finaliza o siclo do loading
-              this.router.navigate([`/paciente/${this.roteDePerfil}/documentos/identificacao`]);
+
+                this.loadingDocumentosService.setBoolean(false);  // finaliza o siclo do loading
+                this.router.navigate([`/paciente/${this.roteDePerfil}/documentos/identificacao`]);
+
+
             }
 
 
