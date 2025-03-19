@@ -47,6 +47,8 @@
 
   /* Filhas de col-2-personalizada-lado-esquerdo */
   .row-filha-de-col-2-personalizada-lado-esquerdo {
+    display: flex;
+    flex-direction: row;
     background-color: lightpink;
     width: 100%;
     height: 100%;
@@ -65,15 +67,18 @@
     }
     .col-filha-de-row-foto {
       // diminua a largura da div da imagem para destacar o perfil
+      width: 5rem !important;
+      padding: 0 0.40rem 0 0 !important;
     }
 
     .img-menu {
       height: 48px;
-      // padding-left: 1.3rem; /* Redimensionamento do logo  */
+      margin-left: 1rem;  /* Controle de posição dos itens por aqui */
     }
 
     .col-filha-de-row-perfil {
-
+      padding-left: 0.1rem !important;  /* Controle de posição dos itens por aqui */
+      padding-right: 2rem !important; /* Controle de posição dos itens por aqui */
     }
 
 
@@ -101,17 +106,50 @@
     width: 100%;
     display: flex;
     align-items: center;
+    padding-left: 2rem !important;
   }
 
   .col-6-personalizada-filha-row-de-col-10-lado-direito {
     background-color: #eee0ff;
-    height: 100%;
-    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%;
+    margin-left: 0 !important;
+    margin-left: 0 !important;
+    padding: 0 !important;
+
+
 
   }
+    .row-filha-col-6-personalizada-filha-row-de-col-10-lado-direito {
+      background-color: aquamarine;
+      display: flex;
+      align-items: center;
+      width: 40%;   /* Controle de posição dos itens por aqui */
+      height: 100%;
+      margin-left: 0 !important;
+      margin-left: 0 !important;
+    }
+
+      // Filhas da row do lado esquerdo
+
+      // Nick name
+      .col-filha-de-row-filha-col-6-personalizada-nick-name {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        background-color: chocolate;
+      }
+
+      // Opção para Sair
+      .col-filha-de-row-filha-col-6-personalizada-op-sair {
+        background-color: steelblue;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+      }
 
 
 

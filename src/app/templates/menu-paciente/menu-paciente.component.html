@@ -12,7 +12,7 @@
               <img src="../../../assets/img/img-logo-alfa.png" class=" img-menu no-select-img">
             </a>
           </div>
-          <div class="col ajuste-global col-filha-de-row-perfil">PAUSA AQUI</div>
+          <div class="col ajuste-global col-filha-de-row-perfil"><h4>{{ perfil }}</h4></div>
         </div>
       </div>
 
@@ -21,11 +21,19 @@
         <div class="row col-10-personalizada-lado-direito-filha">
           <!-- col - Nome do paciente -->
           <div class="col-6 col-6-personalizada-filha-row-de-col-10-lado-esquerdo">
-          NOME
+            <h4>{{ nomePaciente }}</h4>
           </div>
           <!-- col - Opções -->
           <div class="col-6 col-6-personalizada-filha-row-de-col-10-lado-direito">
-          OPÇÕES
+            <div class="row row-filha-col-6-personalizada-filha-row-de-col-10-lado-direito">
+              <div class="col col-filha-de-row-filha-col-6-personalizada-nick-name">
+                <!-- {{ usuario }} -->
+                Olá, Alexandra
+              </div>
+              <div class="col col-filha-de-row-filha-col-6-personalizada-op-sair" (click)="openModal()">
+                <span class="link-logout" (click)="openModal()">Sair</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -23,7 +23,7 @@ declare var $: any;
 export class MenuPacienteComponent implements OnInit{
 
   perfil: string | undefined | null = '';
-  nomeSessao: string | undefined | null = '';
+  nomePaciente: string | undefined | null = '';
   usuario: string | null = '';
   perfilVar: string | undefined = localStorage.getItem('perfil')?.toLocaleLowerCase()
 
@@ -44,7 +44,7 @@ export class MenuPacienteComponent implements OnInit{
 
     const perfilStorage = localStorage.getItem('perfil');
     this.perfil = this.mascaraService.formatarTextoMaiusculo(perfilStorage);
-    this.nomeSessao = localStorage.getItem('nomePaciente');
+    this.nomePaciente = localStorage.getItem('nomePaciente');
 
     this.usuario = this.gerenciadoDeAutenticacaoService.getUsuario();
 
