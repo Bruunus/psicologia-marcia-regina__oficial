@@ -49,6 +49,19 @@ $tamanho_fonte_botao: 1rem; //16px
 }
 
 
+/*
+* Ajuste que precisa ser aplicado a todos os componente da tela de paciente.
+* Esses ajustes são necessários para que a tela desses templates preencham
+* todo o espaço na exibição dos documentos.
+*/
+app-identificacao, app-acompanhamento, app-agendar-consulta,
+app-financeiro, app-relatorio, app-identificacao-update, app-laudo {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+
+
 
 /*
  *  Estilos globais de mensageria do sistema

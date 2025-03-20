@@ -127,28 +127,29 @@
       background-color: aquamarine;
       display: flex;
       align-items: center;
-      width: 40%;   /* Controle de posição dos itens por aqui */
+      width: 300px;   /* Controle de posição dos itens por aqui */
       height: 100%;
       margin-left: 0 !important;
       margin-left: 0 !important;
     }
 
-      // Filhas da row do lado esquerdo
-
-      // Nick name
-      .col-filha-de-row-filha-col-6-personalizada-nick-name {
+      // Filha da row do lado esquerdo
+      .col-filha-de-row-filha-col-6-personalizada {
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        background-color: chocolate;
+      }
+
+      // Nick name
+      .col-filha-de-row-filha-col-6-personalizada-nick-name {
+        // background-color: chocolate;
+        margin-right: 30px;
       }
 
       // Opção para Sair
       .col-filha-de-row-filha-col-6-personalizada-op-sair {
-        background-color: steelblue;
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
+        // background-color: steelblue;
+        margin-right: 40px;
       }
 
 

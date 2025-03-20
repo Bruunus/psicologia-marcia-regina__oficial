@@ -17,9 +17,48 @@
 /**** EXCESSÕES ****/
 
 /*
+* Alcance máximo de largura de uma A4 suportada pela menu vertical esquerdo
+*/
+@media(max-width: 1017px) {
+
+  /*
+  * Configurações para menu horizontal
+  */
+  .col-2-personalizada {
+    width: 100% !important;
+    height: 40px;
+  }
+
+  .col-2-personalizada ul {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0 !important;
+  }
+
+  .col-2-personalizada ul li {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+  }
+
+  .col-2-personalizada ul li span {
+    padding: 0 !important;
+  }
+
+  .ul-container {
+    padding: 0 !important;
+  }
+
+}
+
+/*
 * Query para definição de altura para telas menores com altura de até 531px
 */
-@media(min-width: 970px)  {
+@media(min-width: 1018px)  {
   .col-2-personalizada {
     width: $tela_paciente__largura_col_2_lado_esquerdo; /* Definição de largura junto à largura do menu suspenso */
   }

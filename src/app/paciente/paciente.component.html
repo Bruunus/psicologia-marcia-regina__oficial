@@ -1,17 +1,5 @@
 <div class="container-fluid">
-
-
-
-
-
-
-
   <app-menu-paciente></app-menu-paciente>
-
-
-
-
-
   <div class="row container-inferior">
     <div class="col-2-personalizada menu-suspenso-documentos">
       <!-- Adicionar um ngIf - Dependendo do perfil (Psicologia ou Neuropsicologia) o menu muda -->
@@ -27,24 +15,6 @@
              (!loadingDocumentosService.getRenderizado())"
          src="../../assets/img/loadingo-menu.gif" alt="Loading" style="height: 20px; margin-left: 5px;">
         </li>
-
-
-        <div style="padding: 1rem 0 0 1rem;">
-          <small>
-            Atenção: <span style="color: red;">
-              Para cada componente que representa o item, sempre quando voce for finalizar este componente,
-              voce precisa obrigatóriamente encerrar o siclo do loading do container pai para atulizar o
-              siclo no angular, para não tomar NG100 ERROR. <u>
-                Sempre quando chamar o router criando um
-                mecanismo para sair da tela atual é preciso atualizar o loading para 'false'
-              </u><br><br>
-
-              A service responsável é a LoadingDocumentosService
-
-            </span>
-          </small>
-        </div>
-
       </ul>
 
 
@@ -61,11 +31,23 @@
                 src="../../assets/img/loadingo-menu.gif"
                 alt="Loading" style="height: 20px; margin-left: 5px;">
         </li>
+      </ul>
 
 
+      <ul style="padding: 1rem 0 0 1rem;  display: none;   " class="aviso" >
+        <small>
+          Atenção: <span style="color: red;">
+            Para cada componente que representa o item, sempre quando voce for finalizar este componente,
+            voce precisa obrigatóriamente encerrar o siclo do loading do container pai para atulizar o
+            siclo no angular, para não tomar NG100 ERROR. <u>
+              Sempre quando chamar o router criando um
+              mecanismo para sair da tela atual é preciso atualizar o loading para 'false'
+            </u><br><br>
 
+            A service responsável é a LoadingDocumentosService
 
-
+          </span>
+        </small>
       </ul>
 
 
@@ -75,9 +57,32 @@
 
     <div class="col tela-suspensa-documentos">
       <div class="fundo-template"
-        style="background-color: lightyellow;"
-      >
-        <router-outlet (notifyParent)="onNotify()"></router-outlet>
+        style="
+          background-color: #fff;
+          width: 100%;
+          height: 88vh; /* Sujeito a alteração responsiva */
+          background-color: #bebebe;
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          overflow-y: auto;
+        ">
+
+        <!-- Para folha A4 - Apresentação Jasper Reports -->
+        <div
+          style="
+            width: 210mm;      /* A4 - largura */
+            height: 297mm;     /* A4 - altura - 29.7cm;  */
+            background-color: #fff;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        ">
+          A4
+        </div>
+
+
+
+        <router-outlet (notifyParent)="onNotify()" ></router-outlet>
       </div>
     </div>
 

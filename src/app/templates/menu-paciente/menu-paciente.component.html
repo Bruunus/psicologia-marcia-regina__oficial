@@ -8,7 +8,7 @@
       <div class="col-2 col-2-personalizada-lado-esquerdo">
         <div class="row row-filha-de-col-2-personalizada-lado-esquerdo">
           <div class="col ajuste-global col-filha-de-row-foto">
-            <a [routerLink]="['/paciente',perfilVar,'documentos']">
+            <a [routerLink]="['/paciente',perfilVar,'documentos','identificacao']">
               <img src="../../../assets/img/img-logo-alfa.png" class=" img-menu no-select-img">
             </a>
           </div>
@@ -26,62 +26,22 @@
           <!-- col - Opções -->
           <div class="col-6 col-6-personalizada-filha-row-de-col-10-lado-direito">
             <div class="row row-filha-col-6-personalizada-filha-row-de-col-10-lado-direito">
-              <div class="col col-filha-de-row-filha-col-6-personalizada-nick-name">
-                <!-- {{ usuario }} -->
-                Olá, Alexandra
-              </div>
-              <div class="col col-filha-de-row-filha-col-6-personalizada-op-sair" (click)="openModal()">
-                <span class="link-logout" (click)="openModal()">Sair</span>
+              <div class="col col-filha-de-row-filha-col-6-personalizada">
+                <span class="col-filha-de-row-filha-col-6-personalizada-nick-name">
+                    <!-- Máximo 9 caracter para nome de usuário -->
+                  Olá, {{ usuario }}
+                </span>
+                <span class="col-filha-de-row-filha-col-6-personalizada-op-sair" (click)="openModal()">
+                  <span class="link-logout" (click)="openModal()">Sair</span>
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
-
-    <!-- <div class="col-2-personalizada side-bar-esquerdo-interno">
-      <div class="row container-row-side-bar-esquerdo-filho">
-        <div class="col-2 col-logo-filho">
-
-
-
-        </div>
-        <div class="col col-perfil-filho" style="font-size: 1.3em; padding-right: 2%;">
-          {{ perfil }}
-        </div>
-      </div>
-    </div> -->
-
-
-    <!-- <div class="   col-10-persinalizada side-bar-direito-interno"
-      style="
-
-
-        /* para adicionar na col-10-persinalizada */
-
-
-
-
-      "
-    > -->
-
-
-
-
-      <!-- <div class="side-bar-direito-filho">
-        <div class="side-bar-direito-filho-container-esquerdo">
-          <span class="nome-paciente-display">{{ nomeSessao }}</span>
-        </div>
-        <div class="side-bar-direito-filho-container-direito">
-          <span class="usuario-display">Olá, {{ usuario }}</span>
-          <span class="link-logout" (click)="openModal()">Sair</span>
-        </div>
-
-      </div> -->
-
-
-    <!-- </div> -->
 
     <!-- Modal -->
     <div

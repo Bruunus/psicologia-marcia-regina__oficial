@@ -1,4 +1,4 @@
-
+@import '../../styles.scss';
 
 
 /**************** Estilo Global de largura da barra vertical dos dois documentos *****************/
@@ -59,23 +59,21 @@ col-2-editada-global
   background-color: #f8f4f4;
   flex-grow: 1;
 
-  padding: 1rem !important;
+  padding: 0 !important;
 
 
 }
 
 .fundo-template {
-  border: 1px dotted black;
-  min-width: 100%;
-  min-height: 100%;
-  background-color: #fff;
+  // border: 1px dotted tomato;
+
 }
 
 
 
 .ul-container {
   background-color: aquamarine;
-  padding: 3rem 0;
+  padding: 3rem 0;  /* Ajuste de altura para ajustar em conjunto com o menu-paciente ao topo */
   width: 100%;
   height: 100%;
 }
@@ -106,13 +104,6 @@ col-2-editada-global
   background-position: 100% 100%; /* OR bottom right */
   background-size: 100% 2px;
 }
-
-
-
-
-
-
-
 
 /*
 efeito underline nas li's
@@ -152,3 +143,8 @@ https://stackoverflow.com/questions/54616139/how-to-animate-underline-from-left-
 //   background-position: 100% 100%; /* OR bottom right */
 //   background-size: 100% 2px;
 // }
+
+
+/**
+* Classe responsável por gerenciar os templates
+*/
