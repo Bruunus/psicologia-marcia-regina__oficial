@@ -13,7 +13,7 @@
             *ngIf="(loadingDocumentosService.boolean$ | async) &&
             itemSelecionado === item.path &&
              (!loadingDocumentosService.getRenderizado())"
-         src="../../assets/img/loadingo-menu.gif" alt="Loading" style="height: 20px; margin-left: 5px;">
+         src="../../assets/img/loadingo-menu.gif" alt="Loading" class="loading-li" style="height: 20px; margin-left: 5px;">
         </li>
       </ul>
 
@@ -29,7 +29,7 @@
                 itemSelecionado === item.path &&
                  (!loadingDocumentosService.getRenderizado())"
                 src="../../assets/img/loadingo-menu.gif"
-                alt="Loading" style="height: 20px; margin-left: 5px;">
+                alt="Loading" class="loading-li" style="height: 20px; margin-left: 5px;">
         </li>
       </ul>
 

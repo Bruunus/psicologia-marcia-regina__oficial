@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiAutenticacaoService } from 'src/app/services/autenticacao/api-autenticacao.service';
 import { PacienteCacheService } from 'src/app/services/cache/paciente/paciente-cache.service';
@@ -20,12 +20,13 @@ declare var $: any;
     './menu-paciente-smartphone.component.scss'
   ]
 })
-export class MenuPacienteComponent implements OnInit{
+export class MenuPacienteComponent implements OnInit, OnDestroy {
 
   perfil: string | undefined | null = '';
   nomePaciente: string | undefined | null = '';
   usuario: string | null = '';
-  perfilVar: string | undefined = localStorage.getItem('perfil')?.toLocaleLowerCase()
+  perfilVar: string | undefined = localStorage.getItem('perfil')?.toLocaleLowerCase();
+  isMenuVisible: boolean = false;
 
   // private modal: any;
 
@@ -47,6 +48,9 @@ export class MenuPacienteComponent implements OnInit{
     this.nomePaciente = localStorage.getItem('nomePaciente');
 
     this.usuario = this.gerenciadoDeAutenticacaoService.getUsuario();
+
+    // Adiciona o listener de evento ao clicar fora do menu
+    document.addEventListener('click', this.handleClickOutside.bind(this));
 
   }
 
@@ -73,9 +77,25 @@ export class MenuPacienteComponent implements OnInit{
 
   }
 
+  protected toggleMenu() {
+    this.isMenuVisible = !this.isMenuVisible; // Alterna a visibilidade do menu
+  }
+
+  protected handleClickOutside(event: MouseEvent) {
+    const menuElement = document.querySelector('.para-responsivo-do-item-sair'); // ID do seu menu
+    const toggleButton = document.querySelector('.icone-sair'); // ID do botão que ativa o menu
+
+    // Verifica se o clique foi fora do menu e do botão
+    if (this.isMenuVisible && menuElement && toggleButton) {
+        if (!menuElement.contains(event.target as Node) && !toggleButton.contains(event.target as Node)) {
+          this.isMenuVisible = false; // Fecha o menu
+        }
+    }
+  }
+
 
   /* Evento do Modal */
-  encerrarSessao() {
+  protected encerrarSessao() {
     this.closeModal();
 
     setTimeout(() => {
@@ -85,6 +105,11 @@ export class MenuPacienteComponent implements OnInit{
   }
 
 
+
+  ngOnDestroy() {
+    // Remove o listener de evento ao destruir o componente
+    document.removeEventListener('click', this.handleClickOutside.bind(this));
+}
 
 
 

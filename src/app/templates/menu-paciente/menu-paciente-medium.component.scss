@@ -4,8 +4,77 @@
 * Dispositivo alvo: Tablets grandes e notebooks menores
 */
 @media (min-width: 768px) and (max-width: 991px) {
-  
+
 }
 
+
+@media (max-width: 855px) {
+
+  /* Criação do menu do canto superior */
+  .col-filha-de-row-filha-col-6-personalizada {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .col-filha-de-row-filha-col-6-personalizada-nick-name {
+    margin: 0 !important;
+    // text-align: center;
+    display: flex;
+
+  }
+
+  .nick-name-para-responsivo {
+    // margin-right: 10px;
+  }
+
+  .span-ola {
+    display: none;
+  }
+
+  .icone-sair {
+    display: block;
+    height: 26px;
+    margin-left: 10px;
+  }
+
+  .icone-sair:hover {
+    cursor: pointer;
+  }
+
+  .para-responsivo-do-item-sair {
+    background-color: #fff;
+    position: absolute;
+    width: 5rem;
+    top: 1.6rem;
+    right: 3rem;
+    padding-top: 9.7px;
+    padding-bottom: 9.7px;
+    border-radius: 2px;
+  }
+
+  .col-filha-de-row-filha-col-6-personalizada-op-sair {
+    margin-right: 0px !important;
+    padding: 0.6333333rem 1.7rem 0.7rem;  /* Àrea de alcance do botão */
+  }
+
+
+}
+
+/*
+* Transformar o item "Sair" em opção do menu
+*/
+@media (min-width: 856px) {
+  .icone-sair {
+    display: none;
+  }
+  .span-ola {
+    display: block;
+  }
+
+
+
+}
 
 

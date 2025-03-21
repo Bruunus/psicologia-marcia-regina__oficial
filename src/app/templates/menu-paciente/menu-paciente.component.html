@@ -20,20 +20,27 @@
       <div class="col col-10-personalizada-lado-direito">
         <div class="row col-10-personalizada-lado-direito-filha">
           <!-- col - Nome do paciente -->
-          <div class="col-6 col-6-personalizada-filha-row-de-col-10-lado-esquerdo">
+          <div class="col-6 col-md-8 col-6-personalizada-filha-row-de-col-10-lado-esquerdo">
             <h4>{{ nomePaciente }}</h4>
           </div>
           <!-- col - Opções -->
-          <div class="col-6 col-6-personalizada-filha-row-de-col-10-lado-direito">
+          <div class="col-6 col-md-4 col-6-personalizada-filha-row-de-col-10-lado-direito">
             <div class="row row-filha-col-6-personalizada-filha-row-de-col-10-lado-direito">
               <div class="col col-filha-de-row-filha-col-6-personalizada">
                 <span class="col-filha-de-row-filha-col-6-personalizada-nick-name">
                     <!-- Máximo 9 caracter para nome de usuário -->
-                  Olá, {{ usuario }}
+                  <!-- Olá, {{ usuario }} -->
+                   <span class="span-ola">Olá,</span>
+                   <span class="nick-name-para-responsivo">123456789</span>
+                   <img src="../../../assets/img/icone-menu-sair.png" class="icone-sair" (click)="toggleMenu()">
                 </span>
-                <span class="col-filha-de-row-filha-col-6-personalizada-op-sair" (click)="openModal()">
-                  <span class="link-logout" (click)="openModal()">Sair</span>
-                </span>
+                <div *ngIf="isMenuVisible" class="para-responsivo-do-item-sair">
+                  <span class="col-filha-de-row-filha-col-6-personalizada-op-sair" (click)="openModal()">
+                    <span class="link-logout" (click)="openModal()">Sair</span>
+                  </span>
+                </div>
+
+
               </div>
             </div>
           </div>

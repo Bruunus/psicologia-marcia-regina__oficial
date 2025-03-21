@@ -35,7 +35,7 @@ export class PacienteComponent implements OnInit {
     { label: 'Financeiro', path: 'financeiro' },
     { label: 'Agendar consulta', path: 'agendar-consulta'},
     { label: 'Migrar paciente', path: 'migrar-paciente'},
-    { label: 'Finalizar tratamento', path: 'finalizar-tratamento' },
+    { label: 'Encerrar', path: 'finalizar-tratamento' },
   ];
 
   itensMenuNeuropsicologia: Array<{ label: string, path: string }> = [
@@ -46,7 +46,7 @@ export class PacienteComponent implements OnInit {
     { label: 'Financeiro', path: 'financeiro' },
     { label: 'Agendar consulta', path: 'agendar-consulta'},
     { label: 'Migrar paciente', path: 'migrar-paciente'},
-    { label: 'Finalizar tratamento', path: 'finalizar-tratamento' },
+    { label: 'Encerrar', path: 'finalizar-tratamento' },
   ];
 
 
