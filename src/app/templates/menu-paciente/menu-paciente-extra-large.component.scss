@@ -30,6 +30,7 @@
 @media(min-width: 1200px) {
 
   .col-2-personalizada {
+    background-color: aqua;
     width: $tela_paciente__largura_col_2_lado_esquerdo; /* Substituindo 142.67px -  Definição de largura junto à largura do menu suspenso */
   }
 

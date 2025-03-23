@@ -2,41 +2,75 @@
 
 <div class="row menu-bar">
 
-  <div class="col-12 col-12-personalizada">
+  <div class=" col-md-12 col-sm-12 col-12 col-12-personalizada">
     <div class="row row-de-col-12-personalizada">
-      <!-- col-2 (lado esquerdo) -->
-      <div class="col-2 col-2-personalizada-lado-esquerdo">
+      <!-- col-2 (lado esquerdo - Para tela grande) -->
+      <div class=" col-md-12 col-sm-12 col-12 col-2-personalizada-lado-esquerdo">
         <div class="row row-filha-de-col-2-personalizada-lado-esquerdo">
-          <div class="col ajuste-global col-filha-de-row-foto">
+          <div class="col-md-1 col-sm-1 col-1 col-logo-perfil-container" >
             <a [routerLink]="['/paciente',perfilVar,'documentos','identificacao']">
-              <img src="../../../assets/img/img-logo-alfa.png" class=" img-menu no-select-img">
+              <img src="../../../assets/img/img-logo-alfa.png" class="img-logo no-select-img">
             </a>
+            <h4 class="tipo-perfil" style="color: #fff;">{{ perfil }}</h4>
           </div>
-          <div class="col ajuste-global col-filha-de-row-perfil"><h4>{{ perfil }}</h4></div>
+          <div class="col-md-12 col-sm-12 col-12 col-nome-paciente">
+            <!-- <h4 class="nome-paciente">00000000000000000000000000000000000</h4> -->
+            <h4 class="nome-paciente">{{ nomePaciente }}</h4>
+            <img src="../../../assets/img/menu.png" class="img-menu">
+          </div>
+          <!-- <div class="col-md-1 col-sm-1 col-1 col-menu-responsivo" style="display: block;">
+
+          </div> -->
         </div>
       </div>
+    </div>
+  </div>
 
-      <!-- col-10 (lado direito) -->
-      <div class="col col-10-personalizada-lado-direito">
+
+
+
+
+  <!--
+
+
+
+
+
+
+
+
+
+       col-10 (lado direito)
+      <div class=" col-sm-12 col-10-personalizada-lado-direito">
+
+
         <div class="row col-10-personalizada-lado-direito-filha">
-          <!-- col - Nome do paciente -->
-          <div class="col-6 col-md-8 col-6-personalizada-filha-row-de-col-10-lado-esquerdo">
-            <h4>{{ nomePaciente }}</h4>
+            col - Nome do paciente
+          <div class=" col-md-11 col-sm-12 col-6-personalizada-filha-row-de-col-10-lado-esquerdo">
+              <h4>{{ nomePaciente }}</h4>
+             <h4>00000000000000000000000000000000000</h4>
           </div>
-          <!-- col - Opções -->
-          <div class="col-6 col-md-4 col-6-personalizada-filha-row-de-col-10-lado-direito">
+            col - Opções
+          <div class=" col-md-1 col-sm-12 col-6-personalizada-filha-row-de-col-10-lado-direito">
             <div class="row row-filha-col-6-personalizada-filha-row-de-col-10-lado-direito">
               <div class="col col-filha-de-row-filha-col-6-personalizada">
                 <span class="col-filha-de-row-filha-col-6-personalizada-nick-name">
-                    <!-- Máximo 9 caracter para nome de usuário -->
-                  <!-- Olá, {{ usuario }} -->
+                      Máximo 9 caracter para nome de usuário
+                    Olá, {{ usuario }}
+
                    <span class="span-ola">Olá,</span>
-                   <span class="nick-name-para-responsivo">123456789</span>
+                   <span class="nick-name">123456789</span>
                    <img src="../../../assets/img/icone-menu-sair.png" class="icone-sair" (click)="toggleMenu()">
+
+
                 </span>
                 <div *ngIf="isMenuVisible" class="para-responsivo-do-item-sair">
                   <span class="col-filha-de-row-filha-col-6-personalizada-op-sair" (click)="openModal()">
+
+                    <span class="span-ola-responsivo">Olá,</span>
+                    <span class="nick-name-para-responsivo">123456789</span>
                     <span class="link-logout" (click)="openModal()">Sair</span>
+
                   </span>
                 </div>
 
@@ -48,7 +82,7 @@
       </div>
 
     </div>
-  </div>
+  </div> -->
 
     <!-- Modal -->
     <div

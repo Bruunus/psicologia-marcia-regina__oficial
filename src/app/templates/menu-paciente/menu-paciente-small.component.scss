@@ -9,8 +9,112 @@
 */
 @media (min-width: 426px) and (max-width: 767px) {
 
+
+
+  .col-12-personalizada {
+
+  }
+
+
+
 }
 
 /**** EXCESSÕES ****/
 
+/*
+* Medida de altura global para dispositivos pequenos
+*/
+@media (max-width: 767px) {
 
+  .menu-bar {
+    height: 63.333333px;
+  }
+
+  .col-12-personalizada {
+    // background-color: #acf8f8;
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+    .row-de-col-12-personalizada {
+      // background-color: lightgreen;
+      width: 100%;
+      height: 100%;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: 0 !important;
+      outline: 0 !important;
+      display: flex;
+    }
+
+      .col-2-personalizada-lado-esquerdo {
+        height: 100% !important;
+        // background-color: palevioletred;
+        border: 0 !important;
+        outline: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+        .row-filha-de-col-2-personalizada-lado-esquerdo {
+          background-color: lightskyblue;
+        }
+
+        /*
+        * Estilo logo canto superior esquerdo - Para mobile
+        */
+        .col-logo-perfil-container {
+          background-color: black;
+          width: 100%;
+          height: 100%;
+          padding: 0;
+          display: flex;
+          flex: 0 0 100% !important;
+          max-width: 100% !important;
+          align-items: center;
+          justify-content: flex-start;
+        }
+
+        .img-logo {
+          height: 48px;
+          padding-left: 1rem;  /* Controle de posição dos itens por aqui */
+          padding-right: 1rem;
+        }
+
+        .tipo-perfil {
+          margin-bottom: .4rem !important;
+        }
+
+
+        /*
+        * Estilo Nome Paciente - Para mobile
+        */
+        .col-nome-paciente {
+          // background-color: aquamarine;
+          height: 65%;
+          position: absolute;
+          top: 3.9rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .col-menu-responsivo {
+          display: block;
+        }
+
+        .nome-paciente {
+          margin: 0;
+        }
+
+
+        .img-menu {
+          background-color: #fff;
+          height: 41px;
+          // position: absolute;
+          // left: 41rem;
+        }
+
+}
