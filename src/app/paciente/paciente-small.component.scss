@@ -16,8 +16,18 @@
   .container-inferior {
     margin-top: 6rem;
   }
+
+  /*
+  * Transformando o menu em um menu vertical
+  */
   .menu-suspenso-documentos {
     display: block;
+    z-index: 1;
   }
+
+  .ul-container {
+    flex-direction: column;
+  }
+
 }
 

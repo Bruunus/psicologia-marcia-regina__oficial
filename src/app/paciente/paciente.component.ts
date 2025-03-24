@@ -1,5 +1,6 @@
+import { AlteracaoDisplayService } from './../services/compartilhamento-de-dados/paciente/alteracao-display-service/alteracao-display.service';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingDocumentosService } from '../services/loading/documentos/loading-documentos.service';
 import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
@@ -22,6 +23,7 @@ export class PacienteComponent implements OnInit {
   perfil: string | undefined;
   itemSelecionado: string | null = null;
   rotaAtual: string = '';
+
 
   public loadingDocumentosService: LoadingDocumentosService;
 
@@ -53,7 +55,8 @@ export class PacienteComponent implements OnInit {
 
 
   constructor(
-    private route: ActivatedRoute, private router: Router, private loadingDocumentosServiceInject: LoadingDocumentosService
+    private route: ActivatedRoute, private router: Router, private loadingDocumentosServiceInject: LoadingDocumentosService,
+    protected alteracaoDisplayService: AlteracaoDisplayService
 
     , protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev
 
@@ -137,6 +140,24 @@ export class PacienteComponent implements OnInit {
 
 
 
+
+  /**
+   * Este é um evento partido do evento principal de exibir ou ocultar o menu.
+   * Ele entra em acão após o click no menu hamburguer com o menu exibição. O que
+   * ele realiza é que caso o menu estiver sendo exibido e clicar em qualquer região
+   * fora, ele faz o menu fechar
+   */
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const menuElement = document.querySelector('.menu-suspenso-documentos');
+    /* classe da imagem do menu responsivo */
+    const menuButton = document.querySelector('.link-img-menu');
+
+    if (menuElement && !menuElement.contains(target) && !menuButton?.contains(target)) {
+      this.alteracaoDisplayService.closeMenu();
+    }
+  }
 
 
 

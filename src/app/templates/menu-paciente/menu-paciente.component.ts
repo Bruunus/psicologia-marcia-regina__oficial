@@ -1,7 +1,9 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiAutenticacaoService } from 'src/app/services/autenticacao/api-autenticacao.service';
 import { PacienteCacheService } from 'src/app/services/cache/paciente/paciente-cache.service';
+import { AlteracaoDisplayService } from 'src/app/services/compartilhamento-de-dados/paciente/alteracao-display-service/alteracao-display.service';
 import { GerenciadoDeAutenticacaoService } from 'src/app/services/sessao/gerenciador-de-autenticacao.service';
 import { MascaraService } from 'src/app/services/utilits/forms/mascaras/mascara.service';
 
@@ -19,6 +21,7 @@ declare var $: any;
     './menu-paciente-small.component.scss',
     './menu-paciente-smartphone.component.scss'
   ]
+
 })
 export class MenuPacienteComponent implements OnInit, OnDestroy {
 
@@ -32,7 +35,7 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
 
   constructor(private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService, private router: Router,
     private apiAutenticacaoService: ApiAutenticacaoService, private pacienteCacheService: PacienteCacheService,
-    private mascaraService: MascaraService
+    private mascaraService: MascaraService, private alteracaoDisplayService: AlteracaoDisplayService
 
 
   ) {
@@ -50,7 +53,7 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
     this.usuario = this.gerenciadoDeAutenticacaoService.getUsuario();
 
     // Adiciona o listener de evento ao clicar fora do menu
-    document.addEventListener('click', this.handleClickOutside.bind(this));
+    // document.addEventListener('click', this.handleClickOutside.bind(this));
 
   }
 
@@ -78,20 +81,21 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
   }
 
   protected toggleMenu() {
-    this.isMenuVisible = !this.isMenuVisible; // Alterna a visibilidade do menu
+    this.alteracaoDisplayService.toggleMenu();
   }
 
-  protected handleClickOutside(event: MouseEvent) {
-    const menuElement = document.querySelector('.para-responsivo-do-item-sair'); // ID do seu menu
-    const toggleButton = document.querySelector('.icone-sair'); // ID do botão que ativa o menu
+  // protected handleClickOutside(event: MouseEvent) {
 
-    // Verifica se o clique foi fora do menu e do botão
-    if (this.isMenuVisible && menuElement && toggleButton) {
-        if (!menuElement.contains(event.target as Node) && !toggleButton.contains(event.target as Node)) {
-          this.isMenuVisible = false; // Fecha o menu
-        }
-    }
-  }
+  //   const menuElement = document.querySelector('.para-responsivo-do-item-sair'); // ID do seu menu
+  //   const toggleButton = document.querySelector('.icone-sair'); // ID do botão que ativa o menu
+
+  //   // Verifica se o clique foi fora do menu e do botão
+  //   if (this.isMenuVisible && menuElement && toggleButton) {
+  //       if (!menuElement.contains(event.target as Node) && !toggleButton.contains(event.target as Node)) {
+  //         this.isMenuVisible = false; // Fecha o menu
+  //       }
+  //   }
+  // }
 
 
   /* Evento do Modal */
@@ -108,7 +112,7 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     // Remove o listener de evento ao destruir o componente
-    document.removeEventListener('click', this.handleClickOutside.bind(this));
+    // document.removeEventListener('click', this.handleClickOutside.bind(this));
 }
 
 
