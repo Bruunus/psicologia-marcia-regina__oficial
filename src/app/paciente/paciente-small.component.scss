@@ -14,20 +14,59 @@
 
 @media (max-width: 767px) {
   .container-inferior {
-    margin-top: 6rem;
+    margin-top: 2.4666rem;
+    border: 1px dashed tomato;
+    display: flex;
+    justify-content: flex-end;
   }
 
   /*
   * Transformando o menu em um menu vertical
   */
   .menu-suspenso-documentos {
+    width: 15rem; /* Ajusta a largura do menu vertical */
     display: block;
+    position: fixed;
+    right: 1.2333rem;
+
+    top: 6rem;
     z-index: 1;
+    border-radius: 10px;
   }
 
   .ul-container {
     flex-direction: column;
   }
 
+  .ul-container li {
+    padding: 8px !important;
+    justify-content: flex-start !important;
+  }
+
+  .ul-container li:nth-child(1) {
+    border-top-left-radius: 6px; /* Raio do canto superior esquerdo */
+    border-top-right-radius: 6px;
+  }
+
+  .li-sair-do-perfil-mobile, .li-encerrar-mobile {
+    display: block !important;
+  }
+
+  .ultima-posicao {
+    border-bottom-left-radius: 6px; /* Raio do canto superior esquerdo */
+    border-bottom-right-radius: 6px;
+  }
+
+
+
+}
+
+/**
+* @media para desativar o efeito mobile/tablet
+*/
+@media(min-width: 768px) {
+  .li-sair-do-perfil-mobile, .li-encerrar-mobile {
+    display: none !important;
+  }
 }
 

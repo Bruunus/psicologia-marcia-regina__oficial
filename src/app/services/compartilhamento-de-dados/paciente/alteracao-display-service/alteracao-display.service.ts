@@ -22,4 +22,9 @@ export class AlteracaoDisplayService {
     this.menuVisibleSubject.next(true);
   }
 
+  // Método para obter o valor atual do menu
+  getMenuVisible(): boolean {
+    return this.menuVisibleSubject.value; // Acessa o valor atual do BehaviorSubject
+  }
+
 }

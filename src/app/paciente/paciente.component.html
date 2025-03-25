@@ -8,14 +8,17 @@
       <!-- PERFIL PSICOLOGIA -->
 
       <ul class="ul-container" *ngIf="perfil === 'psicologia'">
-        <li *ngFor="let item of itensMenuPsicologia" (click)="selecionarItem(item)">
-            <span [ngClass]="{'active': itemSelecionado === item.path}">{{ item.label }}</span>
-            <img
-            *ngIf="(loadingDocumentosService.boolean$ | async) &&
-            itemSelecionado === item.path &&
-             (!loadingDocumentosService.getRenderizado())"
-         src="../../assets/img/loadingo-menu.gif" alt="Loading" class="loading-li" style="height: 20px; margin-left: 5px;">
-        </li>
+          <li *ngFor="let item of itensMenuPsicologia" (click)="selecionarItem(item); fecharMenu()">
+              <span [ngClass]="{'active': itemSelecionado === item.path}">{{ item.label }}</span>
+              <img
+              *ngIf="(loadingDocumentosService.boolean$ | async) &&
+              itemSelecionado === item.path &&
+              (!loadingDocumentosService.getRenderizado())"
+          src="../../assets/img/loadingo-menu.gif" alt="Loading" class="loading-li" style="height: 20px; margin-left: 5px;">
+          </li>
+          <li class="li-sair-do-perfil-mobile" (click)="redirectMenu(); fecharMenu()">Sair do perfil</li>
+          <li class="li-encerrar-mobile ultima-posicao" (click)="encerrarSessao(); fecharMenu()">Encerrar sessão</li>
+
       </ul>
 
 
@@ -32,6 +35,8 @@
                 src="../../assets/img/loadingo-menu.gif"
                 alt="Loading" class="loading-li" style="height: 20px; margin-left: 5px;">
         </li>
+        <li class="li-sair-do-perfil-mobile" (click)="redirectMenu()">Sair do perfil</li>
+        <li class="li-encerrar-mobile ultima-posicao" (click)="encerrarSessao()">Encerrar sessão</li>
       </ul>
 
 
@@ -70,7 +75,7 @@
         ">
 
         <!-- Para folha A4 - Apresentação Jasper Reports -->
-        <div
+        <!-- <div
           style="
             width: 210mm;      /* A4 - largura */
             height: 297mm;     /* A4 - altura - 29.7cm;  */
@@ -79,7 +84,7 @@
             margin-bottom: 2rem;
         ">
           A4
-        </div>
+        </div> -->
 
 
 

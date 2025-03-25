@@ -77,6 +77,15 @@
           justify-content: flex-start;
         }
 
+        .divisao-responsiva-perfil-nickname {
+          background-color: #323232;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-right: 1.2333rem;
+        }
+
         .img-logo {
           height: 48px;
           padding-left: 1rem;  /* Controle de posição dos itens por aqui */
@@ -113,8 +122,6 @@
         .img-menu {
           background-color: #fff;
           height: 41px;
-          // position: absolute;
-          // left: 41rem;
         }
 
 }

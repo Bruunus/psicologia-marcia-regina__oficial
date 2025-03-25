@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiAutenticacaoService } from 'src/app/services/autenticacao/api-autenticacao.service';
 import { PacienteCacheService } from 'src/app/services/cache/paciente/paciente-cache.service';
@@ -27,6 +27,7 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
 
   perfil: string | undefined | null = '';
   nomePaciente: string | undefined | null = '';
+  nomePacienteCompleto: string = '';
   usuario: string | null = '';
   perfilVar: string | undefined = localStorage.getItem('perfil')?.toLocaleLowerCase();
   isMenuVisible: boolean = false;
@@ -48,12 +49,12 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
 
     const perfilStorage = localStorage.getItem('perfil');
     this.perfil = this.mascaraService.formatarTextoMaiusculo(perfilStorage);
-    this.nomePaciente = localStorage.getItem('nomePaciente');
+    // Garante que nomePacienteCompleto armazena o nome original
+    this.nomePacienteCompleto = localStorage.getItem('nomePaciente') ?? '';
 
     this.usuario = this.gerenciadoDeAutenticacaoService.getUsuario();
 
-    // Adiciona o listener de evento ao clicar fora do menu
-    // document.addEventListener('click', this.handleClickOutside.bind(this));
+    this.atualizarNomePaciente();
 
   }
 
@@ -78,24 +79,66 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
       this.router.navigate(['/home/pacientes']);
     }, 450);
 
+    this.atualizarNomePaciente();
+
   }
+
+  // Detecta mudanças no tamanho da janela
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.atualizarNomePaciente();
+  }
+
 
   protected toggleMenu() {
     this.alteracaoDisplayService.toggleMenu();
   }
 
-  // protected handleClickOutside(event: MouseEvent) {
+  // Atualiza o nome conforme a largura da tela
+  protected atualizarNomePaciente(): void {
+    const larguraTela = window.innerWidth;
 
-  //   const menuElement = document.querySelector('.para-responsivo-do-item-sair'); // ID do seu menu
-  //   const toggleButton = document.querySelector('.icone-sair'); // ID do botão que ativa o menu
+    // Se a tela for menor que 375px, mostra a versão abreviada
+    if (larguraTela < 375) {
+      this.nomePaciente = this.abreviarNome(this.nomePacienteCompleto);
+    } else {
+      // Em telas maiores, mostra o nome completo
+      this.nomePaciente = this.nomePacienteCompleto;
+    }
+  }
 
-  //   // Verifica se o clique foi fora do menu e do botão
-  //   if (this.isMenuVisible && menuElement && toggleButton) {
-  //       if (!menuElement.contains(event.target as Node) && !toggleButton.contains(event.target as Node)) {
-  //         this.isMenuVisible = false; // Fecha o menu
-  //       }
-  //   }
-  // }
+  private abreviarNome(nome: string): string {
+    if (!nome) return '';
+
+    const partes = nome.split(' ');
+    if (partes.length <= 2) {
+      return nome; // Se houver até dois nomes, exibe completo.
+    }
+
+    let resultado = partes[0]; // Sempre inclui o primeiro nome
+    let espacos = 0;
+
+    for (let i = 1; i < partes.length; i++) {
+      // Verifica a próxima palavra
+      const proximaParte = partes[i];
+
+      // Permite adicionar a palavra se:
+      // 1. Ainda não atingiu dois espaços
+      // 2. A próxima parte tem até 3 letras (ex: "de", "dos")
+      if (espacos < 2) {
+        resultado += ` ${proximaParte}`;
+        espacos++;
+
+        // Se a palavra tiver mais que 3 letras, interrompe a abreviação
+        if (proximaParte.length > 3) {
+          break;
+        }
+      }
+    }
+
+    return resultado;
+  }
+
 
 
   /* Evento do Modal */
