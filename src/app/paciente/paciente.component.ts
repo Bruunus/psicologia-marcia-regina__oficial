@@ -7,6 +7,7 @@ import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
 import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticacao.service';
 import { PacienteCacheService } from '../services/cache/paciente/paciente-cache.service';
 import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 
 @Component({
@@ -19,6 +20,17 @@ import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-
     './paciente-medium.component.scss',
     './paciente-small.component.scss',
     './paciente-smartphone.component.scss'
+  ],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('500ms ease', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('500ms ease', style({ opacity: 0 }))
+      ])
+    ])
   ]
 })
 

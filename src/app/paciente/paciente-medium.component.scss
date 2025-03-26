@@ -4,8 +4,24 @@
 * Dispositivo alvo: Tablets grandes e notebooks menores
 */
 @media (min-width: 768px) and (max-width: 991px) {
-  
+
+
+  .menu-suspenso-documentos {
+    display: block !important;
+  }
+
+
 }
 
 
+/***** Excessões *****/
 
+
+/**
+* @media para desativar o efeito mobile/tablet
+*/
+@media(min-width: 992px) {
+  .li-sair-do-perfil-mobile, .li-encerrar-mobile {
+    display: none !important;
+  }
+}
