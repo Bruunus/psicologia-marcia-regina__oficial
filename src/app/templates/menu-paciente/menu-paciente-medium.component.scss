@@ -7,13 +7,14 @@
 
   .menu-bar {
     height: 58.333333px !important;
+    border-bottom: none;
   }
   .container-inferior  {
     margin-top: 24rem;
   }
 
   .col-12-personalizada {
-    background-color: #acf8f8;
+    background-color: #83c976;
     height: 100%;
     margin: 0 !important;
     padding: 0 !important;
@@ -28,56 +29,92 @@
   }
 
     .row-filha-de-col-2-personalizada-lado-esquerdo {
-
+      align-items: flex-start;
     }
 
     .col-logo-perfil-container {
       background-color: black;
       height: 100%;
       display: flex;
+      padding-right: 0 !important;
     }
 
     .divisao-responsiva-perfil-nickname {
       background-color: #323232;
       width: 100%;
+      height: auto;
       display: flex;
       align-items: center;
-      justify-content: space-between;
       padding-right: 1.2333rem;
+      padding-left: 1.2333rem;
+    }
+
+    h4 {
+      margin-bottom: 0;
     }
 
     .col-nome-paciente {
+      width: 100%;
+      height: 100%;
       display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
 
   .img-logo {
     background-color: #fff;
-    height: 41px;
+    height: 100%;
+  }
+
+  .img-responsive-middle {
+    display: block;
+    height: 31px;
+  }
+
+  /**
+  * Controlador do menu para middle
+  */
+  .menu-responsive-middle {
+    display: block;
+    background-color: aqua;
+    position: fixed;
+    right: 1.3rem;
+    top: 2.7rem;
+    z-index: 1;
+
+    /* Transição suave */
+    opacity: 0;
+    height: 0;
+
+    overflow: hidden;
+    transition: opacity 0.3s ease, height 0.3s ease;
+  }
+
+  /* Transição suave */
+  .menu-responsive-middle.visible {
+    opacity: 1;
+    height: auto; /* ou um valor fixo se preferir */
+  }
+  .menu-responsive-middle.hidden {
+    opacity: 0;
+    height: 0;
   }
 
 
-
 }
 
 
-@media (max-width: 855px) {
-
-
-
-
-}
 
 /*
 * Transformar o item "Sair" em opção do menu
 */
-@media (min-width: 856px) {
-  // .icone-sair {
-  //   display: none;
-  // }
-  // .span-ola {
-  //   display: block;
-  // }
+@media (min-width: 992px) {
+
+  .img-responsive-middle,
+  .menu-responsive-middle {
+    display: none;
+  }
 
 
 

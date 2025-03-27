@@ -7,22 +7,29 @@
       <!-- col-2 (lado esquerdo - Para tela grande) -->
       <div class=" col-md-12 col-sm-12 col-12 col-2-personalizada-lado-esquerdo">
         <div class="row row-filha-de-col-2-personalizada-lado-esquerdo">
-          <div class="col-md-6 col-sm-1 col-1 col-logo-perfil-container" >
+          <div class="col-md-3 col-sm-1 col-1 col-logo-perfil-container" >
             <a [routerLink]="['/paciente',perfilVar,'documentos','identificacao']">
               <img src="../../../assets/img/img-logo-alfa.png" class="img-logo no-select-img">
             </a>
             <div class="divisao-responsiva-perfil-nickname">
               <h4 class="tipo-perfil" style="color: #fff;">{{ perfil }}</h4>
-              <span style="color: #fff;">Olá, Márcia</span>
+              <span class="nick-name-for-responsive" style="color: #fff;">Olá, ????</span>
             </div>
 
           </div>
           <!-- col-10 (lado direito) -->
-          <div class="col-md-6 col-sm-12 col-12 col-nome-paciente">
+          <div class="col-md-9 col-sm-12 col-12 col-nome-paciente">
             <!-- <h4 class="nome-paciente">00000000000000000000000000000000000</h4> -->
             <h4 class="nome-paciente">{{ nomePaciente }}</h4>
             <img src="../../../assets/img/menu-versao-dev.png" class="img-menu link-img-menu" (click)="toggleMenu()">
+            <img src="../../../assets/img/icone-menu-middle.png" class="img-responsive-middle"
+              (click)="toggleMenuResponsiveMiddle()">
+            <div [ngClass]="{'menu-responsive-middle': true, 'visible': isMenuVisible, 'hidden': !isMenuVisible}"
+            class="menu-responsive-middle">
+              Teste
+            </div>
           </div>
+
           <!-- <div class="col-md-1 col-sm-1 col-1 col-menu-responsivo" style="display: block;">
 
           </div> -->

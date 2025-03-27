@@ -37,6 +37,7 @@ col-2-editada-global
 }
 
 .menu-suspenso-documentos {
+  display: block;  /* Medida padrão para ser controlado nas responsividades */
   height: 100%;
   background-color: rgb(195, 170, 219);
   margin-left: 0 !important;

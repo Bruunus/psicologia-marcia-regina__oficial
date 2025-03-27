@@ -91,7 +91,7 @@ export class PacienteComponent implements OnInit {
     const localStoragePerfil = localStorage.getItem('perfil');
     console.log('Storage de perfil: ', localStoragePerfil);
     this.perfil = localStoragePerfil ? localStoragePerfil.toLowerCase() : '';
-    this.usuario = this.gerenciadoDeAutenticacaoService.getUsuario()
+    this.usuario = this.gerenciadoDeAutenticacaoService.getUsuario();
 
 
 

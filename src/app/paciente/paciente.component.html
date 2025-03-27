@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <app-menu-paciente></app-menu-paciente>
   <div class="row container-inferior">
-    <div *ngIf="alteracaoDisplayService.menuVisible$ | async"
+    <div  [ngClass]="{ 'visible': alteracaoDisplayService.menuVisible$ | async, 'hidden': !(alteracaoDisplayService.menuVisible$ | async) }"
     class="col-2-personalizada menu-suspenso-documentos">
       <!-- Adicionar um ngIf - Dependendo do perfil (Psicologia ou Neuropsicologia) o menu muda -->
 

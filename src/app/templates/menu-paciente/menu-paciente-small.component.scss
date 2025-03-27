@@ -118,10 +118,26 @@
           margin: 0;
         }
 
-
         .img-menu {
           background-color: #fff;
           height: 41px;
         }
+
+        .img-responsive-middle,
+        .menu-responsive-middle {
+          display: none;
+        }
+
+}
+
+
+/**
+* @media para desativar o efeito mobile/tablet para telas grandes
+*/
+@media(min-width: 768px) {
+
+  .img-menu, .nick-name-for-responsive {
+    display: none !important;
+  }
 
 }

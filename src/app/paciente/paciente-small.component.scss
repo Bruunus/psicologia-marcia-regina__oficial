@@ -27,20 +27,33 @@
 
 
   /*
-  * Transformando o menu em um menu vertical
+  * Menu dos itens
+  * Transformando o menu dos em um menu vertical
   */
   .menu-suspenso-documentos {
-
-    width: 15rem; /* Ajusta a largura do menu vertical */
     display: block;
     position: fixed;
+    width: 15rem;
     right: 1.2333rem;
+    background-color: aqua;
+    position: fixed;
 
     top: 6rem;
     z-index: 1;
-    border-radius: 10px;
 
-
+    /* Transição suave */
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: opacity 0.2s ease, height 0.1s ease;
+  }
+  .menu-suspenso-documentos.visible {
+    opacity: 1;
+    height: auto;
+  }
+  .menu-suspenso-documentos.hidden {
+    opacity: 0;
+    height: 0;
   }
 
 
@@ -77,6 +90,12 @@
 @media(min-width: 768px) {
   .li-sair-do-perfil-mobile, .li-encerrar-mobile {
     display: none !important;
+  }
+
+
+  .menu-suspenso-documentos {
+    display: block !important;
+    position: relative;
   }
 }
 

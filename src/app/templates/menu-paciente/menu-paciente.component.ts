@@ -20,6 +20,14 @@ declare var $: any;
     './menu-paciente-medium.component.scss',
     './menu-paciente-small.component.scss',
     './menu-paciente-smartphone.component.scss'
+  ],
+  animations: [
+    trigger('fadeInOut', [
+      state('void', style({ opacity: 0, height: '0px', overflow: 'hidden' })),
+      state('*', style({ opacity: 1, height: '*' })),
+      transition('void => *', [animate('0.5s ease-in')]),
+      transition('* => void', [animate('0.5s ease-out')]),
+    ]),
   ]
 
 })
@@ -58,6 +66,8 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
 
   }
 
+
+
   /* Controles do Modal */
   openModal(): void {
     $('#exampleModalCenter').modal('show'); // Abre o modal
@@ -90,7 +100,18 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
   }
 
 
+  protected toggleMenuResponsiveMiddle() {
+    this.isMenuVisible = !this.isMenuVisible; // Alterna a visibilidade
+  }
+
+
+  /**
+   * Tenho um desafio, voce consegue ler por aqui ? Se sim estou em um projeto
+   * angular na qual este metodo toggleMenu está um (click) evento, que ao clicar
+   * aparece o menu
+   */
   protected toggleMenu() {
+
     this.alteracaoDisplayService.toggleMenu();
   }
 
