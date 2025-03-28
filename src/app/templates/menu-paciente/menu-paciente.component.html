@@ -24,9 +24,14 @@
             <img src="../../../assets/img/menu-versao-dev.png" class="img-menu link-img-menu" (click)="toggleMenu()">
             <img src="../../../assets/img/icone-menu-middle.png" class="img-responsive-middle"
               (click)="toggleMenuResponsiveMiddle()">
+
             <div [ngClass]="{'menu-responsive-middle': true, 'visible': isMenuVisible, 'hidden': !isMenuVisible}"
             class="menu-responsive-middle">
-              Teste
+              <ul>
+                <li class="menu-responsive-middle--nick-name">Olá, Bruno Santos</li>
+                <li class="menu-responsive-middle--sair-perfil" (click)="redirectMenu()">Sair do perfil</li>
+                <li class="menu-responsive-middle--encerrar-sessao" (click)="encerrarSessao()">Encerrar Sessão</li>
+              </ul>
             </div>
           </div>
 

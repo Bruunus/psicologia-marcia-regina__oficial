@@ -14,14 +14,16 @@
 
 @media (max-width: 767px) {
   .container-inferior {
-    margin-top: 2.4666rem;
+    // margin-top: 2.4666rem;
     // border: 1px dashed tomato;
     display: flex;
     justify-content: flex-end;
   }
 
   .tela-suspensa-documentos {
-    margin-top: 1.39rem !important;
+    margin-top: 0 !important;
+    position: relative;
+    top: 2.7rem;
   }
 
 

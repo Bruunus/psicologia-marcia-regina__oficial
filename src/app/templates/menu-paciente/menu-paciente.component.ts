@@ -100,6 +100,20 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
   }
 
 
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const menuElement = document.querySelector('.menu-responsive-middle');
+    /* classe da imagem do menu responsivo */
+    const imgButton = document.querySelector('.img-responsive-middle');
+
+    // Se o clique foi fora do menu e do botão, fecha o menu
+    if (menuElement && !menuElement.contains(target) && !imgButton?.contains(target)) {
+      this.isMenuVisible = false;
+    }
+  }
+
+
   protected toggleMenuResponsiveMiddle() {
     this.isMenuVisible = !this.isMenuVisible; // Alterna a visibilidade
   }

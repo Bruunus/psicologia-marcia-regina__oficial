@@ -3,11 +3,22 @@
 * Bootstrap - Medium .col-md-
 * Dispositivo alvo: Tablets grandes e notebooks menores
 */
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 768px) and (max-width: 1017px) {
 
 
   .menu-suspenso-documentos {
     display: block !important;
+  }
+
+  .tela-suspensa-documentos {
+    margin-top: -1px !important;
+  }
+
+
+  .ul-container li span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
 
@@ -20,8 +31,15 @@
 /**
 * @media para desativar o efeito mobile/tablet
 */
-@media(min-width: 992px) {
+@media(min-width: 1017px) {
   .li-sair-do-perfil-mobile, .li-encerrar-mobile {
     display: none !important;
   }
 }
+
+@media(min-width: 768px) and (max-width: 876px) {  .ul-container li:nth-child(5) span { position: relative; left: 25%; }}
+@media(min-width: 768px) and (max-width: 823px) {  .ul-container li:nth-child(5) span { position: relative; left: 24%; }}
+@media(min-width: 768px) and (max-width: 791px) {  .ul-container li:nth-child(5) span { position: relative; left: 23%; }}
+@media(min-width: 768px) and (max-width: 777px) {  .ul-container li:nth-child(5) span { position: relative; left: 22%; }}
+
+@media(min-width: 768px) and (max-width: 791px) {  .ul-container li:nth-child(6) span { position: relative; left: 23%; }}
