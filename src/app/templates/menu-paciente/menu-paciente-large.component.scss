@@ -3,37 +3,110 @@
 /**
 * Grid - A partir de 992px à 1199px
 * Bootstrap - Large .col-lg-
-* Dispositivo alvo: Notebooks e desktops com telas menores
+* Dispositivo alvo: Notebooks e desktops com telas menores compactos
+* (Excessão nessa projeto para esta medida responsiva de 992px para 1018px)
 */
-@media (min-width: 992px) and (max-width: 1199px) {
-
-
-  .col-10-persinalizada {
-    flex: 0 0 79.733333% !important;
-    max-width: 90.333333% !important;
-  }
-
-  .side-bar-direito-filho-container-direito {
-    margin-right: 1rem;
-  }
-
-}
-
-/**** EXCESSÕES ****/
-
-
-@media(max-width: 1017px) {
+@media (min-width: 1018px) and (max-width: 1199px) {
 
 
   /*
+  * Desativando os efeitos acima para outras medidas de telas maiores
+  */
+  .span-ola, .nick-name  { display: block; }
+  .icone-sair, .nick-name-for-responsive { display: none; }
+
+  .menu-bar {
+    // background-color: tomato;
+    height: 67.333333px;
+    border-bottom: none;
+  }
+
+  .row-filha-de-col-2-personalizada-lado-esquerdo {
+    background-color: #fff;
+  }
+
+  .col-12-personalizada,
+  .row-de-col-12-personalizada,
+  .col-2-personalizada-lado-esquerdo,
+  .col-logo-perfil-container,
+  .col-logo-perfil-container a,
+  .img-logo {
+    height: 100%;
+  }
+
+  .col-12-personalizada,  .col-2-personalizada-lado-esquerdo {
+    padding: 0 15px !important;
+    margin: 0 !important;
+  }
+
+  .col-logo-perfil-container {
+    background-color: darksalmon;
+    display: flex;
+    align-items: center;
+    padding-right: 0 !important;
+
+    flex: 0 0 13.0333rem !important;  /* Medida determinante com o menu */
+    max-width: 25% !important;
+
+  }
+
+  .divisao-responsiva-perfil-nickname, .tipo-perfil {
+    color: black !important;
+  }
+
+  .divisao-responsiva-perfil-nickname {
+    margin: 0 15px;
+  }
+
+  .divisao-telas-maiores {
+    display: block;
+  }
+
+  .telas-maiores {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: aquamarine;
+  }
+
+  .span-sair-telas-maiores {
+    // background-color: tomato;
+    margin-left: 15px;
+  }
+  .nome-paciente {
+    padding-left: 15px;
+  }
+  .span-sair-telas-maiores:hover {
+    text-decoration: underline;
+  }
+
+
+
+  // .col-10-persinalizada {
+  //   flex: 0 0 79.733333% !important;
+  //   max-width: 90.333333% !important;
+  // }
+
+  // .side-bar-direito-filho-container-direito {
+  //   margin-right: 1rem;
+  // }
+
+}
+
+
+/**** EXCESSÕES ****/
+
+@media(max-width: 1017px) {
+  /*
   * Ocultando as tags para visibilidade de telas maiores
   */
-  .span-ola, .nick-name  { display: none; }
+  .span-ola, .nick-name, .telas-maiores {
+    display: none;
+  }
 
-
-  /* Criação do menu do canto superior */
   .col-filha-de-row-filha-col-6-personalizada {
-    width: 80.66px;  /* Controlado de largura total  */
+    width: 80.66px;
     text-align: center;
     display: flex;
     align-items: center;
@@ -85,20 +158,6 @@
 }
 
 /*
-* Desativando os efeitos acima para outras medidas de telas maiores
-*/
-@media (min-width: 1018px) {
-  .span-ola, .nick-name  { display: block; }
-  .icone-sair { display: none; }
-
-}
-
-
-
-
-
-
-/*
 * Query para definição de altura para telas menores com altura de até 531px
 */
 @media(min-width: 970px)  {
@@ -116,3 +175,19 @@
 
 
 }
+
+
+/*
+* Adaptação de tela para a div telas-maiores
+*/
+// @media (min-width: 1018px) and (max-width: 1199px) { .col-lg-6 { flex: 0 0 %; } }
+
+@media (min-width: 1018px) and (max-width: 1199px) { .col-lg-6 { max-width: 100% !important; }}
+
+@media (min-width: 1018px) and (max-width: 1199px) { .col-lg-6 { flex: 0 0 82%; } }
+@media (min-width: 1018px) and (max-width: 1188px) { .col-lg-6 { flex: 0 0 81%; } }
+@media (min-width: 1018px) and (max-width: 1127px) { .col-lg-6 { flex: 0 0 80%; } }
+@media (min-width: 1018px) and (max-width: 1072px) { .col-lg-6 { flex: 0 0 79%; } }
+@media (min-width: 1018px) and (max-width: 1022px) { .col-lg-6 { flex: 0 0 78%; } }
+
+

@@ -7,37 +7,48 @@
       <!-- col-2 (lado esquerdo - Para tela grande) -->
       <div class=" col-md-12 col-sm-12 col-12 col-2-personalizada-lado-esquerdo">
         <div class="row row-filha-de-col-2-personalizada-lado-esquerdo">
-          <div class="col-md-3 col-sm-1 col-1 col-logo-perfil-container" >
+          <div class="col-lg-3 col-md-3 col-sm-1 col-1 col-logo-perfil-container" >
             <a [routerLink]="['/paciente',perfilVar,'documentos','identificacao']">
               <img src="../../../assets/img/img-logo-alfa.png" class="img-logo no-select-img">
             </a>
             <div class="divisao-responsiva-perfil-nickname">
               <h4 class="tipo-perfil" style="color: #fff;">{{ perfil }}</h4>
-              <span class="nick-name-for-responsive" style="color: #fff;">Olá, ????</span>
+              <span class="nick-name-for-responsive" style="color: #fff;">Olá, {{ this.usuario }}</span>
             </div>
+
 
           </div>
           <!-- col-10 (lado direito) -->
-          <div class="col-md-9 col-sm-12 col-12 col-nome-paciente">
+
+          <div class="col-lg-6 col-md-9 col-sm-12 col-12 col-nome-paciente">
+            <!-- Estrutura para Mobile -->
             <!-- <h4 class="nome-paciente">00000000000000000000000000000000000</h4> -->
-            <h4 class="nome-paciente">{{ nomePaciente }}</h4>
+            <h4 class="nome-paciente nome-paciente-middle-and-small">{{ nomePaciente }}</h4>
             <img src="../../../assets/img/menu-versao-dev.png" class="img-menu link-img-menu" (click)="toggleMenu()">
             <img src="../../../assets/img/icone-menu-middle.png" class="img-responsive-middle"
               (click)="toggleMenuResponsiveMiddle()">
 
+            <!-- Estrutura para Middle -->
             <div [ngClass]="{'menu-responsive-middle': true, 'visible': isMenuVisible, 'hidden': !isMenuVisible}"
             class="menu-responsive-middle">
               <ul>
-                <li class="menu-responsive-middle--nick-name">Olá, Bruno Santos</li>
+                <li class="menu-responsive-middle--nick-name">Olá, {{ this.usuario }}</li>
                 <li class="menu-responsive-middle--sair-perfil" (click)="redirectMenu()">Sair do perfil</li>
                 <li class="menu-responsive-middle--encerrar-sessao" (click)="encerrarSessao()">Encerrar Sessão</li>
               </ul>
             </div>
+
+            <!-- Estrutura telas maiores -->
+             <div class="telas-maiores">
+              <h4 class="nome-paciente">{{ nomePaciente }}</h4>
+              <div class="container-nick-name-and-span-sair">
+                <span>Olá, {{ this.usuario }}</span>
+                <span class="span-sair-telas-maiores" (click)="openModal()">Sair</span>
+              </div>
+             </div>
           </div>
 
-          <!-- <div class="col-md-1 col-sm-1 col-1 col-menu-responsivo" style="display: block;">
 
-          </div> -->
         </div>
       </div>
     </div>

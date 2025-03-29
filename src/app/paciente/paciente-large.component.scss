@@ -3,9 +3,19 @@
 /**
 * Grid - A partir de 992px à 1199px
 * Bootstrap - Large .col-lg-
-* Dispositivo alvo: Notebooks e desktops com telas menores
+* Dispositivo alvo: Notebooks e desktops com telas menores compactados
+* (Excessão nessa projeto para esta medida responsiva de 992px para 1018px)
 */
-@media (min-width: 992px) and (max-width: 1199px) {
+@media (min-width: 1018px) and (max-width: 1199px) {
+
+
+
+  .menu-bar {
+    background-color: tomato;
+    height: 67.333333px !important;
+    border-bottom: none;
+  }
+
 
 
 

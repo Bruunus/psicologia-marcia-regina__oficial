@@ -61,6 +61,10 @@
       justify-content: space-between;
     }
 
+    .nome-paciente {
+      padding-left: 9px;
+    }
+
 
   .img-logo {
     background-color: #fff;
@@ -127,6 +131,18 @@
 }
 
 
+/*
+* Ajuste de grid do Bootstrap para adaptar a largura de acordo com a medida calculada.
+*/
+@media (min-width: 992px) and (max-width: 1017px) {
+  // Ajuste adequado de largura da coluna de nome e menu da tela de paciente
+  .col-lg-6 {
+    flex: 0 0 75% !important;
+    max-width: 100% !important;
+  }
+}
+
+
 
 /*
 * Transformar o item "Sair" em opção do menu
@@ -134,7 +150,8 @@
 @media (min-width: 1018px) {
 
   .img-responsive-middle,
-  .menu-responsive-middle {
+  .menu-responsive-middle,
+  .nome-paciente-middle-and-small {
     display: none;
   }
 
