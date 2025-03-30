@@ -23,10 +23,18 @@
 */
 @media(min-width: 1200px) {
 
-  .col-2-personalizada {
-    width: $tela_paciente__largura_col_2_lado_esquerdo; /* Definição de largura junto à largura do menu suspenso */
+  // .col-2-personalizada {
+  //   width: $tela_paciente__largura_col_2_lado_esquerdo; /* Definição de largura junto à largura do menu suspenso */
 
+  // }
+
+   /*
+  * Query para definição de altura para telas menores com altura de até 531px
+  */
+  .col-2-personalizada {
+    width: $tela_paciente__largura_col_2_lado_esquerdo_telas_maiores_min_1200px; /* Definição de largura junto à largura do menu suspenso */
   }
+
 
 
 }
@@ -94,7 +102,7 @@
 @media(min-width: 1600px) {
 
   .col-2-personalizada {
-    width: $tela_paciente__largura_col_2_lado_esquerdo; /* Definição de largura junto à largura do menu suspenso */
+    width: $tela_paciente__largura_col_2_lado_esquerdo_telas_maiores_min_1200px; /* Definição de largura junto à largura do menu suspenso */
 
   }
 

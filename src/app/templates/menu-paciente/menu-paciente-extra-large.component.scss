@@ -1,11 +1,5 @@
 @import '../../../styles-variaveis-globais.scss';
 
-
-
-
-
-
-
 /*
 
   LISTA DE TODAS AS RESOLUÇÕES PARA TELAS GRANDES
@@ -29,11 +23,40 @@
 */
 @media(min-width: 1200px) {
 
-  .col-2-personalizada {
-    background-color: aqua;
-    width: $tela_paciente__largura_col_2_lado_esquerdo; /* Substituindo 142.67px -  Definição de largura junto à largura do menu suspenso */
+  /*
+  * Desativando os efeitos acima para outras medidas de telas menores
+  */
+  .span-ola, .nick-name  { display: block; }
+  .icone-sair, .nick-name-for-responsive { display: none; }
+
+  .col-12-personalizada,
+  .row-de-col-12-personalizada,
+  .col-2-personalizada-lado-esquerdo,
+  .col-logo-perfil-container,
+  .col-logo-perfil-container a,
+  .img-logo {
+    height: 100%;
   }
 
+  .col-logo-perfil-container {
+    background-color: lightgreen;
+    display: flex;
+    align-items: center;
+    padding-right: 0 !important;
+    flex: 0 0 $tela_paciente__largura_col_2_lado_esquerdo_telas_maiores_min_1200px_menu_superior;
+    max-width: $tela_paciente__largura_col_2_lado_esquerdo_telas_maiores_min_1200px_menu_superior;
+  }
+
+  .divisao-responsiva-perfil-nickname {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .tipo-perfil {
+    color: black !important;
+    margin-bottom: 0;
+  }
 
 
 
@@ -103,10 +126,7 @@
 */
 @media(min-width: 1600px) {
 
-  .col-2-personalizada {
-    width: $tela_paciente__largura_col_2_lado_esquerdo; /* Substituindo 142.67px -  Definição de largura junto à largura do menu suspenso */
 
-  }
 
 
 

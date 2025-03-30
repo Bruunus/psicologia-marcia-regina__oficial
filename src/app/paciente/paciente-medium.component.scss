@@ -37,6 +37,7 @@
   }
 }
 
+/* Ajuste de adequação do menu horizontal */
 @media(min-width: 768px) and (max-width: 876px) {  .ul-container li:nth-child(5) span { position: relative; left: 25%; }}
 @media(min-width: 768px) and (max-width: 823px) {  .ul-container li:nth-child(5) span { position: relative; left: 24%; }}
 @media(min-width: 768px) and (max-width: 791px) {  .ul-container li:nth-child(5) span { position: relative; left: 23%; }}

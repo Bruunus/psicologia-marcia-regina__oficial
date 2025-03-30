@@ -53,8 +53,6 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-
-
     const perfilStorage = localStorage.getItem('perfil');
     this.perfil = this.mascaraService.formatarTextoMaiusculo(perfilStorage);
     // Garante que nomePacienteCompleto armazena o nome original
@@ -63,6 +61,11 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
     this.usuario = this.gerenciadoDeAutenticacaoService.getUsuario();
 
     this.atualizarNomePaciente();
+
+    if(this.usuario === 'Neuropsicologia') {
+      alert('Neuropsicologia')
+      console.log(this.usuario)
+    }
 
   }
 

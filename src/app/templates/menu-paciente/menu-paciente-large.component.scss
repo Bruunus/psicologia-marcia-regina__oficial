@@ -10,7 +10,7 @@
 
 
   /*
-  * Desativando os efeitos acima para outras medidas de telas maiores
+  * Desativando os efeitos acima para outras medidas de telas menores
   */
   .span-ola, .nick-name  { display: block; }
   .icone-sair, .nick-name-for-responsive { display: none; }
@@ -45,8 +45,8 @@
     align-items: center;
     padding-right: 0 !important;
 
-    flex: 0 0 13.0333rem !important;  /* Medida determinante com o menu */
-    max-width: 25% !important;
+    // flex: 0 0 $tela_paciente__largura_col_2_lado_esquerdo_media_1018px_a_1199px;  /* Medida determinante com o menu */
+    // max-width: $tela_paciente__largura_col_2_lado_esquerdo_media_1018px_a_1199px;
 
   }
 
@@ -162,7 +162,7 @@
 */
 @media(min-width: 970px)  {
   .col-2-personalizada {
-    width: $tela_paciente__largura_col_2_lado_esquerdo; /* Definição de largura junto à largura do menu suspenso */
+    width: $tela_paciente__largura_col_2_lado_esquerdo_media_1018px_a_1199px; /* Definição de largura junto à largura do menu suspenso */
 }
 
 
