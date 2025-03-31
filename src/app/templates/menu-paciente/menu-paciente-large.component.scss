@@ -45,10 +45,24 @@
     align-items: center;
     padding-right: 0 !important;
 
-    // flex: 0 0 $tela_paciente__largura_col_2_lado_esquerdo_media_1018px_a_1199px;  /* Medida determinante com o menu */
-    // max-width: $tela_paciente__largura_col_2_lado_esquerdo_media_1018px_a_1199px;
+    flex: 0 0 224.666px !important; /* Medida determinante com o menu para este media */
+  }
+
+  .col-nome-paciente {
 
   }
+
+  /**
+  * col-lg-9 editada para adequar à esta medida
+  */
+  .col-lg-9 {
+    flex: 1 0 75% !important;
+    max-width: 81% !important;
+  }
+
+
+
+
 
   .divisao-responsiva-perfil-nickname, .tipo-perfil {
     color: black !important;
@@ -182,12 +196,12 @@
 */
 // @media (min-width: 1018px) and (max-width: 1199px) { .col-lg-6 { flex: 0 0 %; } }
 
-@media (min-width: 1018px) and (max-width: 1199px) { .col-lg-6 { max-width: 100% !important; }}
+// @media (min-width: 1018px) and (max-width: 1199px) { .col-lg-6 { max-width: 100% !important; }}
 
-@media (min-width: 1018px) and (max-width: 1199px) { .col-lg-6 { flex: 0 0 82%; } }
-@media (min-width: 1018px) and (max-width: 1188px) { .col-lg-6 { flex: 0 0 81%; } }
-@media (min-width: 1018px) and (max-width: 1127px) { .col-lg-6 { flex: 0 0 80%; } }
-@media (min-width: 1018px) and (max-width: 1072px) { .col-lg-6 { flex: 0 0 79%; } }
-@media (min-width: 1018px) and (max-width: 1022px) { .col-lg-6 { flex: 0 0 78%; } }
+// @media (min-width: 1018px) and (max-width: 1199px) { .col-lg-6 { flex: 0 0 82%; } }
+// @media (min-width: 1018px) and (max-width: 1188px) { .col-lg-6 { flex: 0 0 81%; } }
+// @media (min-width: 1018px) and (max-width: 1127px) { .col-lg-6 { flex: 0 0 80%; } }
+// @media (min-width: 1018px) and (max-width: 1072px) { .col-lg-6 { flex: 0 0 79%; } }
+// @media (min-width: 1018px) and (max-width: 1022px) { .col-lg-6 { flex: 0 0 78%; } }
 
 

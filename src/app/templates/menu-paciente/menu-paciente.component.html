@@ -7,7 +7,10 @@
       <!-- col-2 (lado esquerdo - Para tela grande) -->
       <div class=" col-md-12 col-sm-12 col-12 col-2-personalizada-lado-esquerdo">
         <div class="row row-filha-de-col-2-personalizada-lado-esquerdo">
-          <div class="col-lg-3 col-md-3 col-sm-1 col-1 col-logo-perfil-container" >
+
+
+          <div class="col-lg-3 col-md-3 col-sm-1 col-1 col-logo-perfil-container"
+            [ngClass]="getLogoPerfilClasse()">
             <a [routerLink]="['/paciente',perfilVar,'documentos','identificacao']">
               <img src="../../../assets/img/img-logo-alfa.png" class="img-logo no-select-img">
             </a>
@@ -20,7 +23,8 @@
           </div>
           <!-- col-10 (lado direito) -->
 
-          <div class="col-lg-6 col-md-9 col-sm-12 col-12 col-nome-paciente">
+          <div class="col-lg-9 col-md-9 col-sm-12 col-12 col-nome-paciente"
+            [ngClass]="getNomePacienteClasse()">
             <!-- Estrutura para Mobile -->
             <!-- <h4 class="nome-paciente">00000000000000000000000000000000000</h4> -->
             <h4 class="nome-paciente nome-paciente-middle-and-small">{{ nomePaciente }}</h4>

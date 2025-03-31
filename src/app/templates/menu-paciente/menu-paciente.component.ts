@@ -39,6 +39,7 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
   usuario: string | null = '';
   perfilVar: string | undefined = localStorage.getItem('perfil')?.toLocaleLowerCase();
   isMenuVisible: boolean = false;
+  isScreenInRange: boolean = false;
 
   // private modal: any;
 
@@ -62,12 +63,13 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
 
     this.atualizarNomePaciente();
 
-    if(this.usuario === 'Neuropsicologia') {
-      alert('Neuropsicologia')
-      console.log(this.usuario)
-    }
+
+    this.checkScreenSize();
+
 
   }
+
+
 
 
 
@@ -100,8 +102,36 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.atualizarNomePaciente();
+    this.checkScreenSize();
   }
 
+   // Verifica se está dentro da faixa de 768px a 1017px
+   private checkScreenSize() {
+    const width = window.innerWidth;
+    this.isScreenInRange = width >= 768 && width <= 1017;
+  }
+
+  // Retorna a classe correta para o perfil do logo
+  getLogoPerfilClasse(): any {
+    if (this.isScreenInRange) {
+      return {
+        'col-md-3': this.perfil === 'Psicologia',
+        'col-md-4': this.perfil === 'Neuropsicologia'
+      };
+    }
+    return {};
+  }
+
+  // Retorna a classe correta para o nome do paciente
+  getNomePacienteClasse(): any {
+    if (this.isScreenInRange) {
+      return {
+        'col-md-9': this.perfil === 'Psicologia',
+        'col-md-8': this.perfil === 'Neuropsicologia'
+      };
+    }
+    return {};
+  }
 
   @HostListener('document:click', ['$event'])
   onClick(event: MouseEvent) {
