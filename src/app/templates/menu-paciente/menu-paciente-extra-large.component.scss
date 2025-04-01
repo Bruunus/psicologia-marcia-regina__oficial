@@ -8,7 +8,8 @@
   1366x768
   1440x900
   1600x900
-  1680x150
+  1680x1500
+
   1920x1080
   1920x1200
   1920x1080
@@ -22,6 +23,23 @@
 * A partir de 1200px
 */
 @media(min-width: 1200px) {
+
+
+
+  /*
+  * Usando a classe bootstrap e, alterando-a para adaptar a largura máxima
+  * do espaço necessário facilitando às medidas resposivas desta media-screen
+  */
+  .col-xl-9 {
+    background-color: aqua;
+    flex: 1 0 75% !important;
+    max-width: 100% !important;
+  }
+
+  .col-nome-paciente {
+    height: 100%;
+  }
+
 
   /*
   * Desativando os efeitos acima para outras medidas de telas menores
@@ -43,8 +61,8 @@
     display: flex;
     align-items: center;
     padding-right: 0 !important;
-    flex: 0 0 $tela_paciente__largura_col_2_lado_esquerdo_telas_maiores_min_1200px_menu_superior;
-    max-width: $tela_paciente__largura_col_2_lado_esquerdo_telas_maiores_min_1200px_menu_superior;
+    flex: 0 0 13.5666rem;   // mediade de escala
+    max-width: 13.5666rem;  // mediade de escala
   }
 
   .divisao-responsiva-perfil-nickname {
@@ -56,11 +74,49 @@
   .tipo-perfil {
     color: black !important;
     margin-bottom: 0;
+    font-size: 1.4rem !important; // medida de escala
+  }
+
+  .telas-maiores {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .telas-maiores .nome-paciente {
+    margin-bottom: 0;
+    font-size: 1.4rem !important; // medida de escala
+  }
+
+  .container-nick-name-and-span-sair {
+    font-size: 15px !important
+    ;
+  }
+
+  .telas-maiores .span-sair-telas-maiores {
+    margin-left: 1.8rem; /* Mesma medida que o componente da tela de pacientes */
+  }
+
+  .telas-maiores .span-sair-telas-maiores:hover {
+    cursor: pointer;
+    text-decoration: underline;
   }
 
 
 
 
+}
+
+
+/**** EXCESSÕES ****/
+
+
+
+@media (min-width: 1200px) and (max-width: 1600px) {
+  .menu-bar {
+    height: 64.333333px !important; // medidade de escala
+  }
 }
 
 

@@ -32,7 +32,7 @@
   * Query para definição de altura para telas menores com altura de até 531px
   */
   .col-2-personalizada {
-    width: $tela_paciente__largura_col_2_lado_esquerdo_telas_maiores_min_1200px; /* Definição de largura junto à largura do menu suspenso */
+    width: 14.5rem !important; /* Definição de largura junto à largura do menu suspenso */
   }
 
 
@@ -103,7 +103,11 @@
 
   .col-2-personalizada {
     width: $tela_paciente__largura_col_2_lado_esquerdo_telas_maiores_min_1200px; /* Definição de largura junto à largura do menu suspenso */
+  }
 
+  .col-2-personalizada .ul-container li {
+    background-color: tomato;
+    // font-size: 15px !important;
   }
 
 }

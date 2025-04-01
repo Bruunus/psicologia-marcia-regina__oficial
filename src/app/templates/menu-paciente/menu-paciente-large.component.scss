@@ -17,7 +17,7 @@
 
   .menu-bar {
     // background-color: tomato;
-    height: 67.333333px;
+    height: 62.333333px; // layout de escala
     border-bottom: none;
   }
 
@@ -45,7 +45,7 @@
     align-items: center;
     padding-right: 0 !important;
 
-    flex: 0 0 224.666px !important; /* Medida determinante com o menu para este media */
+    flex: 0 0 201px !important; /* Medida determinante com o menu para este media */
   }
 
   .col-nome-paciente {
@@ -170,6 +170,25 @@
 
 
 }
+
+
+/*
+* Personalização para caber a folha A4 antes de entrar na screen para tabet
+*/
+@media (min-width:1040px) and (max-width: 1050px) {
+  .col-logo-perfil-container { flex: 0 0 195.666px !important; }
+}
+
+@media (min-width:1018px) and (max-width: 1039px) {
+  .col-logo-perfil-container{
+    flex: 0 0 192.666px !important;
+  }
+  .col-2-personalizada-lado-esquerdo {
+    padding-left: 8.4px !important;
+  }
+}
+
+
 
 /*
 * Query para definição de altura para telas menores com altura de até 531px

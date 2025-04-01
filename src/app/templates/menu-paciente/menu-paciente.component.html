@@ -23,8 +23,8 @@
           </div>
           <!-- col-10 (lado direito) -->
 
-          <div class="col-lg-9 col-md-9 col-sm-12 col-12 col-nome-paciente"
-            [ngClass]="getNomePacienteClasse()">
+          <div class="col-nome-paciente" [ngClass]="operacoesNgClass()"
+            >
             <!-- Estrutura para Mobile -->
             <!-- <h4 class="nome-paciente">00000000000000000000000000000000000</h4> -->
             <h4 class="nome-paciente nome-paciente-middle-and-small">{{ nomePaciente }}</h4>

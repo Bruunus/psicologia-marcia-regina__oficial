@@ -39,7 +39,11 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
   usuario: string | null = '';
   perfilVar: string | undefined = localStorage.getItem('perfil')?.toLocaleLowerCase();
   isMenuVisible: boolean = false;
-  isScreenInRange: boolean = false;
+  calculoParaTelasMedium: boolean = false;
+  colLg9!:  boolean;
+  colMd9!:  boolean;
+  col12!:   boolean;
+  colSm12!: boolean;
 
   // private modal: any;
 
@@ -62,10 +66,7 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
     this.usuario = this.gerenciadoDeAutenticacaoService.getUsuario();
 
     this.atualizarNomePaciente();
-
-
     this.checkScreenSize();
-
 
   }
 
@@ -105,15 +106,18 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
     this.checkScreenSize();
   }
 
-   // Verifica se está dentro da faixa de 768px a 1017px
-   private checkScreenSize() {
+  // Verifica se está dentro da faixa de 768px a 1017px
+  private checkScreenSize() {
     const width = window.innerWidth;
-    this.isScreenInRange = width >= 768 && width <= 1017;
+    this.calculoParaTelasMedium = width >= 768 && width <= 1017;
+    this.configuracaoDinamicaDeClassesBoostrap();
   }
+
+
 
   // Retorna a classe correta para o perfil do logo
   getLogoPerfilClasse(): any {
-    if (this.isScreenInRange) {
+    if (this.calculoParaTelasMedium) {
       return {
         'col-md-3': this.perfil === 'Psicologia',
         'col-md-4': this.perfil === 'Neuropsicologia'
@@ -124,7 +128,7 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
 
   // Retorna a classe correta para o nome do paciente
   getNomePacienteClasse(): any {
-    if (this.isScreenInRange) {
+    if (this.calculoParaTelasMedium) {
       return {
         'col-md-9': this.perfil === 'Psicologia',
         'col-md-8': this.perfil === 'Neuropsicologia'
@@ -132,6 +136,37 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
     }
     return {};
   }
+
+  /**
+   * Este método realiza o cálculo em tempo real das propriedades de media
+   * querie para adicioanar as classes bootstrap de acordo com o tamanho
+   * de tela calculado em tempo real
+   */
+  configuracaoDinamicaDeClassesBoostrap(): { [key: string]: boolean } {
+    const width = window.innerWidth;
+
+    return {
+      'col-xl-9': width >= 1200,
+      'col-lg-9': width >= 992 && width <= 1199,
+      'col-md-9': width >= 768 && width <= 991,
+      'col-sm-12': width < 768
+    };
+  }
+
+  /**
+   * Este método é invocado dentro do [ngClass] no html para receber
+   * todas as operações dinâmicas relacionadas a estilização CSS. Cada
+   * método presenta uma manipulação direta no CSS ou na estrutura do HTML
+   * deste documento.
+   * @returns Todos os objetos que serão incluídos no ngClass do Angular
+   */
+  operacoesNgClass(): { [key: string]: boolean } {
+    return {
+      ...this.getNomePacienteClasse(),
+      ...this.configuracaoDinamicaDeClassesBoostrap()
+    }
+  }
+
 
   @HostListener('document:click', ['$event'])
   onClick(event: MouseEvent) {
