@@ -34,10 +34,23 @@
   .col-2-personalizada {
     width: 14.5rem !important; /* Definição de largura junto à largura do menu suspenso */
   }
-
-
-
 }
+
+
+
+/**** EXCESSÕES ****/
+
+
+
+@media (min-width: 1200px) and (max-width: 1600px) {
+  .ul-container li span {
+    font-size: $font_size__screen_1200_AND_1600;
+  }
+}
+
+
+
+
 
 
 /**
@@ -102,7 +115,7 @@
 @media(min-width: 1600px) {
 
   .col-2-personalizada {
-    width: $tela_paciente__largura_col_2_lado_esquerdo_telas_maiores_min_1200px; /* Definição de largura junto à largura do menu suspenso */
+    width: 14.5rem !important; /* Definição de largura junto à largura do menu suspenso */
   }
 
   .col-2-personalizada .ul-container li {

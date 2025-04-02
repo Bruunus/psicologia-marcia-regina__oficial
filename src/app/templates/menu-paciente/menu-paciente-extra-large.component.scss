@@ -74,7 +74,7 @@
   .tipo-perfil {
     color: black !important;
     margin-bottom: 0;
-    font-size: 1.4rem !important; // medida de escala
+    font-size: $titulo_h4_screen_1200_AND_1600 !important; // medida de escala
   }
 
   .telas-maiores {
@@ -86,12 +86,11 @@
 
   .telas-maiores .nome-paciente {
     margin-bottom: 0;
-    font-size: 1.4rem !important; // medida de escala
+    font-size: $titulo_h4_screen_1200_AND_1600 !important; // medida de escala
   }
 
   .container-nick-name-and-span-sair {
-    font-size: 15px !important
-    ;
+    font-size: $font_size__screen_1200_AND_1600 !important;
   }
 
   .telas-maiores .span-sair-telas-maiores {

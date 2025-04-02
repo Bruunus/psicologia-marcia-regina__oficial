@@ -1,9 +1,15 @@
 /******** VARIÁVEIS DE COMPARTILHAMENTO ********/
 
 
-/* Tela Paciente */
-$tela_paciente__largura_col_2_lado_esquerdo_media_1018px_a_1199px: 15rem !important;
-$tela_paciente__largura_col_2_lado_esquerdo_telas_maiores_min_1200px: 14.5rem !important;
-$tela_paciente__largura_col_2_lado_esquerdo_telas_maiores_min_1200px_menu_superior: 14.5666rem !important;
+/* Medidas responsivas de escala - */
+
+// Texto corrido, listas e etc
+$font_size__screen_1200_AND_1600: 15.7px;
+$font_size__screen_telas_menores_que_1199: 15.5px;
+
+//Titulos
+$titulo_h4_screen_1200_AND_1600: 1.4rem;
+$titulo_h4_screen_1018_AND_1199: 1.3rem;
+
 
 
