@@ -1,4 +1,4 @@
-
+@import '../../../styles-variaveis-globais.scss';
 
 
 
@@ -7,7 +7,7 @@
 * Bootstrap - Small .col-sm-
 * Dispositivo alvo: Smartphones em modo paisagem e alguns dispositivos menores, como tablets compactos.
 */
-@media (min-width: 426px) and (max-width: 767px) {
+@media (max-width: 430px) {
 
 
 
@@ -24,7 +24,7 @@
 /*
 * Medida de altura global para dispositivos pequenos
 */
-@media (max-width: 767px) {
+@media (max-width: 430px) {
 
   .menu-bar {
     height: 63.333333px;
@@ -116,8 +116,16 @@
         }
 
         .nome-paciente {
+          font-size: $titulo_h4_screen_tela_mobile;
           margin: 0;
         }
+
+        .tipo-perfil {
+          font-size: $titulo_h4_screen_tela_mobile;
+          margin-bottom: 0 !important;
+        }
+
+
 
         .img-menu {
           background-color: #fff;
@@ -144,7 +152,7 @@
 /**
 * @media para desativar o efeito mobile/tablet para telas grandes
 */
-@media(min-width: 768px) {
+@media(min-width: 430px) {
 
   .img-menu, .nick-name-for-responsive {
     display: none !important;

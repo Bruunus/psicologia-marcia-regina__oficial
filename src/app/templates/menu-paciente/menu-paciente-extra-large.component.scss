@@ -74,7 +74,7 @@
   .tipo-perfil {
     color: black !important;
     margin-bottom: 0;
-    font-size: $titulo_h4_screen_1200_AND_1600 !important; // medida de escala
+    font-size: $titulo_h4_screen_telas_menores_ate_1600 !important; // medida de escala
   }
 
   .telas-maiores {
@@ -86,7 +86,7 @@
 
   .telas-maiores .nome-paciente {
     margin-bottom: 0;
-    font-size: $titulo_h4_screen_1200_AND_1600 !important; // medida de escala
+    font-size: $titulo_h4_screen_telas_menores_ate_1600 !important; // medida de escala
   }
 
   .container-nick-name-and-span-sair {
@@ -181,7 +181,9 @@
 */
 @media(min-width: 1600px) {
 
-
+  .tipo-perfil, .nome-paciente {
+    font-size: $titulo_h4_screen_acima_de_1600; // medida de escala
+  }
 
 
 

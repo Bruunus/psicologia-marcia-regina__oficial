@@ -3,13 +3,18 @@
 
 /* Medidas responsivas de escala - */
 
+//Titulos
+$titulo_h4_screen_acima_de_1600: 1.5rem;
+$titulo_h4_screen_telas_menores_ate_1600: 1.4rem;
+$titulo_h4_screen_tela_mobile: 1.3rem;
+
+
 // Texto corrido, listas e etc
 $font_size__screen_1200_AND_1600: 15.7px;
-$font_size__screen_telas_menores_que_1199: 15.5px;
+$font_size_screen_1018_AND_1199: 15.5px;
 
-//Titulos
-$titulo_h4_screen_1200_AND_1600: 1.4rem;
-$titulo_h4_screen_1018_AND_1199: 1.3rem;
+
+
 
 
 

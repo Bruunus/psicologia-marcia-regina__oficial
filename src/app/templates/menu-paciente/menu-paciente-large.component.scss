@@ -98,16 +98,16 @@
   .tipo-perfil {
     color: black !important;
     margin-bottom: 0;
-    font-size: $titulo_h4_screen_1018_AND_1199 !important; // medida de escala
+    font-size: $titulo_h4_screen_telas_menores_ate_1600 !important; // medida de escala
   }
 
   .telas-maiores .nome-paciente {
     margin-bottom: 0;
-    font-size: $titulo_h4_screen_1018_AND_1199 !important; // medida de escala
+    font-size: $titulo_h4_screen_telas_menores_ate_1600 !important; // medida de escala
   }
 
   .container-nick-name-and-span-sair {
-    font-size: $font_size__screen_telas_menores_que_1199 !important; //medida de escala
+    font-size: $font_size_screen_1018_AND_1199 !important; //medida de escala
   }
 
 }

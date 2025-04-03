@@ -25,6 +25,20 @@
 }
 
 
+/**
+* Grid - A partir de 431px à 880px
+* Bootstrap - Medium .col-md-
+* Dispositivo alvo: Tablets menores
+*/
+@media (min-width: 431px) and (max-width: 880px) {
+
+  .menu-suspenso-documentos {
+    display: block !important;
+  }
+
+}
+
+
 /***** Excessões *****/
 
 

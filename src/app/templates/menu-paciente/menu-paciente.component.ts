@@ -109,7 +109,7 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
   // Verifica se está dentro da faixa de 768px a 1017px
   private checkScreenSize() {
     const width = window.innerWidth;
-    this.calculoParaTelasMedium = width >= 768 && width <= 1017;
+    this.calculoParaTelasMedium = width >= 431 && width <= 1017;
     this.configuracaoDinamicaDeClassesBoostrap();
   }
 

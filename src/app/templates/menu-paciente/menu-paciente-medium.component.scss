@@ -1,3 +1,5 @@
+@import '../../../styles-variaveis-globais.scss';
+
 /**
 * Grid - A partir de 768px à 991px
 * Bootstrap - Medium .col-md-
@@ -53,8 +55,9 @@
       padding-left: 1.2333rem;
     }
 
-    h4 {
+    .tipo-perfil {
       margin-bottom: 0;
+      font-size: $titulo_h4_screen_telas_menores_ate_1600;
     }
 
     .col-nome-paciente {
@@ -67,6 +70,7 @@
 
     .nome-paciente {
       padding-left: 9px;
+      font-size: $titulo_h4_screen_telas_menores_ate_1600;
     }
 
 
@@ -141,8 +145,39 @@
 @media (min-width: 992px) and (max-width: 1017px) {
   // Ajuste adequado de largura da coluna de nome e menu da tela de paciente
   .col-lg-6 {
-    flex: 0 0 75% !important;
+    flex: 1 0 75% !important;
     max-width: 100% !important;
+  }
+}
+
+
+/*
+* Layout do grid ajustado para modo estático das especialidades. Para 'Psicologia' o
+* javascript adiciona a classe 'col-md-3' dentro deste proporção, e para a especilidade
+* 'Neuropsicologia' o javascript adiciona a classe 'col-md-4' através do método
+*  getLogoPerfilClasse() na classe menu-paciente.component.ts
+*
+*
+* Agora para a barra onde o nome aparece usando a classe 'col-lg-9' para 'Psicologia'
+*/
+@media (min-width: 431px) and (max-width: 1017px) {
+  .col-md-3 {
+    flex: 1 0 11.9rem !important;
+    max-width: 11.9rem !important;
+  }
+  .col-md-4 {
+    flex: 1 0 15.333rem !important;
+    max-width: 15.333rem !important;
+  }
+
+  .col-md-9 {
+    flex: 1 0 68% !important;
+    max-width: 80% !important;
+  }
+
+  .col-lg-9 {
+    flex: 1 0 70% !important;
+    max-width: 81% !important;
   }
 }
 
@@ -162,5 +197,36 @@
 
 
 }
+
+
+/**
+* Grid - A partir de 431px à 880px
+* Bootstrap - Medium .col-md-
+* Dispositivo alvo: Tablets menores
+*/
+@media (min-width: 431px) and (max-width: 880px) {
+
+  .col-12-personalizada,
+  .row-de-col-12-personalizada,
+  .col-2-personalizada-lado-esquerdo,
+  .col-logo-perfil-container,
+  .col-logo-perfil-container a,
+  .img-logo {
+    height: 100%;
+  }
+
+
+  .divisao-responsiva-perfil-nickname {
+    background-color: #323232;
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    padding-right: 1.2333rem;
+    padding-left: 1.2333rem;
+  }
+
+}
+
 
 
