@@ -3,9 +3,26 @@
 /**
 * Grid - A partir de 768px à 991px
 * Bootstrap - Medium .col-md-
-* Dispositivo alvo: Tablets grandes e notebooks menores
+* Dispositivo alvo: Tablets grandes e notebooks menores (menu-responsive-middle)
 */
 @media (min-width: 768px) and (max-width: 1017px) {
+
+
+  /*************************Desativando Visibilidade de Outras Screens**************************/
+
+  /*
+  * Desativando os efeitos acima das demais telas responsivas
+  */
+  .span-ola, .nick-name  { display: block; }
+  /* Classe usada nesta @media: menu-responsive-middle (Normal) */
+  .menu-responsive-middle-disp-menores,
+  .menu-responsive-middle-disp-menores-quebrado,
+  .menu-responsivo-mobile
+  { display: none; }
+
+
+  /*********************************************************************************************/
+
 
   .menu-bar {
     height: 54.333333px !important; // medida de escala
@@ -200,11 +217,36 @@
 
 
 /**
-* Grid - A partir de 431px à 880px
+* Grid - A partir de 431px à 767px
 * Bootstrap - Medium .col-md-
-* Dispositivo alvo: Tablets menores
+* Dispositivo alvo: Dispositivos menores
 */
-@media (min-width: 431px) and (max-width: 880px) {
+@media (min-width: 544px) and (max-width: 767px) {
+
+
+  /*************************Desativando Visibilidade de Outras Screens**************************/
+
+  /*
+  * Desativando os efeitos acima das demais telas responsivas
+  */
+  .span-ola, .nick-name  { display: block; }
+  /* Classe usada nesta @media: menu-responsive-middle-disp-menores */
+  .menu-responsive-middle-normal ,
+  .menu-responsive-middle-disp-menores-quebrado,
+  .menu-responsivo-mobile
+  { display: none; }
+
+
+  /*********************************************************************************************/
+
+  .menu-responsive-middle-disp-menores {
+    display: block;
+  }
+
+  .menu-bar {
+    height: 54.333333px !important;
+    border-bottom: none;
+  }
 
   .col-12-personalizada,
   .row-de-col-12-personalizada,
@@ -216,6 +258,26 @@
   }
 
 
+
+  .col-2-personalizada-lado-esquerdo, .col-logo-perfil-container,
+  .col-nome-paciente {
+    padding: 0 !important;
+  }
+
+  .col-logo-perfil-container {
+    background: aqua;
+    display: flex;
+  }
+
+  .col-nome-paciente {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: burlywood;
+  }
+
   .divisao-responsiva-perfil-nickname {
     background-color: #323232;
     width: 100%;
@@ -226,7 +288,111 @@
     padding-left: 1.2333rem;
   }
 
+
+
+  .menu-responsive-middle,
+  .menu-responsive-middle--nick-name,
+  .menu-responsive-middle--sair-perfil,
+  .menu-responsive-middle--encerrar-sessao {
+    display: none;
+  }
+
+
+  .img-responsive-middle {
+    height: 31px;
+    margin-right: 0.68rem;
+  }
+
+  .img-logo {
+    margin-left: 0.85rem;
+    margin-right: 0.85rem;
+  }
+
+  .divisao-responsiva-perfil-nickname {
+    display: flex;
+    justify-content: center;
+  }
+
+
+
+
+  .col-nome-paciente {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nome-paciente {
+      padding-left: 1rem;
+    }
+
+
+  /*
+  * Ajustes personalizados do grid bootstrap para esta media
+  */
+  .col-nome-paciente {
+    flex: 1 0 65% !important;
+    max-width: 80% !important;
+  }
+
 }
 
+/*
+* Desativando o menu   para outras telas
+*/
+@media (max-width: 430) { .menu-responsive-middle-disp-menores { display: none; } }
+@media (min-width: 768) { .menu-responsive-middle-disp-menores { display: none; } }
+
+
+
+
+
+/**
+* Grid - A até 543px
+* Bootstrap - Small
+* Dispositivo alvo: Pré-Smartphones
+*/
+@media (min-width: 430px) and (max-width: 543px) {
+
+
+  /*************************Desativando Visibilidade de Outras Screens**************************/
+
+  /*
+  * Desativando os efeitos acima das demais telas responsivas
+  */
+  .span-ola, .nick-name  { display: block; }
+  /* Classe usada nesta @media: menu-responsive-middle-disp-menores-quebrado */
+  .menu-responsive-middle-normal ,
+  .menu-responsive-middle-disp-menores,
+  .menu-responsivo-mobile
+  { display: none; }
+
+
+  /*********************************************************************************************/
+
+
+  .menu-responsive-middle--nick-name {
+    display: block;
+  }
+
+  .col-nome-paciente {
+    width: 100%;
+    height: 100%;
+    background-color: lightseagreen;
+  }
+
+}
+/**
+* Versão pré-mobile
+*/
+@media (min-width: 430px) and (max-width: 672px) {
+
+  .menu-responsive-middle--nick-name {
+    display: block;
+  }
+
+}
 
 

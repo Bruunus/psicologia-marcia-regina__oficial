@@ -25,6 +25,20 @@
 @media(min-width: 1200px) {
 
 
+  /*************************Desativando Visibilidade de Outras Screens**************************/
+
+  /*
+  * Desativando os efeitos acima das demais telas responsivas
+  */
+  .span-ola, .nick-name  { display: block; }
+  /* Classe usada nesta @media: telas-maiores */
+  .menu-responsive-middle-normal, .menu-responsive-middle-disp-menores,
+  .menu-responsive-middle-disp-menores-quebrado, .menu-responsivo-mobile
+  { display: none; }
+
+
+  /*********************************************************************************************/
+
 
   /*
   * Usando a classe bootstrap e, alterando-a para adaptar a largura máxima

@@ -7,15 +7,22 @@
 * Bootstrap - Small .col-sm-
 * Dispositivo alvo: Smartphones em modo paisagem e alguns dispositivos menores, como tablets compactos.
 */
-@media (min-width: 426px) and (max-width: 767px) {
+@media (min-width: 544px) and (max-width: 767px) {
 
-}
+  /*
+  * Ocultando os outros componentes
+  */
+  .col-nome-paciente {
+    display: none;
+  }
 
+  .menu-responsive-middle-disp-menores {
+    background-color: brown;
+    height: 100%;
+    width: 100%;
+  }
 
-@media (max-width: 767px) {
   .container-inferior {
-    // margin-top: 2.4666rem;
-    // border: 1px dashed tomato;
     display: flex;
     justify-content: flex-end;
   }
@@ -23,7 +30,7 @@
   .tela-suspensa-documentos {
     margin-top: 0 !important;
     position: relative;
-    top: 2.7rem;
+    top: 0;
   }
 
 
@@ -100,4 +107,103 @@
     position: relative;
   }
 }
+
+
+/**
+* Grid - A até 543px
+* Bootstrap - Small
+* Dispositivo alvo: Pré-Smartphones
+*/
+@media (min-width: 430px) and (max-width: 543px) {
+
+  .col-nome-paciente {
+    width: 100%;
+    height: 100%;
+    background-color: lightseagreen;
+  }
+
+}
+
+
+
+/**
+* Grid - A até 429px
+* Bootstrap - Small
+* Dispositivo alvo: Smartphones
+*/
+@media (min-width: 0px) and (max-width: 429px) {
+
+  .container-inferior {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .tela-suspensa-documentos {
+    margin-top: 0 !important;
+    position: relative;
+    top: 2.7rem !important;
+  }
+
+
+  /*
+  * Menu dos itens
+  * Transformando o menu dos em um menu vertical
+  */
+  .menu-suspenso-documentos {
+    display: block;
+    position: fixed;
+    width: 15rem;
+    right: 1.2333rem;
+    background-color: aqua;
+    position: fixed;
+
+    top: 6rem;
+    z-index: 1;
+
+    /* Transição suave */
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: opacity 0.2s ease, height 0.1s ease;
+  }
+  .menu-suspenso-documentos.visible {
+    opacity: 1;
+    height: auto;
+  }
+  .menu-suspenso-documentos.hidden {
+    opacity: 0;
+    height: 0;
+  }
+
+
+  .ul-container {
+    flex-direction: column;
+  }
+
+  .ul-container li {
+    padding: 8px !important;
+    justify-content: flex-start !important;
+  }
+
+  .ul-container li:nth-child(1) {
+    border-top-left-radius: 6px; /* Raio do canto superior esquerdo */
+    border-top-right-radius: 6px;
+    position: fixed;
+    z-index: 1000;
+  }
+
+  .li-sair-do-perfil-mobile, .li-encerrar-mobile {
+    display: block !important;
+
+  }
+
+  .ultima-posicao {
+    border-bottom-left-radius: 6px; /* Raio do canto superior esquerdo */
+    border-bottom-right-radius: 6px;
+  }
+
+
+}
+
+
 

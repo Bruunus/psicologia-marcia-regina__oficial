@@ -9,11 +9,20 @@
 @media (min-width: 1018px) and (max-width: 1199px) {
 
 
+
+  /*************************Desativando Visibilidade de Outras Screens**************************/
+
   /*
-  * Desativando os efeitos acima para outras medidas de telas menores
+  * Desativando os efeitos acima das demais telas responsivas
   */
   .span-ola, .nick-name  { display: block; }
-  .icone-sair, .nick-name-for-responsive { display: none; }
+  /* Classe usada nesta @media: telas-maiores */
+  .menu-responsive-middle-normal, .menu-responsive-middle-disp-menores,
+  .menu-responsive-middle-disp-menores-quebrado, .menu-responsivo-mobile
+  { display: none; }
+
+
+  /*********************************************************************************************/
 
   .menu-bar {
     // background-color: tomato;

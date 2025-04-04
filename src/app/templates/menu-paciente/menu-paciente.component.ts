@@ -18,8 +18,7 @@ declare var $: any;
     './menu-paciente-extra-large.component.scss',
     './menu-paciente-large.component.scss',
     './menu-paciente-medium.component.scss',
-    './menu-paciente-small.component.scss',
-    './menu-paciente-smartphone.component.scss'
+    './menu-paciente-small.component.scss'
   ],
   animations: [
     trigger('fadeInOut', [
@@ -38,7 +37,8 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
   nomePacienteCompleto: string = '';
   usuario: string | null = '';
   perfilVar: string | undefined = localStorage.getItem('perfil')?.toLocaleLowerCase();
-  isMenuVisible: boolean = false;
+  isMenuVisibleResponsivaMiddle: boolean = false;
+  isMenuVisibleResponsivaMiddle__767_420: boolean = false;
   calculoParaTelasMedium: boolean = false;
   colLg9!:  boolean;
   colMd9!:  boolean;
@@ -148,8 +148,8 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
     return {
       'col-xl-9': width >= 1200,
       'col-lg-9': width >= 992 && width <= 1199,
-      'col-md-9': width >= 768 && width <= 991,
-      'col-sm-12': width < 768
+      'col-md-9': width >= 430 && width <= 991,
+      'col-sm-12': width < 429
     };
   }
 
@@ -177,13 +177,13 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
 
     // Se o clique foi fora do menu e do botão, fecha o menu
     if (menuElement && !menuElement.contains(target) && !imgButton?.contains(target)) {
-      this.isMenuVisible = false;
+      this.isMenuVisibleResponsivaMiddle = false;
     }
   }
 
 
   protected toggleMenuResponsiveMiddle() {
-    this.isMenuVisible = !this.isMenuVisible; // Alterna a visibilidade
+    this.isMenuVisibleResponsivaMiddle = !this.isMenuVisibleResponsivaMiddle; // Alterna a visibilidade
   }
 
 

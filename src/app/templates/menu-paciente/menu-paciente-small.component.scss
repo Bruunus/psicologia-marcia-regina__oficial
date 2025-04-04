@@ -9,22 +9,20 @@
 */
 @media (max-width: 430px) {
 
+  /*************************Desativando Visibilidade de Outras Screens**************************/
+
+  /*
+  * Desativando os efeitos acima das demais telas responsivas
+  */
+  .span-ola, .nick-name  { display: block; }
+  /* Classe usada nesta @media: menu-responsivo-mobile */
+  .menu-responsive-middle-normal ,
+  .menu-responsive-middle-disp-menores,
+  .menu-responsive-middle-disp-menores-quebrado
+  { display: none; }
 
 
-  .col-12-personalizada {
-
-  }
-
-
-
-}
-
-/**** EXCESSÕES ****/
-
-/*
-* Medida de altura global para dispositivos pequenos
-*/
-@media (max-width: 430px) {
+  /*********************************************************************************************/
 
   .menu-bar {
     height: 63.333333px;
@@ -159,3 +157,31 @@
   }
 
 }
+
+
+
+
+
+/**
+* Grid - Smartphone - Tamanho Grande
+* Bootstrap - Mobile Large - 425px
+* Dispositivo alvo: Smartphone
+*/
+@media (max-width: 425px) {}
+
+
+
+/**
+* Grid - Smartphone - Tamanho Médio
+* Bootstrap - Mobile Medium - 375px
+* Dispositivo alvo: Smartphone
+*/
+@media (max-width: 375px) and (min-width: 321px) {}
+
+
+/**
+* Grid - Smartphone - Tamanho Pequeno
+* Bootstrap - Mobile Small - 320px
+* Dispositivo alvo: Smartphone
+*/
+@media (max-width: 320px) {}

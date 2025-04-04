@@ -8,6 +8,7 @@
       <div class=" col-md-12 col-sm-12 col-12 col-2-personalizada-lado-esquerdo">
         <div class="row row-filha-de-col-2-personalizada-lado-esquerdo">
 
+          <!-- 1° Coluna -->
 
           <div class="col-lg-3
            col-sm-1 col-1 col-logo-perfil-container"
@@ -19,38 +20,67 @@
               <h5 class="tipo-perfil" style="color: #fff;">{{ perfil }}</h5>
               <span class="nick-name-for-responsive" style="color: #fff;">Olá, {{ this.usuario }}</span>
             </div>
-
-
           </div>
-          <!-- col-10 (lado direito) -->
 
-          <div class="col-nome-paciente" [ngClass]="operacoesNgClass()"
-            >
-            <!-- Estrutura para Mobile -->
-            <!-- <h4 class="nome-paciente">00000000000000000000000000000000000</h4> -->
-            <h4 class="nome-paciente nome-paciente-middle-and-small">{{ nomePaciente }}</h4>
-            <img src="../../../assets/img/menu-versao-dev.png" class="img-menu link-img-menu" (click)="toggleMenu()">
-            <img src="../../../assets/img/icone-menu-middle.png" class="img-responsive-middle"
-              (click)="toggleMenuResponsiveMiddle()">
 
-            <!-- Estrutura para Middle -->
-            <div [ngClass]="{'menu-responsive-middle': true, 'visible': isMenuVisible, 'hidden': !isMenuVisible}"
-            class="menu-responsive-middle">
-              <ul>
-                <li class="menu-responsive-middle--nick-name">Olá, {{ this.usuario }}</li>
-                <li class="menu-responsive-middle--sair-perfil" (click)="redirectMenu()">Sair do perfil</li>
-                <li class="menu-responsive-middle--encerrar-sessao" (click)="encerrarSessao()">Encerrar Sessão</li>
-              </ul>
-            </div>
+          <!-- 2° Coluna -->
+
+          <div class="col-nome-paciente" [ngClass]="operacoesNgClass()">
 
             <!-- Estrutura telas maiores -->
-             <div class="telas-maiores">
+            <div class="telas-maiores">
               <h4 class="nome-paciente">{{ nomePaciente }}</h4>
               <div class="container-nick-name-and-span-sair">
                 <span>Olá, {{ this.usuario }}</span>
                 <span class="span-sair-telas-maiores" (click)="openModal()">Sair</span>
               </div>
+            </div>
+
+            <!-- Estrutura para Middle - 768px a 1017px -->
+            <div class="menu-responsive-middle-normal">
+
+              middle dispositivos médios-normal
+              <div [ngClass]="{'menu-responsive-middle': true, 'visible': isMenuVisibleResponsivaMiddle, 'hidden': !isMenuVisibleResponsivaMiddle}"
+              class="menu-responsive-middle">
+
+                <!-- <ul>
+                  <li class="menu-responsive-middle--nick-name">Olá, {{ this.usuario }}</li>
+                  <li class="menu-responsive-middle--sair-perfil" (click)="redirectMenu()">Sair do perfil</li>
+                  <li class="menu-responsive-middle--encerrar-sessao" (click)="encerrarSessao()">Encerrar Sessão</li>
+                </ul> -->
+              </div>
+
+
+            </div>
+
+
+            <!-- Estrutura para Middle Menores - 544px a 767px -->
+             <div class="menu-responsive-middle-disp-menores">
+                middle dispositivos menores
              </div>
+
+             <!-- Estrutura para Middle Menores Quebrado - 430px a 543px -->
+             <div class="menu-responsive-middle-disp-menores-quebrado">
+              menu dispositivos menores quebrados
+             </div>
+
+
+
+
+            <!-- Estrutura para Mobile - 0px a 429px -->
+             <div class="menu-responsivo-mobile">
+              menu dispositivo mobile
+              <!-- <h4 class="nome-paciente">00000000000000000000000000000000000</h4> -->
+              <!-- <h4 class="nome-paciente nome-paciente-middle-and-small">00000000000000000000000000000000000</h4>
+              <img src="../../../assets/img/menu-versao-dev.png" class="img-menu link-img-menu" (click)="toggleMenu()">
+              <img src="../../../assets/img/icone-menu-middle.png" class="img-responsive-middle"
+                (click)="toggleMenuResponsiveMiddle()"> -->
+             </div>
+
+
+
+
+
           </div>
 
 
