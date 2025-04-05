@@ -2,7 +2,8 @@
   <app-menu-paciente></app-menu-paciente>
   <div class="row container-inferior">
     <div  [ngClass]="{ 'visible': alteracaoDisplayService.menuVisible$ | async, 'hidden': !(alteracaoDisplayService.menuVisible$ | async) }"
-    class="col-2-personalizada menu-suspenso-documentos">
+    class="col-2-personalizada menu-suspenso-documentos"
+      [ngClass]="operacoesNgClass()">
       <!-- Adicionar um ngIf - Dependendo do perfil (Psicologia ou Neuropsicologia) o menu muda -->
 
       <!-- PERFIL PSICOLOGIA -->
@@ -37,7 +38,15 @@
         </li>
         <li class="li-sair-do-perfil-mobile" (click)="redirectMenu()">Sair do perfil</li>
         <li class="li-encerrar-mobile ultima-posicao" (click)="encerrarSessao()">Encerrar sessão</li>
+
+
       </ul>
+
+      <div class="display_logo_1018_a_1080">
+        <a [routerLink]="['/paciente',perfilVar,'documentos','identificacao']">
+          <img src="../../assets/img/img-logo-alfa.png" class="img-logo no-select-img">
+        </a>
+      </div>
 
 
       <ul style="padding: 1rem 0 0 1rem;  display: none;   " class="aviso" >
@@ -54,6 +63,8 @@
 
           </span>
         </small>
+
+
       </ul>
 
 

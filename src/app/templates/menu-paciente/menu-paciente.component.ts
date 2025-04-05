@@ -106,7 +106,11 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
     this.checkScreenSize();
   }
 
-  // Verifica se está dentro da faixa de 768px a 1017px
+  /**
+   * Esta função no carregamento da página verifica o tamanho da tela e
+   * informa a variável informando um valor de média para ser usada em
+   * certa lógica.
+   */
   private checkScreenSize() {
     const width = window.innerWidth;
     this.calculoParaTelasMedium = width >= 431 && width <= 1017;
@@ -210,6 +214,13 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Este método Javascript resume o nome do paciente para telas mobile para adptar
+   * a tela em caso do nome ser muito grande.
+   *
+   * @param nome abreviado
+   * @returns
+   */
   private abreviarNome(nome: string): string {
     if (!nome) return '';
 

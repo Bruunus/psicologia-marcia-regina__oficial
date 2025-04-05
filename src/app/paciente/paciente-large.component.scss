@@ -20,9 +20,9 @@
   /*
   * Query para definição de altura para telas menores com altura de até 531px
   */
-  .col-2-personalizada {
-    width: 13.5rem !important; /* Definição de largura junto à largura do menu suspenso */
-  }
+  // .col-2-personalizada {
+  //   width: 13.5rem !important; /* Definição de largura junto à largura do menu suspenso */
+  // }
 
 
   .ul-container li span {
@@ -37,72 +37,130 @@
 
 /**** EXCESSÕES ****/
 
-/*
-* Alcance máximo de largura de uma A4 suportada pela menu vertical esquerdo
+
+/**
+* Média criada para sincronizar a largura do menu principal com o tipo de especialidade
+* definindo o witdh de forma personalizada.
 */
-@media(max-width: 1017px) {
+@media(min-width: 1040px) and (max-width: 1199px) {
 
-  /*
-  * Configurações para menu horizontal
-  */
-  .col-2-personalizada {
-    width: 100%;
-    height: 46px !important; // medida de escala
+  .width_personalizado_menu_Neuropsicologia { width: 16.1rem !important; }
+  .width_personalizado_menu_Psicologia { width: 12.9333rem !important; }
+
+}
+
+@media(min-width: 1018px) and (max-width: 1080px) {
+
+  .width_personalizado_menu_Neuropsicologia { width: 12.5333rem !important;}
+  .width_personalizado_menu_Psicologia { width: 12rem !important; }
+
+  .img-logo {
+    display: none !important;
   }
 
-  .col-2-personalizada ul {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    margin-bottom: 0 !important;
+  .ul-container li {
+    padding-left: 1.5rem !important ;
   }
 
-  .col-2-personalizada ul li {
+  .display_logo_1018_a_1080 {
+    display: block;
     width: 100%;
-    height: 100%;
+    height: auto;
+    background-color: rgb(75, 75, 75);
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 0 ;
+    align-items: flex-end;
+    margin-bottom: 1rem;
   }
 
-  .col-2-personalizada ul li span {
-    padding: 0 ;
-  }
-
-  .ul-container {
-    padding: 0 ;
-  }
-
-  .tela-suspensa-documentos {
-    margin-top: 0.39rem !important;
-  }
-
-  /* Desativando loading no DOM */
-  .loading-li {
-    display: none;
-  }
-
-  .ul-container li:active {
-    background-color: blue;
-  }
-
-  .ul-container li span:hover,
-  .ul-container li span.active {
-    cursor: pointer;
-    background-position: 0; /* Retirando efeito */
-    background-size: 0;     /* Retirando efeito */
+  .img-logo {
+    display: block !important;
+    height: 100%;
+    height: 3.5rem;
   }
 
 }
 
 
 /*
+* Ocultamento de componentes fora desta média
+*/
+@media (min-width: 1081px) {
+  .display_logo_1018_a_1080 { display: none; }
+}
+
+@media (max-width: 1017px){
+  .display_logo_1018_a_1080 { display: none; }
+}
+
+
+
+/*
+* Alcance máximo de largura de uma A4 suportada pela menu vertical esquerdo
+*/
+// @media(max-width: 1017px) {
+
+//   /*
+//   * Configurações para menu horizontal
+//   */
+//   .col-2-personalizada {
+//     width: 100%;
+//     height: 46px !important; // medida de escala
+//   }
+
+//   .col-2-personalizada ul {
+//     display: flex;
+//     width: 100%;
+//     height: 100%;
+//     margin-bottom: 0 !important;
+//   }
+
+//   .col-2-personalizada ul li {
+//     width: 100%;
+//     height: 100%;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     padding: 0 ;
+//   }
+
+//   .col-2-personalizada ul li span {
+//     padding: 0 ;
+//   }
+
+//   .ul-container {
+//     padding: 0 ;
+//   }
+
+//   .tela-suspensa-documentos {
+//     margin-top: 0.39rem !important;
+//   }
+
+//   /* Desativando loading no DOM */
+//   .loading-li {
+//     display: none;
+//   }
+
+//   .ul-container li:active {
+//     background-color: blue;
+//   }
+
+//   .ul-container li span:hover,
+//   .ul-container li span.active {
+//     cursor: pointer;
+//     background-position: 0; /* Retirando efeito */
+//     background-size: 0;     /* Retirando efeito */
+//   }
+
+// }
+
+
+/*
 * Personalização para caber a folha A4 antes de entrar na screen para tabet
 */
-@media (min-width:1040px) and (max-width: 1050px) {
-  .col-2-personalizada { width: 13.1666rem !important; }}
+// @media (min-width:1040px) and (max-width: 1050px) {
+//   .col-2-personalizada { width: 13.1666rem !important; }}
 
-@media (min-width:1018px) and (max-width: 1039px) {
-  .col-2-personalizada { width: 12.5666rem !important; }}
+// @media (min-width:1018px) and (max-width: 1039px) {
+//   .col-2-personalizada { width: 12.5666rem !important; }}
 

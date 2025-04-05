@@ -1,7 +1,7 @@
 @import '../../../styles-variaveis-globais.scss';
 
 /**
-* Grid - A partir de 992px à 1199px
+* Grid - A partir de 1018px à 1199px
 * Bootstrap - Large .col-lg-
 * Dispositivo alvo: Notebooks e desktops com telas menores compactos
 * (Excessão nessa projeto para esta medida responsiva de 992px para 1018px)
@@ -54,12 +54,10 @@
     align-items: center;
     padding-right: 0 !important;
 
-    flex: 0 0 201px !important; /* Medida determinante com o menu para este media */
+    flex: 0 0 12rem !important;/* Medida determinante com o menu para este media */
   }
 
-  .col-nome-paciente {
-
-  }
+  
 
   /**
   * col-lg-9 editada para adequar à esta medida
@@ -68,10 +66,6 @@
     flex: 1 0 75% !important;
     max-width: 81% !important;
   }
-
-
-
-
 
   .divisao-responsiva-perfil-nickname, .tipo-perfil {
     color: black !important;
@@ -123,6 +117,39 @@
 
 
 /**** EXCESSÕES ****/
+
+
+/*
+* Esta excesão é o reajuste do layout para caber a folha A4 de teste.
+* Este ajuste está sincronizado com o css do menu vertical de paciente no
+* arquivo 'paciente-large-component.scss' linha a partir da 45
+*/
+@media(min-width: 1018px) and (max-width: 1080px) {
+
+  .col-2-personalizada-lado-esquerdo {
+    padding-left: 0 !important;
+  }
+
+  .col-logo-perfil-container {
+    padding-left: 0px !important;
+  }
+
+  .tipo-perfil {
+    padding-left: 5px;
+  }
+
+  .img-logo {
+    display: none !important;
+  }
+
+  .divisao-responsiva-perfil-nickname {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+}
+
 
 @media(max-width: 1017px) {
   /*
@@ -188,18 +215,18 @@
 /*
 * Personalização para caber a folha A4 antes de entrar na screen para tabet
 */
-@media (min-width:1040px) and (max-width: 1050px) {
-  .col-logo-perfil-container { flex: 0 0 195.666px !important; }
-}
+// @media (min-width:1040px) and (max-width: 1050px) {
+//   .col-logo-perfil-container { flex: 0 0 195.666px !important; }
+// }
 
-@media (min-width:1018px) and (max-width: 1039px) {
-  .col-logo-perfil-container{
-    flex: 0 0 192.666px !important;
-  }
-  .col-2-personalizada-lado-esquerdo {
-    padding-left: 8.4px !important;
-  }
-}
+// @media (min-width:1018px) and (max-width: 1039px) {
+//   .col-logo-perfil-container{
+//     flex: 0 0 192.666px !important;
+//   }
+//   .col-2-personalizada-lado-esquerdo {
+//     padding-left: 8.4px !important;
+//   }
+// }
 
 
 

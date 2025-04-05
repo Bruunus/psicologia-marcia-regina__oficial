@@ -39,6 +39,8 @@ export class PacienteComponent implements OnInit {
   itemSelecionado: string | null = null;
   rotaAtual: string = '';
   usuario: string | null = '';
+  calculaClasseCSS: boolean = false;
+  perfilVar: string | undefined = localStorage.getItem('perfil')?.toLocaleLowerCase();
 
 
   public loadingDocumentosService: LoadingDocumentosService;
@@ -92,6 +94,8 @@ export class PacienteComponent implements OnInit {
     console.log('Storage de perfil: ', localStoragePerfil);
     this.perfil = localStoragePerfil ? localStoragePerfil.toLowerCase() : '';
     this.usuario = this.gerenciadoDeAutenticacaoService.getUsuario();
+    console.log(this.perfil)
+    this.checkScreenSize();
 
 
 
@@ -134,7 +138,45 @@ export class PacienteComponent implements OnInit {
   }
 
 
+  /**
+   * Esta função no carregamento da página verifica o tamanho da tela e
+   * informa a variável informando um valor de média para ser usada em
+   * certa lógica.
+   */
+  private checkScreenSize() {
+    const width = window.innerWidth;
+    this.calculaClasseCSS = width >= 1040 && width <= 1199;
+  }
 
+
+  // Retorna a classe correta para o perfil do logo
+  getAddClasseCSS(): any {
+    if (this.calculaClasseCSS) {
+      return {
+        'width_personalizado_menu_Psicologia': this.perfil === 'psicologia',
+        'width_personalizado_menu_Neuropsicologia': this.perfil === 'neuropsicologia'
+      };
+    }
+    return {};
+  }
+
+
+
+
+
+  /**
+   * Este método é invocado dentro do [ngClass] no html para receber
+   * todas as operações dinâmicas relacionadas a estilização CSS. Cada
+   * método presenta uma manipulação direta no CSS ou na estrutura do HTML
+   * deste documento.
+   * @returns Todos os objetos que serão incluídos no ngClass do Angular
+   */
+  operacoesNgClass(): { [key: string]: boolean } {
+    return {
+      ...this.getAddClasseCSS(),
+
+    }
+  }
 
 
   onNotify() {
