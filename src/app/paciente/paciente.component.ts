@@ -94,13 +94,19 @@ export class PacienteComponent implements OnInit {
     console.log('Storage de perfil: ', localStoragePerfil);
     this.perfil = localStoragePerfil ? localStoragePerfil.toLowerCase() : '';
     this.usuario = this.gerenciadoDeAutenticacaoService.getUsuario();
-    console.log(this.perfil)
+    console.log(this.perfil);
     this.checkScreenSize();
 
 
 
 
 
+  }
+
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.checkScreenSize();
   }
 
 
@@ -145,7 +151,7 @@ export class PacienteComponent implements OnInit {
    */
   private checkScreenSize() {
     const width = window.innerWidth;
-    this.calculaClasseCSS = width >= 1040 && width <= 1199;
+    this.calculaClasseCSS = width >= 1017 && width <= 1199;
   }
 
 
