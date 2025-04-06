@@ -24,6 +24,10 @@
   /*********************************************************************************************/
 
 
+  .menu-responsive-middle-normal {
+
+  }
+
   .menu-bar {
     height: 54.333333px !important; // medida de escala
     border-bottom: none;
@@ -39,27 +43,19 @@
     padding: 0 !important;
   }
 
-  .row-de-col-12-personalizada {
+  .row-de-col-12-personalizada, .col-2-personalizada-lado-esquerdo {
     height: 100%;
   }
 
-  .col-2-personalizada-lado-esquerdo {
-    height: 100%;
-  }
-
-    .row-filha-de-col-2-personalizada-lado-esquerdo {
-      align-items: flex-start;
-    }
+    // .row-filha-de-col-2-personalizada-lado-esquerdo {
+    //   align-items: flex-start;
+    // }
 
     .col-logo-perfil-container {
       background-color: black;
       height: 100%;
       display: flex;
       padding-right: 0 !important;
-    }
-
-    .col-md-3-formatada {
-      background-color: tomato;
     }
 
     .divisao-responsiva-perfil-nickname {
@@ -77,17 +73,31 @@
       font-size: $titulo_h4_screen_telas_menores_ate_1600;
     }
 
-    .col-nome-paciente {
-      width: 100%;
-      height: 100%;
+    // .col-nome-paciente {
+    //   width: 100%;
+    //   height: 100%;
+    //   display: flex;
+    //   align-items: center;
+    //   justify-content: space-between;
+    // }
+
+
+
+    .menu-responsive-middle-normal {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
     .nome-paciente {
+      // background: #fff;
+      margin-bottom: 0 !important;
       padding-left: 9px;
       font-size: $titulo_h4_screen_telas_menores_ate_1600;
+    }
+
+    .icone-menu {
+      height: 2.3333rem;
     }
 
 
@@ -96,10 +106,10 @@
     height: 100%;
   }
 
-  .img-responsive-middle {
-    display: block;
-    height: 31px;
-  }
+  // .img-responsive-middle {
+  //   display: block;
+  //   height: 31px;
+  // }
 
   /**
   * Controlador do menu para middle

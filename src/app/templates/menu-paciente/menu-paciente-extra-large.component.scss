@@ -100,7 +100,7 @@
 
   .telas-maiores .nome-paciente {
     margin-bottom: 0;
-    font-size: $titulo_h4_screen_telas_menores_ate_1600 !important; // medida de escala
+    font-size: $titulo_h4_screen_telas_menores_ate_1600; // medida de escala
   }
 
   .container-nick-name-and-span-sair {
@@ -120,6 +120,30 @@
 
 
 }
+
+
+
+
+/**
+* Estilização global para as Queries media
+* A partir de 1600px
+* (Ponto de referência)
+*/
+@media(min-width: 1600px) {
+
+  .tipo-perfil, .telas-maiores .nome-paciente {
+    font-size: $titulo_h4_screen_acima_de_1600 !important; // medida de escala
+  }
+
+
+  .col-logo-perfil-container a {
+    height: 4rem;
+  }
+
+
+
+}
+
 
 
 /**** EXCESSÕES ****/
@@ -188,20 +212,7 @@
 }
 
 
-/**
-* Estilização global para as Queries media
-* A partir de 1600px
-* (Ponto de referência)
-*/
-@media(min-width: 1600px) {
 
-  .tipo-perfil, .nome-paciente {
-    font-size: $titulo_h4_screen_acima_de_1600; // medida de escala
-  }
-
-
-
-}
 
 
 

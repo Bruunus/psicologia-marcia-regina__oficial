@@ -27,6 +27,8 @@
 
           <div class="col-nome-paciente" [ngClass]="operacoesNgClass()">
 
+
+
             <!-- Estrutura telas maiores -->
             <div class="telas-maiores">
               <h4 class="nome-paciente">{{ nomePaciente }}</h4>
@@ -39,16 +41,20 @@
             <!-- Estrutura para Middle - 768px a 1017px -->
             <div class="menu-responsive-middle-normal">
 
-              middle dispositivos médios-normal
-              <div [ngClass]="{'menu-responsive-middle': true, 'visible': isMenuVisibleResponsivaMiddle, 'hidden': !isMenuVisibleResponsivaMiddle}"
-              class="menu-responsive-middle">
+              <!-- middle dispositivos médios-normal -->
+              <h4 class="nome-paciente">{{ nomePaciente }}</h4>
+              <img src="../../../assets/img/icone-menu-middle.png" class="icone-menu" srcset="">
+
+
+              <!-- <div [ngClass]="{'menu-responsive-middle': true, 'visible': isMenuVisibleResponsivaMiddle, 'hidden': !isMenuVisibleResponsivaMiddle}"
+              class="menu-responsive-middle"> -->
 
                 <!-- <ul>
                   <li class="menu-responsive-middle--nick-name">Olá, {{ this.usuario }}</li>
                   <li class="menu-responsive-middle--sair-perfil" (click)="redirectMenu()">Sair do perfil</li>
                   <li class="menu-responsive-middle--encerrar-sessao" (click)="encerrarSessao()">Encerrar Sessão</li>
                 </ul> -->
-              </div>
+              <!-- </div> -->
 
 
             </div>
@@ -70,11 +76,11 @@
             <!-- Estrutura para Mobile - 0px a 429px -->
              <div class="menu-responsivo-mobile">
               menu dispositivo mobile
-              <!-- <h4 class="nome-paciente">00000000000000000000000000000000000</h4> -->
-              <!-- <h4 class="nome-paciente nome-paciente-middle-and-small">00000000000000000000000000000000000</h4>
+              <h4 class="nome-paciente">00000000000000000000000000000000000</h4>
+              <h4 class="nome-paciente nome-paciente-middle-and-small">00000000000000000000000000000000000</h4>
               <img src="../../../assets/img/menu-versao-dev.png" class="img-menu link-img-menu" (click)="toggleMenu()">
               <img src="../../../assets/img/icone-menu-middle.png" class="img-responsive-middle"
-                (click)="toggleMenuResponsiveMiddle()"> -->
+                (click)="toggleMenuResponsiveMiddle()">
              </div>
 
 
