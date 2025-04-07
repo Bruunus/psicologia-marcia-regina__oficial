@@ -7,25 +7,25 @@ export class AlteracaoDisplayService {
   menuVisible$ = this.menuVisibleSubject.asObservable();
 
   // Método para verificar se a tela está abaixo de 767px
-  private isMobile(): boolean {
-    return window.innerWidth <= 767;
+  private isDevices(): boolean {
+    return window.innerWidth <= 1017;
   }
 
   toggleMenu() {
-    if (this.isMobile()) {
-      this.menuVisibleSubject.next(!this.menuVisibleSubject.value);
-    }
+    const atual = this.menuVisibleSubject.value;
+    this.menuVisibleSubject.next(!atual);
+    console.log('[Service] toggleMenu:', !atual);
   }
 
   closeMenu() {
-    if (this.isMobile()) {
-      this.menuVisibleSubject.next(false);
-    }
+    const atual = this.menuVisibleSubject.value;
+    this.menuVisibleSubject.next(false);
+    console.log('[Service] closeMenu', !atual);
   }
 
   openMenu() {
-    if (this.isMobile()) {
+
       this.menuVisibleSubject.next(true);
-    }
+
   }
 }

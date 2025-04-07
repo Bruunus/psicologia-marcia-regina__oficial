@@ -28,7 +28,10 @@ export class LoadingDocumentosService {
   }
 
   getRenderizado(): boolean {
-    return this.renderizacaoSource.getValue();
+     let c = this.renderizacaoSource.getValue();
+     console.log(c)
+     return c
+
   }
 
   ngOnDestroy(): void {

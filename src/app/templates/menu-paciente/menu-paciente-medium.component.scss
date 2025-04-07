@@ -5,7 +5,7 @@
 * Bootstrap - Medium .col-md-
 * Dispositivo alvo: Tablets grandes e notebooks menores (menu-responsive-middle)
 */
-@media (min-width: 768px) and (max-width: 1017px) {
+@media (min-width: 544px) and (max-width: 1017px) {
 
 
   /*************************Desativando Visibilidade de Outras Screens**************************/
@@ -97,7 +97,7 @@
     }
 
     .icone-menu {
-      height: 2.3333rem;
+      height: 2.1rem;
     }
 
 
@@ -110,6 +110,30 @@
   //   display: block;
   //   height: 31px;
   // }
+
+
+
+  // .menu-suspenso-documentos {
+  //   display: none;                                // estado padrão, escondido
+  //   position: absolute;
+  //   top: 20%;                                     // ajuste conforme necessário
+  //   left: 10%;
+  //   z-index: 999;                                 // para garantir que fique acima
+  //   background-color: white;
+  //   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  //   padding: 10px;
+  //   border-radius: 6px;
+  //   transition: all 0.2s ease-in-out;
+  // }
+
+  // .menu-suspenso-documentos.visible {
+  //   display: block !important;
+  // }
+
+  // .menu-suspenso-documentos.hidden {
+  //   display: none !important;
+  // }
+
 
   /**
   * Controlador do menu para middle
@@ -198,7 +222,7 @@
   }
 
   .col-md-9 {
-    flex: 1 0 68% !important;
+    flex: 1 0 63% !important;
     max-width: 80% !important;
   }
 
@@ -231,7 +255,7 @@
 * Bootstrap - Medium .col-md-
 * Dispositivo alvo: Dispositivos menores
 */
-@media (min-width: 544px) and (max-width: 767px) {
+// @media (min-width: 544px) and (max-width: 767px) {
 
 
   /*************************Desativando Visibilidade de Outras Screens**************************/
@@ -239,115 +263,128 @@
   /*
   * Desativando os efeitos acima das demais telas responsivas
   */
-  .span-ola, .nick-name  { display: block; }
-  /* Classe usada nesta @media: menu-responsive-middle-disp-menores */
-  .menu-responsive-middle-normal ,
-  .menu-responsive-middle-disp-menores-quebrado,
-  .menu-responsivo-mobile
-  { display: none; }
+  // .span-ola, .nick-name  { display: block; }
+  // /* Classe usada nesta @media: menu-responsive-middle-disp-menores */
+  // .menu-responsive-middle-normal ,
+  // .menu-responsive-middle-disp-menores-quebrado,
+  // .menu-responsivo-mobile
+  // { display: none; }
 
 
   /*********************************************************************************************/
 
-  .menu-responsive-middle-disp-menores {
-    display: block;
-  }
+//   .menu-responsive-middle-disp-menores {
+//     display: block;
+//   }
 
-  .menu-bar {
-    height: 54.333333px !important;
-    border-bottom: none;
-  }
+//   .menu-bar {
+//     height: 54.333333px !important;
+//     border-bottom: none;
+//   }
 
-  .col-12-personalizada,
-  .row-de-col-12-personalizada,
-  .col-2-personalizada-lado-esquerdo,
-  .col-logo-perfil-container,
-  .col-logo-perfil-container a,
-  .img-logo {
-    height: 100%;
-  }
-
-
-
-  .col-2-personalizada-lado-esquerdo, .col-logo-perfil-container,
-  .col-nome-paciente {
-    padding: 0 !important;
-  }
-
-  .col-logo-perfil-container {
-    background: aqua;
-    display: flex;
-  }
-
-  .col-nome-paciente {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: burlywood;
-  }
-
-  .divisao-responsiva-perfil-nickname {
-    background-color: #323232;
-    width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    padding-right: 1.2333rem;
-    padding-left: 1.2333rem;
-  }
+//   .col-12-personalizada,
+//   .row-de-col-12-personalizada,
+//   .col-2-personalizada-lado-esquerdo,
+//   .col-logo-perfil-container,
+//   .col-logo-perfil-container a,
+//   .img-logo {
+//     height: 100%;
+//   }
 
 
 
-  .menu-responsive-middle,
-  .menu-responsive-middle--nick-name,
-  .menu-responsive-middle--sair-perfil,
-  .menu-responsive-middle--encerrar-sessao {
-    display: none;
-  }
+//   .col-2-personalizada-lado-esquerdo, .col-logo-perfil-container,
+//   .col-nome-paciente {
+//     padding: 0 !important;
+//   }
+
+//   .col-logo-perfil-container {
+//     background: aqua;
+//     display: flex;
+//   }
+
+//   .col-nome-paciente {
+//     width: 100%;
+//     height: 100%;
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     background: burlywood;
+//   }
+
+//   .menu-responsive-middle-disp-menores {
+//     width: 100%;
+//     height: 100%;
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//   }
+
+//   .divisao-responsiva-perfil-nickname {
+//     background-color: #323232;
+//     width: 100%;
+//     height: auto;
+//     display: flex;
+//     align-items: center;
+//     padding-right: 1.2333rem;
+//     padding-left: 1.2333rem;
+//   }
 
 
-  .img-responsive-middle {
-    height: 31px;
-    margin-right: 0.68rem;
-  }
-
-  .img-logo {
-    margin-left: 0.85rem;
-    margin-right: 0.85rem;
-  }
-
-  .divisao-responsiva-perfil-nickname {
-    display: flex;
-    justify-content: center;
-  }
+//   .icone-menu {
+//     height: 2.3rem;
+//     padding-right: .5rem;
+//   }
 
 
+//   .menu-responsive-middle,
+//   .menu-responsive-middle--nick-name,
+//   .menu-responsive-middle--sair-perfil,
+//   .menu-responsive-middle--encerrar-sessao {
+//     display: none;
+//   }
 
 
-  .col-nome-paciente {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+//   .img-responsive-middle {
+//     height: 31px;
+//     margin-right: 0.68rem;
+//   }
 
-    .nome-paciente {
-      padding-left: 1rem;
-    }
+//   .img-logo {
+//     margin-left: 0.85rem;
+//     margin-right: 0.85rem;
+//   }
+
+//   .divisao-responsiva-perfil-nickname {
+//     display: flex;
+//     justify-content: center;
+//   }
 
 
-  /*
-  * Ajustes personalizados do grid bootstrap para esta media
-  */
-  .col-nome-paciente {
-    flex: 1 0 65% !important;
-    max-width: 80% !important;
-  }
 
-}
+
+//   .col-nome-paciente {
+//       width: 100%;
+//       height: 100%;
+//       display: flex;
+//       align-items: center;
+//       justify-content: space-between;
+//     }
+
+//     .nome-paciente {
+//       padding-left: 1rem;
+//     }
+
+
+//   /*
+//   * Ajustes personalizados do grid bootstrap para esta media
+//   */
+//   .col-nome-paciente {
+//     flex: 1 0 65% !important;
+//     max-width: 80% !important;
+//   }
+
+// }
 
 /*
 * Desativando o menu   para outras telas
@@ -364,7 +401,7 @@
 * Bootstrap - Small
 * Dispositivo alvo: Pré-Smartphones
 */
-@media (min-width: 430px) and (max-width: 543px) {
+// @media (min-width: 430px) and (max-width: 543px) {
 
 
   /*************************Desativando Visibilidade de Outras Screens**************************/
@@ -372,28 +409,28 @@
   /*
   * Desativando os efeitos acima das demais telas responsivas
   */
-  .span-ola, .nick-name  { display: block; }
-  /* Classe usada nesta @media: menu-responsive-middle-disp-menores-quebrado */
-  .menu-responsive-middle-normal ,
-  .menu-responsive-middle-disp-menores,
-  .menu-responsivo-mobile
-  { display: none; }
+  // .span-ola, .nick-name  { display: block; }
+  // /* Classe usada nesta @media: menu-responsive-middle-disp-menores-quebrado */
+  // .menu-responsive-middle-normal ,
+  // .menu-responsive-middle-disp-menores,
+  // .menu-responsivo-mobile
+  // { display: none; }
 
 
   /*********************************************************************************************/
 
 
-  .menu-responsive-middle--nick-name {
-    display: block;
-  }
+//   .menu-responsive-middle--nick-name {
+//     display: block;
+//   }
 
-  .col-nome-paciente {
-    width: 100%;
-    height: 100%;
-    background-color: lightseagreen;
-  }
+//   .col-nome-paciente {
+//     width: 100%;
+//     height: 100%;
+//     background-color: lightseagreen;
+//   }
 
-}
+// }
 /**
 * Versão pré-mobile
 */

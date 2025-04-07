@@ -7,8 +7,10 @@ import { CalculadorDeTelaModoDev } from 'src/calculador-de-tela-modo-dev';
 import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticacao.service';
 import { PacienteCacheService } from '../services/cache/paciente/paciente-cache.service';
 import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
-import { animate, style, transition, trigger } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
+
+const ANIMATION_DURATION = '70ms';
 
 @Component({
   selector: 'app-paciente',
@@ -22,13 +24,15 @@ import { animate, style, transition, trigger } from '@angular/animations';
     './paciente-smartphone.component.scss'
   ],
   animations: [
+
     trigger('fadeInOut', [
+      state('void', style({ opacity: 0 })),
       transition(':enter', [
         style({ opacity: 0 }),
-        animate('500ms ease', style({ opacity: 1 }))
+        animate(`${ANIMATION_DURATION} ease-in`, style({ opacity: 1 }))
       ]),
       transition(':leave', [
-        animate('500ms ease', style({ opacity: 0 }))
+        animate(`${ANIMATION_DURATION} ease-out`, style({ opacity: 0 }))
       ])
     ])
   ]
@@ -214,14 +218,17 @@ export class PacienteComponent implements OnInit {
    * fora, ele faz o menu fechar
    */
   @HostListener('document:click', ['$event'])
-  onClick(event: MouseEvent) {
+  onClickOutside(event: MouseEvent): void {
     const target = event.target as HTMLElement;
-    const menuElement = document.querySelector('.menu-suspenso-documentos');
-    /* classe da imagem do menu responsivo */
-    const menuButton = document.querySelector('.link-img-menu');
 
-    // Se o clique foi fora do menu e do botão, fecha o menu
-    if (menuElement && !menuElement.contains(target) && !menuButton?.contains(target)) {
+    const menuElement = document.querySelector('.menu-suspenso-documentos');
+    const buttonElement = document.querySelector('[data-menu-button]');
+
+    if (
+      menuElement &&
+      !menuElement.contains(target) &&
+      !buttonElement?.contains(target)
+    ) {
       this.alteracaoDisplayService.closeMenu();
     }
   }

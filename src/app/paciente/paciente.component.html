@@ -1,9 +1,27 @@
 <div class="container-fluid">
+
+  (Menu vai ser aqui )
   <app-menu-paciente></app-menu-paciente>
+
+
   <div class="row container-inferior">
-    <div  [ngClass]="{ 'visible': alteracaoDisplayService.menuVisible$ | async, 'hidden': !(alteracaoDisplayService.menuVisible$ | async) }"
-    class="col-2-personalizada menu-suspenso-documentos"
-      [ngClass]="operacoesNgClass()">
+
+
+
+    <!-- <b class="teste-hide" [ngClass]="{
+      'visible': alteracaoDisplayService.menuVisible$ | async,
+      'hidden': !(alteracaoDisplayService.menuVisible$ | async)
+      }">Teste-hide</b> -->
+
+
+<!-- *ngIf="alteracaoDisplayService.menuVisible$ | async" @fadeInOut -->
+    <div
+    style="
+    display: block !important;
+    "
+
+
+    class="col-2-personalizada menu-suspenso-documentos" [ngClass]="operacoesNgClass()">
       <!-- Adicionar um ngIf - Dependendo do perfil (Psicologia ou Neuropsicologia) o menu muda -->
 
       <!-- PERFIL PSICOLOGIA -->

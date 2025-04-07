@@ -172,18 +172,20 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
   }
 
 
-  @HostListener('document:click', ['$event'])
-  onClick(event: MouseEvent) {
-    const target = event.target as HTMLElement;
-    const menuElement = document.querySelector('.menu-responsive-middle');
-    /* classe da imagem do menu responsivo */
-    const imgButton = document.querySelector('.img-responsive-middle');
+  // @HostListener('document:click', ['$event'])
+  // onClick(event: MouseEvent) {
+  //   const target = event.target as HTMLElement;
+  //   const menuElement = document.querySelector('.menu-suspenso-documentos');
+  //   /* classe da imagem do menu responsivo */
+  //   const imgButton = document.querySelector('.icone-menu');
 
-    // Se o clique foi fora do menu e do botão, fecha o menu
-    if (menuElement && !menuElement.contains(target) && !imgButton?.contains(target)) {
-      this.isMenuVisibleResponsivaMiddle = false;
-    }
-  }
+  //   console.log(menuElement)
+
+  //   // Se o clique foi fora do menu e do botão, fecha o menu
+  //   if (menuElement && !menuElement.contains(target) && !imgButton?.contains(target)) {
+  //     this.isMenuVisibleResponsivaMiddle = false;
+  //   }
+  // }
 
 
   protected toggleMenuResponsiveMiddle() {
@@ -196,9 +198,10 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
    * angular na qual este metodo toggleMenu está um (click) evento, que ao clicar
    * aparece o menu
    */
-  protected toggleMenu() {
-
-    this.alteracaoDisplayService.toggleMenu();
+  toggleMenu(): void {
+    setTimeout(() => {
+      this.alteracaoDisplayService.toggleMenu();
+    });
   }
 
   // Atualiza o nome conforme a largura da tela
@@ -206,7 +209,7 @@ export class MenuPacienteComponent implements OnInit, OnDestroy {
     const larguraTela = window.innerWidth;
 
     // Se a tela for menor que 375px, mostra a versão abreviada
-    if (larguraTela < 375) {
+    if (larguraTela < 670) {
       this.nomePaciente = this.abreviarNome(this.nomePacienteCompleto);
     } else {
       // Em telas maiores, mostra o nome completo

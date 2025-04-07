@@ -43,7 +43,8 @@
 
               <!-- middle dispositivos médios-normal -->
               <h4 class="nome-paciente">{{ nomePaciente }}</h4>
-              <img src="../../../assets/img/icone-menu-middle.png" class="icone-menu" srcset="">
+              <img src="../../../assets/img/icone-menu-middle.png"
+                data-menu-button class="icone-menu" (click)="toggleMenu()">
 
 
               <!-- <div [ngClass]="{'menu-responsive-middle': true, 'visible': isMenuVisibleResponsivaMiddle, 'hidden': !isMenuVisibleResponsivaMiddle}"
@@ -61,9 +62,14 @@
 
 
             <!-- Estrutura para Middle Menores - 544px a 767px -->
-             <div class="menu-responsive-middle-disp-menores">
-                middle dispositivos menores
-             </div>
+             <!-- <div class="menu-responsive-middle-disp-menores">
+
+              <h4 class="nome-paciente">{{ nomePaciente }}</h4>
+              <img src="../../../assets/img/icone-menu-middle.png"
+                data-menu-buttonn
+                class="icone-menu" (click)="toggleMenu()">
+
+             </div> -->
 
              <!-- Estrutura para Middle Menores Quebrado - 430px a 543px -->
              <div class="menu-responsive-middle-disp-menores-quebrado">

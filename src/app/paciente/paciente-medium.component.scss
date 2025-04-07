@@ -6,9 +6,38 @@
 @media (min-width: 768px) and (max-width: 1017px) {
 
 
+  /* Menu vertical tablet */
   .menu-suspenso-documentos {
     display: block !important;
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
   }
+
+  .menu-suspenso-documentos {
+    display: none; // estado padrão, escondido
+    position: absolute;
+    top: 20%; // ajuste conforme necessário
+    left: 0;
+    z-index: 999; // para garantir que fique acima
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .menu-suspenso-documentos.visible {
+    display: block !important;
+  }
+
+  .menu-suspenso-documentos.hidden {
+    display: none !important;
+  }
+
 
   .tela-suspensa-documentos {
     margin-top: -1px !important;
@@ -23,6 +52,9 @@
 
 
 }
+
+
+
 
 
 /**
