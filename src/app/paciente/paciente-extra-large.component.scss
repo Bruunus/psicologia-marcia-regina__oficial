@@ -17,17 +17,15 @@
 */
 
 
+
+/*********************************** MEDIDAS GENÉRICAS ***********************************/
+
+
 /**
 * Estilização global para as Queries media
 * A partir de 1200px
 */
 @media(min-width: 1200px) {
-
-
-
-
-
-
   // .col-2-personalizada {
   //   width: $tela_paciente__largura_col_2_lado_esquerdo; /* Definição de largura junto à largura do menu suspenso */
 
@@ -43,8 +41,86 @@
 
 
 
-/**** EXCESSÕES ****/
+/**
+* Estilização global para as Queries media
+* A partir de 1600px
+*/
+@media(min-width: 1601px) {
 
+  .row-container-superior {
+    height: $altura_menu_superior__min_width_1601;
+    min-height: $altura_menu_superior__min_width_1601;
+    max-height: $altura_menu_superior__min_width_1601;
+  }
+
+  .col-2-personalizada {
+    width: 14.5rem !important; /* Definição de largura junto à largura do menu suspenso */
+  }
+
+  .col-2-personalizada .ul-container li {
+    background-color: tomato;
+    // font-size: 15px !important;
+  }
+
+  .col-filha-container-direito {
+    padding: 0 1.6rem 0 1rem;
+  }
+
+  .img-logo {
+    height: 75px;
+    margin-bottom: -4px;
+  }
+
+  .tipo-perfil {
+    font-size: 1.6rem;  /* Medida de escala */
+  }
+
+}
+
+
+@media(max-width: 1600px) {
+  .row-container-superior {
+    height: $altura_menu_superior__max_width_1600;
+    min-height: $altura_menu_superior__max_width_1600;
+    max-height: $altura_menu_superior__max_width_1600;
+  }
+
+  .col-filha-container-direito {
+    padding: 0 2.2rem 0 1rem;
+  }
+
+  .img-logo {
+    height: 61px;
+    margin-bottom: -2px;
+  }
+
+  .tipo-perfil {
+    font-size: 1.5rem;  /* Medida de escala */
+  }
+
+}
+
+
+/**
+* Estilização global para as Queries media
+* A partir de 1680px
+*/
+@media(min-width: 1680px) {
+
+}
+
+
+/**
+* Medida global mínima de 1920px
+*/
+@media(min-width: 1920px) {
+
+}
+
+
+
+
+/*********************************** MEDIDAS EXCLUSIVAS ***********************************/
 
 
 @media (min-width: 1200px) and (max-width: 1600px) {
@@ -52,10 +128,6 @@
     font-size: $font_size__screen_1200_AND_1600;
   }
 }
-
-
-
-
 
 
 /**
@@ -113,25 +185,6 @@
 }
 
 
-/**
-* Estilização global para as Queries media
-* A partir de 1600px
-*/
-@media(min-width: 1600px) {
-
-  .col-2-personalizada {
-    width: 14.5rem !important; /* Definição de largura junto à largura do menu suspenso */
-  }
-
-  .col-2-personalizada .ul-container li {
-    background-color: tomato;
-    // font-size: 15px !important;
-  }
-
-}
-
-
-
 /*
 * Resolução para notebooks de largura e altura de 1600 x 900
 * HP Envy Spectre 14 - 14 polegadas
@@ -143,13 +196,7 @@
 }
 
 
-/**
-* Estilização global para as Queries media
-* A partir de 1680px
-*/
-@media(min-width: 1680px) {
 
-}
 
 
 
@@ -177,12 +224,7 @@
 }
 
 
-/**
-* Medida global mínima de 1920px
-*/
-@media(min-width: 1920px) {
 
-}
 
 
 

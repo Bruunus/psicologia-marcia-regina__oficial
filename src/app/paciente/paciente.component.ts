@@ -8,6 +8,7 @@ import { ApiAutenticacaoService } from '../services/autenticacao/api-autenticaca
 import { PacienteCacheService } from '../services/cache/paciente/paciente-cache.service';
 import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { MascaraService } from '../services/utilits/forms/mascaras/mascara.service';
 
 
 const ANIMATION_DURATION = '70ms';
@@ -40,10 +41,14 @@ const ANIMATION_DURATION = '70ms';
 
 export class PacienteComponent implements OnInit {
   perfil: string | undefined;
+  perfilApresentacao: string | undefined | null = '';
+  nomePaciente: string | undefined | null = '';
+  nomePacienteCompleto: string = '';
   itemSelecionado: string | null = null;
   rotaAtual: string = '';
   usuario: string | null = '';
   calculaClasseCSS: boolean = false;
+  calculoMedidaMobile: boolean = false;
   perfilVar: string | undefined = localStorage.getItem('perfil')?.toLocaleLowerCase();
 
 
@@ -79,7 +84,8 @@ export class PacienteComponent implements OnInit {
   constructor(
     private route: ActivatedRoute, private router: Router, private loadingDocumentosServiceInject: LoadingDocumentosService,
     protected alteracaoDisplayService: AlteracaoDisplayService, private apiAutenticacaoService: ApiAutenticacaoService,
-    private pacienteCacheService: PacienteCacheService, private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService
+    private pacienteCacheService: PacienteCacheService, private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService,
+    private mascaraService: MascaraService
 
     , protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev
 
@@ -95,11 +101,12 @@ export class PacienteComponent implements OnInit {
   ngOnInit() {
     this.calculadorDeTelaModoDev.atualizarTamanhoTela();
     const localStoragePerfil = localStorage.getItem('perfil');
-    console.log('Storage de perfil: ', localStoragePerfil);
+    // console.log('Storage de perfil: ', localStoragePerfil);
     this.perfil = localStoragePerfil ? localStoragePerfil.toLowerCase() : '';
     this.usuario = this.gerenciadoDeAutenticacaoService.getUsuario();
-    console.log(this.perfil);
+    // console.log(this.perfil);
     this.checkScreenSize();
+    this.perfilApresentacao = this.mascaraService.formatarTextoMaiusculo(localStoragePerfil);
 
 
 
@@ -156,18 +163,31 @@ export class PacienteComponent implements OnInit {
   private checkScreenSize() {
     const width = window.innerWidth;
     this.calculaClasseCSS = width >= 1017 && width <= 1199;
+    this.calculoMedidaMobile = width > 0 && width <= 543;
   }
 
 
   // Retorna a classe correta para o perfil do logo
-  getAddClasseCSS(): any {
+  getAddClasseCSS(): string[] {
     if (this.calculaClasseCSS) {
-      return {
-        'width_personalizado_menu_Psicologia': this.perfil === 'psicologia',
-        'width_personalizado_menu_Neuropsicologia': this.perfil === 'neuropsicologia'
-      };
+      if (this.perfil === 'psicologia') {
+        return ['width_personalizado_menu_Psicologia'];
+      } else if (this.perfil === 'neuropsicologia') {
+        return ['width_personalizado_menu_Neuropsicologia'];
+      }
     }
-    return {};
+    return [];
+  }
+
+
+  /**
+   * Se a tela estiver em uma largura para smartphone a largura horizontal
+   * será maximizada
+   */
+  getStyleForMobile(): any {
+    if(this.calculoMedidaMobile) {
+      return ['col-sm-12']
+    }
   }
 
 
@@ -181,9 +201,10 @@ export class PacienteComponent implements OnInit {
    * deste documento.
    * @returns Todos os objetos que serão incluídos no ngClass do Angular
    */
-  operacoesNgClass(): { [key: string]: boolean } {
+  operacoesNgClass(): string[] {
     return {
       ...this.getAddClasseCSS(),
+      // ...this.getStyleForMobile()
 
     }
   }
@@ -194,6 +215,60 @@ export class PacienteComponent implements OnInit {
     // this.booleanValue = false;
     // Aqui você pode adicionar a lógica que deseja executar quando o filho notifica
     // console.log('Teste de renderizar tela')
+  }
+
+
+  // Atualiza o nome conforme a largura da tela
+  protected ajustaNomePaciente(): void {
+    const larguraTela = window.innerWidth;
+
+    // Se a tela for menor que 375px, mostra a versão abreviada
+    if (larguraTela < 670) {
+      this.nomePaciente = this.abreviarNome(this.nomePacienteCompleto);
+    } else {
+      // Em telas maiores, mostra o nome completo
+      this.nomePaciente = this.nomePacienteCompleto;
+    }
+  }
+
+
+  /**
+   * Este método Javascript resume o nome do paciente para telas mobile para adptar
+   * a tela em caso do nome ser muito grande.
+   *
+   * @param nome abreviado
+   * @returns
+   */
+  private abreviarNome(nome: string): string {
+    if (!nome) return '';
+
+    const partes = nome.split(' ');
+    if (partes.length <= 2) {
+      return nome; // Se houver até dois nomes, exibe completo.
+    }
+
+    let resultado = partes[0]; // Sempre inclui o primeiro nome
+    let espacos = 0;
+
+    for (let i = 1; i < partes.length; i++) {
+      // Verifica a próxima palavra
+      const proximaParte = partes[i];
+
+      // Permite adicionar a palavra se:
+      // 1. Ainda não atingiu dois espaços
+      // 2. A próxima parte tem até 3 letras (ex: "de", "dos")
+      if (espacos < 2) {
+        resultado += ` ${proximaParte}`;
+        espacos++;
+
+        // Se a palavra tiver mais que 3 letras, interrompe a abreviação
+        if (proximaParte.length > 3) {
+          break;
+        }
+      }
+    }
+
+    return resultado;
   }
 
 

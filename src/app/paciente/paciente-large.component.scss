@@ -1,5 +1,24 @@
 @import '../../styles-variaveis-globais.scss';
 
+
+/*********************************** MEDIDAS GENÉRICAS ***********************************/
+
+
+/*
+* Ocultamento de componentes fora desta média
+*/
+@media (min-width: 1081px) {
+  .display_logo_1018_a_1080 { display: none; }
+}
+
+@media (max-width: 1017px){
+  .display_logo_1018_a_1080 { display: none; }
+}
+
+
+
+/*********************************** MEDIDAS EXCLUSIVAS ***********************************/
+
 /**
 * Grid - A partir de 992px à 1199px
 * Bootstrap - Large .col-lg-
@@ -9,12 +28,31 @@
 @media (min-width: 1018px) and (max-width: 1199px) {
 
 
-
-  .menu-bar {
-    background-color: tomato;
-    height: 67.333333px !important;
-    border-bottom: none;
+  .row-container-superior {
+    height: $altura_menu_superior__min_width_1018_a_max_width_1199;
+    min-height: $altura_menu_superior__min_width_1018_a_max_width_1199;
+    max-height: $altura_menu_superior__min_width_1018_a_max_width_1199;
   }
+
+    .col-filha-container-direito, .container-vertical-menu  {
+      width: 12rem;
+    }
+
+    .col-filha-container-direito {
+      padding: 0 1.2rem 0 .9rem;
+    }
+
+    .img-logo {
+      height: 56px;
+      margin-bottom: -5px;
+    }
+
+    .tipo-perfil {
+      font-size: 1.4rem;  /* Medida de escala */
+    }
+
+
+
 
 
   /*
@@ -32,10 +70,14 @@
 
 }
 
+@media(min-width: 768px) and (max-width: 1017px) {
 
+  .col-filha-container-direito, .container-vertical-menu {
+    width: 11.9rem;
+  }
 
+}
 
-/**** EXCESSÕES ****/
 
 
 /**
@@ -82,16 +124,7 @@
 }
 
 
-/*
-* Ocultamento de componentes fora desta média
-*/
-@media (min-width: 1081px) {
-  .display_logo_1018_a_1080 { display: none; }
-}
 
-@media (max-width: 1017px){
-  .display_logo_1018_a_1080 { display: none; }
-}
 
 
 

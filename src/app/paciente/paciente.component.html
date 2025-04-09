@@ -1,12 +1,24 @@
 <div class="container-fluid">
 
 
-  <app-menu-paciente></app-menu-paciente>
+  <!-- <app-menu-paciente></app-menu-paciente> -->
 
 
-  <div class="row container-superior">
-    <div class="col-auto col-filha-container-direito">Div 1</div>
-    <div class="col col-filha-container-esquerdo">Div 2</div>
+  <div class="row row-container-superior">
+    <div class="col-auto col-filha-container-direito">
+      <div class="col-filha-container-direito-filha">
+        <a [routerLink]="['/paciente',perfilVar,'documentos','identificacao']">
+          <img src="../../../assets/img/img-logo-alfa.png" class="img-logo no-select-img">
+        </a>
+        <h4 class="tipo-perfil" style="color: #fff;">{{ perfilApresentacao }}</h4>
+      </div>
+      <div class="container-mobile-usuario">
+        Olá, {{ this.usuario }}
+      </div>
+    </div>
+    <div class="col col-filha-container-esquerdo">
+
+    </div>
   </div>
 
 
@@ -27,7 +39,7 @@
     "
 
 
-    class="col-2-personalizada menu-suspenso-documentos" [ngClass]="operacoesNgClass()">
+    class="col-2-personalizada menu-suspenso-documentos container-vertical-menu" [ngClass]="operacoesNgClass()">
       <!-- Adicionar um ngIf - Dependendo do perfil (Psicologia ou Neuropsicologia) o menu muda -->
 
       <!-- PERFIL PSICOLOGIA -->

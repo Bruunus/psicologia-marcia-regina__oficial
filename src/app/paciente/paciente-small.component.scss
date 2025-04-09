@@ -1,106 +1,65 @@
+@import '../../styles-variaveis-globais.scss';
+
+
+
+/*********************************** MEDIDAS GENÉRICAS ***********************************/
 
 
 
 
-/**
-* Grid - A partir de 576px à 767px
-* Bootstrap - Small .col-sm-
-* Dispositivo alvo: Smartphones em modo paisagem e alguns dispositivos menores, como tablets compactos.
-*/
-@media (min-width: 544px) and (max-width: 767px) {
 
-  /*
-  * Ocultando os outros componentes
-  */
-  .col-nome-paciente {
-    display: none;
+@media(max-width: 767px) {
+
+  .col-filha-container-direito {
+    background-color: black;
+    width: 100% !important;
+    justify-content: flex-start !important;
+    padding: 0;
   }
 
-  .menu-responsive-middle-disp-menores {
-    background-color: brown;
+  .col-filha-container-direito-filha {
+    width: 24rem;
+    justify-content: flex-start;
+  }
+
+  .col-filha-container-esquerdo {
+    position: fixed;
+    height: $altura_menu_superior__max_width_543 !important;
+    top: 54px; /* Mais encostado possível */
+    z-index: 1;
+  }
+
+  .container-mobile-usuario {
+    display: flex !important;
     height: 100%;
     width: 100%;
+    background: black;
+    color: #fff;
+    align-items: center;
+    justify-content: flex-end !important;
+    padding-right: 1.5rem;
   }
 
-  .container-inferior {
-    display: flex;
-    justify-content: flex-end;
+  .img-logo {
+    margin-left: 1rem;
+    margin-right: 1rem;
   }
-
-  .tela-suspensa-documentos {
-    margin-top: 0 !important;
-    position: relative;
-    top: 0;
-  }
-
-
-
-  /*
-  * Menu dos itens
-  * Transformando o menu dos em um menu vertical
-  */
-  .menu-suspenso-documentos {
-    display: block;
-    position: fixed;
-    width: 15rem;
-    right: 1.2333rem;
-    background-color: aqua;
-    position: fixed;
-
-    top: 6rem;
-    z-index: 1;
-
-    /* Transição suave */
-    opacity: 0;
-    height: 0;
-    overflow: hidden;
-    transition: opacity 0.2s ease, height 0.1s ease;
-  }
-  .menu-suspenso-documentos.visible {
-    opacity: 1;
-    height: auto;
-  }
-  .menu-suspenso-documentos.hidden {
-    opacity: 0;
-    height: 0;
-  }
-
-
-  .ul-container {
-    flex-direction: column;
-  }
-
-  .ul-container li {
-    padding: 8px !important;
-    justify-content: flex-start !important;
-  }
-
-  .ul-container li:nth-child(1) {
-    border-top-left-radius: 6px; /* Raio do canto superior esquerdo */
-    border-top-right-radius: 6px;
-  }
-
-  .li-sair-do-perfil-mobile, .li-encerrar-mobile {
-    display: block !important;
-  }
-
-  .ultima-posicao {
-    border-bottom-left-radius: 6px; /* Raio do canto superior esquerdo */
-    border-bottom-right-radius: 6px;
-  }
-
-
 
 }
+
 
 /**
 * @media para desativar o efeito mobile/tablet
 */
 @media(min-width: 768px) {
-  .li-sair-do-perfil-mobile, .li-encerrar-mobile {
+
+  .container-mobile-usuario {
     display: none !important;
   }
 
+  .li-sair-do-perfil-mobile, .li-encerrar-mobile {
+    display: none !important;
+  }
 
   .menu-suspenso-documentos {
     display: block ;
@@ -109,18 +68,18 @@
 }
 
 
-/**
-* Grid - A até 543px
-* Bootstrap - Small
-* Dispositivo alvo: Pré-Smartphones
-*/
-@media (min-width: 430px) and (max-width: 543px) {
 
-  .col-nome-paciente {
-    width: 100%;
-    height: 100%;
-    background-color: lightseagreen;
-  }
+
+
+
+/**
+* Grid - A até 429px
+* Bootstrap - Small
+* Dispositivo alvo: Smartphones e tablets menores
+*/
+@media(max-width: 543px) {
+
+
 
 }
 
@@ -131,7 +90,7 @@
 * Bootstrap - Small
 * Dispositivo alvo: Smartphones
 */
-@media (min-width: 0px) and (max-width: 429px) {
+@media (max-width: 429px) {
 
   .container-inferior {
     display: flex;
@@ -204,6 +163,124 @@
 
 
 }
+
+
+
+
+
+/*********************************** MEDIDAS EXCLUSIVAS ***********************************/
+
+
+/**
+* Grid - A partir de 576px à 767px
+* Bootstrap - Small .col-sm-
+* Dispositivo alvo: Smartphones em modo paisagem e alguns dispositivos menores, como tablets compactos.
+*/
+@media (min-width: 544px) and (max-width: 767px) {
+
+  /*
+  * Ocultando os outros componentes
+  */
+  .col-nome-paciente {
+    display: none;
+  }
+
+  .menu-responsive-middle-disp-menores {
+    background-color: brown;
+    height: 100%;
+    width: 100%;
+  }
+
+  .container-inferior {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .tela-suspensa-documentos {
+    margin-top: 0 !important;
+    position: relative;
+    top: 0;
+  }
+
+  /*
+  * Menu dos itens
+  * Transformando o menu dos em um menu vertical
+  */
+  .menu-suspenso-documentos {
+    display: block;
+    position: fixed;
+    width: 15rem;
+    right: 1.2333rem;
+    background-color: aqua;
+    position: fixed;
+
+    top: 6rem;
+    z-index: 1;
+
+    /* Transição suave */
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: opacity 0.2s ease, height 0.1s ease;
+  }
+  .menu-suspenso-documentos.visible {
+    opacity: 1;
+    height: auto;
+  }
+  .menu-suspenso-documentos.hidden {
+    opacity: 0;
+    height: 0;
+  }
+
+
+  .ul-container {
+    flex-direction: column;
+  }
+
+  .ul-container li {
+    padding: 8px !important;
+    justify-content: flex-start !important;
+  }
+
+  .ul-container li:nth-child(1) {
+    border-top-left-radius: 6px; /* Raio do canto superior esquerdo */
+    border-top-right-radius: 6px;
+  }
+
+  .li-sair-do-perfil-mobile, .li-encerrar-mobile {
+    display: block !important;
+  }
+
+  .ultima-posicao {
+    border-bottom-left-radius: 6px; /* Raio do canto superior esquerdo */
+    border-bottom-right-radius: 6px;
+  }
+
+
+
+}
+
+
+
+
+/**
+* Grid - A até 543px
+* Bootstrap - Small
+* Dispositivo alvo: Pré-Smartphones
+*/
+@media (min-width: 430px) and (max-width: 543px) {
+
+  .col-nome-paciente {
+    width: 100%;
+    height: 100%;
+    background-color: lightseagreen;
+  }
+
+}
+
+
+
+
 
 
 

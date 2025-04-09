@@ -27,25 +27,45 @@ col-2-editada-global
 }
 
 
-.container-superior {
+.row-container-superior {
   background-color: lightblue;
   width: 100%;
-  height: 8rem;
   margin: 0 !important;
 }
   .col-filha-container-direito {
     width: 14.5rem;
     height: 100%;
     background-color: lightcoral;
-    padding: 0 !important;
+    padding: 0;
+    display: flex;
+    align-items: center;
   }
+
+    .col-filha-container-direito-filha {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .img-logo {
+      height: 61px;
+    }
+
+    .tipo-perfil {
+      margin: 0 !important;
+    }
+
 
   .col-filha-container-esquerdo {
     width: 100%;
     height: 100%;
     background-color: burlywood;
-    padding: 0 0 !important;
-
+    padding: 0 1rem !important; /* temporário para teste */
+    text-align: right;          /* temporário para teste */
   }
 
 

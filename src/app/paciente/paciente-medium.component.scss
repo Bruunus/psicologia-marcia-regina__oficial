@@ -1,9 +1,63 @@
+@import '../../styles-variaveis-globais.scss';
+
+
+
+/*********************************** MEDIDAS GENÉRICAS ***********************************/
+
+
+@media(max-width: 1017px) {
+
+  .row-container-superior {
+    height: $altura_menu_superior__max_width_768_a_max_width_1017;
+    min-height: $altura_menu_superior__max_width_768_a_max_width_1017;
+    max-height: $altura_menu_superior__max_width_768_a_max_width_1017;
+  }
+
+
+  .col-filha-container-direito {
+    padding: 0 1.3rem 0 .9rem;
+  }
+
+  .img-logo {
+    height: 48px;
+    margin-bottom: -5px;
+  }
+
+  .tipo-perfil {
+    font-size: 1.4rem;  /* Medida de escala */
+  }
+
+}
+
+
+/**
+* @media para desativar o efeito mobile/tablet
+*/
+@media(min-width: 1017px) {
+
+  .li-sair-do-perfil-mobile, .li-encerrar-mobile {
+    display: none !important;
+  }
+}
+
+
+
+
+
+
+/*********************************** MEDIDAS EXCLUSIVAS ***********************************/
+
+
+
 /**
 * Grid - A partir de 768px à 991px
 * Bootstrap - Medium .col-md-
 * Dispositivo alvo: Tablets grandes e notebooks menores
 */
 @media (min-width: 768px) and (max-width: 1017px) {
+
+
+
 
 
   /* Menu vertical tablet */
@@ -71,17 +125,10 @@
 }
 
 
-/***** Excessões *****/
 
 
-/**
-* @media para desativar o efeito mobile/tablet
-*/
-@media(min-width: 1017px) {
-  .li-sair-do-perfil-mobile, .li-encerrar-mobile {
-    display: none !important;
-  }
-}
+
+
 
 /* Ajuste de adequação do menu horizontal */
 @media(min-width: 768px) and (max-width: 876px) {  .ul-container li:nth-child(5) span { position: relative; left: 25%; }}
