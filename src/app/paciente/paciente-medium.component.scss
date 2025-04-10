@@ -8,15 +8,13 @@
 @media(max-width: 1017px) {
 
   .row-container-superior {
-    height: $altura_menu_superior__max_width_768_a_max_width_1017;
-    min-height: $altura_menu_superior__max_width_768_a_max_width_1017;
-    max-height: $altura_menu_superior__max_width_768_a_max_width_1017;
+    height: $TelaPaciente__altura_menu_superior__max_width_768_a_max_width_1017;
+    min-height: $TelaPaciente__altura_menu_superior__max_width_768_a_max_width_1017;
+    max-height: $TelaPaciente__altura_menu_superior__max_width_768_a_max_width_1017;
   }
 
 
-  .col-filha-container-direito {
-    padding: 0 1.3rem 0 .9rem;
-  }
+
 
   .img-logo {
     height: 48px;
@@ -102,6 +100,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+
+  /*
+  * Larguras definidas e padronizadas em Javascript
+  */
+  .largura_personalizada_min_width_768_max_width_1017_psicologia {
+    width: $TelaPacienteDivPerfil_Psicologia__min_width_768__and__max_width_1017;
+  }
+
+  .largura_personalizada_min_width_768_max_width_1017_neuropsicologia {
+    width: $TelaPacienteDivPerfil_Neuropsicologia__min_width_768__and__max_width_1017;
   }
 
 

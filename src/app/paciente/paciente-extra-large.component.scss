@@ -48,9 +48,9 @@
 @media(min-width: 1601px) {
 
   .row-container-superior {
-    height: $altura_menu_superior__min_width_1601;
-    min-height: $altura_menu_superior__min_width_1601;
-    max-height: $altura_menu_superior__min_width_1601;
+    height: $TelaPaciente__altura_menu_superior__min_width_1601;
+    min-height: $TelaPaciente__altura_menu_superior__min_width_1601;
+    max-height: $TelaPaciente__altura_menu_superior__min_width_1601;
   }
 
   .col-2-personalizada {
@@ -75,14 +75,28 @@
     font-size: 1.6rem;  /* Medida de escala */
   }
 
+
+  /*
+  * Larguras definidas e padronizadas em Javascript
+  */
+  .largura_personalizada_min_width_1601_psicologia {
+    width: $TelaPacienteDivPerfil_Psicologia__min_width_1601 ;
+  }
+
+  .largura_personalizada_min_width_1601_neuropsicologia {
+    width: $TelaPacienteDivPerfil_Neuropsicologia__min_width_1601;
+  }
+
+
+
 }
 
 
 @media(max-width: 1600px) {
   .row-container-superior {
-    height: $altura_menu_superior__max_width_1600;
-    min-height: $altura_menu_superior__max_width_1600;
-    max-height: $altura_menu_superior__max_width_1600;
+    height: $TelaPaciente__altura_menu_superior__max_width_1600;
+    min-height: $TelaPaciente__altura_menu_superior__max_width_1600;
+    max-height: $TelaPaciente__altura_menu_superior__max_width_1600;
   }
 
   .col-filha-container-direito {
@@ -96,6 +110,18 @@
 
   .tipo-perfil {
     font-size: 1.5rem;  /* Medida de escala */
+  }
+
+
+  /*
+  * Larguras definidas e padronizadas em Javascript
+  */
+  .largura_personalizada_min_width_1200__and__max_width_1600_psicologia {
+    width: $TelaPacienteDivPerfil_Psicologia__min_width_1200__and__max_width_1600;
+  }
+
+  .largura_personalizada_min_width_1200__and__max_width_1600_neuropsicologia {
+    width: $TelaPacienteDivPerfil_Neuropsicologia__min_width_1200__and__max_width_1600;
   }
 
 }

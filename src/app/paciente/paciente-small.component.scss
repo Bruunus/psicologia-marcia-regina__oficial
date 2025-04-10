@@ -6,15 +6,13 @@
 
 
 
-
-
 @media(max-width: 767px) {
 
   .col-filha-container-direito {
     background-color: black;
     width: 100% !important;
     justify-content: flex-start !important;
-    padding: 0;
+    padding: 0 !important;
   }
 
   .col-filha-container-direito-filha {
@@ -24,9 +22,13 @@
 
   .col-filha-container-esquerdo {
     position: fixed;
-    height: $altura_menu_superior__max_width_543 !important;
+    height: $TelaPaciente__altura_menu_superior__max_width_543 !important;
     top: 54px; /* Mais encostado possível */
     z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem !important;
   }
 
   .container-mobile-usuario {
@@ -37,12 +39,21 @@
     color: #fff;
     align-items: center;
     justify-content: flex-end !important;
-    padding-right: 1.5rem;
+    padding-right: 1.3rem;
   }
 
   .img-logo {
     margin-left: 1rem;
     margin-right: 1rem;
+  }
+
+  .tipo-perfil {
+    padding: 0 !important;
+  }
+
+  .menu-hamburguer-mobile {
+    display: block !important;
+    height: 42px;
   }
 
 }
@@ -65,6 +76,10 @@
     display: block ;
     position: relative;
   }
+
+  .menu-hamburguer-mobile {
+    display: none !important;
+  }
 }
 
 
@@ -73,12 +88,14 @@
 
 
 /**
-* Grid - A até 429px
+* Grid - A até 320px
 * Bootstrap - Small
-* Dispositivo alvo: Smartphones e tablets menores
+* Dispositivo alvo: Smartphones muito pequenos
+* Este ajuste serve para posicionar o nick-name na tela do celular
+* de modo que se encaixe dependendo da descrição do perfil presente
+* na tela.
 */
-@media(max-width: 543px) {
-
+@media(max-width: 320px) {
 
 
 }

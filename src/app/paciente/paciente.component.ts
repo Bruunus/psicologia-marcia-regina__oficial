@@ -42,6 +42,7 @@ const ANIMATION_DURATION = '70ms';
 export class PacienteComponent implements OnInit {
   perfil: string | undefined;
   perfilApresentacao: string | undefined | null = '';
+  perfilOriginal: string | undefined | null = '';
   nomePaciente: string | undefined | null = '';
   nomePacienteCompleto: string = '';
   itemSelecionado: string | null = null;
@@ -49,7 +50,14 @@ export class PacienteComponent implements OnInit {
   usuario: string | null = '';
   calculaClasseCSS: boolean = false;
   calculoMedidaMobile: boolean = false;
+  calculoParaAjusteMobileNickName: boolean = false;
+  min_width_1601: boolean = false;
+  min_width_1200__and__max_width_1600: boolean = false;
+  min_width_1018__and__max_width_1199: boolean = false;
+  max_width_1017: boolean = false;
+  larguraDaTela: number = window.innerWidth;
   perfilVar: string | undefined = localStorage.getItem('perfil')?.toLocaleLowerCase();
+
 
 
   public loadingDocumentosService: LoadingDocumentosService;
@@ -96,6 +104,7 @@ export class PacienteComponent implements OnInit {
        */
       this.rotaAtual = this.router.url.split('/').pop() || '';
       this.loadingDocumentosService = this.loadingDocumentosServiceInject;
+      this.larguraDaTela = window.innerWidth; // inicializando calculo de tela
     }
 
   ngOnInit() {
@@ -105,8 +114,12 @@ export class PacienteComponent implements OnInit {
     this.perfil = localStoragePerfil ? localStoragePerfil.toLowerCase() : '';
     this.usuario = this.gerenciadoDeAutenticacaoService.getUsuario();
     // console.log(this.perfil);
+    this.perfilOriginal = this.mascaraService.formatarTextoMaiusculo(localStoragePerfil);
+    this.perfilApresentacao = this.perfilOriginal;
     this.checkScreenSize();
-    this.perfilApresentacao = this.mascaraService.formatarTextoMaiusculo(localStoragePerfil);
+
+    // console.log('Perfil original: ', this.perfilOriginal)
+    this.checkScreenSize();
 
 
 
@@ -118,6 +131,7 @@ export class PacienteComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.checkScreenSize();
+    this.abreviarNomeNeuropsicologia();
   }
 
 
@@ -161,18 +175,28 @@ export class PacienteComponent implements OnInit {
    * certa lógica.
    */
   private checkScreenSize() {
-    const width = window.innerWidth;
-    this.calculaClasseCSS = width >= 1017 && width <= 1199;
-    this.calculoMedidaMobile = width > 0 && width <= 543;
+    // const width = window.innerWidth;
+    this.larguraDaTela = window.innerWidth;
+
+    this.calculaClasseCSS = this.larguraDaTela >= 768 && this.larguraDaTela <= 1199;
+    this.calculoMedidaMobile = this.larguraDaTela > 0 && this.larguraDaTela <= 543;
+    this.calculoParaAjusteMobileNickName = this.larguraDaTela <= 320;
+
+    /* Medidas Genéricas */
+    this.min_width_1601 = this.larguraDaTela >= 1601;
+    this.min_width_1200__and__max_width_1600 = this.larguraDaTela >= 1200 && this.larguraDaTela <= 1600;
+    this.min_width_1018__and__max_width_1199 = this.larguraDaTela >= 1018 && this.larguraDaTela <= 1199;
+    this.max_width_1017 = this.larguraDaTela <= 1017;
+    // this.ajusteMenuVerticalEmSincronismo(this.larguraDaTela);
   }
 
 
   // Retorna a classe correta para o perfil do logo
   getAddClasseCSS(): string[] {
     if (this.calculaClasseCSS) {
-      if (this.perfil === 'psicologia') {
+      if (this.perfilApresentacao === 'Psicologia') {
         return ['width_personalizado_menu_Psicologia'];
-      } else if (this.perfil === 'neuropsicologia') {
+      } else if (this.perfilApresentacao === 'Neuropsicologia') {
         return ['width_personalizado_menu_Neuropsicologia'];
       }
     }
@@ -181,14 +205,45 @@ export class PacienteComponent implements OnInit {
 
 
   /**
-   * Se a tela estiver em uma largura para smartphone a largura horizontal
-   * será maximizada
+   * Método de serviço que adiciona classes personalizadas CSS à div invocada
+   * via [ngClass]. Este método observa em tempo real a dimensão da tela atual e
+   * adiciona classes com largura definida em sincronismo com a largura da div
+   * superior onde fica posicionada a descrição do perfil atual da tela.
+   *
+   * As medidas de largura estão definidas no arquivo de variaveis globais do CSS
+   * 'styles-variaveis-globais.scss'
    */
-  getStyleForMobile(): any {
-    if(this.calculoMedidaMobile) {
-      return ['col-sm-12']
+  ajusteMenuVerticalEmSincronismo(): string[] {
+
+    switch (true) {
+      case (this.larguraDaTela >= 1601):
+          if(this.perfilApresentacao === 'Psicologia') {
+            return ['largura_personalizada_min_width_1601_psicologia']
+          } else {
+            return ['largura_personalizada_min_width_1601_neuropsicologia']
+          }
+      case (this.larguraDaTela >= 1200 && this.larguraDaTela <= 1600):
+          if(this.perfilApresentacao === 'Psicologia') {
+            return ['largura_personalizada_min_width_1200__and__max_width_1600_psicologia']
+          } else {
+            return ['largura_personalizada_min_width_1200__and__max_width_1600_neuropsicologia']
+          }
+      case (this.larguraDaTela >= 1018 && this.larguraDaTela <= 1199):
+          if(this.perfilApresentacao === 'Psicologia') {
+            return ['largura_personalizada_min_width_1018__and__max_width_1199_psicologia']
+          } else {
+            return ['largura_personalizada_min_width_1018__and__max_width_1199_neuropsicologia']
+          }
+      case (this.larguraDaTela >= 768 && this.larguraDaTela <= 1017):
+          if(this.perfilApresentacao === 'Psicologia') {
+            return ['largura_personalizada_min_width_768_max_width_1017_psicologia']
+          } else {
+            return ['largura_personalizada_min_width_768_max_width_1017_neuropsicologia']
+          }
     }
+    return []
   }
+
 
 
 
@@ -203,7 +258,8 @@ export class PacienteComponent implements OnInit {
    */
   operacoesNgClass(): string[] {
     return {
-      ...this.getAddClasseCSS(),
+      ...[]
+      // ...this.getAddClasseCSS(),
       // ...this.getStyleForMobile()
 
     }
@@ -269,6 +325,20 @@ export class PacienteComponent implements OnInit {
     }
 
     return resultado;
+  }
+
+  private abreviarNomeNeuropsicologia(): void {
+
+    const largura = window.innerWidth;
+
+    console.log('Perfil detectado: ', this.perfilOriginal)
+
+    if (largura <= 352 && this.perfilOriginal === 'Neuropsicologia') {
+      this.perfilApresentacao = 'Neuro';
+    } else {
+      this.perfilApresentacao = this.perfilOriginal;
+    }
+    //  console.log('Largura:', window.innerWidth, '| Perfil exibido:', this.perfilApresentacao);
   }
 
 

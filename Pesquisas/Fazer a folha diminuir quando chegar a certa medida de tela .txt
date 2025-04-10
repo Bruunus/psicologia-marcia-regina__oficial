@@ -1,0 +1,56 @@
+como faço para uma div que ocupa uma largura e altura de 15rem quando chegar a uma @media de 798px ela passar a diminuir em % juntamente com a tela ?
+
+
+Ótima pergunta! Se você quer que uma div que originalmente tem 15rem de largura e altura, passe a diminuir proporcionalmente com a tela quando ela ficar menor que 798px, dá pra fazer isso facilmente com media queries + unidades relativas.
+
+
+Exemplo completo:
+html
+Copiar
+Editar
+<div class="caixa"></div>
+css
+Copiar
+Editar
+.caixa {
+  width: 15rem;
+  height: 15rem;
+  background-color: teal;
+}
+
+/* Quando a tela for menor ou igual a 798px */
+@media (max-width: 798px) {
+  .caixa {
+    width: 40vw;  /* 40% da largura da tela */
+    height: 40vw; /* Mantém proporcional (altura acompanha) */
+  }
+}
+📘 Explicações:
+15rem é fixo (geralmente 1rem = 16px → 15rem = 240px).
+
+vw significa viewport width, ou seja, uma porcentagem da largura da janela do navegador.
+
+No @media, trocamos o tamanho fixo por algo relativo à largura da tela.
+
+Se quiser, pode usar também max-width e max-height para limitar o quanto ela encolhe.
+
+✅ Dica opcional com clamp() (sem precisar de media query):
+Se quiser que a div se adapte naturalmente ao tamanho da tela, sem media query, use clamp():
+
+css
+Copiar
+Editar
+.caixa {
+  width: clamp(10rem, 30vw, 15rem);
+  height: clamp(10rem, 30vw, 15rem);
+  background-color: tomato;
+}
+Isso significa:
+
+Nunca menor que 10rem
+
+Preferencialmente 30vw
+
+Nunca maior que 15rem
+
+Se quiser, posso ajustar esse exemplo pro seu contexto exato (como está o HTML). Me mostra aí!

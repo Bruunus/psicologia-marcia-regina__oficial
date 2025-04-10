@@ -5,7 +5,7 @@
 
 
   <div class="row row-container-superior">
-    <div class="col-auto col-filha-container-direito">
+    <div class="col-auto col-filha-container-direito" [ngClass]="getAddClasseCSS()">
       <div class="col-filha-container-direito-filha">
         <a [routerLink]="['/paciente',perfilVar,'documentos','identificacao']">
           <img src="../../../assets/img/img-logo-alfa.png" class="img-logo no-select-img">
@@ -17,6 +17,11 @@
       </div>
     </div>
     <div class="col col-filha-container-esquerdo">
+
+      <span (click)="redirectMenu()">Sair</span>
+
+      <img src="../../assets/img/menu-versao-dev.png" class="menu-hamburguer-mobile" alt="">
+
 
     </div>
   </div>
@@ -37,9 +42,9 @@
     style="
     display: block !important;
     "
+    [ngClass]="ajusteMenuVerticalEmSincronismo()"
 
-
-    class="col-2-personalizada menu-suspenso-documentos container-vertical-menu" [ngClass]="operacoesNgClass()">
+    class="col-2-personalizada menu-suspenso-documentos container-vertical-menu" >
       <!-- Adicionar um ngIf - Dependendo do perfil (Psicologia ou Neuropsicologia) o menu muda -->
 
       <!-- PERFIL PSICOLOGIA -->
