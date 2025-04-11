@@ -18,9 +18,19 @@
     </div>
     <div class="col col-filha-container-esquerdo">
 
-      <span (click)="redirectMenu()">Sair</span>
+
+      <h4 class="nome-paciente" [ngClass]="ajustaNomePaciente()">
+        {{ nomePaciente }}
+      </h4>
+
+      <!-- <div class="container-nick-name-and-span-sair">
+        <span>Olá, {{ this.usuario }}</span>
+        <span class="span-sair-telas-maiores" >Sair</span>
+         (click)="openModal()"
+      </div> -->
 
       <img src="../../assets/img/menu-versao-dev.png" class="menu-hamburguer-mobile" alt="">
+      <img src="../../assets/img/icone-menu-middle.png" class="menu-hamburguer-table" alt="">
 
 
     </div>
@@ -127,7 +137,7 @@
         ">
 
         <!-- Para folha A4 - Apresentação Jasper Reports -->
-        <!-- <div
+        <div
           style="
             width: 210mm;      /* A4 - largura */
             height: 297mm;     /* A4 - altura - 29.7cm;  */
@@ -136,7 +146,11 @@
             margin-bottom: 2rem;
         ">
           A4
-        </div> -->
+
+          <br><br>
+
+          <span (click)="redirectMenu()">Sair</span>
+        </div>
 
 
 

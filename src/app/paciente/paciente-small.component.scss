@@ -4,8 +4,6 @@
 
 /*********************************** MEDIDAS GENÉRICAS ***********************************/
 
-
-
 @media(max-width: 767px) {
 
   .col-filha-container-direito {
@@ -25,9 +23,6 @@
     height: $TelaPaciente__altura_menu_superior__max_width_543 !important;
     top: 54px; /* Mais encostado possível */
     z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding: 0 1rem !important;
   }
 
@@ -56,6 +51,10 @@
     height: 42px;
   }
 
+  .nome-paciente {
+    font-size: $titulo_h4_screen_tela_mobile !important;
+  }
+
 }
 
 
@@ -81,25 +80,6 @@
     display: none !important;
   }
 }
-
-
-
-
-
-
-/**
-* Grid - A até 320px
-* Bootstrap - Small
-* Dispositivo alvo: Smartphones muito pequenos
-* Este ajuste serve para posicionar o nick-name na tela do celular
-* de modo que se encaixe dependendo da descrição do perfil presente
-* na tela.
-*/
-@media(max-width: 320px) {
-
-
-}
-
 
 
 /**
@@ -181,6 +161,11 @@
 
 }
 
+@media(max-width: 465px) {
+  .menu-hamburguer-mobile {
+    height: 40px;
+  }
+}
 
 
 

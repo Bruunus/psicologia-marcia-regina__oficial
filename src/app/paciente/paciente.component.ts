@@ -60,6 +60,8 @@ export class PacienteComponent implements OnInit {
 
 
 
+
+
   public loadingDocumentosService: LoadingDocumentosService;
 
   /**
@@ -108,22 +110,22 @@ export class PacienteComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.calculadorDeTelaModoDev.atualizarTamanhoTela();
+    this.init();
+  }
+
+
+  private init(): void {
+
     const localStoragePerfil = localStorage.getItem('perfil');
-    // console.log('Storage de perfil: ', localStoragePerfil);
     this.perfil = localStoragePerfil ? localStoragePerfil.toLowerCase() : '';
     this.usuario = this.gerenciadoDeAutenticacaoService.getUsuario();
-    // console.log(this.perfil);
     this.perfilOriginal = this.mascaraService.formatarTextoMaiusculo(localStoragePerfil);
     this.perfilApresentacao = this.perfilOriginal;
+    this.nomePacienteCompleto = localStorage.getItem('nomePaciente') ?? '';
+
+    this.calculadorDeTelaModoDev.atualizarTamanhoTela();
     this.checkScreenSize();
-
-    // console.log('Perfil original: ', this.perfilOriginal)
-    this.checkScreenSize();
-
-
-
-
+    this.ajustaNomePaciente();
 
   }
 
@@ -132,6 +134,7 @@ export class PacienteComponent implements OnInit {
   onResize() {
     this.checkScreenSize();
     this.abreviarNomeNeuropsicologia();
+    this.ajustaNomePaciente();
   }
 
 
@@ -182,11 +185,11 @@ export class PacienteComponent implements OnInit {
     this.calculoMedidaMobile = this.larguraDaTela > 0 && this.larguraDaTela <= 543;
     this.calculoParaAjusteMobileNickName = this.larguraDaTela <= 320;
 
-    /* Medidas Genéricas */
-    this.min_width_1601 = this.larguraDaTela >= 1601;
-    this.min_width_1200__and__max_width_1600 = this.larguraDaTela >= 1200 && this.larguraDaTela <= 1600;
-    this.min_width_1018__and__max_width_1199 = this.larguraDaTela >= 1018 && this.larguraDaTela <= 1199;
-    this.max_width_1017 = this.larguraDaTela <= 1017;
+    // /* Medidas Genéricas */
+    // this.min_width_1601 = this.larguraDaTela >= 1601;
+    // this.min_width_1200__and__max_width_1600 = this.larguraDaTela >= 1200 && this.larguraDaTela <= 1600;
+    // this.min_width_1018__and__max_width_1199 = this.larguraDaTela >= 1018 && this.larguraDaTela <= 1199;
+    // this.max_width_1017 = this.larguraDaTela <= 1017;
     // this.ajusteMenuVerticalEmSincronismo(this.larguraDaTela);
   }
 
@@ -275,16 +278,17 @@ export class PacienteComponent implements OnInit {
 
 
   // Atualiza o nome conforme a largura da tela
-  protected ajustaNomePaciente(): void {
+  protected ajustaNomePaciente(): string {
     const larguraTela = window.innerWidth;
 
     // Se a tela for menor que 375px, mostra a versão abreviada
-    if (larguraTela < 670) {
-      this.nomePaciente = this.abreviarNome(this.nomePacienteCompleto);
+    if (larguraTela < 524) {
+      return this.nomePaciente = this.abreviarNome(this.nomePacienteCompleto);
     } else {
       // Em telas maiores, mostra o nome completo
-      this.nomePaciente = this.nomePacienteCompleto;
+      return this.nomePaciente = this.nomePacienteCompleto;
     }
+
   }
 
 

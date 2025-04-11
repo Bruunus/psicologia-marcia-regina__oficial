@@ -66,9 +66,14 @@ col-2-editada-global
     width: 100%;
     height: 100%;
     background-color: burlywood;
-    padding: 0 !important;
+    padding: 0 1rem;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
+  .nome-paciente {
+    margin-bottom: 0 !important;
   }
 
 
