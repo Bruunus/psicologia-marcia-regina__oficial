@@ -6,7 +6,7 @@
 
 
 
-@media(max-width: 1017px) {
+@media(max-width: 1030px) {
 
   .row-container-superior {
     height: $TelaPaciente__altura_menu_superior__max_width_768_a_max_width_1017;
@@ -29,7 +29,7 @@
 /**
 * @media para desativar o efeito mobile/tablet
 */
-@media(min-width: 1017px) {
+@media(min-width: 1031px) {
 
   .li-sair-do-perfil-mobile, .li-encerrar-mobile {
     display: none !important;
