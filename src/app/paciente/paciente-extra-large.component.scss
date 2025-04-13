@@ -25,17 +25,32 @@
 * Estilização global para as Queries media
 * A partir de 1200px
 */
-@media(min-width: 1200px) {
-  // .col-2-personalizada {
-  //   width: $tela_paciente__largura_col_2_lado_esquerdo; /* Definição de largura junto à largura do menu suspenso */
+@media(min-width: 1031px) {
 
-  // }
+  .container-telas-maiores {
+    display: block !important;
 
-   /*
-  * Query para definição de altura para telas menores com altura de até 531px
-  */
+  }
+  .span-sair-telas-maiores {
+    margin-left: 1rem;
+    margin-left: 1rem;
+  }
+  .span-sair-telas-maiores:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
   .col-2-personalizada {
     width: 14.5rem !important; /* Definição de largura junto à largura do menu suspenso */
+  }
+}
+
+/**
+* Desativando visibilidade para telas menores
+*/
+@media(max-width: 1030px) {
+  .container-telas-maiores {
+    display: none !important;
   }
 }
 

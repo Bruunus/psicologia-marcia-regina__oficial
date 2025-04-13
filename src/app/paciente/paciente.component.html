@@ -16,30 +16,32 @@
         Olá, {{ this.usuario }}
       </div>
     </div>
+
+
     <div class="col col-filha-container-esquerdo">
 
 
-      <h4 class="nome-paciente" [ngClass]="ajustaNomePaciente()">
-        {{ nomePaciente }}
-      </h4>
+      <h4 class="nome-paciente" [ngClass]="ajustaNomePaciente()">{{ nomePaciente }}</h4>
 
-      <!-- <div class="container-nick-name-and-span-sair">
-        <span>Olá, {{ this.usuario }}</span>
-        <span class="span-sair-telas-maiores" >Sair</span>
-         (click)="openModal()"
-      </div> -->
 
-      <img src="../../assets/img/menu-versao-dev.png" class="menu-hamburguer-mobile" alt="">
-
-      <div class="container-middle-responsive-768-end-1030">
+      <!-- Layout para telas maiores -->
+      <div class="container-telas-maiores">
         <span class="nick-name" >Olá, {{ this.usuario }}</span>
-        <img src="../../assets/img/icone-menu-middle.png" class="menu-hamburguer-table" alt="">
-        <ul class="container-opcoes-menu-sair">
-          <li class="li-sair-do-perfil">Sair do perfil</li>
-          <li class="li-encerrar-sessao">Encerrar Sessão</li>
+        <span class="span-sair-telas-maiores" (click)="openModal()">Sair</span>
+      </div>
+
+      <!-- Layout para tablets -->
+      <div class="container-middle-responsive-768-end-1030" >
+        <span class="nick-name" >Olá, {{ this.usuario }}</span>
+        <img src="../../assets/img/icone-menu-middle.png" data-menu-middle-button class="menu-hamburguer-tablet" (click)="toggleMenuMiddle()" >
+        <ul class="container-opcoes-menu-sair" [ngClass]="this.getClasseVisibilidadeMenuMiddle()">
+          <li class="li-sair-do-perfil" (click)="redirectMenu();">Sair do perfil</li>
+          <li class="li-encerrar-sessao" (click)="encerrarSessao();">Encerrar Sessão</li>
         </ul>
       </div>
 
+      <!-- Layout para smarphones-->
+      <img src="../../assets/img/menu-versao-dev.png" data-menu-button (click)="toggleMenuSmall()" class="menu-hamburguer-mobile">
 
 
     </div>
@@ -48,31 +50,14 @@
 
   <div class="row container-inferior">
 
-
-
-    <!-- <b class="teste-hide" [ngClass]="{
-      'visible': alteracaoDisplayService.menuVisible$ | async,
-      'hidden': !(alteracaoDisplayService.menuVisible$ | async)
-      }">Teste-hide</b> -->
-
-
-<!-- *ngIf="alteracaoDisplayService.menuVisible$ | async" @fadeInOut -->
-
- <!-- col-2-personalizada container-vertical-menu -->
-    <div
-    style="
-    display: block !important;
-    "
-    [ngClass]="ajusteMenuVerticalEmSincronismo()"
-
-
-    class=" menu-suspenso-documentos  ">
+    <!-- col-2-personalizada container-vertical-menu -->
+    <div [ngClass]="operacoesNgClassParaClasseMenuSuspensoDocumentos()" class=" menu-suspenso-documentos">
       <!-- Adicionar um ngIf - Dependendo do perfil (Psicologia ou Neuropsicologia) o menu muda -->
 
       <!-- PERFIL PSICOLOGIA -->
 
       <ul class="ul-container" *ngIf="perfil === 'psicologia'">
-          <li *ngFor="let item of itensMenuPsicologia" (click)="selecionarItem(item); fecharMenu()">
+          <li *ngFor="let item of itensMenuPsicologia" (click)="selecionarItem(item); fecharMenuSmall()">
               <span [ngClass]="{'active': itemSelecionado === item.path}">{{ item.label }}</span>
               <img
               *ngIf="(loadingDocumentosService.boolean$ | async) &&
@@ -80,8 +65,8 @@
               (!loadingDocumentosService.getRenderizado())"
           src="../../assets/img/loadingo-menu.gif" alt="Loading" class="loading-li" style="height: 20px; margin-left: 5px;">
           </li>
-          <li class="li-sair-do-perfil-mobile" (click)="redirectMenu(); fecharMenu()">Sair do perfil</li>
-          <li class="li-encerrar-mobile ultima-posicao" (click)="encerrarSessao(); fecharMenu()">Encerrar sessão</li>
+          <li class="li-sair-do-perfil-mobile" (click)="redirectMenu(); fecharMenuSmall()"><span>Sair do perfil</span></li>
+          <li class="li-encerrar-mobile ultima-posicao" (click)="encerrarSessao(); fecharMenuSmall()"><span>Encerrar sessão</span></li>
 
       </ul>
 
@@ -149,20 +134,21 @@
         ">
 
         <!-- Para folha A4 - Apresentação Jasper Reports -->
-        <div
+        <!-- <div
           style="
             width: 210mm;      /* A4 - largura */
             height: 297mm;     /* A4 - altura - 29.7cm;  */
             background-color: #fff;
             margin-top: 2rem;
             margin-bottom: 2rem;
+            z-index: 999;
         ">
           A4
 
           <br><br>
 
           <span (click)="redirectMenu()">Sair</span>
-        </div>
+        </div> -->
 
 
 
@@ -193,3 +179,47 @@ box-shadow: 0 0 0 rgba(6, 12, 2, 0.5);
 <p>LxA: <b style="color: blue;">{{ this.calculadorDeTelaModoDev.largura }}</b><small>px</small> x
 <b style="color: blue;">{{ this.calculadorDeTelaModoDev.altura }}</b><small>px</small></p>
 </span>
+
+
+
+<!-- Modal -->
+<div
+class="modal fade"
+id="exampleModalCenter"
+tabindex="-1"
+role="dialog"
+aria-labelledby="exampleModalCenterTitle"
+data-backdrop="static"
+data-keyboard="false">
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalCenterTitle">Encerra sessão</h5>
+      <button
+        type="button"
+        class="close"
+        (click)="closeModal()"
+        aria-label="Fechar">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Deseja sair deste perfil ou encerrar sessão ?
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="redirectMenu()"
+
+        >Sair do perfil</button>
+
+      <button
+        type="button"
+        class="btn btn-danger"
+        (click)="encerrarSessao()"
+        >Encerrar sessão</button>
+    </div>
+  </div>
+</div>
+</div>

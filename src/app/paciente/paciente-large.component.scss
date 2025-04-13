@@ -15,6 +15,31 @@
   .display_logo_1018_a_1080 { display: none; }
 }
 
+@media (min-width: 1031px) {
+
+  /*
+  * Aplicação do estilo underline especial ao passar o mouse no menu
+  */
+  .ul-container li span {
+    display: inline-block;
+    padding-bottom: 2px;
+    background-image: linear-gradient(#dd4141 0 0);
+    background-position: 0 100%; /* OR bottom left */
+    background-size: 0% 2px;
+    background-repeat: no-repeat;
+    transition:
+      background-size 0.3s,
+      background-position 0s 0.3s;
+  }
+
+  .ul-container li span:hover,
+  .ul-container li span.active {
+    cursor: pointer;
+    background-position: 100% 100%; /* OR bottom right */
+    background-size: 100% 2px;
+  }
+
+}
 
 
 /*********************************** MEDIDAS EXCLUSIVAS ***********************************/
@@ -25,7 +50,7 @@
 * Dispositivo alvo: Notebooks e desktops com telas menores compactados
 * (Excessão nessa projeto para esta medida responsiva de 992px para 1018px)
 */
-@media (min-width: 1018px) and (max-width: 1199px) {
+@media (min-width: 1031px) and (max-width: 1199px) {
 
 
   .row-container-superior {
@@ -56,62 +81,14 @@
 
 
 
-/**
-  * Média criada para sincronizar a largura do menu principal com o tipo de especialidade
-  * definindo o witdh de forma personalizada.
-  */
-// @media(min-width: 1040px) and (max-width: 1199px) {
-
-//   .width_personalizado_menu_Neuropsicologia { width: 16.1rem !important; }
-//   .width_personalizado_menu_Psicologia { width: 12.9333rem !important; }
-
-// }
-
-// @media(min-width: 1018px) and (max-width: 1080px) {
-
-//   .width_personalizado_menu_Neuropsicologia { width: 12.5333rem !important;}
-//   .width_personalizado_menu_Psicologia { width: 12rem !important; }
-
-//   .img-logo {
-//     display: none !important;
-//   }
-
-//   .ul-container li {
-//     padding-left: 1.5rem !important ;
-//   }
-
-//   .display_logo_1018_a_1080 {
-//     display: block;
-//     width: 100%;
-//     height: auto;
-//     background-color: rgb(75, 75, 75);
-//     display: flex;
-//     justify-content: center;
-//     align-items: flex-end;
-//     margin-bottom: 1rem;
-//   }
-
-//   .img-logo {
-//     display: block !important;
-//     height: 100%;
-//     height: 3.5rem;
-//   }
-
-// }
-
-
-
-  /*
-  * Query para definição de altura para telas menores com altura de até 531px
-  */
-  // .col-2-personalizada {
-  //   width: 13.5rem !important; /* Definição de largura junto à largura do menu suspenso */
-  // }
-
 
   .ul-container li span {
     font-size: $font_size_screen_1018_AND_1199;
   }
+
+
+
+
 
 
 }
@@ -124,73 +101,4 @@
 
 
 
-
-/*
-* Alcance máximo de largura de uma A4 suportada pela menu vertical esquerdo
-*/
-// @media(max-width: 1017px) {
-
-//   /*
-//   * Configurações para menu horizontal
-//   */
-//   .col-2-personalizada {
-//     width: 100%;
-//     height: 46px !important; // medida de escala
-//   }
-
-//   .col-2-personalizada ul {
-//     display: flex;
-//     width: 100%;
-//     height: 100%;
-//     margin-bottom: 0 !important;
-//   }
-
-//   .col-2-personalizada ul li {
-//     width: 100%;
-//     height: 100%;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     padding: 0 ;
-//   }
-
-//   .col-2-personalizada ul li span {
-//     padding: 0 ;
-//   }
-
-//   .ul-container {
-//     padding: 0 ;
-//   }
-
-//   .tela-suspensa-documentos {
-//     margin-top: 0.39rem !important;
-//   }
-
-//   /* Desativando loading no DOM */
-//   .loading-li {
-//     display: none;
-//   }
-
-//   .ul-container li:active {
-//     background-color: blue;
-//   }
-
-//   .ul-container li span:hover,
-//   .ul-container li span.active {
-//     cursor: pointer;
-//     background-position: 0; /* Retirando efeito */
-//     background-size: 0;     /* Retirando efeito */
-//   }
-
-// }
-
-
-/*
-* Personalização para caber a folha A4 antes de entrar na screen para tabet
-*/
-// @media (min-width:1040px) and (max-width: 1050px) {
-//   .col-2-personalizada { width: 13.1666rem !important; }}
-
-// @media (min-width:1018px) and (max-width: 1039px) {
-//   .col-2-personalizada { width: 12.5666rem !important; }}
 

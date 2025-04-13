@@ -10,6 +10,7 @@ import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MascaraService } from '../services/utilits/forms/mascaras/mascara.service';
 
+declare var $: any;
 
 const ANIMATION_DURATION = '70ms';
 
@@ -56,6 +57,8 @@ export class PacienteComponent implements OnInit {
   min_width_1018__and__max_width_1199: boolean = false;
   max_width_1017: boolean = false;
   larguraDaTela: number = window.innerWidth;
+  menuAbertoSmall = false;
+  menuAbertoMiddle = false;
   perfilVar: string | undefined = localStorage.getItem('perfil')?.toLocaleLowerCase();
 
 
@@ -172,6 +175,20 @@ export class PacienteComponent implements OnInit {
   }
 
 
+
+   /* Controles do Modal */
+   openModal(): void {
+    $('#exampleModalCenter').modal('show'); // Abre o modal
+  }
+
+  closeModal(): void {
+    document.getElementById('safeElement')?.focus();
+    $('#exampleModalCenter').modal('hide'); // Fecha o modal
+  }
+
+
+
+
   /**
    * Esta função no carregamento da página verifica o tamanho da tela e
    * informa a variável informando um valor de média para ser usada em
@@ -205,6 +222,29 @@ export class PacienteComponent implements OnInit {
     }
     return [];
   }
+
+
+  /**
+   * Função para exibir/oculta o menu para telas menores de
+   * tablets menores e smartphone
+   */
+  getClasseVisibilidadeMenuSmall(): string {
+    const isDispositivoPequeno = window.innerWidth <= 767;
+    return isDispositivoPequeno
+      ? (this.menuAbertoSmall ? 'visible' : 'hidden')
+      : ''; // Se não for dispositivo pequeno, não aplica nenhuma classe
+  }
+
+  getClasseVisibilidadeMenuMiddle(): string[] {
+    const isDispositivoMedio = window.innerWidth >= 768 && window.innerWidth <= 1030;
+
+    return isDispositivoMedio
+      ? [this.menuAbertoMiddle ? 'visible' : 'hidden']
+      : []; // Se não for dispositivo pequeno, não aplica nenhuma classe
+  }
+
+
+
 
 
   /**
@@ -259,13 +299,13 @@ export class PacienteComponent implements OnInit {
    * deste documento.
    * @returns Todos os objetos que serão incluídos no ngClass do Angular
    */
-  operacoesNgClass(): string[] {
-    return {
-      ...[]
-      // ...this.getAddClasseCSS(),
-      // ...this.getStyleForMobile()
+  operacoesNgClassParaClasseMenuSuspensoDocumentos(): string[] {
+    return [
+      ...this.ajusteMenuVerticalEmSincronismo(),
+      this.getClasseVisibilidadeMenuSmall()
 
-    }
+
+    ]
   }
 
 
@@ -366,28 +406,62 @@ export class PacienteComponent implements OnInit {
    * ele realiza é que caso o menu estiver sendo exibido e clicar em qualquer região
    * fora, ele faz o menu fechar
    */
+  toggleMenuSmall(): void {
+    this.menuAbertoSmall = !this.menuAbertoSmall;
+  }
+  fecharMenuSmall(): void {
+    this.menuAbertoSmall = false;
+  }
+
+  toggleMenuMiddle(): void {
+    this.menuAbertoMiddle = !this.menuAbertoMiddle;
+  }
+  fecharMenuMiddle(): void {
+    this.menuAbertoMiddle = false;
+  }
+
+
+
+  /**
+   * Eventos para os menus ocultos para controlar a ocultação quando clicar fora.'
+   * @param event
+   */
   @HostListener('document:click', ['$event'])
   onClickOutside(event: MouseEvent): void {
+
     const target = event.target as HTMLElement;
 
-    const menuElement = document.querySelector('.menu-suspenso-documentos');
-    const buttonElement = document.querySelector('[data-menu-button]');
+    const menuElementSmall = document.querySelector('.menu-suspenso-documentos');
+    const buttonElementSmall = document.querySelector('[data-menu-button]');
 
-    if (
-      menuElement &&
-      !menuElement.contains(target) &&
-      !buttonElement?.contains(target)
-    ) {
-      this.alteracaoDisplayService.closeMenu();
+    const menuElementMiddle = document.querySelector('.container-opcoes-menu-sair');
+    const buttonElementMiddle = document.querySelector('[data-menu-middle-button]')
+
+    if (menuElementSmall && !menuElementSmall.contains(target) && !buttonElementSmall?.contains(target)) {
+      this.fecharMenuSmall();
+    }
+
+    if(menuElementMiddle && !menuElementMiddle.contains(target) && !buttonElementMiddle?.contains(target)) {
+      this.fecharMenuMiddle();
     }
   }
 
-  protected fecharMenu(): void {
-    this.alteracaoDisplayService.closeMenu();
-  }
 
+
+
+  // protected redirectMenu(): void {
+  //   setTimeout(() => {
+  //     localStorage.removeItem('cpf');
+  //     localStorage.removeItem('nomePaciente');
+  //     localStorage.removeItem('perfil');
+  //     this.pacienteCacheService.clearCachePaciente();
+
+  //     this.router.navigate(['/home/pacientes']);
+  //   }, 450);
+  // }
 
   protected redirectMenu(): void {
+    this.closeModal()
     setTimeout(() => {
       localStorage.removeItem('cpf');
       localStorage.removeItem('nomePaciente');
@@ -396,15 +470,36 @@ export class PacienteComponent implements OnInit {
 
       this.router.navigate(['/home/pacientes']);
     }, 450);
+
+    this.ajustaNomePaciente();
+
   }
 
+
+
+
+
   protected encerrarSessao() {
+    this.closeModal();
+
     setTimeout(() => {
       this.router.navigate(['ending-session']);
       this.apiAutenticacaoService.apiDeslogar(this.usuario!); /* Necessário para atualizar o banco em tempo de execução */
-    }, 430);
+    }, 380);
   }
 
+
+
+  /**
+   * Tenho um desafio, voce consegue ler por aqui ? Se sim estou em um projeto
+   * angular na qual este metodo toggleMenu está um (click) evento, que ao clicar
+   * aparece o menu
+   */
+  // toggleMenu(): void {
+  //   setTimeout(() => {
+  //     this.alteracaoDisplayService.toggleMenu();
+  //   });
+  // }
 
 
 

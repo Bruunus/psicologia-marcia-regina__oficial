@@ -4,7 +4,14 @@
 
 /*********************************** MEDIDAS GENÉRICAS ***********************************/
 
+
+/**
+* Grid - A partir de 576px à 767px
+* Bootstrap - Small .col-sm-
+* Dispositivo alvo: Smartphones em modo paisagem e alguns dispositivos menores, como tablets compactos.
+*/
 @media(max-width: 767px) {
+
 
   .col-filha-container-direito {
     background-color: black;
@@ -54,6 +61,93 @@
   .nome-paciente {
     font-size: $titulo_h4_screen_tela_mobile !important;
   }
+
+  /*
+  * Ocultando os outros componentes
+  */
+  .col-nome-paciente {
+    display: none;
+  }
+
+  .menu-responsive-middle-disp-menores {
+    background-color: brown;
+    height: 100%;
+    width: 100%;
+  }
+
+  .container-inferior {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .tela-suspensa-documentos {
+    margin-top: 0 !important;
+    position: relative;
+    top: 0;
+  }
+
+  /*
+  * Menu dos itens
+  * Transformando o menu dos em um menu vertical
+  */
+  .menu-suspenso-documentos {
+    position: fixed;
+    width: 15rem;
+    right: 1.2333rem;
+    background-color: aqua;
+    top: 6rem;
+    z-index: 1;
+    border-radius: .5rem;
+
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: opacity 0.15s ease, height 0.1s ease;
+  }
+
+  .menu-suspenso-documentos.visible {
+    opacity: 1;
+    height: auto;
+  }
+
+  .menu-suspenso-documentos.hidden {
+    opacity: 0;
+    height: 0;
+  }
+
+
+
+  .ul-container {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .ul-container li {
+    padding: 8px !important;
+    justify-content: flex-start !important;
+  }
+
+  .ul-container li:hover {
+    cursor: pointer;
+  }
+
+  .ul-container li:active {
+    background-color: lightgoldenrodyellow
+    ;
+  }
+
+
+
+  .li-sair-do-perfil-mobile, .li-encerrar-mobile {
+    display: block !important;
+  }
+  .li-sair-do-perfil-mobile:hover, .li-encerrar-mobile:hover {
+    cursor: pointer;
+  }
+
+
+
+
 
 }
 
@@ -113,6 +207,7 @@
     background-color: aqua;
     position: fixed;
 
+
     top: 6rem;
     z-index: 1;
 
@@ -125,6 +220,7 @@
   .menu-suspenso-documentos.visible {
     opacity: 1;
     height: auto;
+
   }
   .menu-suspenso-documentos.hidden {
     opacity: 0;
@@ -141,22 +237,24 @@
     justify-content: flex-start !important;
   }
 
-  .ul-container li:nth-child(1) {
-    border-top-left-radius: 6px; /* Raio do canto superior esquerdo */
-    border-top-right-radius: 6px;
-    position: fixed;
-    z-index: 1000;
-  }
+
+
+  // .ul-container li:nth-child(1) {
+  //   border-top-left-radius: 6px; /* Raio do canto superior esquerdo */
+  //   border-top-right-radius: 6px;
+  //   position: fixed;
+  //   z-index: 1000;
+  // }
 
   .li-sair-do-perfil-mobile, .li-encerrar-mobile {
     display: block !important;
 
   }
 
-  .ultima-posicao {
-    border-bottom-left-radius: 6px; /* Raio do canto superior esquerdo */
-    border-bottom-right-radius: 6px;
-  }
+  // .ultima-posicao {
+  //   border-bottom-left-radius: 6px; /* Raio do canto superior esquerdo */
+  //   border-bottom-right-radius: 6px;
+  // }
 
 
 }
@@ -171,99 +269,6 @@
 
 
 /*********************************** MEDIDAS EXCLUSIVAS ***********************************/
-
-
-/**
-* Grid - A partir de 576px à 767px
-* Bootstrap - Small .col-sm-
-* Dispositivo alvo: Smartphones em modo paisagem e alguns dispositivos menores, como tablets compactos.
-*/
-@media (min-width: 544px) and (max-width: 767px) {
-
-  /*
-  * Ocultando os outros componentes
-  */
-  .col-nome-paciente {
-    display: none;
-  }
-
-  .menu-responsive-middle-disp-menores {
-    background-color: brown;
-    height: 100%;
-    width: 100%;
-  }
-
-  .container-inferior {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .tela-suspensa-documentos {
-    margin-top: 0 !important;
-    position: relative;
-    top: 0;
-  }
-
-  /*
-  * Menu dos itens
-  * Transformando o menu dos em um menu vertical
-  */
-  .menu-suspenso-documentos {
-    display: block;
-    position: fixed;
-    width: 15rem;
-    right: 1.2333rem;
-    background-color: aqua;
-    position: fixed;
-
-    top: 6rem;
-    z-index: 1;
-
-    /* Transição suave */
-    opacity: 0;
-    height: 0;
-    overflow: hidden;
-    transition: opacity 0.2s ease, height 0.1s ease;
-  }
-  .menu-suspenso-documentos.visible {
-    opacity: 1;
-    height: auto;
-  }
-  .menu-suspenso-documentos.hidden {
-    opacity: 0;
-    height: 0;
-  }
-
-
-  .ul-container {
-    flex-direction: column;
-  }
-
-  .ul-container li {
-    padding: 8px !important;
-    justify-content: flex-start !important;
-  }
-
-  .ul-container li:nth-child(1) {
-    border-top-left-radius: 6px; /* Raio do canto superior esquerdo */
-    border-top-right-radius: 6px;
-  }
-
-  .li-sair-do-perfil-mobile, .li-encerrar-mobile {
-    display: block !important;
-  }
-
-  .ultima-posicao {
-    border-bottom-left-radius: 6px; /* Raio do canto superior esquerdo */
-    border-bottom-right-radius: 6px;
-  }
-
-
-
-}
-
-
-
 
 /**
 * Grid - A até 543px
