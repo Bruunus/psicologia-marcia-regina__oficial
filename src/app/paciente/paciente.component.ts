@@ -237,12 +237,12 @@ export class PacienteComponent implements OnInit {
           } else {
             return ['largura_personalizada_min_width_1018__and__max_width_1199_neuropsicologia']
           }
-      case (this.larguraDaTela >= 768 && this.larguraDaTela <= 1017):
-          if(this.perfilApresentacao === 'Psicologia') {
-            return ['largura_personalizada_min_width_768_max_width_1017_psicologia']
-          } else {
-            return ['largura_personalizada_min_width_768_max_width_1017_neuropsicologia']
-          }
+      // case (this.larguraDaTela >= 768 && this.larguraDaTela <= 1017):
+      //     if(this.perfilApresentacao === 'Psicologia') {
+      //       return ['largura_personalizada_min_width_768_max_width_1017_psicologia']
+      //     } else {
+      //       return ['largura_personalizada_min_width_768_max_width_1017_neuropsicologia']
+      //     }
     }
     return []
   }

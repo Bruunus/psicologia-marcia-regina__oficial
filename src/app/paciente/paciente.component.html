@@ -30,7 +30,16 @@
       </div> -->
 
       <img src="../../assets/img/menu-versao-dev.png" class="menu-hamburguer-mobile" alt="">
-      <img src="../../assets/img/icone-menu-middle.png" class="menu-hamburguer-table" alt="">
+
+      <div class="container-middle-responsive-768-end-1030">
+        <span class="nick-name" >Olá, {{ this.usuario }}</span>
+        <img src="../../assets/img/icone-menu-middle.png" class="menu-hamburguer-table" alt="">
+        <ul class="container-opcoes-menu-sair">
+          <li class="li-sair-do-perfil">Sair do perfil</li>
+          <li class="li-encerrar-sessao">Encerrar Sessão</li>
+        </ul>
+      </div>
+
 
 
     </div>
@@ -48,13 +57,16 @@
 
 
 <!-- *ngIf="alteracaoDisplayService.menuVisible$ | async" @fadeInOut -->
+
+ <!-- col-2-personalizada container-vertical-menu -->
     <div
     style="
     display: block !important;
     "
     [ngClass]="ajusteMenuVerticalEmSincronismo()"
 
-    class="col-2-personalizada menu-suspenso-documentos container-vertical-menu" >
+
+    class=" menu-suspenso-documentos  ">
       <!-- Adicionar um ngIf - Dependendo do perfil (Psicologia ou Neuropsicologia) o menu muda -->
 
       <!-- PERFIL PSICOLOGIA -->

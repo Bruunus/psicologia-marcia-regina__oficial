@@ -48,19 +48,69 @@
 /**
 * Grid para atingir o limite da página A4
 */
-@media(min-width: 768px) and (max-width: 1000px) {
-  .menu-hamburguer-table {
-    display: block !important;
+@media(min-width: 768px) and (max-width: 1030px) {
+  .container-middle-responsive-768-end-1030 {
+    display: flex !important;
+    background: #d3b167;
+    width: 43%;
+    height: 100%;
+    align-items: center;
+    justify-content: flex-end;
   }
+
+  .nick-name {
+    padding-top: 3px;
+  }
+
+  .menu-hamburguer-table {
+    height: 46px;
+  }
+
+  .container-opcoes-menu-sair {
+    width: auto;
+    background: #54e6c1;
+    display: block;
+    position: fixed;
+    top: 3rem;
+    right: 2.4rem;
+    z-index: 1;
+    padding: 0;
+    margin: 0;
+    border-radius: 5px;
+    border: .1rem solid lightgrey;
+  }
+
+  .li-sair-do-perfil, .li-encerrar-sessao {
+    list-style-type: none;
+    padding-left: .7rem;
+    padding-right: .7rem;
+  }
+
+  .li-sair-do-perfil:hover, .li-encerrar-sessao:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .li-sair-do-perfil {
+    padding-top: .6rem;
+    padding-bottom: .3rem;
+  }
+
+  .li-encerrar-sessao {
+    padding-top: .3rem;
+    padding-bottom: .6rem;
+  }
+
+
 }
 
 @media(max-width: 767px)  {
-  .menu-hamburguer-table {
+  .container-middle-responsive-768-end-1030 {
     display: none !important;
   }
 }
-@media(min-width: 1001px) {
-  .menu-hamburguer-table {
+@media(min-width: 1031px) {
+  .container-middle-responsive-768-end-1030 {
     display: none !important;
   }
 }
@@ -72,50 +122,48 @@
 * Bootstrap - Medium .col-md-
 * Dispositivo alvo: Tablets grandes e notebooks menores
 */
-@media (min-width: 768px) and (max-width: 1017px) {
+@media (min-width: 768px) and (max-width: 1030px) {
 
   /* Menu vertical tablet */
   .menu-suspenso-documentos {
-    display: block !important;
-    position: absolute;
-    top: 50px;
-    right: 20px;
+    display: flex !important;
+    width: 100% !important;
+    height: 4rem;
+    padding: 0;
     background: white;
-    border: 1px solid #ccc;
-    padding: 10px;
+    // border: 1px solid #ccc;
+
   }
 
-  .menu-suspenso-documentos {
-    display: none; // estado padrão, escondido
-    position: absolute;
-    top: 20%; // ajuste conforme necessário
-    left: 0;
-    z-index: 999; // para garantir que fique acima
-    background-color: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    border-radius: 6px;
-    transition: all 0.2s ease-in-out;
-  }
 
-  .menu-suspenso-documentos.visible {
-    display: block !important;
-  }
-
-  .menu-suspenso-documentos.hidden {
-    display: none !important;
-  }
 
 
   .tela-suspensa-documentos {
     margin-top: -1px !important;
   }
 
+  .ul-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .ul-container li {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
 
   .ul-container li span {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-bottom: 0 !important;
   }
 
 
