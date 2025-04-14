@@ -69,6 +69,10 @@
     display: none;
   }
 
+  .tipo-perfil, .nome-paciente {
+    font-size: $titulo_h4_screen_tela_mobile !important;  /* Medida de escala */
+  }
+
   .menu-responsive-middle-disp-menores {
     background-color: brown;
     height: 100%;
@@ -115,8 +119,6 @@
     height: 0;
   }
 
-
-
   .ul-container {
     padding: 0 !important;
     margin: 0 !important;
@@ -132,11 +134,8 @@
   }
 
   .ul-container li:active {
-    background-color: lightgoldenrodyellow
-    ;
+    background-color: lightgoldenrodyellow;
   }
-
-
 
   .li-sair-do-perfil-mobile, .li-encerrar-mobile {
     display: block !important;
@@ -144,10 +143,6 @@
   .li-sair-do-perfil-mobile:hover, .li-encerrar-mobile:hover {
     cursor: pointer;
   }
-
-
-
-
 
 }
 
@@ -194,7 +189,6 @@
     top: 2.7rem !important;
   }
 
-
   /*
   * Menu dos itens
   * Transformando o menu dos em um menu vertical
@@ -206,7 +200,6 @@
     right: 1.2333rem;
     background-color: aqua;
     position: fixed;
-
 
     top: 6rem;
     z-index: 1;
@@ -237,25 +230,10 @@
     justify-content: flex-start !important;
   }
 
-
-
-  // .ul-container li:nth-child(1) {
-  //   border-top-left-radius: 6px; /* Raio do canto superior esquerdo */
-  //   border-top-right-radius: 6px;
-  //   position: fixed;
-  //   z-index: 1000;
-  // }
-
   .li-sair-do-perfil-mobile, .li-encerrar-mobile {
     display: block !important;
 
   }
-
-  // .ultima-posicao {
-  //   border-bottom-left-radius: 6px; /* Raio do canto superior esquerdo */
-  //   border-bottom-right-radius: 6px;
-  // }
-
 
 }
 

@@ -20,7 +20,7 @@
   }
 
   .tipo-perfil, .nome-paciente {
-    font-size: 1.4rem;  /* Medida de escala */
+    font-size: $titulo_h4_screen_telas_menores_ate_1600;  /* Medida de escala */
   }
 
 }
@@ -63,7 +63,7 @@
   }
 
   .menu-hamburguer-tablet {
-    height: 46px;
+    height: 2.4rem;
   }
 
   .container-opcoes-menu-sair {
@@ -209,7 +209,7 @@
 
 @media (min-width: 1018px) and (max-width: 1030px) {
   .menu-suspenso-documentos {
-    height: 6rem;
+    height: 3rem;
   }
 
 }
@@ -235,9 +235,7 @@
 
 
 /* Ajuste de adequação do menu horizontal */
-@media(min-width: 768px) and (max-width: 876px) {  .ul-container li:nth-child(5) span { position: relative; left: 25%; }}
-@media(min-width: 768px) and (max-width: 823px) {  .ul-container li:nth-child(5) span { position: relative; left: 24%; }}
-@media(min-width: 768px) and (max-width: 791px) {  .ul-container li:nth-child(5) span { position: relative; left: 23%; }}
-@media(min-width: 768px) and (max-width: 777px) {  .ul-container li:nth-child(5) span { position: relative; left: 22%; }}
 
-@media(min-width: 768px) and (max-width: 791px) {  .ul-container li:nth-child(6) span { position: relative; left: 23%; }}
+@media(min-width: 768px) and (max-width: 1001px) { .ul-container li:nth-child(5) span { width: 50% !important; }}
+
+@media(min-width: 768px) and (max-width: 901px) { .ul-container li:nth-child(6) span { width: 50% !important; }}

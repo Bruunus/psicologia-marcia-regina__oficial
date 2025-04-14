@@ -35,7 +35,6 @@ import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-ma
 import { TesteDeComponentesComponent } from './temp/teste-de-componentes/teste-de-componentes.component';
 import { PacienteComponent } from './paciente/paciente.component';
 import { IdentificacaoComponent } from './paciente/perfil/generico/identificacao/identificacao.component';
-import { MenuPacienteComponent } from './templates/menu-paciente/menu-paciente.component';
 import { AcompanhamentoComponent } from './paciente/perfil/generico/acompanhamento/acompanhamento.component';
 import { RelatorioComponent } from './paciente/perfil/generico/relatorio/relatorio.component';
 import { FinanceiroComponent } from './paciente/perfil/generico/financeiro/financeiro.component';
@@ -66,7 +65,6 @@ registerLocaleData(localePt);
     TesteDeComponentesComponent,
     PacienteComponent,
     IdentificacaoComponent,
-    MenuPacienteComponent,
     AcompanhamentoComponent,
     RelatorioComponent,
     FinanceiroComponent,

@@ -45,10 +45,11 @@
 /*********************************** MEDIDAS EXCLUSIVAS ***********************************/
 
 /**
-* Grid - A partir de 992px à 1199px
+* Grid - A partir de 1031px à 1199px
 * Bootstrap - Large .col-lg-
 * Dispositivo alvo: Notebooks e desktops com telas menores compactados
-* (Excessão nessa projeto para esta medida responsiva de 992px para 1018px)
+* (Excessão nessa projeto para esta medida responsiva de 1031px para 1018px)
+* Esta medida vai até a altura maior de tablet
 */
 @media (min-width: 1031px) and (max-width: 1199px) {
 
@@ -83,7 +84,7 @@
 
 
   .ul-container li span {
-    font-size: $font_size_screen_1018_AND_1199;
+    font-size: $font_size__screen_1018_AND_1199;
   }
 
 
