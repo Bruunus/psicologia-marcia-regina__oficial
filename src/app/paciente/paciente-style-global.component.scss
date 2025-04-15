@@ -36,7 +36,7 @@ col-2-editada-global
     width: auto;
     height: 100%;
     padding: 0 1.3rem 0 .9rem !important; // Posição padrão do sistema
-    background-color: lightcoral;
+    background-color: #e8d8e8;
     padding: 0;
     display: flex;
     align-items: center;
@@ -57,15 +57,25 @@ col-2-editada-global
     }
 
     .tipo-perfil {
+      font-family: 'font-titulo-tela-paciente';
+      color: black;
       margin: 0 !important;
       padding-left: .8rem !important;   // Posição padrão do sistema
+    }
+
+    .nick-name, .span-sair-telas-maiores {
+      font-family: 'nick-name-paciente';
+    }
+
+    .ul-container li span {
+      font-family: 'texto-corrido-paciente';
     }
 
 
   .col-filha-container-esquerdo {
     width: 100%;
     height: 100%;
-    background-color: burlywood;
+    background-color: #e8d8e8;
     padding: 0 1rem;
     display: flex;
     align-items: center;
@@ -73,6 +83,7 @@ col-2-editada-global
   }
 
   .nome-paciente {
+    font-family: 'font-titulo-tela-paciente';
     margin-bottom: 0 !important;
   }
 
@@ -91,7 +102,7 @@ col-2-editada-global
 .menu-suspenso-documentos {
   display: block;  /* Medida padrão para ser controlado nas responsividades */
   height: 100%;
-  background-color: #dddddd;
+  background-color: #E7CBE7;
   margin-left: 0 !important;
   margin-right: 0 !important;
   padding-right: 0 !important;
@@ -128,7 +139,7 @@ col-2-editada-global
 
 
 .ul-container {
-  background-color: aquamarine;
+  background-color: #E7CBE7;
   padding: 3rem 0;  /* Ajuste de altura para ajustar em conjunto com o menu-paciente ao topo */
   width: 100%;
   height: 50%;
@@ -139,7 +150,7 @@ col-2-editada-global
   width: 100%;
   height: auto;
   padding: 0.2rem 0 0.2rem 2rem;
-  background-color: lightpink;
+  background-color: #E7CBE7;
 }
 
 

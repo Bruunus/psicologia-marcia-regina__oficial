@@ -8,12 +8,12 @@
     <div class="col-auto col-filha-container-direito" [ngClass]="getAddClasseCSS()">
       <div class="col-filha-container-direito-filha">
         <a [routerLink]="['/paciente',perfilVar,'documentos','identificacao']">
-          <img src="../../../assets/img/img-logo-alfa.png" class="img-logo no-select-img">
+          <img src="../../assets/img/img-logo-alfa-teste6.png" class="img-logo no-select-img">
         </a>
-        <h4 class="tipo-perfil" style="color: #fff;">{{ perfilApresentacao }}</h4>
+        <h4 class="tipo-perfil">{{ perfilApresentacao }}</h4>
       </div>
       <div class="container-mobile-usuario">
-        Olá, {{ this.usuario }}
+        <span class="nick-name">Olá, {{ this.usuario }}</span>
       </div>
     </div>
 
@@ -26,7 +26,7 @@
 
       <!-- Layout para telas maiores -->
       <div class="container-telas-maiores">
-        <span class="nick-name" >Olá, {{ this.usuario }}</span>
+        <span class="n-user nick-name" >Olá, {{ this.usuario }}</span>
         <span
           class="span-sair-telas-maiores"
           tabindex="0"
@@ -37,7 +37,7 @@
 
       <!-- Layout para tablets -->
       <div class="container-middle-responsive-768-end-1030" >
-        <span class="nick-name" >Olá, {{ this.usuario }}</span>
+        <span class="n-user nick-name" >Olá, {{ this.usuario }}</span>
         <img src="../../assets/img/icone-menu-middle.png" data-menu-middle-button class="menu-hamburguer-tablet" (click)="toggleMenuMiddle()" >
         <ul class="container-opcoes-menu-sair" [ngClass]="this.getClasseVisibilidadeMenuMiddle()">
           <li class="li-sair-do-perfil" (click)="redirectMenu();">Sair do perfil</li>
@@ -98,7 +98,7 @@
                 (loadingDocumentosService.boolean$ | async) &&
                 itemSelecionado === item.path &&
                  (!loadingDocumentosService.getRenderizado())"
-                src="../../assets/img/loadingo-menu.gif"
+                src="../../assets/img/Double Ring@1x-1.0s-800px-800px.gif"
                 alt="Loading" class="loading-li" style="height: 20px; margin-left: 5px;">
         </li>
         <li class="li-sair-do-perfil-mobile" (click)="redirectMenu()">
@@ -134,7 +134,7 @@
 
 
 
-
+      <!-- <p>© 2025 Todos os direitos reservados.</p> -->
     </div>
 
     <div class="col tela-suspensa-documentos">
@@ -143,7 +143,7 @@
           background-color: #fff;
           width: 100%;
           height: 100%; /* Sujeito a alteração responsiva */
-          background-color: #bebebe;
+          background-color: #D1D1D1;
           display: flex;
           align-items: flex-start;
           justify-content: center;
@@ -187,7 +187,7 @@ height: 45px;
 position: fixed;
 top: 200px;    /* Autera os lados aqui */
 right: -8px;   /* Autera os lados aqui */
-background-color: #f9f9f9;
+background-color: #D1D1D1;
 border: 1px solid #ccc;
 border-radius: 5px;
 padding: 10px;
