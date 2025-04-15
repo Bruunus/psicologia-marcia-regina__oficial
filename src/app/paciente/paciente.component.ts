@@ -9,6 +9,7 @@ import { PacienteCacheService } from '../services/cache/paciente/paciente-cache.
 import { GerenciadoDeAutenticacaoService } from '../services/sessao/gerenciador-de-autenticacao.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MascaraService } from '../services/utilits/forms/mascaras/mascara.service';
+import { Location } from '@angular/common';
 
 declare var $: any;
 
@@ -98,7 +99,7 @@ export class PacienteComponent implements OnInit {
     private route: ActivatedRoute, private router: Router, private loadingDocumentosServiceInject: LoadingDocumentosService,
     protected alteracaoDisplayService: AlteracaoDisplayService, private apiAutenticacaoService: ApiAutenticacaoService,
     private pacienteCacheService: PacienteCacheService, private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService,
-    private mascaraService: MascaraService
+    private mascaraService: MascaraService, private location: Location
 
     , protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev
 
@@ -176,7 +177,7 @@ export class PacienteComponent implements OnInit {
 
 
 
-   /* Controles do Modal */
+   /* Controles dos Modais */
    openModal(): void {
     $('#exampleModalCenter').modal('show'); // Abre o modal
   }
@@ -185,6 +186,7 @@ export class PacienteComponent implements OnInit {
     document.getElementById('safeElement')?.focus();
     $('#exampleModalCenter').modal('hide'); // Fecha o modal
   }
+
 
 
 
@@ -468,7 +470,7 @@ export class PacienteComponent implements OnInit {
       localStorage.removeItem('perfil');
       this.pacienteCacheService.clearCachePaciente();
 
-      this.router.navigate(['/home/pacientes']);
+      this.router.navigate(['/home/pacientes'], {replaceUrl: true}); // o replace limpa o histórico e impede de voltar com a seta
     }, 450);
 
     this.ajustaNomePaciente();
@@ -509,6 +511,19 @@ export class PacienteComponent implements OnInit {
     }
   }
 
+  verificandoSaida = false;
+
+//   @HostListener('window:popstate', ['$event'])
+// onPopState(event: PopStateEvent): void {
+//   const confirmLeave = confirm('Você está saindo do perfil do paciente. Deseja continuar?');
+
+//   if (confirmLeave) {
+//     this.redirectMenu(); // Redireciona para "Home", por exemplo
+//   } else {
+//     // Volta imediatamente para a tela atual (cancelando o "voltar")
+//     this.location.forward(); // Força voltar para frente no histórico
+//   }
+// }
 
 
 

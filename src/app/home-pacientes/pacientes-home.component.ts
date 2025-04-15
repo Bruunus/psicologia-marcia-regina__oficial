@@ -58,7 +58,7 @@ export class PacientesHomeComponent implements OnInit {
     this.timeoutService.initSessionTimeout();
     this.nomeLogin = this.gerenciadoDeAutenticacaoService.getUsuario();
     this.carregarTabela();
-
+    // history.forward();
   }
 
 
@@ -118,7 +118,13 @@ export class PacientesHomeComponent implements OnInit {
       localStorage.setItem('nomePaciente',paciente.nomeCompleto);
       const perfilFormatter = this.validationFormService.formatterPalavraPrimeiraLetraMaiuscula(paciente.perfil);
       const perfilFormatterMinusculoParaURl = perfilFormatter.toLowerCase();
-      this.router.navigate([`/paciente/${perfilFormatterMinusculoParaURl}/documentos`]);
+
+        this.router.navigate([`/paciente/${perfilFormatterMinusculoParaURl}/documentos`], {replaceUrl: true});
+
+
+
+
+
     }
   }
 
