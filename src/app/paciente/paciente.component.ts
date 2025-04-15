@@ -488,18 +488,28 @@ export class PacienteComponent implements OnInit {
     }, 380);
   }
 
-
+  /**
+   * Evento de interação com Mouse
+   */
+  handleKeyPress(event: KeyboardEvent): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault(); // previne scroll se for espaço
+      this.openModal();
+    }
+  }
 
   /**
-   * Tenho um desafio, voce consegue ler por aqui ? Se sim estou em um projeto
-   * angular na qual este metodo toggleMenu está um (click) evento, que ao clicar
-   * aparece o menu
+   * Executa chamando o template nos itens do menu ao navegar até a opção usando Tab
    */
-  // toggleMenu(): void {
-  //   setTimeout(() => {
-  //     this.alteracaoDisplayService.toggleMenu();
-  //   });
-  // }
+  handleKeyDown(event: KeyboardEvent, item: { label: string; path: string }): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault(); // Evita rolagem com Espaço
+      this.selecionarItem(item);
+      this.fecharMenuSmall();
+    }
+  }
+
+
 
 
 
