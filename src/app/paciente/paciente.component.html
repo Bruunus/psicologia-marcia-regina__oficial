@@ -6,33 +6,34 @@
 
   <div class="row row-container-superior">
 
+
+    <!-- Layout para telas menores/maiores -->
     <div class="col-auto col-filha-container-direito" [ngClass]="getAddClasseCSS()">
 
-      <app-middle class="app-middle"></app-middle>
-
-<div class="screen-telas-maiores">
-
-
-          <div class="col-filha-container-direito-filha">
-            <a [routerLink]="['/paciente',perfilVar,'documentos','identificacao']">
-              <img src="../../assets/img/img-logo-alfa-teste6.png" class="img-logo no-select-img">
-            </a>
-            <h4 class="tipo-perfil">{{ perfilApresentacao }}</h4>
-          </div>
-          <div class="container-mobile-usuario">
-            <span class="nick-name">Olá, {{ this.usuario }}</span>
-          </div>
-</div>
-
-
+      <div class="col-filha-container-direito-filha">
+        <a [routerLink]="['/paciente',perfilVar,'documentos','identificacao']">
+          <img src="../../assets/img/img-logo-alfa-teste6.png" class="img-logo no-select-img">
+        </a>
+        <h4 class="tipo-perfil">{{ perfilApresentacao }}</h4>
+      </div>
+      <div class="container-mobile-usuario">
+        <span class="nick-name">Olá, {{ this.usuario }}</span>
+      </div>
     </div>
+
+    <!-- Layout para tablets -->
+
+    <!-- Layout para smarphones-->
+
+
+
 
 
 
     <div class="col col-filha-container-esquerdo">
       <h4 class="nome-paciente" [ngClass]="ajustaNomePaciente()">{{ nomePaciente }}</h4>
 
-      <!-- Layout para telas maiores -->
+      <!-- Layout para telas menores/maiores -->
       <div class="container-telas-maiores">
         <span class="n-user nick-name" >Olá, {{ this.usuario }}</span>
         <span
