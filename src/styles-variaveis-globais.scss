@@ -20,8 +20,12 @@ $font_size__screen_tela_mobile: .9rem;
 
 /********************************* Tema Tela Paciente - Global *********************************/
 
-$tema_paciente__cor_de_fundo_menu_vertical: 0;
-$tema_paciente__cor_de_fundo_menu_horizontal: 0;
+$tema_paciente__cor_de_fundo_menu_vertical:                         #995A8C;
+$tema_paciente__cor_de_fundo_menu_horizontal:                       #E8D8E8;
+$tema_paciente__cor_tipografia_perfil:                              #ffd700;
+$tema_paciente__cor_tipografia_menu_horizontal_nome_paciente:       #201940;
+$tema_paciente__cor_tipografia_menu_horizontal_nick_name_e_op_sair: #110e21;
+$tema_paciente__cor_tipografia_menu:                       #fff;
 
 
 /**************************** Medidas responsivas de escala - Tela Paciente ****************************/
@@ -34,16 +38,16 @@ $TelaPaciente__altura_menu_superior__max_width_768_a_max_width_1017: 3.4rem ;
 $TelaPaciente__altura_menu_superior__max_width_543: 2.4rem;
 
 /* Medidas da div classe='col-filha-container-direito-filha' no Perfil de **Psicologia** */
-$TelaPacienteDivPerfil_Psicologia__min_width_1601:                      13.774375rem  !important;
-$TelaPacienteDivPerfil_Psicologia__min_width_1200__and__max_width_1600: 12.16666rem   !important;
-$TelaPacienteDivPerfil_Psicologia__min_width_1018__and__max_width_1199: 11.97875rem   !important;
-$TelaPacienteDivPerfil_Psicologia__min_width_768__and__max_width_1017:  11.6075rem    !important;
+$TelaPacienteDivPerfil_Psicologia__min_width_1601:                      12.784375rem  !important;
+$TelaPacienteDivPerfil_Psicologia__min_width_1200__and__max_width_1600: 11.74666rem   !important;
+$TelaPacienteDivPerfil_Psicologia__min_width_1018__and__max_width_1199: 11.47875rem   !important;
+$TelaPacienteDivPerfil_Psicologia__min_width_768__and__max_width_1017:  11.6075rem    !important;/* Desativado */
 
 /* Medidas da div classe='col-filha-container-direito-filha' no Perfil de **Neuropsicologia** */
-$TelaPacienteDivPerfil_Neuropsicologia__min_width_1601:                       17.253125rem  !important;
-$TelaPacienteDivPerfil_Neuropsicologia__min_width_1200__and__max_width_1600:  15.88875rem   !important;
-$TelaPacienteDivPerfil_Neuropsicologia__min_width_1018__and__max_width_1199:  15.635rem     !important;
-$TelaPacienteDivPerfil_Neuropsicologia__min_width_768__and__max_width_1017:   15.26375rem   !important;
+$TelaPacienteDivPerfil_Neuropsicologia__min_width_1601:                       16.653125rem  !important;
+$TelaPacienteDivPerfil_Neuropsicologia__min_width_1200__and__max_width_1600:  15.28875rem   !important;
+$TelaPacienteDivPerfil_Neuropsicologia__min_width_1018__and__max_width_1199:  15.0666rem     !important;
+$TelaPacienteDivPerfil_Neuropsicologia__min_width_768__and__max_width_1017:   15.26375rem   !important;/* Desativado */
 
 /********************************************************************************************************/
 

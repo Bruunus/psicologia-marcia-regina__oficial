@@ -14,6 +14,16 @@
     max-height: $TelaPaciente__altura_menu_superior__max_width_768_a_max_width_1017;
   }
 
+  .col-filha-container-esquerdo {
+    background-color: $tema_paciente__cor_de_fundo_menu_vertical !important;
+  }
+
+  .col-filha-container-esquerdo .nome-paciente,
+  .container-middle-responsive-768-end-1030 .nick-name {
+    color: $tema_paciente__cor_tipografia_menu;
+  }
+
+
   .img-logo {
     height: 48px;
     margin-bottom: -5px;
@@ -51,7 +61,6 @@
 @media(min-width: 768px) and (max-width: 1030px) {
   .container-middle-responsive-768-end-1030 {
     display: flex !important;
-    background: #d3b167;
     width: 43%;
     height: 100%;
     align-items: center;

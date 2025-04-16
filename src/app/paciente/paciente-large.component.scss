@@ -17,13 +17,24 @@
 
 @media (min-width: 1031px) {
 
+  /********* Liberação do menu superior para telas grandes *********/
+  .screen-telas-maiores {
+    display: block !important;
+    // width: 100%;
+  }
+
+  .app-middle {
+    display: none;
+  }
+
+
   /*
   * Aplicação do estilo underline especial ao passar o mouse no menu
   */
   .ul-container li span {
     display: inline-block;
     padding-bottom: 2px;
-    background-image: linear-gradient(#dd4141 0 0);
+    background-image: linear-gradient(#d5b404 0 0);
     background-position: 0 100%; /* OR bottom left */
     background-size: 0% 2px;
     background-repeat: no-repeat;
@@ -39,6 +50,12 @@
     background-size: 100% 2px;
   }
 
+}
+
+@media(max-width: 1030px) {
+  .screen-telas-maiores, .col-filha-container-esquerdo .nome-paciente {
+    display: none !important;
+  }
 }
 
 

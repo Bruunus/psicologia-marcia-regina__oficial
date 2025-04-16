@@ -1,4 +1,5 @@
 @import '../../styles.scss';
+@import '../../styles-variaveis-globais.scss';
 
 
 /**************** Estilo Global de largura da barra vertical dos dois documentos *****************/
@@ -28,7 +29,7 @@ col-2-editada-global
 
 
 .row-container-superior {
-  background-color: lightblue;
+  // background-color: lightblue;
   width: 100%;
   margin: 0 !important;
 }
@@ -36,7 +37,7 @@ col-2-editada-global
     width: auto;
     height: 100%;
     padding: 0 1.3rem 0 .9rem !important; // Posição padrão do sistema
-    background-color: #e8d8e8;
+    background-color: $tema_paciente__cor_de_fundo_menu_vertical;
     padding: 0;
     display: flex;
     align-items: center;
@@ -58,14 +59,22 @@ col-2-editada-global
 
     .tipo-perfil {
       font-family: 'font-titulo-tela-paciente';
-      color: black;
+      color: $tema_paciente__cor_tipografia_perfil;
       margin: 0 !important;
       padding-left: .8rem !important;   // Posição padrão do sistema
     }
 
+    .loading-li {
+      height: 1.3375rem;
+      position: static;
+      margin-left: 9px;
+    }
+
     .nick-name, .span-sair-telas-maiores {
       font-family: 'nick-name-paciente';
+      color: $tema_paciente__cor_tipografia_menu_horizontal_nome_paciente;
     }
+
 
     .ul-container li span {
       font-family: 'texto-corrido-paciente';
@@ -75,7 +84,7 @@ col-2-editada-global
   .col-filha-container-esquerdo {
     width: 100%;
     height: 100%;
-    background-color: #e8d8e8;
+    // background-color: #e8d8e8;
     padding: 0 1rem;
     display: flex;
     align-items: center;
@@ -84,6 +93,7 @@ col-2-editada-global
 
   .nome-paciente {
     font-family: 'font-titulo-tela-paciente';
+    color: $tema_paciente__cor_tipografia_menu_horizontal_nome_paciente;
     margin-bottom: 0 !important;
   }
 
@@ -102,7 +112,7 @@ col-2-editada-global
 .menu-suspenso-documentos {
   display: block;  /* Medida padrão para ser controlado nas responsividades */
   height: 100%;
-  background-color: #E7CBE7;
+  background-color: $tema_paciente__cor_de_fundo_menu_vertical;
   margin-left: 0 !important;
   margin-right: 0 !important;
   padding-right: 0 !important;
@@ -123,7 +133,7 @@ col-2-editada-global
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f8f4f4;
+  // background-color: #f8f4f4;
   flex-grow: 1;
 
   padding: 0 !important;
@@ -139,7 +149,7 @@ col-2-editada-global
 
 
 .ul-container {
-  background-color: #E7CBE7;
+  background-color: $tema_paciente__cor_de_fundo_menu_vertical;
   padding: 3rem 0;  /* Ajuste de altura para ajustar em conjunto com o menu-paciente ao topo */
   width: 100%;
   height: 50%;
@@ -150,7 +160,11 @@ col-2-editada-global
   width: 100%;
   height: auto;
   padding: 0.2rem 0 0.2rem 2rem;
-  background-color: #E7CBE7;
+  background-color: $tema_paciente__cor_de_fundo_menu_vertical;
+}
+
+.ul-container li span {
+  color: $tema_paciente__cor_tipografia_menu;
 }
 
 

@@ -5,24 +5,32 @@
 
 
   <div class="row row-container-superior">
+
     <div class="col-auto col-filha-container-direito" [ngClass]="getAddClasseCSS()">
-      <div class="col-filha-container-direito-filha">
-        <a [routerLink]="['/paciente',perfilVar,'documentos','identificacao']">
-          <img src="../../assets/img/img-logo-alfa-teste6.png" class="img-logo no-select-img">
-        </a>
-        <h4 class="tipo-perfil">{{ perfilApresentacao }}</h4>
-      </div>
-      <div class="container-mobile-usuario">
-        <span class="nick-name">Olá, {{ this.usuario }}</span>
-      </div>
+
+      <app-middle class="app-middle"></app-middle>
+
+<div class="screen-telas-maiores">
+
+
+          <div class="col-filha-container-direito-filha">
+            <a [routerLink]="['/paciente',perfilVar,'documentos','identificacao']">
+              <img src="../../assets/img/img-logo-alfa-teste6.png" class="img-logo no-select-img">
+            </a>
+            <h4 class="tipo-perfil">{{ perfilApresentacao }}</h4>
+          </div>
+          <div class="container-mobile-usuario">
+            <span class="nick-name">Olá, {{ this.usuario }}</span>
+          </div>
+</div>
+
+
     </div>
 
 
+
     <div class="col col-filha-container-esquerdo">
-
-
       <h4 class="nome-paciente" [ngClass]="ajustaNomePaciente()">{{ nomePaciente }}</h4>
-
 
       <!-- Layout para telas maiores -->
       <div class="container-telas-maiores">
@@ -37,12 +45,20 @@
 
       <!-- Layout para tablets -->
       <div class="container-middle-responsive-768-end-1030" >
-        <span class="n-user nick-name" >Olá, {{ this.usuario }}</span>
-        <img src="../../assets/img/icone-menu-middle.png" data-menu-middle-button class="menu-hamburguer-tablet" (click)="toggleMenuMiddle()" >
-        <ul class="container-opcoes-menu-sair" [ngClass]="this.getClasseVisibilidadeMenuMiddle()">
-          <li class="li-sair-do-perfil" (click)="redirectMenu();">Sair do perfil</li>
-          <li class="li-encerrar-sessao" (click)="encerrarSessao();">Encerrar Sessão</li>
-        </ul>
+        <span style="background-color: yellow;">Logo-perfil</span>
+        <span style="background-color: blue;">Nome paciente</span>
+
+        <div style="background-color: green;">
+
+          <span class="n-user nick-name" >Olá, {{ this.usuario }}</span>
+          <img src="../../assets/img/icone-menu-middle.png" data-menu-middle-button class="menu-hamburguer-tablet" (click)="toggleMenuMiddle()" >
+          <ul class="container-opcoes-menu-sair" [ngClass]="this.getClasseVisibilidadeMenuMiddle()">
+            <li class="li-sair-do-perfil" (click)="redirectMenu();">Sair do perfil</li>
+            <li class="li-encerrar-sessao" (click)="encerrarSessao();">Encerrar Sessão</li>
+          </ul>
+        </div>
+
+
       </div>
 
       <!-- Layout para smarphones-->
@@ -72,8 +88,15 @@
               *ngIf="(loadingDocumentosService.boolean$ | async) &&
               itemSelecionado === item.path &&
               (!loadingDocumentosService.getRenderizado())"
-          src="../../assets/img/loadingo-menu.gif" alt="Loading" class="loading-li" style="height: 20px; margin-left: 5px;">
-          </li>
+               src="../../assets/img/img-loading-paciente.gif"
+               alt="Loading" class="loading-li" style="height: 20px; margin-left: 5px;">
+
+<!--
+          (loadingDocumentosService.boolean$ | async) &&
+              itemSelecionado === item.path &&
+              (!loadingDocumentosService.getRenderizado()) -->
+
+        </li>
           <li class="li-sair-do-perfil-mobile" (click)="redirectMenu(); fecharMenuSmall()">
             <span tabindex="0" role="button">Sair do perfil</span>
           </li>
@@ -94,12 +117,15 @@
               role="button"
               (keydown)="handleKeyDown($event, item)">{{ item.label }}</span>
             <img
-              *ngIf="
-                (loadingDocumentosService.boolean$ | async) &&
+              *ngIf="(loadingDocumentosService.boolean$ | async) &&
+              itemSelecionado === item.path &&
+               (!loadingDocumentosService.getRenderizado())"
+                src="../../assets/img/img-loading-paciente.gif"
+                alt="Loading" class="loading-li">
+
+                <!-- (loadingDocumentosService.boolean$ | async) &&
                 itemSelecionado === item.path &&
-                 (!loadingDocumentosService.getRenderizado())"
-                src="../../assets/img/Double Ring@1x-1.0s-800px-800px.gif"
-                alt="Loading" class="loading-li" style="height: 20px; margin-left: 5px;">
+                 (!loadingDocumentosService.getRenderizado()) -->
         </li>
         <li class="li-sair-do-perfil-mobile" (click)="redirectMenu()">
           <span tabindex="0" role="button">Sair do perfil</span>
