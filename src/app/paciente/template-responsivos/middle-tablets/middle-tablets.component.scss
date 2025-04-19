@@ -1,0 +1,118 @@
+@import '../../paciente-style-global.component.scss';
+@import '../../../../styles-variaveis-globais.scss';
+
+
+.container-middle {
+  display: flex !important;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.div-container-esquerdo,
+.div-container-centro,
+.div-container-direito {
+  background-color: $tema_paciente__cor_de_fundo_menu_middle_tablet;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.div-container-esquerdo {
+}
+  .img-logo,  .tipo-perfil {
+    padding-left: 1rem;
+  }
+
+.div-container-centro {
+  justify-content: center;
+}
+  .nome-paciente {
+    color: $tema_paciente__cor_tipografia_menu;
+    border-bottom: 1px solid;
+  }
+
+.div-container-direito {
+  justify-content: flex-end;
+}
+  .nick-name {
+    color: $tema_paciente__cor_tipografia_menu;
+    padding: 3px 5px;
+  }
+  .menu-hamburguer-tablet {
+    padding-right: .5rem;
+    height: 2.4rem;
+  }
+
+
+.container-opcoes-menu-sair {
+  width: auto;
+  background-color: #e7c70d;
+  display: block;
+  position: fixed;
+  top: 3.2666rem;
+  right: 1.9rem;
+  z-index: 1;
+  padding: 0;
+  margin: 0;
+  border-radius: 5px;
+  // outline: .1rem solid lightgrey;
+
+  /* Transição suave */
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: opacity 0.2s ease, height 0.1s ease;
+}
+
+.container-opcoes-menu-sair.visible {
+  opacity: 1;
+  height: auto;
+
+}
+
+.container-opcoes-menu-sair.hidden {
+  opacity: 0;
+  height: 0;
+}
+
+.li-sair-do-perfil, .li-encerrar-sessao {
+  list-style-type: none;
+  color: $tema_paciente__cor_tipografia_menu_horizontal_nick_name_e_op_sair;
+  padding-left: .7rem;
+  padding-right: .7rem;
+}
+
+.li-sair-do-perfil:hover, .li-encerrar-sessao:hover {
+  cursor: pointer;
+  background-color: #e7c70d;
+}
+
+.li-sair-do-perfil:active, .li-encerrar-sessao:active {
+  background-color: #dabe23;
+}
+
+
+.li-sair-do-perfil {
+  padding-top: .6rem;
+  padding-bottom: .6rem;
+}
+
+.li-sair-do-perfil span, .li-encerrar-sessao span {
+  position: relative;
+  top: 1px;
+}
+
+.li-encerrar-sessao {
+  padding-top: .6rem;
+  padding-bottom: .6rem;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.li-encerrar-sessao span {
+
+}

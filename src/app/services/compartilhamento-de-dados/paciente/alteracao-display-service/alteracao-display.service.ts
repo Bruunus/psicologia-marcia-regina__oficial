@@ -3,29 +3,31 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AlteracaoDisplayService {
+
   private menuVisibleSubject = new BehaviorSubject<boolean>(false);
   menuVisible$ = this.menuVisibleSubject.asObservable();
 
-  // Método para verificar se a tela está abaixo de 767px
-  private isDevices(): boolean {
-    return window.innerWidth <= 1017;
+  private isSmallScreenSubject = new BehaviorSubject<boolean>(window.innerWidth <= 767);
+  isSmallScreen$ = this.isSmallScreenSubject.asObservable();
+
+  constructor() {
+    window.addEventListener('resize', this.updateScreenSize.bind(this));
+  }
+
+  private updateScreenSize() {
+    const isSmall = window.innerWidth <= 767;
+    this.isSmallScreenSubject.next(isSmall);
   }
 
   toggleMenu() {
-    const atual = this.menuVisibleSubject.value;
-    this.menuVisibleSubject.next(!atual);
-    console.log('[Service] toggleMenu:', !atual);
+    this.menuVisibleSubject.next(!this.menuVisibleSubject.value);
   }
 
   closeMenu() {
-    const atual = this.menuVisibleSubject.value;
     this.menuVisibleSubject.next(false);
-    console.log('[Service] closeMenu', !atual);
   }
 
   openMenu() {
-
-      this.menuVisibleSubject.next(true);
-
+    this.menuVisibleSubject.next(true);
   }
 }

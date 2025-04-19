@@ -1,0 +1,27 @@
+ <div class="row container-small">
+  <div class="col-12 col-12-filho-1">
+    <div class="container-topo-filho-esquerdo">
+      <a [routerLink]="['/paciente',perfilVar,'documentos','identificacao']">
+        <img src="../../assets/img/img-logo-alfa-paciente.png" class="img-logo no-select-img">
+      </a>
+      <h4 class="tipo-perfil">{{ perfilApresentacao }}</h4>
+    </div>
+    <div class="container-topo-filho-direito">
+      <span class="nick-name">Olá, {{ this.usuario }}</span>
+    </div>
+
+  </div>
+  <div class="col-12 col-12-filho-2">
+    <div class="container-baixo-filho-esquerdo">
+      <h4 class="nome-paciente" >{{ nomePaciente }}</h4>
+    </div>
+    <div class="container-baixo-filho-direito">
+      <img src="../../assets/img/menu.png" data-menu-button (click)="toggleMenuSmall()" class="menu-hamburguer-mobile">
+    </div>
+  </div>
+ </div>
+
+
+
+
+

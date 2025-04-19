@@ -45,7 +45,9 @@ import { FinalizarTratamentoComponent } from './paciente/perfil/generico/finaliz
 import { BugsComponent } from './temp/bugs/bugs.component';
 import { IdentificacaoUpdateComponent } from './paciente/perfil/generico/update/identificacao/update-identificacao/identificacao-update.component';
 import { TextMaskModule } from 'angular2-text-mask';
-import { MiddleComponent } from './paciente/template-responsivos/middle/middle.component';
+
+import { SmallSmartphonesComponent } from './paciente/template-responsivos/small-smartphones/small-smartphones.component';
+import { MiddleTabletsComponent } from './paciente/template-responsivos/middle-tablets/middle-tablets.component';
 
 
 
@@ -77,7 +79,8 @@ registerLocaleData(localePt);
     FinalizarTratamentoComponent,
     BugsComponent,
     IdentificacaoUpdateComponent,
-    MiddleComponent
+    SmallSmartphonesComponent,
+    MiddleTabletsComponent
   ],
   imports: [
     BrowserModule,

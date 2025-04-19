@@ -12,26 +12,32 @@
   font-style: normal;
 }
 
+
+/******************************* Tipografia - Tela Paciente *******************************/
+
 @font-face {
   font-family: 'font-titulo-tela-paciente';
-  src: url('../../../../../../../../media/Fontes_para_teste/todas/Assistant/Assistant-VariableFont_wght.ttf') format('opentype');
+  src: url('../src/assets/fonts/Assistant/Assistant-VariableFont_wght.ttf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'nick-name-paciente';
-  src: url('../../../../../../../../media/Fontes_para_teste/todas/Roboto/static/Roboto-Light.ttf ') format('opentype');
+  src: url('../src/assets/fonts/tela_paciente/Roboto-Light.ttf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'texto-corrido-paciente';
-  src: url('../../../../../../../../media/Fontes_para_teste/todas/Open_Sans/OpenSans-Variable.ttf ') format('opentype');
+  src: url('../src/assets/fonts/tela_paciente/OpenSans-VariableFont.ttf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
+
+
+
 
 /* Variáveis do sistema */
 $tamanho_fonte_botao: 1rem; //16px

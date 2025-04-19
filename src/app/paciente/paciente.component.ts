@@ -62,7 +62,9 @@ export class PacienteComponent implements OnInit {
   menuAbertoMiddle = false;
   perfilVar: string | undefined = localStorage.getItem('perfil')?.toLocaleLowerCase();
 
-
+  telasMaiores: boolean = false;
+  appMiddleTablets: boolean = false;
+  appSmallSmartphones: boolean = false;
 
 
 
@@ -96,12 +98,12 @@ export class PacienteComponent implements OnInit {
 
 
   constructor(
-    private route: ActivatedRoute, private router: Router, private loadingDocumentosServiceInject: LoadingDocumentosService,
+    private router: Router, private loadingDocumentosServiceInject: LoadingDocumentosService,
     protected alteracaoDisplayService: AlteracaoDisplayService, private apiAutenticacaoService: ApiAutenticacaoService,
     private pacienteCacheService: PacienteCacheService, private gerenciadoDeAutenticacaoService: GerenciadoDeAutenticacaoService,
-    private mascaraService: MascaraService, private location: Location
+    private mascaraService: MascaraService,
 
-    , protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev
+      protected calculadorDeTelaModoDev: CalculadorDeTelaModoDev
 
   ) {
       /**
@@ -131,6 +133,7 @@ export class PacienteComponent implements OnInit {
     this.checkScreenSize();
     this.ajustaNomePaciente();
 
+
   }
 
 
@@ -139,6 +142,9 @@ export class PacienteComponent implements OnInit {
     this.checkScreenSize();
     this.abreviarNomeNeuropsicologia();
     this.ajustaNomePaciente();
+
+
+
   }
 
 
@@ -200,9 +206,20 @@ export class PacienteComponent implements OnInit {
     // const width = window.innerWidth;
     this.larguraDaTela = window.innerWidth;
 
+    /* Controle de exibição de responsividade para outras telas*/
+    this.telasMaiores = this.larguraDaTela >= 1031;
+    this.appMiddleTablets = this.larguraDaTela >= 768 && this.larguraDaTela <= 1030;
+    this.appSmallSmartphones = this.larguraDaTela >= 0 && this.larguraDaTela <= 767;
+
+
     this.calculaClasseCSS = this.larguraDaTela >= 768 && this.larguraDaTela <= 1199;
     this.calculoMedidaMobile = this.larguraDaTela > 0 && this.larguraDaTela <= 543;
     this.calculoParaAjusteMobileNickName = this.larguraDaTela <= 320;
+
+    if(this.telasMaiores) {
+      this.alteracaoDisplayService.openMenu()
+    }
+
 
     // /* Medidas Genéricas */
     // this.min_width_1601 = this.larguraDaTela >= 1601;
@@ -210,17 +227,28 @@ export class PacienteComponent implements OnInit {
     // this.min_width_1018__and__max_width_1199 = this.larguraDaTela >= 1018 && this.larguraDaTela <= 1199;
     // this.max_width_1017 = this.larguraDaTela <= 1017;
     // this.ajusteMenuVerticalEmSincronismo(this.larguraDaTela);
+
+    this.ngClassFactoryMedidasSincronizadas();
+    this.ajustePosicaoPerfil();
+
   }
 
 
   // Retorna a classe correta para o perfil do logo
-  getAddClasseCSS(): string[] {
-    if (this.calculaClasseCSS) {
+  capturaDePerfil(): string[] {
+    if (this.telasMaiores = this.larguraDaTela >= 1031) {
       if (this.perfilApresentacao === 'Psicologia') {
-        return ['width_personalizado_menu_Psicologia'];
+        return ['largura_personalizada_min_width_1601_psicologia'];
       } else if (this.perfilApresentacao === 'Neuropsicologia') {
-        return ['width_personalizado_menu_Neuropsicologia'];
+        return ['largura_personalizada_min_width_1601_neuropsicologia'];
       }
+    }
+    return [];
+  }
+
+  ajustePosicaoPerfil(): string[] {
+   if (this.perfilApresentacao === 'Neuropsicologia') {
+      return ['ajuste_pos_neuro'];
     }
     return [];
   }
@@ -237,13 +265,6 @@ export class PacienteComponent implements OnInit {
       : ''; // Se não for dispositivo pequeno, não aplica nenhuma classe
   }
 
-  getClasseVisibilidadeMenuMiddle(): string[] {
-    const isDispositivoMedio = window.innerWidth >= 768 && window.innerWidth <= 1030;
-
-    return isDispositivoMedio
-      ? [this.menuAbertoMiddle ? 'visible' : 'hidden']
-      : []; // Se não for dispositivo pequeno, não aplica nenhuma classe
-  }
 
 
 
@@ -290,6 +311,13 @@ export class PacienteComponent implements OnInit {
   }
 
 
+  ngClassFactoryMedidasSincronizadas(): string[] {
+    return [
+      ...this.capturaDePerfil(),
+      ...this.ajusteMenuVerticalEmSincronismo()
+    ];
+  }
+
 
 
 
@@ -309,6 +337,8 @@ export class PacienteComponent implements OnInit {
 
     ]
   }
+
+
 
 
   onNotify() {
@@ -431,21 +461,19 @@ export class PacienteComponent implements OnInit {
   @HostListener('document:click', ['$event'])
   onClickOutside(event: MouseEvent): void {
 
+    if (!this.menuAbertoSmall) return;
+
     const target = event.target as HTMLElement;
 
     const menuElementSmall = document.querySelector('.menu-suspenso-documentos');
     const buttonElementSmall = document.querySelector('[data-menu-button]');
 
-    const menuElementMiddle = document.querySelector('.container-opcoes-menu-sair');
-    const buttonElementMiddle = document.querySelector('[data-menu-middle-button]')
+
 
     if (menuElementSmall && !menuElementSmall.contains(target) && !buttonElementSmall?.contains(target)) {
       this.fecharMenuSmall();
     }
 
-    if(menuElementMiddle && !menuElementMiddle.contains(target) && !buttonElementMiddle?.contains(target)) {
-      this.fecharMenuMiddle();
-    }
   }
 
 

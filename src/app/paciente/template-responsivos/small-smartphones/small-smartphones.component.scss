@@ -1,0 +1,97 @@
+// importar
+// style-global de paciente
+// style-global do angular
+// styles-variaveis-globais
+@import '../../paciente-style-global.component.scss';
+@import '../../../../styles-variaveis-globais.scss';
+
+.container-small {
+  width: 100%;
+  height: auto;
+  padding: 0;
+  margin: 0;
+
+}
+
+.col-12 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.col-12-filho-1 { background-color: $tema_paciente__cor_de_fundo_menu_middle_tablet; }
+.col-12-filho-2 { background-color: $tema_paciente__cor_de_fundo_menu_vertical; }
+
+.container-topo-filho-esquerdo, .container-topo-filho-direito,
+.container-baixo-filho-esquerdo, .container-baixo-filho-direito {
+  width: 100%;
+  display: flex;
+}
+
+.container-topo-filho-esquerdo {
+  align-items: center;
+}
+  .tipo-perfil {
+    margin: 0 !important;
+    padding-left: 1rem !important;
+  }
+
+  .nick-name, .nome-paciente {
+    color: $tema_paciente__cor_tipografia_menu;
+  }
+
+
+
+.container-baixo-filho-esquerdo {
+  padding-left: 5px;
+}
+
+.menu-hamburguer-mobile {
+  height: 46px;
+}
+
+.container-topo-filho-direito, .container-baixo-filho-direito  {
+  justify-content: flex-end;
+  padding-right: 1rem;
+}
+
+.container-baixo-filho-direito {
+  padding-right: 0.6666rem;
+}
+
+
+/*
+  * Menu dos itens
+  * Transformando o menu dos em um menu vertical
+  */
+  .menu-suspenso-documentos {
+    position: fixed;
+    width: 15rem;
+    right: 1.2333rem;
+    background-color: aqua;
+    top: 6rem;
+    z-index: 1;
+    border-radius: .5rem;
+
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: opacity 0.15s ease, height 0.1s ease;
+  }
+
+  .menu-suspenso-documentos.visible {
+    opacity: 1;
+    height: auto;
+  }
+
+  .menu-suspenso-documentos.hidden {
+    opacity: 0;
+    height: 0;
+  }
+
+
+@media(max-width: 465px) {
+  .menu-hamburguer-mobile {
+    height: 44px;
+  }
+}

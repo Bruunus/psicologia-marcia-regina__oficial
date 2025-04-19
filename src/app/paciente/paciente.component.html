@@ -1,80 +1,72 @@
 <div class="container-fluid">
 
+  <div class="row row-container-superior" [ngClass]="{ 'hide-telas-maiores': !telasMaiores }">
 
-  <!-- <app-menu-paciente></app-menu-paciente> -->
+      <div class="col-auto col-filha-container-direito" [ngClass]="ngClassFactoryMedidasSincronizadas()">
 
-
-  <div class="row row-container-superior">
-
-
-    <!-- Layout para telas menores/maiores -->
-    <div class="col-auto col-filha-container-direito" [ngClass]="getAddClasseCSS()">
-
-      <div class="col-filha-container-direito-filha">
-        <a [routerLink]="['/paciente',perfilVar,'documentos','identificacao']">
-          <img src="../../assets/img/img-logo-alfa-teste6.png" class="img-logo no-select-img">
-        </a>
-        <h4 class="tipo-perfil">{{ perfilApresentacao }}</h4>
-      </div>
-      <div class="container-mobile-usuario">
-        <span class="nick-name">Olá, {{ this.usuario }}</span>
-      </div>
-    </div>
-
-    <!-- Layout para tablets -->
-
-    <!-- Layout para smarphones-->
-
-
-
-
-
-
-    <div class="col col-filha-container-esquerdo">
-      <h4 class="nome-paciente" [ngClass]="ajustaNomePaciente()">{{ nomePaciente }}</h4>
-
-      <!-- Layout para telas menores/maiores -->
-      <div class="container-telas-maiores">
-        <span class="n-user nick-name" >Olá, {{ this.usuario }}</span>
-        <span
-          class="span-sair-telas-maiores"
-          tabindex="0"
-          role="button"
-          (click)="openModal()"
-          (keydown)="handleKeyPress($event)" >Sair</span>
+        <!-- Lado esquerdo -->
+        <div class="col-filha-container-direito-filha" >
+          <a [routerLink]="['/paciente',perfilVar,'documentos','identificacao']">
+            <img src="../../assets/img/img-logo-alfa-paciente.png" class="img-logo no-select-img">
+          </a>
+          <h4 class="tipo-perfil" [ngClass]="ajustePosicaoPerfil()">{{ perfilApresentacao }}</h4>
+        </div>
+        <div class="container-mobile-usuario">
+          <span class="nick-name">Olá, {{ this.usuario }}</span>
+        </div>
       </div>
 
-      <!-- Layout para tablets -->
-      <div class="container-middle-responsive-768-end-1030" >
-        <span style="background-color: yellow;">Logo-perfil</span>
-        <span style="background-color: blue;">Nome paciente</span>
+      <!-- Lado direito -->
+      <div class="col col-filha-container-esquerdo">
+        <h4 class="nome-paciente" [ngClass]="ajustaNomePaciente()">{{ nomePaciente }}</h4>
 
-        <div style="background-color: green;">
-
+        <!-- Layout para telas menores/maiores -->
+        <div class="container-telas-maiores">
           <span class="n-user nick-name" >Olá, {{ this.usuario }}</span>
-          <img src="../../assets/img/icone-menu-middle.png" data-menu-middle-button class="menu-hamburguer-tablet" (click)="toggleMenuMiddle()" >
-          <ul class="container-opcoes-menu-sair" [ngClass]="this.getClasseVisibilidadeMenuMiddle()">
-            <li class="li-sair-do-perfil" (click)="redirectMenu();">Sair do perfil</li>
-            <li class="li-encerrar-sessao" (click)="encerrarSessao();">Encerrar Sessão</li>
-          </ul>
+          <span
+            class="span-sair-telas-maiores"
+            tabindex="0"
+            role="button"
+            (click)="openModal()"
+            (keydown)="handleKeyPress($event)" >Sair</span>
         </div>
 
-
       </div>
 
-      <!-- Layout para smarphones-->
-      <img src="../../assets/img/menu-versao-dev.png" data-menu-button (click)="toggleMenuSmall()" class="menu-hamburguer-mobile">
-
-
-    </div>
   </div>
+
+  <!-- Exibição para tablets -->
+  <app-middle-tablets
+    [ngClass]="{ 'hide-middle-tablets': !appMiddleTablets }"
+    [perfilApresentacao]="perfilApresentacao"
+    [nomePaciente]="nomePaciente"
+    (redirectMenu)="redirectMenu()"
+    (encerrarSessao)="encerrarSessao()"
+    >
+
+  </app-middle-tablets>
+
+  <!-- Exibição para smartphoes -->
+  <app-small-smartphones
+    [ngClass]="{ 'hide-small-smartphone': !appSmallSmartphones }"
+    [perfilApresentacao]="perfilApresentacao"
+    [nomePaciente]="nomePaciente"
+    (redirectMenu)="redirectMenu()"
+    (encerrarSessao)="encerrarSessao()">
+  </app-small-smartphones>
+
 
 
   <div class="row container-inferior">
 
     <!-- col-2-personalizada container-vertical-menu -->
-    <div [ngClass]="operacoesNgClassParaClasseMenuSuspensoDocumentos()" class=" menu-suspenso-documentos">
-      <!-- Adicionar um ngIf - Dependendo do perfil (Psicologia ou Neuropsicologia) o menu muda -->
+    <div [ngClass]="ngClassFactoryMedidasSincronizadas()"
+    *ngIf="(alteracaoDisplayService.isSmallScreen$ | async) ? (alteracaoDisplayService.menuVisible$ | async) : true"
+    class=" menu-suspenso-documentos">
+
+
+
+   <!-- Adicionar um ngIf - Dependendo do perfil (Psicologia ou Neuropsicologia) o menu muda -->
 
       <!-- PERFIL PSICOLOGIA -->
 
@@ -90,7 +82,7 @@
               itemSelecionado === item.path &&
               (!loadingDocumentosService.getRenderizado())"
                src="../../assets/img/img-loading-paciente.gif"
-               alt="Loading" class="loading-li" style="height: 20px; margin-left: 5px;">
+               alt="Loading" class="loading-li">
 
 <!--
           (loadingDocumentosService.boolean$ | async) &&
@@ -173,7 +165,7 @@
           background-color: #D1D1D1;
           display: flex;
           align-items: flex-start;
-          justify-content: center;
+          justify-content: center !important;
           overflow-y: auto;
         ">
 

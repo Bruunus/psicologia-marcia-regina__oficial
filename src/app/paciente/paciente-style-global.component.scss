@@ -11,13 +11,20 @@
 
 $largura_do_menu_suspenso_e_menu_paciente_global_max_width: 14.2666666% !important;
 
-/*
-col-2-editada-global
-*/
+
 
 * {
   box-sizing: border-box;
 }
+
+/************ Controle de visibilidade ************/
+
+.hide-telas-maiores     { display: none; }
+.hide-middle-tablets    { display: none; }
+.hide-small-smartphone  { display: none; }
+
+
+
 
 .container-fluid {
   width: 100%;
@@ -60,14 +67,18 @@ col-2-editada-global
     .tipo-perfil {
       font-family: 'font-titulo-tela-paciente';
       color: $tema_paciente__cor_tipografia_perfil;
-      margin: 0 !important;
-      padding-left: .8rem !important;   // Posição padrão do sistema
+      margin: 0 .5666rem 0 0 !important; // Posição padrão do sistema
+    }
+
+    .ajuste_pos_neuro {
+      /* em .tipo-perfil via javascript */
+      margin: 0 !important; // Posição padrão do sistema
     }
 
     .loading-li {
-      height: 1.3375rem;
-      position: static;
-      margin-left: 9px;
+      height: 1.3375rem !important;
+      position: static !important;
+      margin-left: 9px !important;
     }
 
     .nick-name, .span-sair-telas-maiores {

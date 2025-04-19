@@ -59,78 +59,7 @@
 * Grid para atingir o limite da página A4
 */
 @media(min-width: 768px) and (max-width: 1030px) {
-  .container-middle-responsive-768-end-1030 {
-    display: flex !important;
-    width: 43%;
-    height: 100%;
-    align-items: center;
-    justify-content: flex-end;
-  }
 
-  .nick-name {
-    padding-top: 3px;
-  }
-
-  .menu-hamburguer-tablet {
-    height: 2.4rem;
-  }
-
-  .container-opcoes-menu-sair {
-    width: auto;
-    background: #54e6c1;
-    display: block;
-    position: fixed;
-    top: 3rem;
-    right: 2.4rem;
-    z-index: 1;
-    padding: 0;
-    margin: 0;
-    border-radius: 5px;
-    border: .1rem solid lightgrey;
-
-    /* Transição suave */
-    opacity: 0;
-    height: 0;
-    overflow: hidden;
-    transition: opacity 0.2s ease, height 0.1s ease;
-  }
-
-  .container-opcoes-menu-sair.visible {
-    opacity: 1;
-    height: auto;
-    z-index: 1000 !important;
-  }
-
-  .container-opcoes-menu-sair.hidden {
-    opacity: 0;
-    height: 0;
-  }
-
-  .li-sair-do-perfil, .li-encerrar-sessao {
-    list-style-type: none;
-    padding-left: .7rem;
-    padding-right: .7rem;
-  }
-
-  .li-sair-do-perfil:hover, .li-encerrar-sessao:hover {
-    cursor: pointer;
-    background-color: #d3b167;
-  }
-
-  .li-sair-do-perfil:active, .li-encerrar-sessao:active {
-    background-color: aquamarine;
-  }
-
-
-  .li-sair-do-perfil {
-    padding-top: .6rem;
-    padding-bottom: .3rem;
-  }
-
-  .li-encerrar-sessao {
-    padding-top: .3rem;
-    padding-bottom: .6rem;
-  }
 
 
 }

@@ -9,7 +9,7 @@ $titulo_h4_screen_tela_mobile: 1.3rem;
 
 
 // Texto corrido, listas e etc
-$font_size__screen_acima_de_1600: 1.2rem;
+$font_size__screen_acima_de_1600: 1.1rem;
 $font_size__screen_1018_AND_1199: 1rem;
 $font_size__screen_tela_mobile: .9rem;
 
@@ -21,6 +21,7 @@ $font_size__screen_tela_mobile: .9rem;
 /********************************* Tema Tela Paciente - Global *********************************/
 
 $tema_paciente__cor_de_fundo_menu_vertical:                         #995A8C;
+$tema_paciente__cor_de_fundo_menu_middle_tablet:                    #77436c;
 $tema_paciente__cor_de_fundo_menu_horizontal:                       #E8D8E8;
 $tema_paciente__cor_tipografia_perfil:                              #ffd700;
 $tema_paciente__cor_tipografia_menu_horizontal_nome_paciente:       #201940;
@@ -31,16 +32,16 @@ $tema_paciente__cor_tipografia_menu:                       #fff;
 /**************************** Medidas responsivas de escala - Tela Paciente ****************************/
 
 /* Altura do Menu superior */
-$TelaPaciente__altura_menu_superior__min_width_1601: 5rem ;
+$TelaPaciente__altura_menu_superior__min_width_1601: 4.7rem ;
 $TelaPaciente__altura_menu_superior__max_width_1600: 4rem ;
 $TelaPaciente__altura_menu_superior__min_width_1018_a_max_width_1199: 3.8rem ;
 $TelaPaciente__altura_menu_superior__max_width_768_a_max_width_1017: 3.4rem ;
 $TelaPaciente__altura_menu_superior__max_width_543: 2.4rem;
 
 /* Medidas da div classe='col-filha-container-direito-filha' no Perfil de **Psicologia** */
-$TelaPacienteDivPerfil_Psicologia__min_width_1601:                      12.784375rem  !important;
-$TelaPacienteDivPerfil_Psicologia__min_width_1200__and__max_width_1600: 11.74666rem   !important;
-$TelaPacienteDivPerfil_Psicologia__min_width_1018__and__max_width_1199: 11.47875rem   !important;
+$TelaPacienteDivPerfil_Psicologia__min_width_1601:                      14.184375rem  !important;
+$TelaPacienteDivPerfil_Psicologia__min_width_1200__and__max_width_1600: 13.24666rem   !important;
+$TelaPacienteDivPerfil_Psicologia__min_width_1018__and__max_width_1199: 13.187875rem   !important;
 $TelaPacienteDivPerfil_Psicologia__min_width_768__and__max_width_1017:  11.6075rem    !important;/* Desativado */
 
 /* Medidas da div classe='col-filha-container-direito-filha' no Perfil de **Neuropsicologia** */

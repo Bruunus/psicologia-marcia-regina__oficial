@@ -1,0 +1,26 @@
+
+
+<!-- Layout para tablets -->
+<div class="container-middle" >
+  <div class="div-container-esquerdo" >
+    <a [routerLink]="['/paciente',perfilVar,'documentos','identificacao']">
+      <img src="../../assets/img/img-logo-alfa-paciente.png" class="img-logo no-select-img">
+    </a>
+    <h4 class="tipo-perfil">{{ perfilApresentacao }}</h4>
+  </div>
+  <div class="div-container-centro">
+    <h4 class="nome-paciente" >{{ nomePaciente }}</h4>
+  </div>
+
+  <div class="div-container-direito">
+    <span class="n-user nick-name" >Olá, {{ this.usuario }}</span>
+    <img src="../../assets/img/icone-menu-middle-branco.png" data-menu-middle-button class="menu-hamburguer-tablet" (click)="toggleMenuMiddle()" >
+    <ul class="container-opcoes-menu-sair" [ngClass]="getClasseVisibilidadeMenuMiddle()">
+
+      <li class="li-sair-do-perfil" (click)="redirectMenuInPaciente()"><span>Sair do perfil</span></li>
+
+      <li class="li-encerrar-sessao" (click)="encerrarSessaoInPaciente()"><span>Encerrar Sessão</span></li>
+    </ul>
+  </div>
+
+</div>

@@ -83,6 +83,12 @@
 
     .tipo-perfil {
       font-size: 1.4rem;  /* Medida de escala */
+      margin: 0 0.7666rem 0 0 !important;
+    }
+
+    .ajuste_pos_neuro {
+      /* em .tipo-perfil via javascript */
+      margin: 0 !important; // Posição padrão do sistema
     }
 
 

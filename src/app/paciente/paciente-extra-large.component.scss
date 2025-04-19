@@ -31,6 +31,7 @@
     display: block !important;
 
   }
+
   .span-sair-telas-maiores {
     margin-left: 2rem;
     margin-right: 1rem;
@@ -130,6 +131,15 @@
 
   .nick-name, .span-sair-telas-maiores, .ul-container li span {
     font-size: $font_size__screen_1018_AND_1199 !important;
+  }
+
+  .tipo-perfil {
+    margin: 0 .7333rem 0 0 !important; // Posição padrão do sistema
+  }
+
+  .ajuste_pos_neuro {
+    /* em .tipo-perfil via javascript */
+    margin: 0 !important; // Posição padrão do sistema
   }
 
   .tipo-perfil, .nome-paciente {
