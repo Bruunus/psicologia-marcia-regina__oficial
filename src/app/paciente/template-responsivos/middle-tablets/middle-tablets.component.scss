@@ -21,9 +21,9 @@
   align-items: center;
 }
 
-.div-container-esquerdo {
-}
-  .img-logo,  .tipo-perfil {
+.div-container-esquerdo {}
+
+  .img-logo {
     padding-left: 1rem;
   }
 
@@ -31,6 +31,7 @@
   justify-content: center;
 }
   .nome-paciente {
+    margin-left: 1rem;
     color: $tema_paciente__cor_tipografia_menu;
     border-bottom: 1px solid;
   }
@@ -49,8 +50,8 @@
 
 
 .container-opcoes-menu-sair {
-  width: auto;
-  background-color: #e7c70d;
+  width: 14rem;
+  background-color: #fff;
   display: block;
   position: fixed;
   top: 3.2666rem;
@@ -68,51 +69,92 @@
   transition: opacity 0.2s ease, height 0.1s ease;
 }
 
+.container-opcoes-menu-sair__psicologia       { width: 12.6666rem; }
+.container-opcoes-menu-sair__neuropsicologia  { width: 14rem; }
+
 .container-opcoes-menu-sair.visible {
   opacity: 1;
   height: auto;
-
+  border: 1px solid #dacde4;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .container-opcoes-menu-sair.hidden {
   opacity: 0;
   height: 0;
+  border: none;
+  box-shadow: none;
 }
 
-.li-sair-do-perfil, .li-encerrar-sessao {
+
+.li-perfil-descricao, .li-sair-do-perfil, .li-encerrar-sessao {
   list-style-type: none;
   color: $tema_paciente__cor_tipografia_menu_horizontal_nick_name_e_op_sair;
   padding-left: .7rem;
   padding-right: .7rem;
 }
 
+.li-perfil-descricao {
+  height: 2.7rem;
+  padding-top: 0rem;
+  padding-bottom: 0;
+  margin-bottom: 1rem;
+  background: #f6eefb;
+}
+
+.li-perfil-descricao div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  align-items: center;
+}
+
+  .perfil-descricao, .tipo-perfil {
+    font-family: "texto-corrido-paciente";
+
+  }
+
+
+  .perfil-descricao span {
+    font-family: "texto-corrido-paciente";
+  }
+
+  .tipo-perfil {
+
+    color: #110e21;
+    margin: 0 !important;
+    // border-bottom: 1px solid;
+    font-weight: bolder;
+  }
+
 .li-sair-do-perfil:hover, .li-encerrar-sessao:hover {
   cursor: pointer;
-  background-color: #e7c70d;
+  background-color: #fff;
 }
 
 .li-sair-do-perfil:active, .li-encerrar-sessao:active {
-  background-color: #dabe23;
+  background-color: #c073b18f;
 }
 
 
 .li-sair-do-perfil {
+  font-family: "texto-corrido-paciente";
   padding-top: .6rem;
   padding-bottom: .6rem;
 }
 
 .li-sair-do-perfil span, .li-encerrar-sessao span {
   position: relative;
-  top: 1px;
+  top: 0px;
 }
 
 .li-encerrar-sessao {
+  font-family: "texto-corrido-paciente";
   padding-top: .6rem;
   padding-bottom: .6rem;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
 }
 
-.li-encerrar-sessao span {
 
-}

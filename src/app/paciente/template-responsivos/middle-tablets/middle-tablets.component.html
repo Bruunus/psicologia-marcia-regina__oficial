@@ -6,16 +6,24 @@
     <a [routerLink]="['/paciente',perfilVar,'documentos','identificacao']">
       <img src="../../assets/img/img-logo-alfa-paciente.png" class="img-logo no-select-img">
     </a>
-    <h4 class="tipo-perfil">{{ perfilApresentacao }}</h4>
-  </div>
-  <div class="div-container-centro">
     <h4 class="nome-paciente" >{{ nomePaciente }}</h4>
+    <!-- <h4 class="tipo-perfil"></h4> -->
   </div>
+  <!-- <div class="div-container-centro">
+
+  </div> -->
 
   <div class="div-container-direito">
     <span class="n-user nick-name" >Olá, {{ this.usuario }}</span>
     <img src="../../assets/img/icone-menu-middle-branco.png" data-menu-middle-button class="menu-hamburguer-tablet" (click)="toggleMenuMiddle()" >
-    <ul class="container-opcoes-menu-sair" [ngClass]="getClasseVisibilidadeMenuMiddle()">
+    <ul class="container-opcoes-menu-sair" [ngClass]="ngClassFactory()">
+
+      <li class="li-perfil-descricao">
+        <div>
+          <span class="perfil-descricao"><span>Perfil</span></span>
+          <span class="tipo-perfil"><span>{{ perfilApresentacao }}</span></span>
+        </div>
+      </li>
 
       <li class="li-sair-do-perfil" (click)="redirectMenuInPaciente()"><span>Sair do perfil</span></li>
 

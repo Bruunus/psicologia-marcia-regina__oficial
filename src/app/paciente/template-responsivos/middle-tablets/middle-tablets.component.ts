@@ -64,5 +64,22 @@ export class MiddleTabletsComponent implements OnInit {
       : []; // Se não for dispositivo pequeno, não aplica nenhuma classe
   }
 
+  ajusteLarguraMenuOculto(): string[] {
+    if(this.perfilApresentacao === 'Psicologia') {
+      return ['container-opcoes-menu-sair__psicologia']
+    } else {
+      return ['container-opcoes-menu-sair__neuropsicologia']
+    }
+  }
+
+  ngClassFactory(): string[] {
+    return [
+      ...this.getClasseVisibilidadeMenuMiddle(),
+      ...this.ajusteLarguraMenuOculto()
+    ]
+
+  }
+
+
 
 }
