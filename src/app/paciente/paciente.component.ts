@@ -145,6 +145,7 @@ export class PacienteComponent implements OnInit {
 
 
 
+
   }
 
 
@@ -220,6 +221,16 @@ export class PacienteComponent implements OnInit {
       this.alteracaoDisplayService.openMenu()
     }
 
+    if (this.larguraDaTela >= 768 && this.larguraDaTela <= 1000) {
+      this.alteraLabelDoItem(1, 'Acomp.');
+      this.alteraLabelDoItem(4,'Agendar');
+      this.alteraLabelDoItem(5, 'Migrar')
+    } else {
+      this.alteraLabelDoItem(1, 'Acompanhamento');
+      this.alteraLabelDoItem(4,'Agendar consulta');
+      this.alteraLabelDoItem(5, 'Migrar paciente')
+    }
+
 
     // /* Medidas Genéricas */
     // this.min_width_1601 = this.larguraDaTela >= 1601;
@@ -252,6 +263,20 @@ export class PacienteComponent implements OnInit {
     }
     return [];
   }
+
+
+  /**
+   * Metodo utilizado para alterar a descrição do item da lista
+   * para caber na screen corretamente
+   * @param index
+   * @param novoLabel
+   */
+  alteraLabelDoItem(index: number, novoLabel: string): void {
+    if (this.itensMenuPsicologia[index]) {
+      this.itensMenuPsicologia[index].label = novoLabel;
+    }
+  }
+
 
 
   /**
@@ -337,6 +362,44 @@ export class PacienteComponent implements OnInit {
 
     ]
   }
+
+
+
+
+  adicionaClassaEmTodaAsLi(index: number): string[] {
+    return ['item-lista' + (index + 1)];
+  }
+
+  alteracaoDeTextoAcompanhamento(): string[] {
+    return []
+  }
+
+  alteracaoDeTextoAgendarConsulta(): string[] {
+    return []
+  }
+
+  alteracaoDeTextoMigrarPaciente(): string[] {
+    return []
+  }
+
+  getClasseSpanItem(itemPath: string): string[] {
+    return this.itemSelecionado === itemPath ? ['active'] : [];
+  }
+
+
+  ngClassFactoryListaDeOpcoes(index: number): string[] {
+    return [
+      ...this.adicionaClassaEmTodaAsLi(index)
+    ]
+  }
+
+  ngClassFactoryListaSpan(itemPath: string): string[] {
+    return [
+      ...this.getClasseSpanItem(itemPath)
+    ]
+  }
+
+
 
 
 

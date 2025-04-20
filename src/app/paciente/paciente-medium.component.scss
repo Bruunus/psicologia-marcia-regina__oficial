@@ -8,6 +8,10 @@
 
 @media(max-width: 1030px) {
 
+  .loading-li {
+    display: none !important;
+  }
+
   .row-container-superior {
     height: $TelaPaciente__altura_menu_superior__max_width_768_a_max_width_1017;
     min-height: $TelaPaciente__altura_menu_superior__max_width_768_a_max_width_1017;
@@ -174,6 +178,6 @@
 
 /* Ajuste de adequação do menu horizontal */
 
-@media(min-width: 768px) and (max-width: 1001px) { .ul-container li:nth-child(5) span { width: 50% !important; }}
+// @media(max-width: 919px) { .item5 span { background: wheat; }}
 
-@media(min-width: 768px) and (max-width: 901px) { .ul-container li:nth-child(6) span { width: 50% !important; }}
+// @media(min-width: 768px) and (max-width: 901px) { .ul-container li:nth-child(6) span { width: 50% !important; }}

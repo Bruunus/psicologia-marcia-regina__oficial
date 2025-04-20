@@ -71,9 +71,10 @@
       <!-- PERFIL PSICOLOGIA -->
 
       <ul class="ul-container" *ngIf="perfil === 'psicologia'">
-          <li *ngFor="let item of itensMenuPsicologia" (click)="selecionarItem(item); fecharMenuSmall()">
+          <li *ngFor="let item of itensMenuPsicologia; let i = index"
+            (click)="selecionarItem(item); fecharMenuSmall()" [ngClass]="ngClassFactoryListaDeOpcoes(i)">
               <span
-                [ngClass]="{'active': itemSelecionado === item.path}"
+                [ngClass]="ngClassFactoryListaSpan(item.path)"
                 tabindex="0"
                 role="button"
                 (keydown)="handleKeyDown($event, item)">{{ item.label }}</span>
